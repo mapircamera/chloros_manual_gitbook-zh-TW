@@ -1,43 +1,43 @@
-# Chloros+ Login
+# Chloros+ 登錄
 
-## Chloros and Chloros (Browser) Login
+## Chloros 和 Chloros（瀏覽器）登錄
 
-The user <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> sidebar menu allows you to log into your Chloros+ account and unlock additional features.
+用戶 <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> 側邊欄菜單允許您登錄 Chloros+ 帳戶並解鎖其他功能。
 
-When logged in your account details will be shown:
+登錄後，將顯示您的帳戶詳細信息：
 
 <figure><img src=".gitbook/assets/user_account.JPG" alt="" width="375"><figcaption></figcaption></figure>
 
-## CLI Login
+## 命令行登錄
 
-Login with your Chloros+ credentials to enable CLI processing.
+使用您的 Chloros+ 憑據登錄以啟用 CLI 處理。
 
-**Syntax:**
+**句法：**
 
 ```bash
 chloros-cli login <email> <password>
 ```
 
-**Example:**
+**例子：**
 
 ```powershell
 chloros-cli login user@example.com 'MyP@ssw0rd123'
 ```
 
-{% hint style="warning" %}
-**Special Characters**: Use single quotes around passwords containing characters like `$`, `!`, or spaces.
-{% endhint %}
+{% 提示樣式=“警告”%}
+**特殊字符**：在包含 `$`、`!` 或空格等字符的密碼周圍使用單引號。
+{% 結束提示 %}
 
-**Output:**
+**輸出：**
 
 <figure><img src=".gitbook/assets/cli login_w.JPG" alt=""><figcaption></figcaption></figure>
 
-### Plan Expiration
+### 計劃到期
 
-The plan expiration in the GUI shows when your license will become invalid. For recurring monthly subscriptions the expiration is at the end of the month. For yearly subscriptions it is a year after you started the subscription. The license check requires a monthly internet connection to verify, with a 30 day grace period.
+GUI 中的計劃到期時間顯示您的許可證何時失效。對於每月定期訂閱，到期日為月底。對於按年訂閱，是指您開始訂閱後的一年。許可證檢查需要每月連接互聯網進行驗證，並有 30 天的寬限期。
 
-### Device Limit
+### 設備限制
 
-Each Chloros+ plan offers a different number of registered devices. Each device you log into with a Chloros+ account will count towards your number of registered devices. You can rename and remove a device on your MAPIR Cloud account page.
+每個 Chloros+ 計劃提供不同數量的註冊設備。您使用 Chloros+ 帳戶登錄的每台設備都將計入您的註冊設備數量。您可以在 MAPIR 雲帳戶頁面上重命名和刪除設備。
 
-<table><thead><tr><th width="168.5999755859375" align="right">Chloros+ Plan</th><th align="center">COPPER</th><th align="center">BRONZE</th><th align="center">SILVER</th><th align="center">GOLD</th></tr></thead><tbody><tr><td align="right">Devices Supported</td><td align="center">2</td><td align="center">2</td><td align="center">5</td><td align="center">10</td></tr></tbody></table>
+<table><thead><tr><th width="168.5999755859375" align="right">Chloros+ 計劃</th><th align="center">COPPER</th><th align="center">BRONZE</th><th align="center">SILVER</th><th align="center">GOLD</th></tr></thead><tbody><tr><td align="right">設備支持</td><td align="center">2</td><td align="center">2</td><td align="center">5</td><td align="center">10</td></tr></tbody></table>
