@@ -1,234 +1,234 @@
-# Adjusting Project Settings
+# 调整项目设置
 
-Before processing your images, it's important to configure your project settings to match your workflow requirements. The Project Settings <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> panel provides comprehensive control over calibration, processing options, multispectral indices, and export formats.
+在处理图像前，需根据工作流程需求配置项目设置。项目设置面板提供对校准、处理选项、多光谱指数及导出格式的全面控制。 <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> 面板提供全面控制，涵盖校准、处理选项、多光谱指数及导出格式设置。
 
-## Accessing Project Settings
+## 访问项目设置
 
-1. Open your project in Chloros
-2. Click the **Project Settings** <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> icon in the left sidebar
-3. The Project Settings panel displays all configuration options
+1. 在Chloros中打开项目
+2. 点击左侧边栏的**项目设置** <img src="../.gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> 图标
+3. 项目设置面板将显示所有配置选项
 
-{% hint style="info" %}
-**Settings are saved automatically** with your project. When you reopen a project, all settings are restored.
+{% 提示 style=&quot;info&quot; %}
+**设置将自动保存**至项目文件。重新打开项目时，所有设置均会恢复。
 {% endhint %}
 
 ***
 
-## Quick Setup for Common Workflows
+## 常用工作流快速配置
 
-### Default Settings (Recommended for Most Users)
+### 默认设置（推荐多数用户使用）
 
-For typical MAPIR Survey3 camera workflows, the default settings work well:
+对于典型的相机工作流程，默认设置效果良好：
 
-* ✅ **Vignette correction**: Enabled
-* ✅ **Reflectance calibration**: Enabled (requires images of MAPIR targets)
-* ✅ **Debayer method**: High Quality (Faster)
-* ✅ **Export format**: TIFF (16-bit)
+* ✅ **暗角校正**：启用
+* ✅ **反射率校准**：启用（需MAPIR校准目标图像）
+* ✅ **去马赛克算法**：高品质（更快）
+* ✅ **导出格式**：TIFF（16位）
 
-Simply import your images and start processing with these defaults.
-
-***
-
-## Project Settings Overview
-
-The Project Settings panel is organized into several categories. Below is a summary of each section. For complete documentation, see [Project Settings](../project-settings/page-2.md).
-
-### Target Detection
-
-Controls how Chloros identifies calibration targets in your images.
-
-**Key settings:**
-
-* **Minimum calibration sample area**: Size threshold for target detection (default: 25 pixels)
-* **Minimum target clustering**: Similarity threshold for grouping target regions (default: 60)
-
-**When to adjust:**
-
-* Increase sample area if getting false detections
-* Decrease if targets aren't being detected
-* Adjust clustering if targets are being split into multiple detections
-
-### Processing
-
-Main image processing and calibration options.
-
-**Key settings:**
-
-* **Vignette correction**: Compensates for lens darkening at edges ✅ Recommended
-* **Reflectance calibration**: Normalizes values using calibration targets ✅ Recommended
-* **Debayer method**: Algorithm for converting RAW to 3-channels multi-spectral
-* **Minimum recalibration interval**: Time between using calibration targets (0 = use all)
-
-**Advanced settings:**
-
-* **Light sensor timezone offset**: For PPK time synchronization (default: 0)
-* **Apply PPK corrections**: Uses GPS/exposure pin data from .daq files
-* **Exposure Pin 1/2**: Assigns cameras to exposure pins for dual-camera setups
-
-### Index (Multispectral Indices)
-
-Configure which vegetation indices to calculate and export.
-
-**How to add indices:**
-
-1. Click **"Add index"** button
-2. Select an index from the dropdown menu (NDVI, NDRE, GNDVI, etc.)
-3. Configure visualization settings (LUT colors, value ranges)
-4. Add multiple indices as needed
-
-**Popular indices:**
-
-* **NDVI**: General vegetation health (most common)
-* **NDRE**: Early stress detection with RedEdge
-* **GNDVI**: Chlorophyll concentration sensitive
-* **OSAVI**: Works well with visible soil
-* **EVI**: High leaf area index (LAI) regions
-
-**Custom formulas (Chloros+ only):**
-
-* Create custom multispectral index formulas
-* Use band math with all image channels
-* Save custom formulas for reuse
-
-For all available indices and formulas, see [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md).
-
-### Export
-
-Controls output file format and quality.
-
-**Available formats:**
-
-* **TIFF (16-bit)**: Recommended for GIS and scientific analysis (0-65,535 range)
-* **TIFF (32-bit, Percent)**: Floating-point reflectance values (0.0-1.0 range)
-* **PNG (8-bit)**: Lossless compression for visualization (0-255 range)
-* **JPG (8-bit)**: Smallest files, lossy compression (0-255 range)
+只需导入图像并使用这些默认设置即可开始处理。
 
 ***
 
-## Saving and Loading Settings
+## 项目设置概览
 
-### Save Project Template
+项目设置面板分为多个类别。以下为各部分概要说明。完整文档请参阅[项目设置](../project-settings/project-settings.md)。
 
-Create reusable templates for consistent workflows:
+### 目标检测
 
-1. Configure all desired settings in the Project Settings panel
-2. Scroll to **"Save Project Template"** section at the bottom
-3. Enter a descriptive template name (e.g., "Survey3N\_RGN\_Agriculture")
-4. Click the save icon
+控制Chloros如何识别图像中的校准目标。
 
-**Benefits:**
+**关键设置：**
 
-* Apply identical settings across multiple projects
-* Share configurations with team members
-* Maintain consistency for repeated surveys
+* **最小校准样本区域**：目标检测尺寸阈值（默认：25像素）
+* **最小目标聚类**：目标区域分组相似度阈值（默认：60）
 
-### Load Template on New Project
+**调整时机：**
 
-When creating a new project:
+* 出现误检时增大样本区域
+* 未检测到目标时减小样本区域
+* 目标被分割为多个检测结果时调整聚类参数
 
-1. Select **"New Project"** from main menu
-2. Choose **"Load from template"** option
-3. Select your saved template
-4. All settings are automatically applied
+### 处理
 
-### Working Directory
+主要图像处理与校准选项。
 
-The **"Save Project Folder"** setting specifies where new projects are created by default:
+**关键设置：**
 
-* **Default location**: `C:\Users\[Username]\Chloros Projects`
-* **Change location**: Click edit icon and select new folder
-* **When to change**:
-  * Network drive for team collaboration
-  * Different drive with more storage space
-  * Organized folder structure by year/client
+* **暗角校正**：补偿镜头边缘暗化现象 ✅ 推荐启用
+* **反射率校准**：通过校准目标归一化数值 ✅ 推荐启用
+* **去拜耳算法**：将原始数据转换为三通道多光谱的算法
+* **最小重校准间隔**：校准目标使用间隔（0=使用全部）
 
-***
+**高级设置：**
 
-## PPK (Post-Processed Kinematic) Setup
+* **光传感器时区偏移**：用于PPK时间同步（默认：0）
+* **应用PPK校正**：使用.daq文件中的GPS/曝光引脚数据
+* **曝光引脚1/2**：为双相机配置分配相机至曝光引脚
 
-If using MAPIR DAQ recorders with GPS for precise geolocation:
+### 指数（多光谱指数）
 
-### Prerequisites
+配置需计算和导出的植被指数。
 
-* MAPIR DAQ with GPS (GNSS) module
-* .daq log file with exposure pin entries
-* Camera connected to DAQ exposure pins during capture session
+**添加指数步骤：**
 
-### Configuration Steps
+1. 点击**&quot;添加指数&quot;**按钮
+2. 从下拉菜单选择指数（NDVI、NDRE、GNDVI等）
+3. 配置可视化设置（LUT颜色、数值范围）
+4. 根据需要添加多个指数
 
-1. Place the .daq log file in your project folder
-2. In Project Settings, enable **"Apply PPK corrections"** checkbox
-3. Set **"Light sensor timezone offset"** if needed (default: 0 for UTC)
-4. Assign cameras to exposure pins:
-   * **Single camera**: Automatically assigned to Pin 1
-   * **Dual cameras**: Manually assign each camera to correct pin
+**常用指数：**
 
-**Exposure Pin Assignment:**
+* **NDVI**：通用植被健康指标（最常用）
+* **NDRE**：配合RedEdge实现早期胁迫检测
+* **GNDVI**：叶绿素浓度敏感型
+* **OSAVI**：适用于可见土壤
+* **EVI**：高叶面积指数（LAI）区域
 
-* **Exposure Pin 1**: Select camera model from dropdown
-* **Exposure Pin 2**: Select second camera or "Do Not Use"
-* Same camera cannot be assigned to both pins
+**自定义公式（仅限Chloros+）：**
 
-{% hint style="warning" %}
-**Important**: Exposure pins must be correctly assigned to their respective cameras. Incorrect assignment will result in wrong geolocation data.
-{% endhint %}
+* 创建自定义多光谱指数公式
+* 对所有图像通道应用波段运算
+* 保存自定义公式以供复用
 
-***
+所有可用指数与公式详见[多光谱指数公式](../project-settings/multispectral-index-formulas.md)。
 
-## Advanced Scenarios
+### 导出
 
-### Multi-Camera Projects
+控制输出文件格式与质量。
 
-When processing images from multiple MAPIR cameras in one project:
+**可用格式：**
 
-1. Chloros automatically detects each camera model
-2. Each camera gets appropriate processing profile
-3. PPK: Manually assign each camera to correct exposure pin
-4. All cameras use same export format and indices
-
-**Example**: Survey3W RGN + Survey3N OCN dual-camera rig
-
-### Time-Lapse or Multi-Date Surveys
-
-For repeated surveys of the same area over time:
-
-1. Create a template with your standard settings
-2. Use consistent calibration target setup each session
-3. Process each date as a separate project
-4. Use identical settings for comparable results
-5. Export in same format for temporal analysis
-
-### Large Datasets
-
-For projects with many images (500+):
-
-* Consider breaking into smaller projects by date or area
-* Use Chloros+ parallel processing for faster results
-* Consider CLI or API for batch automation
-* Adjust minimum recalibration interval to reduce target detection time
+* **TIFF（16位）**：推荐用于GIS与科学分析（0-65,535范围）
+* **TIFF（32位，百分比）**：浮点反射率值（0.0-1.0范围）
+* **PNG (8位)**：可视化无损压缩（0-255范围）
+* **JPG (8位)**：最小文件体积，有损压缩（0-255范围）
 
 ***
 
-## Verifying Your Settings
+## 设置保存与加载
 
-Before starting to process, review these key settings:
+### 保存项目模板
 
-* [ ] Camera model correctly detected in File Browser
-* [ ] Vignette correction enabled
-* [ ] Reflectance calibration enabled
-* [ ] At least one calibration target image imported
-* [ ] Desired multispectral indices added
-* [ ] Export format appropriate for your workflow
-* [ ] PPK settings configured (if using .daq with expposure events)
+创建可复用的模板以保持工作流程一致性：
+
+1. 在项目设置面板配置所有所需参数
+2. 滚动至底部**&quot;保存项目模板&quot;**区域
+3. 输入描述性模板名称（例如&quot;Survey3N\_RGN\_Agriculture&quot;）
+4. 点击保存图标
+
+**优势：**
+
+* 在多个项目中应用相同设置
+* 与团队成员共享配置
+* 保持重复调查的一致性
+
+### 新建项目加载模板
+
+创建新项目时：
+
+1. 从主菜单选择**&quot;新建项目&quot;**
+2. 选择**&quot;从模板加载&quot;**选项
+3. 选择已保存的模板
+4. 所有设置自动应用
+
+### 工作目录
+
+**&quot;保存项目文件夹&quot;**设置决定新项目默认创建位置：
+
+* **默认位置**：`C:\Users\[Username]\Chloros Projects`
+* **更改位置**：点击编辑图标选择新文件夹
+* **适用场景**：
+  * 团队协作的网络驱动器
+  * 存储空间更大的独立驱动器
+  * 按年份/客户分类的文件夹结构
 
 ***
 
-## Next Steps
+## PPK（后处理动态定位）设置
 
-Once your settings are configured:
+若使用带GPS功能的MAPIR数据采集仪进行精准定位：
 
-1. **Mark calibration target images** - See [Choosing Target Images](choosing-target-images.md)
-2. **Start processing** - See [Starting the Processing](starting-the-processing.md)
-3. **Monitor progress** - See [Monitoring the Processing](monitoring-the-processing.md)
+### 先决条件
 
-For complete details on all available settings, see the [Project Settings](../project-settings/page-2.md) reference documentation.
+* 配备GPS（GNSS）模块的MAPIR数据采集仪
+* 含曝光引脚记录的.daq日志文件
+* 采集期间相机已连接至数据采集仪曝光引脚
+
+### 配置步骤
+
+1. 将.daq日志文件放置于项目文件夹
+2. 在项目设置中勾选**&quot;应用PPK校正&quot;**
+3. 根据需要设置**&quot;光传感器时区偏移&quot;**（默认：0代表UTC）
+4. 将相机分配至曝光引脚：
+   * **单相机**： 自动分配至引脚1
+   * **双摄像头**：手动将每台摄像头分配至对应引脚
+
+**曝光引脚分配规则：**
+
+* **曝光引脚1**：从下拉菜单选择摄像头型号
+* **曝光引脚2**：选择第二台摄像头或&quot;不使用&quot;
+* 同一摄像头不可分配至两个引脚
+
+{% 提示 style=&quot;warning&quot; %}
+**重要提示**：曝光引脚必须正确分配至对应相机。错误分配将导致地理位置数据失准。
+{% 结束提示 %}
+
+***
+
+## 高级场景
+
+### 多相机项目
+
+当单个项目中处理来自多台相机的图像时：
+
+1. 系统自动检测每台相机型号
+2. 每台相机获得对应的处理配置文件
+3. PPK模式：手动将每台相机分配至正确曝光引脚
+4. 所有相机采用统一导出格式与索引
+
+**示例**：Survey3W + RGN + Survey3N + OCN 双相机阵列
+
+### 时间序列或多日期测绘
+
+针对同一区域的重复测绘：
+
+1. 创建包含标准设置的模板
+2. 每次作业使用一致的校准目标设置
+3. 将每个日期作为独立项目处理
+4. 采用相同设置以获得可比结果
+5. 统一导出格式便于时间序列分析
+
+### 大型数据集
+
+处理大量图像（500+）的项目：
+
+* 考虑按日期或区域拆分处理
+* 启用Chloros+并行处理加速
+* 采用CLI或API实现批量自动化
+* 调整最小重校准间隔以缩短目标检测时间
+
+***
+
+## 设置验证
+
+开始处理前请核对以下关键设置：
+
+* [ ] 文件浏览器中正确识别相机型号
+* [ ] 启用暗角校正
+* [ ] 启用反射率校准
+* [ ] 已导入至少一张校准目标图像
+* [ ] 已添加所需多光谱指数
+* [ ] 导出格式符合工作流程需求
+* [ ] 已配置PPK参数（若使用含曝光事件的.daq文件）
+
+***
+
+## 后续步骤
+
+完成设置后：
+
+1. **标记校准目标图像** - 参见[选择目标图像](choosing-target-images.md)
+2. **启动处理** - 参见[开始处理](starting-the-processing.md)
+3. **监控进度** - 参见[处理监控](monitoring-the-processing.md)
+
+有关所有可用设置的完整说明，请参阅[项目设置](../project-settings/project-settings.md)参考文档。

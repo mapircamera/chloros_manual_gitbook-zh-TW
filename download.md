@@ -1,172 +1,161 @@
----
-metaLinks:
-  alternates:
-    - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/download
----
+# 下载
 
-# Download
+下载最新版本的Chloros，用于Windows，开始进行多光谱图像处理。
 
-Download the latest version of Chloros for Windows to get started with multispectral image processing.
+### 系统要求
 
-### System Requirements
-
-| Requirement          | Minimum                         | Recommended                     |
+| 要求                         | 最低                           | 推荐                           |
 | -------------------- | ------------------------------- | ------------------------------- |
-| **Operating System** | Windows 10 (64-bit)             | Windows 11 (64-bit)             |
-| **Processor**        | Intel Core i5 or equivalent     | Intel Core i7 or better         |
-| **Memory (RAM)**     | 8GB                             | 16GB or more                    |
-| **Graphics Card**    | DirectX 11 compatible           | NVIDIA GPU with 4GB+ VRAM       |
-| **Storage**          | 2GB free space                  | SSD with 10GB+ free space       |
-| **Display**          | 1920x1080                       | 2560x1440 or higher             |
-| **Internet**         | Required for license activation | Required for license activation |
+| **操作系统** | Windows 10 (64位)             | Windows 11 (64位)             |
+| **处理器**        | 英特尔酷睿i5或同等性能     | 英特尔酷睿i7或更高性能         |
+| **内存 (RAM)**     | 8GB                             | 16GB 或更高                    |
+| **显卡**    | DirectX 11 兼容           | NVIDIA GPU 配备 4GB+ 显存       |
+| **存储空间**          | 2GB 可用空间                  | SSD 配备 10GB+ 可用空间       |
+| **显示器**          | 1920x1080                       | 2560x1440 或更高分辨率             |
+| **网络连接**         | 许可证激活必需 | 许可证激活必需 |
 
-{% hint style="info" %}
-**GPU Acceleration**: Chloros+ users with NVIDIA GPUs (4GB+ VRAM) can use CUDA acceleration for significantly faster processing.
+{% 提示 style=&quot;info&quot; %}
+**GPU加速**：Chloros+用户若配备NVIDIA显卡（4GB+显存），可通过CUDA加速实现显著提升的处理速度。
 {% endhint %}
 
 ***
 
-## Download Chloros
+## 下载 Chloros
 
-### <a href="https://drive.google.com/file/d/1HjwrUY4M7HGxDbMybO7iPe_6JoHnUGr4/view?usp=drive_link" class="button primary">Download Chloros Here</a>
+### <a href="https://drive.google.com/file/d/1HjwrUY4M7HGxDbMybO7iPe_6JoHnUGr4/view?usp=drive_link" class="button primary">在此下载 Chloros</a>
 
-### Latest Stable Release
+### 最新稳定版
 
-**Chloros Installer for Windows**
+**Chloros 安装程序适用于 Windows**
 
-* **Version**: 1.0.3
-* **Release Date**: December ?, 2025
-* **File Size**: 1.6GB
-* **File Type**: .exe (Windows Installer)
+* **版本**：1.0.3
+* **发布日期**：2025年12月？日
+* **文件大小**：1.6GB
+* **文件类型**：.exe（Windows安装程序）
 
-#### **Installation Steps:**
+#### **安装步骤：**
 
-1. Download the `CHLOROS INSTALLER - CURRENT VERSION.exe` file
-2. Double-click the installer to begin installation
-3. Follow the installation wizard prompts
-4. Choose installation directory (default: `C:\Program Files\Chloros\`)
-5. Complete installation and launch Chloros
-6. Sign in with your MAPIR Cloud Chloros+ account (or continue with free version)
+1. 下载 `CHLOROS INSTALLER - CURRENT VERSION.exe` 文件
+2. 双击安装程序启动安装
+3. 跟随安装向导提示操作
+4. 选择安装目录（默认：`C:\Program Files\Chloros\`）
+5. 完成安装并启动 Chloros
+6. 使用您的MAPIR云端Chloros+账户登录（或继续使用免费版）
 
-{% hint style="success" %}
-The installer automatically adds `chloros-cli` to your system PATH for command-line access.
+{%提示 style=&quot;success&quot; %}
+安装程序会自动将`chloros-cli`添加至系统PATH环境变量，以便命令行访问。
 {% endhint %}
 
 ***
 
-## Additional Resources
+## 扩展资源
 
 ### Python SDK
 
-For developers and automation workflows, install the Chloros Python SDK:
+面向开发者及自动化工作流，请安装 Chloros Python SDK：
 
 ```bash
 pip install chloros-sdk
 ```
 
-**Documentation**: [API: Python SDK](api-python-sdk.md)
+**文档**：[API: Python SDK](api-python-sdk.md)
 
-**Requirements**: Chloros Desktop must be installed, Chloros+ license required
-
-***
-
-## What's Included
-
-The Chloros installation includes:
-
-* ✅ **Chloros Desktop GUI** - Full-featured graphical interface
-* ✅ **Chloros (Browser)** - Web-based interface for lower-spec systems
-* ✅ **Chloros CLI** - Command-line interface (requires Chloros+ license)
-* ✅ **Backend Engine** - Image processing pipeline
-* ✅ **Camera Profiles** - Pre-configured MAPIR camera templates
+**系统要求**：需安装Chloros桌面版，需持有Chloros+许可证
 
 ***
 
-## Upgrade to Chloros+
+## 包含内容
 
-Unlock advanced features with a Chloros+ subscription:
+Chloros安装包包含：
 
-* 🚀 **Multi-threaded Processing** - Process images in parallel
-* ⚡ **GPU (CUDA) Acceleration** - Leverage NVIDIA GPU power
-* 💻 **CLI Access** - Automate with command-line tools
-* 🐍 **Python SDK** - Programmatic API access
-* 📱 **Multiple Devices** - Use on 2-10+ devices (plan dependent)
-* 🧮 **Custom Formulas** - Create custom multispectral indices
-
-<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">View Chloros+ Plans &#x26; Pricing</a></p>
+* ✅ **Chloros桌面版GUI** - 全功能图形界面
+* ✅ **Chloros（浏览器版）** - 适用于低配置系统的网页界面
+* ✅ **Chloros CLI** - 命令行界面（需Chloros+许可证）
+* ✅ **后端引擎** - 图像处理管道
+* ✅ **摄像头配置文件** - 预配置相机模板
 
 ***
 
-## Installation Help
+## 升级至Chloros+
 
-### Troubleshooting
+订阅Chloros+解锁高级功能：
 
-**Installation fails with error message:**
+* 🚀 **多线程处理** - 并行处理图像
+* ⚡ **GPU（CUDA）加速** - 释放NVIDIA GPU性能
+* 💻 **CLI访问** - 通过命令行工具实现自动化
+* 🐍 **Python SDK** - 程序化API访问
+* 📱 **多设备支持** - 适用于2-10+台设备（取决于套餐）
+* 🧮 **自定义公式** - 创建专属多光谱指数
 
-* Ensure you have administrator rights
-* Temporarily disable antivirus software
-* Check that you meet minimum system requirements
+<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">查看 Chloros+ 方案与定价</a></p>***
 
-**Application won't start:**
+## 安装帮助
 
-* Try Chloros (Browser) version
-* Verify Windows 10/11 (64-bit) is installed
-* Update graphics drivers
-* Check Windows Event Viewer for error details
-* Contact support with error logs
+### 故障排除
 
-**License activation issues:**
+**安装失败并显示错误信息：**
+* 确保您拥有管理员权限
+* 暂时禁用防病毒软件
+* 检查是否满足最低系统要求
 
-* Ensure internet connection is active
-* Verify credentials at [https://cloud.mapir.camera](https://cloud.mapir.camera)
-* Check firewall isn't blocking Chloros
-* See [Chloros+ Login](chloros+-login.md) for detailed instructions
+**应用程序无法启动：**
 
-### Getting Support
+* 尝试使用Chloros（浏览器）版本
+* 确认已安装Windows 10/11（64位）
+* 更新显卡驱动程序
+* 通过Windows事件查看器检查错误详情
+* 附上错误日志联系技术支持
 
-Need help with installation or setup?
+**许可证激活问题：**
 
-* 📧 **Email**: info@mapir.camera
-* 🌐 **Website**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* 📚 **Documentation**: [Getting Started](./)
-* ❓ **FAQ**: [Frequently Asked Questions](faq.md)
+* 确保网络连接正常
+* 在[https://cloud.mapir.camera](https://cloud.mapir.camera)验证凭证
+* 检查防火墙是否阻断Chloros
+* 详见[Chloros+ 登录](chloros+-login.md)操作指南
+
+### 获取支持
+
+需要安装或配置帮助？
+
+* 📧 **邮件**：info@mapir.camera
+* 🌐 **官网**：[https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* 📚 **文档**：[入门指南](./)
+* ❓ **常见问题**：[FAQ解答](faq.md)
 
 ***
 
-## Change Log
+## 变更日志
 
 <details>
 
-<summary>Version 1.0.3</summary>
+<summary>版本 1.0.3</summary>
 
-### **Release Date**: December ?, 2025
+### **发布日期**：2025年12月？日
 
-#### New Features
+#### 新增功能
 
-* Initial Launch
+* 初始版本发布
 
-#### Improvements
+#### 改进项
 
-* Initial Launch
+* 初始版本发布
 
-#### Bug Fixes
+#### 错误修复
 
-* Initial Launch
+* 初始版本发布
 
-#### Known Issues
+#### 已知问题
 
-* Initial Launch
+* 初始版本发布
 
-</details>
+</details>***
 
-***
+## 许可协议
 
-## License Agreement
+**专有软件** - 版权所有 (c) 2025 MAPIR 公司
 
-**Proprietary Software** - Copyright (c) 2025 MAPIR Inc.
+禁止未经授权的使用、分发或修改。
 
-Unauthorized use, distribution, or modification is prohibited.
+**免费版**：可用于个人及商业用途，功能有限制
 
-**Free Version**: Available for personal and commercial use with feature limitations
-
-**Chloros+**: Subscription-based license for advanced features and commercial deployments
+**Chloros+**：订阅制许可，提供高级功能及商业部署支持

@@ -1,366 +1,366 @@
-# Starting the Processing
+# 启动处理流程
 
-Once you've imported your images, marked your calibration targets, and configured your project settings, you're ready to begin processing. This page guides you through initiating the Chloros processing pipeline.
+完成图像导入、标记校准目标并配置项目设置后，即可开始处理。本页面将引导您启动Chloros处理流程。
 
-## Pre-Processing Checklist
+## 预处理检查清单
 
-Before clicking the Start button, verify that everything is ready:
+点击开始按钮前，请确认以下事项已准备就绪：
 
-* [ ] **Files imported** - All images appear in File Browser
-* [ ] **Target images marked** - Target column checked for calibration images
-* [ ] **Camera models detected** - Camera Model column shows correct cameras
-* [ ] **Settings configured** - Project Settings reviewed and adjusted
-* [ ] **Indices selected** - Desired multispectral indices added (if needed)
-* [ ] **Export format chosen** - Output format appropriate for your workflow
+* [ ] **文件已导入** - 所有图像均显示在文件浏览器中
+* [ ] **标记目标图像** - 校准图像的&quot;目标&quot;列已勾选
+* [ ] **相机型号检测** - 相机型号列显示正确设备
+* [ ] **设置配置** - 已审核并调整项目设置
+* [ ] **指数选择** - 已添加所需多光谱指数（如需）
+* [ ] **导出格式选择** - 输出格式符合您的工作流程
 
-{% hint style="info" %}
-**Tip**: Click through a few images in the File Browser to verify they loaded correctly before processing.
+{% 提示 style=&quot;info&quot; %}
+**提示**：处理前请在文件浏览器中点击查看若干图像，确认其加载无误。
 {% endhint %}
 
 ***
 
-## Starting the Processing
+## 启动处理流程
 
-### Locate the Start Button
+### 定位开始按钮
 
-The Start/Play button is located in the top header bar of Chloros:
+开始/播放按钮位于Chloros顶部标题栏：
 
-* Position: Top center of the window
-* Icon: **Play/Start button** <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">
-* Status: Button is enabled (bright) when ready to process
+* 位置：窗口顶部中央
+* 图标：**播放/开始按钮** <img src="../.gitbook/assets/image (2).png" alt="" data-size="line">
+* 状态：处理就绪时按钮启用（高亮显示）
 
-### Click to Start
+### 点击启动
 
-1. Click the **Play/Start button** in the top header
-2. Processing begins immediately
-3. The button becomes disabled (grayed out) during processing
-4. Progress bar updates, showing processing status
+1. 点击顶部标题栏的**播放/开始按钮**
+2. 处理立即启动
+3. 处理期间按钮失效（灰色显示）
+4. 进度条实时更新处理状态
 
-{% hint style="success" %}
-**Processing Started**: Once clicked, Chloros automatically handles all processing steps - target detection, debayering, calibration, index calculation, and export.
+{%提示 style=&quot;success&quot; %}
+**处理已启动**：点击后，Chloros将自动执行全部处理步骤——目标检测、去马赛克、校准、索引计算及导出。
 {% endhint %}
 
 ***
 
-## Understanding Processing Modes
+## 处理模式解析
 
-Chloros operates in two different processing modes depending on your license:
+Chloros根据许可证类型提供两种处理模式：
 
-### Free Mode (Sequential Processing)
+### 免费模式（顺序处理）
 
-**Available to all users**
+**所有用户可用**
 
-**How it works:**
+**工作原理：**
 
-* Processes images one at a time, sequentially
-* Single-threaded operation
-* Lower memory usage
+* 逐帧顺序处理图像
+* 单线程操作
+* 内存占用较低
 
-**Progress bar shows 2 stages:**
+**进度条显示两个阶段：**
 
-1. **Target Detect** - Scanning for calibration targets
-2. **Processing** - Applying calibration and exporting images
+1. **目标检测** - 扫描校准目标
+2. **处理** - 应用校准并导出图像
 
-**Processing time:**
+**处理时间：**
 
-* Much slower than Chloros+ parallel mode
-* Suitable for small to medium datasets (< 200 images)
+* 远慢于Chloros+并行模式
+* 适用于中小型数据集（&lt;200张图像）
 
-### Chloros+ Mode (Parallel Processing)
+### Chloros+模式（并行处理）
 
-**Requires Chloros+ license**
+**需Chloros+许可证**
 
-**How it works:**
+**工作原理：**
 
-* Processes multiple images simultaneously
-* Multi-threaded operation (up to 16 parallel workers)
-* Utilizes multiple CPU cores
-* Optional GPU (CUDA) acceleration with NVIDIA graphics cards
+* 同时处理多张图像
+* 多线程操作（最多16个并行工作进程）
+* 充分利用多核CPU
+* 可选配NVIDIA显卡实现GPU（CUDA）加速
 
-**Progress bar shows 4 stages:**
+**进度条显示4个阶段：**
 
-1. **Detecting** - Finding calibration targets
-2. **Analyzing** - Examining image metadata and preparing pipeline
-3. **Calibrating** - Applying corrections and calibrations
-4. **Exporting** - Saving processed images and indices
+1. **检测** - 定位校准目标
+2. **分析** - 检查图像元数据并准备处理流程
+3. **校准** - 应用修正与校准参数
+4. **导出** - 保存处理后的图像及索引文件
 
-**Progress bar interaction:**
+**进度条交互功能：**
 
-* **Hover mouse** over bar to see detailed 4-stage dropdown panel
-* **Click** progress bar to freeze the dropdown panel in place
-* **Click again** to unfreeze and hide panel
+* **鼠标悬停** 进度条可展开四阶段详细下拉面板
+* **点击**进度条可固定下拉面板位置
+* **再次点击** 解除冻结并隐藏面板
 
-**Processing time:**
+**处理时长：**
 
-* Significantly faster than free mode
-* Scales with CPU core count
-* GPU acceleration further improves speed
+* 显著快于自由模式
+* 随CPU核心数线性提升
+* GPU加速可进一步提升速度
 
-{% hint style="info" %}
-**Chloros+ Speed**: Parallel processing can be 5-10x faster than sequential mode for large datasets. A 500-image project that takes 2 hours in free mode may complete in 15-20 minutes with Chloros+.
+{% 提示 style=&quot;info&quot; %}
+**Chloros+ 速度**：处理大型数据集时，并行处理速度可达顺序模式的5-10倍。在免费模式下耗时2小时的500张图像项目，使用Chloros+仅需15-20分钟即可完成。
 {% endhint %}
 
 ***
 
-## What Happens During Processing
+## 处理流程解析
 
-### Stage 1: Target Detection
+### 第一阶段：目标检测
 
-**What Chloros does:**
+**Chloros 执行操作：**
 
-* Scans marked target images (or all images if none marked)
-* Identifies the 4 calibration panels in each target
-* Extracts reflectance values from target panels
-* Records target timestamps for calibration scheduling
+* 扫描标记目标图像（若无标记则扫描全部图像）
+* 识别每个目标中的4个校准面板
+* 从目标面板提取反射率值
+* 记录目标时间戳用于校准调度
 
-**Duration:** 1-30 seconds (with marked targets), 5-30+ minutes (unmarked)
+**耗时：** 1-30秒（带标记目标），5-30+分钟（无标记）
 
-### Stage 2: Debayering (RAW Conversion)
+### 第二阶段：去拜耳化（RAW转换）
 
-**What Chloros does:**
+**Chloros功能：**
 
-* Converts RAW Bayer pattern data to full RGB images
-* Applies high-quality demosaicing algorithm
-* Preserves maximum image quality and detail
+* 将RAW拜耳阵列数据转换为完整RGB图像
+* 应用高质量去马赛克算法
+* 最大程度保留图像质量与细节
 
-**Duration:** Varies by image count and CPU speed
+**耗时：**随图像数量及CPU速度变化
 
-### Stage 3: Calibration
+### 第三阶段：校准
 
-**What Chloros does:**
+**Chloros 执行功能：**
 
-* **Vignette correction**: Removes lens darkening at edges
-* **Reflectance calibration**: Normalizes using target reflectance values
-* Applies corrections across all bands/channels
-* Uses appropriate calibration target for each image based on timestamp
+* **暗角校正**：消除镜头边缘暗化现象
+* **反射率校准**：基于目标反射率值进行标准化处理
+* 对所有波段/通道实施综合校正
+* 根据时间戳为每张图像匹配对应校准目标
 
-**Duration:** Majority of processing time
+**耗时：**占处理时间主体
 
-### Stage 4: Index Calculation
+### 第四阶段：指数计算
 
-**What Chloros does:**
+**Chloros功能：**
 
-* Calculates configured multispectral indices (NDVI, NDRE, etc.)
-* Applies band math to calibrated images
-* Generates index images for each selected index
+* 计算配置的多光谱指数（NDVI、NDRE等）
+* 对校准图像应用波段运算
+* 为每个选定指数生成指数图像
 
-**Duration:** A few seconds per image
+**耗时：**每张图像数秒
 
-### Stage 5: Export
+### 第五阶段：导出
 
-**What Chloros does:**
+**Chloros执行操作：**
 
-* Saves calibrated images in selected format
-* Exports index images with configured LUT colors
-* Writes files to camera model subfolders
-* Preserves original filenames with suffixes
+* 以选定格式保存校准图像
+* 导出配置LUT色彩的指数图像
+* 将文件写入相机型号子文件夹
+* 保留原始文件名并添加后缀
 
-**Duration:** Varies by export format and file size
+**耗时：** 随导出格式和文件大小变化
 
 ***
 
-## Processing Behavior
+## 处理行为
 
-### Automatic Processing Pipeline
+### 自动处理流程
 
-Once started, the entire pipeline runs automatically:
+启动后整个流程自动运行：
 
-* No user interaction needed
-* All configured steps execute in sequence
-* Progress updates shown in real-time
+* 无需用户干预
+* 所有配置步骤依次执行
+* 实时显示进度更新
 
-### Computer Usage During Processing
+### 处理期间的计算机资源占用
 
-**Free Mode:**
+**自由模式：**
 
-* Relatively low CPU usage (single-threaded)
-* Computer remains responsive for other tasks
-* Safe to minimize Chloros and work in other applications
+* CPU占用率较低（单线程）
+* 计算机可响应其他任务
+* 可安全最小化Chloros窗口并使用其他应用
 
-**Chloros+ Parallel Mode:**
+**Chloros+并行模式：**
 
-* High CPU usage (multi-threaded, up to 16 cores)
-* With GPU acceleration: High GPU usage
-* Computer may be less responsive during processing
-* Avoid starting other CPU-intensive tasks
+* 高CPU占用（多线程，最多16核）
+* 启用GPU加速时：GPU占用率高
+* 处理期间计算机响应可能变慢
+* 避免启动其他高CPU负载任务
 
-{% hint style="warning" %}
-**Performance Tip**: For best Chloros+ performance, close other applications and let Chloros use full system resources.
+{%提示 style=&quot;warning&quot; %}
+**性能提示**：为获得最佳Chloros+性能，请关闭其他应用程序，让Chloros独占系统资源。
 {% endhint %}
 
-### Processing Cannot Be Paused
+### 处理过程不可暂停
 
-**Important limitations:**
+**重要限制：**
 
-* Once started, processing cannot be paused
-* You can cancel processing, but progress is lost
-* Partial results are not saved
-* Must restart from beginning if canceled
+* 处理启动后无法暂停
+* 可取消处理，但进度将丢失
+* 部分结果不会保存
+* 若取消处理，必须从头开始
 
-**Planning tip:** For very large projects, consider processing in batches or using CLI for better control.
-
-***
-
-## Monitoring Your Processing
-
-While processing runs, you can:
-
-* **Watch progress bar** - See overall completion percentage
-* **View current stage** - Detect, Analyze, Calibrate, or Export
-* **Check log tab** - See detailed processing messages and warnings
-* **Preview completed images** - Some export files may appear during processing
-
-For detailed information on monitoring, see [Monitoring the Processing](monitoring-the-processing.md).
+**规划建议：**对于超大型项目，建议分批处理或使用CLI以获得更佳控制。
 
 ***
 
-## Canceling Processing
+## 处理进度监控
 
-If you need to stop processing:
+处理运行期间可执行以下操作：
 
-### How to Cancel
+* **查看进度条** - 显示整体完成百分比
+* **查看当前阶段** - 检测、分析、校准或导出
+* **检查日志选项卡** - 查看详细处理信息与警告
+* **预览已完成图像** - 部分导出文件可能在处理过程中显示
 
-1. Locate the **Stop/Cancel button** (replaces Start button during processing)
-2. Click the Stop button
-3. Processing halts immediately
-4. Partial results are discarded
+有关监控的详细信息，请参阅[处理监控](monitoring-the-processing.md)。
 
-### When to Cancel
+***
 
-**Valid reasons to cancel:**
+## 取消处理
 
-* Realized incorrect settings were used
-* Forgot to mark target images
-* Wrong images imported
-* System running too slow or unresponsive
+若需终止处理：
 
-**After canceling:**
+### 取消操作步骤
 
-* Review and fix any issues
-* Adjust settings as needed
-* Restart processing from the beginning
-* For the cleanest experience, completely close Chloros and restart
+1. 定位**停止/取消按钮**（处理期间替代开始按钮）
+2. 点击停止按钮
+3. 处理立即终止
+4. 部分结果将被丢弃
 
-{% hint style="warning" %}
-**No Partial Results**: Canceling discards all progress. Chloros does not save partially processed images.
+### 取消时机
+
+**有效取消理由：**
+
+* 发现使用了错误设置
+* 忘记标记目标图像
+* 导入错误图像
+* 系统运行过慢或无响应
+
+**取消后操作：**
+
+* 检查并修复问题
+* 根据需要调整设置
+* 从头重新启动处理
+* 为获得最佳体验，请完全关闭Chloros并重新启动
+
+{%提示 style=&quot;warning&quot; %}
+**无部分结果**：取消操作将丢弃所有进度。Chloros不保存部分处理的图像。
 {% endhint %}
 
 ***
 
-## Processing Time Estimates
+## 处理时间预估
 
-Actual processing time varies greatly based on:
+实际处理时间受以下因素显著影响：
 
-* Number of images
-* Image resolution
-* RAW vs JPG input format
-* Processing mode (Free vs Chloros+)
-* CPU speed and core count
-* GPU availability (Chloros+ only)
-* Number of indices to calculate
-* Export format complexity
+* 图像数量
+* 图像分辨率
+* RAW与JPG输入格式差异
+* 处理模式（免费版与Chloros+版）
+* CPU速度与核心数
+* GPU可用性（仅限XPROTX+模式）
+* 需计算的索引数量
+* 导出格式复杂度
 
-### Rough Estimates (Chloros+, 12MP images, modern CPU)
+### 粗略估算（XPROTX+模式，1200万像素图像，现代CPU）
 
-| Image Count | Free Mode | Chloros+ (CPU) | Chloros+ (GPU) |
+| 图像数量 | 免费模式 | XPROTX+ (CPU) | Chloros+ (GPU) |
 | ----------- | --------- | -------------- | -------------- |
-| 50 images   | 15-20 min | 5-8 min        | 3-5 min        |
-| 100 images  | 30-40 min | 10-15 min      | 5-8 min        |
-| 200 images  | 1-1.5 hrs | 20-30 min      | 10-15 min      |
-| 500 images  | 2-3 hrs   | 45-60 min      | 20-30 min      |
-| 1000 images | 4-6 hrs   | 1.5-2 hrs      | 40-60 min      |
+| 50 张图像   | 15-20 分钟 | 5-8 分钟        | 3-5 分钟        |
+| 100 张图像 | 30-40 分钟 | 10-15 分钟      | 5-8 分钟        |
+| 200 张图像 | 1-1.5 小时 | 20-30 分钟      | 10-15 分钟      |
+| 500 张图片  | 2-3 小时   | 45-60 分钟      | 20-30 分钟      |
+| 1000 张图片 | 4-6 小时   | 1.5-2 小时      | 40-60 分钟      |
 
-{% hint style="info" %}
-**First Run**: Initial processing may take longer as Chloros builds caches and profiles. Subsequent processing of similar datasets will be faster.
+{%提示 style=&quot;info&quot; %}
+**首次运行**：初始处理可能耗时较长，因Chloros需构建缓存和配置文件。后续处理相似数据集将更快。
 {% endhint %}
 
 ***
 
-## Common Issues at Start
+## 启动常见问题
 
-### Start Button Disabled (Grayed Out)
+### 启动按钮失效（灰色不可用）
 
-**Possible causes:**
+**可能原因：**
 
-* No images imported
-* Backend not fully started
-* Previous processing still running
-* Project not fully loaded
+* 未导入图像
+* 后端未完全启动
+* 先前处理仍在运行
+* 项目未完全加载
 
-**Solutions:**
+**解决方案：**
 
-1. Wait for backend to fully initialize (check main menu icon)
-2. Verify images are imported in File Browser
-3. Restart Chloros if button remains disabled
-4. Check Debug Log for error messages
+1. 等待后端完全初始化（检查主菜单图标状态）
+2. 在文件浏览器中确认图像已导入
+3. 若按钮仍不可用，请重启Chloros
+4. 检查调试日志中的错误信息
 
-### Processing Starts Then Immediately Fails
+### 处理启动后立即失败
 
-**Possible causes:**
+**可能原因：**
 
-* No valid images in project
-* Corrupted image files
-* Insufficient disk space
-* Insufficient memory (RAM)
+* 项目中无有效图像
+* 图像文件损坏
+* 磁盘空间不足
+* 内存（RAM）不足
 
-**Solutions:**
+**解决方案：**
 
-1. Check Debug Log <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> for error messages
-2. Verify disk space available
-3. Try processing a smaller subset of images
-4. Verify images are not corrupted
+1. 检查调试日志 <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> 查找错误信息
+2. 确认可用磁盘空间
+3. 尝试处理较小图像子集
+4. 验证图像是否损坏
 
-### "No Targets Detected" Warning
+### &quot;未检测到目标&quot;警告
 
-**Possible causes:**
+**可能原因：**
 
-* Forgot to mark target images
-* Target images don't contain visible targets
-* Target detection settings too strict
+* 忘记标记目标图像
+* 目标图像未包含可见目标
+* 目标检测设置过于严格
 
-**Solutions:**
+**解决方案：**
 
-1. Review [Choosing Target Images](choosing-target-images.md)
-2. Mark appropriate images in Target column
-3. Verify targets are visible in marked images
-4. Adjust target detection settings if needed
-
-***
-
-## Tips for Successful Processing
-
-### Before Starting
-
-1. **Test with small subset first** - Process 10-20 images to verify settings
-2. **Check available disk space** - Ensure 2-3x dataset size free
-3. **Close unnecessary applications** - Free up system resources
-4. **Verify target images** - Preview marked targets to ensure quality
-5. **Save project** - Project auto-saves, but good practice to save manually
-
-### During Processing
-
-1. **Avoid system sleep** - Disable power saving modes
-2. **Keep Chloros in foreground** - Or at least visible in taskbar
-3. **Monitor progress occasionally** - Check for warnings or errors
-4. **Don't load other heavy applications** - Especially with Chloros+ parallel mode
-
-### Chloros+ GPU Acceleration
-
-If using NVIDIA GPU acceleration:
-
-1. Update NVIDIA drivers to latest version
-2. Ensure GPU has 4GB+ VRAM
-3. Close GPU-intensive applications (games, video editing)
-4. Monitor GPU temperature (ensure adequate cooling)
+1. 参阅[目标图像选择指南](choosing-target-images.md)
+2. 在目标列标记合适图像
+3. 确认标记图像中目标可见
+4. 必要时调整目标检测设置
 
 ***
 
-## Next Steps
+## 成功处理技巧
 
-Once processing has started:
+### 开始前准备
 
-1. **Monitor the progress** - See [Monitoring the Processing](monitoring-the-processing.md)
-2. **Wait for completion** - Processing runs automatically
-3. **Review results** - See [Finishing the Processing](finishing-the-processing.md)
+1. **先用小样本测试** - 处理10-20张图像验证设置
+2. **检查可用磁盘空间** - 确保预留2-3倍数据集大小的空间
+3. **关闭非必要应用** - 释放系统资源
+4. **核查目标图像** - 预览标记目标确保质量
+5. **保存项目** - 项目自动保存，但手动保存是良好习惯
 
-For information about what to do during processing, see [Monitoring the Processing](monitoring-the-processing.md).
+### 处理过程中
+
+1. **避免系统休眠** - 关闭省电模式
+2. **保持Chloros前台运行** - 或至少在任务栏可见
+3. **定期检查进度** - 留意警告或错误提示
+4. **勿加载其他大型应用** - 尤其在Chloros+并行模式下
+
+### Chloros+ GPU加速
+
+若使用NVIDIA GPU加速：
+
+1. 更新NVIDIA驱动至最新版本
+2. 确保GPU配备4GB+显存
+3. 关闭GPU密集型应用（游戏、视频编辑）
+4. 监控GPU温度（确保散热充足）
+
+***
+
+## 后续步骤
+
+处理启动后：
+
+1. **监控进度** - 参见[处理监控](monitoring-the-processing.md)
+2. **等待完成** - 处理过程自动运行
+3. **查看结果** - 参见[处理完成指南](finishing-the-processing.md)
+
+处理期间的操作说明，请参阅[处理过程监控](monitoring-the-processing.md)。

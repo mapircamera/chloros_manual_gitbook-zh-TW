@@ -1,306 +1,306 @@
-# Finishing the Processing
+# 处理完成
 
-Once Chloros completes processing, it's time to review your results, verify output quality, and prepare your processed images for use in your workflow. This page guides you through the final steps and next actions.
+当Chloros完成处理后，您需要查看结果、验证输出质量，并准备处理后的图像以供工作流程使用。本页面将引导您完成最后步骤及后续操作。
 
-## Processing Complete Indication
+## 处理完成指示
 
-When processing finishes successfully, you'll see several indicators:
+当处理成功完成时，您将看到以下指示：
 
-* ✅ **Progress bar**: Reaches 100% completion
-* ✅ **Debug Log**: Shows "Processing Complete" message
-* ✅ **Start button**: Becomes enabled again (ready for next processing run)
-* ✅ **Output files**: All processed images saved to camera model subfolder
-
-***
-
-## Locating Your Processed Images
-
-### Opening the Output Folder
-
-1. Click the **Main Menu** <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> icon (top left)
-2. Select **"Open Project Folder"**
-3. Your file explorer opens to the project directory
-4. Locate your project by name
+* ✅ **进度条**：达到100%完成度
+* ✅ **调试日志**：显示&quot;处理完成&quot;消息
+* ✅ **开始按钮**：重新启用（可进行下一次处理）
+* ✅ **输出文件**：所有处理后的图像已保存至相机型号子文件夹
 
 ***
 
-## Reviewing Processed Images
+## 查找处理后的图像
 
-### Quick Preview in File Explorer
+### 打开输出文件夹
 
-**Windows built-in preview:**
-
-1. Navigate to camera model subfolder
-2. Select an image file
-3. Preview appears in Windows Explorer preview pane
-4. Use arrow keys to browse through images
-
-### Preview in External Image Viewers
-
-**Recommended viewers:**
-
-* **QGIS** - Free GIS software (best for georeferenced multispectral analysis)
-* **IrfanView** - Fast, lightweight image viewer (supports TIFF)
-* **Adobe Photoshop** - Professional editing (TIFF support)
-* **GIMP** - Free alternative to Photoshop
-* **Windows Photos** - Basic viewing (may not support 16-bit TIFF)
-
-### Preview in Chloros Image Viewer
-
-Use Chloros's built-in Image Viewer for advanced visualization:
-
-1. Click an image thumbnail in the File Browser
-2. Image opens in the main preview area
-3. Click **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab in left sidebar
-4. Use [Index/LUT Sandbox](../image-viewer-gui/index-lut-sandbox.md) for interactive analysis
-
-See [Image Viewer](../image-viewer-gui/page-3.md) for detailed instructions.
+1. 点击**主菜单** <img src="../.gitbook/assets/image (1) (1).png" alt="" data-size="line"> 图标（左上角）
+2. 选择**&quot;打开项目文件夹&quot;**
+3. 文件资源管理器将跳转至项目目录
+4. 按名称定位您的项目
 
 ***
 
-## Reviewing the Debug Log
+## 预览处理后的图像
 
-### Check for Warnings or Errors
+### 文件资源管理器快速预览
 
-1. Open **Debug Log** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> tab
-2. Scroll through messages
-3. Look for yellow warnings or red errors
-4. Review any issues noted
-5. Contact MAPIR support for assistance
+**Windows内置预览功能：**
 
-### Saving the Log
+1. 导航至相机型号子文件夹
+2. 选中图像文件
+3. 预览内容显示于Windows资源管理器预览窗格
+4. 使用方向键浏览图像
 
-To keep a record of processing or to send to MAPIR Support:
+### 外部图像查看器预览
 
-1. Click **"Copy"** or **"Download"** button
-2. Save as text file in project folder
-3. Include with project documentation
-4. Send to MAPIR support if issues encountered
+**推荐查看器：**
 
-***
+* **QGIS** - 免费GIS软件（最适合地理参考多光谱分析）
+* **IrfanView** - 快速轻量级图像查看器（支持TIFF）
+* **Adobe Photoshop** - 专业级编辑（支持TIFF）
+* **GIMP** - 免费的Photoshop替代方案
+* **Windows Photos** - 基础查看功能（可能不支持16位TIFF）
 
-## Common Output Issues and Solutions
+### 在Chloros图像查看器中预览
 
-### Issue: Missing Output Files
+使用Chloros内置图像查看器进行高级可视化：
 
-**Possible causes:**
+1. 在文件浏览器中点击图像缩略图
+2. 图像将在主预览区域打开
+3. 点击左侧边栏的**图像查看器** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 标签
+4. 使用[索引/LUT沙盒](../image-viewer-gui/index-lut-sandbox.md)进行交互式分析
 
-* Files didn't meet processing criteria
-* Target-only images (excluded from export)
-* Disk space ran out during export
-* File corruption during processing
-
-**Solutions:**
-
-1. Check Debug Log for skip/error messages
-2. Verify disk space was sufficient
-3. Count files: Should match (original count - target count) × (indices + 1)
-4. Re-import and reprocess any missing files
-
-### Issue: Dark or Bright Edges (Vignetting Still Visible)
-
-**Possible causes:**
-
-* Vignette correction disabled
-* Camera/lens not in Chloros profile database
-* Extreme vignetting beyond correction capability
-
-**Solutions:**
-
-1. Verify vignette correction was enabled in Project Settings
-2. Check camera model correctly detected
-3. Contact MAPIR support if vignetting persists
-
-### Issue: Incorrect Colors or Values
-
-**Possible causes:**
-
-* No calibration targets detected
-* Wrong calibration target model selected
-* Reflectance calibration disabled
-* Poor quality target images
-
-**Solutions:**
-
-1. Verify reflectance calibration was enabled
-2. Check "Target found" messages in Debug Log
-3. Review target image quality
-4. Reprocess with proper targets marked
-
-### Issue: NDVI Values Seem Wrong
-
-**Expected NDVI ranges:**
-
-* **Water, rocks, soil**: -0.1 to 0.2
-* **Sparse/unhealthy vegetation**: 0.2 to 0.4
-* **Moderate vegetation**: 0.4 to 0.6
-* **Healthy, dense vegetation**: 0.6 to 0.9
-
-**If values are outside these ranges:**
-
-1. Verify reflectance calibration was applied
-2. Verify light sensor log was included
-3. Check calibration targets were detected
-4. Ensure correct camera model was detected
-5. Review target image capture timing and conditions
+详见[图像查看器](../image-viewer-gui/opening-an-image-full-screen.md)的详细说明。
 
 ***
 
-## Using Your Processed Images
+## 检查调试日志
 
-### For Photogrammetry / Orthomosaic Creation
+### 检查警告或错误
 
-**Recommended workflow:**
+1. 打开**调试日志** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> 选项卡
+2. 滚动查看日志消息
+3. 查找黄色警告或红色错误提示
+4. 核查所有记录问题
+5. 联系MAPIR技术支持获取协助
 
-1. **Import calibrated reflectance images** into photogrammetry software:
+### 保存日志
+
+为保留处理记录或发送至MAPIR技术支持：
+
+1. 点击**&quot;复制&quot;**或**&quot;下载&quot;**按钮
+2. 保存为文本文件至项目文件夹
+3. 随项目文档一并提交
+4. 若遇问题请发送至MAPIR技术支持
+
+***
+
+## 常见输出问题及解决方案
+
+### 问题：输出文件缺失
+
+**可能原因：**
+
+* 文件未满足处理标准
+* 仅目标图像（被排除在导出之外）
+* 导出过程中磁盘空间不足
+* 处理过程中文件损坏
+
+**解决方案：**
+
+1. 检查调试日志中的跳过/错误信息
+2. 确认磁盘空间充足
+3. 核对文件数量：应与（原始数量 - 目标数量）× (索引值+1)
+4. 重新导入并处理缺失文件
+
+### 问题：暗角或亮边（暗角仍可见）
+
+**可能原因：**
+
+* 未启用暗角校正
+* 相机/镜头未收录于Chloros配置文件数据库
+* 暗角程度超出校正能力范围
+
+**解决方案：**
+
+1. 确认项目设置中已启用暗角校正
+2. 检查相机型号是否正确识别
+3. 若暗角问题持续存在，请联系MAPIR技术支持
+
+### 问题：颜色或数值异常
+
+**可能原因：**
+
+* 未检测到校准目标
+* 选择错误的校准目标模型
+* 反射率校准功能未启用
+* 目标图像质量不佳
+
+**解决方案：**
+
+1. 确认反射率校准功能已启用
+2. 检查调试日志中的&quot;目标已找到&quot;提示
+3. 复核目标图像质量
+4. 标记正确目标后重新处理
+
+### 问题：NDVI数值异常
+
+**预期NDVI数值范围：**
+
+* **水体、岩石、土壤**：-0.1至0.2
+* **稀疏/不健康植被**：0.2至0.4
+* **中等植被**：0.4至0.6
+* **健康密集植被**：0.6至0.9
+
+**若数值超出上述范围：**
+
+1. 确认已应用反射率校准
+2. 确认包含光传感器日志
+3. 检查校准目标是否被检测到
+4. 确保检测到正确相机型号
+5. 复核目标图像的拍摄时机与环境条件
+
+***
+
+## 处理后图像的应用
+
+### 用于摄影测量/正射镶嵌图生成
+
+**推荐工作流程：**
+
+1. **导入校准反射率图像**至摄影测量软件：
    * Pix4Dmapper
    * Agisoft Metashape
    * DroneDeploy
    * WebODM
-2. **Keep EXIF metadata**: Ensure GPS data preserved for geotagging
-3. **Calibrated workflows**: Use reflectance images for scientific accuracy
-4. **Process index mosaics**: Create NDVI orthomosaics from individual index images
-5. **Export georeferenced GeoTIFF**: For use in GIS applications
+2. **保留EXIF元数据**：确保GPS数据完整用于地理标记
+3. **校准工作流程**：使用反射率图像确保科学精度
+4. **处理索引镶嵌图**：从单张索引图像生成NDVI正射镶嵌图
+5. **导出地理参考GeoTIFF**：用于GIS应用
 
-### For GIS Analysis
+### 面向GIS分析
 
-**Recommended workflow:**
+**推荐工作流程：**
 
-1. **Load into QGIS, ArcGIS, or similar**
-2. **Use 16-bit TIFF** reflectance images for multi-band analysis
-3. **Use index images** (NDVI, NDRE) as ready-to-use vegetation layers
-4. **Raster calculator**: Combine bands for custom analysis
-5. **Export**: Create classification maps, change detection, vegetation health maps
+1. **加载至QGIS、ArcGIS或同类软件**
+2. **使用16位TIFF反射率图像**进行多波段分析
+3. **使用指数图像**（NDVI、NDRE）作为现成植被图层
+4. **栅格计算器**：组合波段进行定制分析
+5. **导出功能**：生成分类图、变化检测图、植被健康图
 
-### For Direct Analysis / Reporting
+### 直接分析/报告应用
 
-**Recommended workflow:**
+**推荐工作流：**
 
-1. **Use index images with LUT colors** for visual reports
-2. **Extract statistics**: Mean NDVI per field/plot
-3. **Time series**: Compare indices across multiple sessions
-4. **Generate reports**: Include maps, statistics, and visualizations
-
-***
-
-## Archiving and Backup
-
-### Recommended Backup Strategy
-
-**What to save:**
-
-* ✅ **Original RAW/JPG images** - Archive on separate drive/cloud
-* ✅ **Processed outputs** - Keep calibrated images and indices
-* ✅ **Project file** - Contains all settings for reprocessing if needed
-* ✅ **Debug Log** - Documents processing details
-* ✅ **Calibration target images** - For verification and reprocessing
-
-**Storage recommendations:**
-
-* **Immediate backup**: External hard drive
-* **Long-term archive**: Cloud storage (Google Drive, Dropbox, etc.)
-* **Critical data**: Keep 2-3 copies in different locations
+1. **采用带LUT色彩的指数图像**制作可视化报告
+2. **提取统计数据**：按田块/样地计算NDVI均值
+3. **时间序列**：跨多次观测对比指数变化
+4. **生成报告**：包含地图、统计数据及可视化图表
 
 ***
 
-## Next Processing Runs
+## 归档与备份
 
-### Reusing Project Settings
+### 推荐备份策略
 
-If processing similar datasets in the future:
+**保存内容：**
 
-1. **Save Project Template** (if not already done)
-2. **Create new project** using saved template
-3. **Import new images**
-4. **Process** with identical settings for consistency
+* ✅ **原始RAW/JPG图像** - 存放于独立硬盘/云端
+* ✅ **处理输出** - 保留校准图像及指数
+* ✅ **项目文件** - 包含所有设置，便于必要时重新处理
+* ✅ **调试日志** - 记录处理细节
+* ✅ **校准目标图像** - 用于验证和重新处理
 
-### Batch Processing Multiple Sessions
+**存储建议：**
 
-For multiple sessions/datasets:
-
-**Option 1: GUI - Multiple Projects**
-
-* Create separate project for each session
-* Use consistent template settings
-* Process one at a time
-
-**Option 2: Chloros CLI (Chloros+ only)**
-
-* Automate batch processing
-* Process multiple folders with scripts
-* See [CLI Documentation](../CLI.md)
-
-**Option 3: Python SDK (Chloros+ only)**
-
-* Programmatic control
-* Integration with analysis pipelines
-* See [API Documentation](../api-python-sdk.md)
+* **即时备份**：外置硬盘
+* **长期归档**：云存储（Google Drive、Dropbox等）
+* **关键数据**：在不同位置保留2-3份副本
 
 ***
 
-## Troubleshooting Post-Processing
+## 后续处理流程
 
-### Re-Processing with Different Settings
+### 重用项目设置
 
-If results aren't satisfactory:
+若未来处理类似数据集：
 
-1. Keep original images (never delete)
-2. Open same project in Chloros
-3. Adjust settings in Project Settings panel
-4. Process again - outputs will overwrite previous results
+1. **保存项目模板**（若尚未操作）
+2. 使用保存模板**创建新项目**
+3. **导入新图像**
+4. 采用相同设置**进行处理**以保持一致性
 
-### Processing Subset of Images
+### 多会话批量处理
 
-To reprocess only specific images:
+处理多个会话/数据集时：
 
-1. Create new project
-2. Import only the images needing reprocessing
-3. Use same settings template
-4. Process smaller dataset
+**方案1：GUI - 多项目处理**
 
-### Getting Help
+* 为每个会话创建独立项目
+* 使用统一的模板设置
+* 逐个处理
 
-If you encounter issues:
+**方案二：Chloros CLI（仅限Chloros+版本）**
 
-* 📧 **Email**: info@mapir.camera (include Debug Log)
-* 🌐 **Support**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* 📚 **FAQ**: [Frequently Asked Questions](../faq.md)
-* 📖 **Documentation**: [Chloros Manual](../)
+* 自动化批量处理
+* 通过脚本处理多个文件夹
+* 参见[CLI文档](../CLI.md)
 
-***
+**方案3：Python SDK（仅限Chloros+）**
 
-## Summary: Complete Workflow
-
-You've now completed the full Chloros processing workflow:
-
-1. ✅ **Created project** - See [Projects](../projects.md)
-2. ✅ **Added files** - See [Adding Files](page-1.md)
-3. ✅ **Adjusted settings** - See [Adjusting Project Settings](adjusting-project-settings.md)
-4. ✅ **Marked targets** - See [Choosing Target Images](choosing-target-images.md)
-5. ✅ **Started processing** - See [Starting the Processing](starting-the-processing.md)
-6. ✅ **Monitored progress** - See [Monitoring the Processing](monitoring-the-processing.md)
-7. ✅ **Reviewed results** - This page
-
-**Your calibrated, reflectance-corrected multispectral images are ready for analysis!**
+* 程序化控制
+* 与分析管道集成
+* 参见[API 文档](../api-python-sdk.md)
 
 ***
 
-## Additional Resources
+## 后处理故障排除
 
-### Advanced Features
+### 使用不同设置重新处理
 
-* [**Image Viewer**](../image-viewer-gui/page-3.md) - Interactive visualization and analysis
-* [**Index/LUT Sandbox**](../image-viewer-gui/index-lut-sandbox.md) - Custom index testing
-* [**Multispectral Index Formulas**](../project-settings/multispectral-index-formulas.md) - Complete index reference
+若结果不理想：
 
-### Automation & Integration
+1. 保留原始图像（切勿删除）
+2. 在Chloros中打开相同项目
+3. 调整项目设置面板中的参数
+4. 重新处理——输出将覆盖先前结果
 
-* [**CLI Documentation**](../CLI.md) - Command-line batch processing
-* [**Python SDK**](../api-python-sdk.md) - Programmatic automation
-* [**Chloros+ Features**](../#chloros) - Advanced processing capabilities
+### 处理图像子集
 
-### Support & Learning
+仅对特定图像重新处理：
 
-* [**FAQ**](../faq.md) - Common questions answered
-* [**Calibration Targets**](../calibration-targets.md) - Understanding reflectance calibration
-* [**Supported Cameras**](../supported-cameras.md) - Compatible hardware
+1. 创建新项目
+2. 仅导入需重新处理的图像
+3. 使用相同设置模板
+4. 处理较小数据集
+
+### 获取帮助
+
+若遇到问题：
+
+* 📧 **邮件**：info@mapir.camera（请附调试日志）
+* 🌐 **支持**：[https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* 📚 **常见问题**：[常见问题解答](../faq.md)
+* 📖 **文档**：[Chloros 用户手册](../)
+
+***
+
+## 总结：完整工作流
+
+您现已完成完整的Chloros处理工作流：
+
+1. ✅ **创建项目** - 参见[项目](../projects.md)
+2. ✅ **添加文件** - 参见[添加文件](adding-files-to-a-project.md)
+3. ✅ **调整设置** - 参见[调整项目设置](adjusting-project-settings.md)
+4. ✅ **标记目标** - 参见[选择目标图像](choosing-target-images.md)
+5. ✅ **启动处理** - 参见[开始处理](starting-the-processing.md)
+6. ✅ **进度监控** - 参见[处理进度监控](monitoring-the-processing.md)
+7. ✅ **结果审查** - 本页面
+
+**您已校准且反射率修正的多光谱图像现已准备就绪，可进行分析！**
+
+***
+
+## 扩展资源
+
+### 高级功能
+
+* [**图像查看器**](../image-viewer-gui/opening-an-image-full-screen.md) - 互动式可视化与分析
+* [**指数/LUT沙盒**](../image-viewer-gui/index-lut-sandbox.md) - 自定义指数测试
+* [**多光谱指数公式库**](../project-settings/multispectral-index-formulas.md) - 完整指数参考
+
+### 自动化与集成
+
+* [**CLI 文档**](../CLI.md) - 命令行批量处理
+* [**Python SDK**](../api-python-sdk.md) - 程序化自动化
+* [**Chloros+ 功能**](../#chloros) - 高级处理能力
+
+### 支持与学习
+
+* [**常见问题解答**](../faq.md) - 常见问题解答
+* [**校准目标**](../calibration-targets.md) - 理解反射率校准
+* [**支持相机**](../supported-cameras.md) - 兼容硬件设备

@@ -1,17 +1,13 @@
-# 專案
+# 图形用户界面：项目
 
-Chloros 允許您創建可以在將來重新打開的項目。
+Chloros 允许您创建项目，这些项目可在未来重新打开。
 
-## 新項目
+## 新建项目
 
-<figure><img src=".gitbook/assets/project_new.JPG" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/project_new.JPG" alt=""><figcaption></figcaption></figure>从主菜单选择&quot;新建项目&quot;，并为项目输入唯一名称。
 
-從主菜單中選擇“新建項目”，然後為您的項目輸入唯一的名稱。
+## 打开项目
 
-## 開放項目
+<figure><img src=".gitbook/assets/project_open.JPG" alt=""><figcaption></figcaption></figure>选择&quot;打开项目&quot;可查看项目文件夹中的现有项目列表。若无项目存在，侧边菜单将不会展开。如上图所示，您可看到若干由GUI创建的项目（t1、t2、t3）。DATE\_TIME系列项目由CLI采用默认命名规则生成。点击任意项目名称即可打开。
 
-<figure><img src=".gitbook/assets/project_open.JPG" alt=""><figcaption></figcaption></figure>
-
-選擇“打開項目”以查看項目文件夾中現有項目的列表。如果不存在項目，則不會打開輔助側菜單。您可以看到上圖中列出的一些 GUI 創建的項目（t1、t2、t3）。 DATE\_TIME 項目是由 CLI 使用默認項目命名方案創建的。單擊任何項​​目名稱將打開它。
-
-單擊“打開項目文件夾”按鈕將在項目路徑中打開計算機的文件資源管理器。您可以在[項目設置](project-settings/page-2.md)中調整項目路徑。
+点击&quot;打开项目文件夹&quot;按钮将打开计算机文件资源管理器并定位至项目路径。您可在[项目设置](project-settings/project-settings.md)中调整项目路径。

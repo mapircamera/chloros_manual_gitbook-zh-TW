@@ -1,47 +1,45 @@
-# 圖形用戶界面：導航
+# 图形用户界面：导航
 
-當您首次啟動 Chloros 和 Chloros（瀏覽器）時，它將啟動其後端。一旦準備好，左上角的主菜單圖標將顯示 <img src=".gitbook/assets/image (1).png" alt="" data-size="line"> 。
+首次启动 Chloros 和 Chloros（浏览器）时，其后端程序将自动启动。待后端就绪后，左上角的主菜单图标将显示出来 <img src=".gitbook/assets/image (1).png" alt="" data-size="line"> .
 
 <figure><img src=".gitbook/assets/header.JPG" alt=""><figcaption></figcaption></figure>
 
-從左到右頂部標題包含：
+顶部标题栏从左至右包含：
 
-### <img src=".gitbook/assets/image (1) (1).png" alt="" data-size="line"> 主菜單
+### <img src=".gitbook/assets/image (1) (1).png" alt="" data-size="line"> 主菜单
 
-從主菜單中，您可以啟動新項目、打開現有項目或打開項目文件夾。
+通过主菜单可新建项目、打开现有项目或访问项目文件夹。
 
-### <img src=".gitbook/assets/image (2).png" alt="" data-size="line"> 播放/開始按鈕
+### <img src=".gitbook/assets/image (2).png" alt="" data-size="line"> 播放/启动按钮
 
-啟用後，開始處理按鈕將啟動圖像處理管道。
+启用后，此按钮将启动图像处理流水线。
 
-### <img src=".gitbook/assets/image (4).png" alt="" data-size="line"> 進度條 <img src=".gitbook/assets/image (5).png" alt="" data-size="line">
+### <img src=".gitbook/assets/image (4).png" alt="" data-size="line"> 进度条 <img src=".gitbook/assets/image (5).png" alt="" data-size="line">在免费Chloros模式（顺序处理所有文件）下，进度条显示两个阶段：目标检测与处理。
 
-在免費的 Chloros 模式下，按順序處理所有文件，進度條將顯示 2 個階段：目標檢測和處理。
-
-在付費 Chloros+ 許可模式下，同時處理所有文件，進度條顯示 4 個階段：檢測、分析、校準、導出。如果您將鼠標光標懸停在 Chloros+ 進度條上，它將下拉擴展的 4 個進度條面板，以便您可以繼續操作。單擊頂部進度條將凍結下拉麵板，再次單擊可將其解凍。
+在付费Chloros+授权模式（并行处理所有文件）下，进度条显示四个阶段：检测、分析、校准、导出。 将鼠标悬停在进度条上将展开扩展面板以便实时跟踪。点击顶部进度条可冻结下拉面板，再次点击则解除冻结。
 
 <figure><img src=".gitbook/assets/plus_prog.JPG" alt=""><figcaption></figcaption></figure>
 
-## 側面菜單
+## 侧边菜单
 
-左側邊欄菜單包含各種可交互的圖標：
+左侧边栏菜单包含多种交互图标：
 
-#### <img src=".gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> [項目設置](project-settings/page-2.md)
+#### <img src=".gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> [项目设置](project-settings/project-settings.md)
 
-“項目設置”選項卡允許您調整項目全局和項目處理設置。在開始處理文件之前調整這些。
+项目设置选项卡可调整项目全局参数及处理参数。请在开始处理文件前完成这些设置。
 
-#### <img src=".gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> 文件瀏覽器
+#### <img src=".gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> 文件浏览器
 
-添加文件/文件夾以及從項目中刪除文件。重複的文件將被忽略。選中任何目標圖像的目標列框，處理將僅查看選中的目標圖像，大大加快您的處理時間。
+向项目添加/移除文件/文件夹。重复文件将被忽略。勾选目标列中的任意图像，处理程序仅会针对已勾选的目标图像进行处理，大幅提升处理效率。
 
-#### <img src=".gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> [圖像查看器](image-viewer-gui/page-3.md)
+#### <img src=".gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> [图像查看器](image-viewer-gui/opening-an-image-full-screen.md)
 
-在主圖像查看器中單擊圖像時，它將在“圖像查看器”選項卡中全屏打開。
+在主图像查看器中点击图像后，该图像将在图像查看器选项卡中全屏打开。
 
-#### <img src=".gitbook/assets/icon_log.JPG" alt="" data-size="line"> 調試日誌
+#### <img src=".gitbook/assets/icon_log.JPG" alt="" data-size="line"> 调试日志
 
-發生問題時查看日誌以獲取調試打印。複製/下載日誌並發送給 [MAPIR 支持](https://www.mapir.camera/community/contact) 尋求幫助。
+发生问题时请查阅日志中的调试输出。复制/下载日志并发送至[MAPIR支持](https://www.mapir.camera/community/contact)获取协助。
 
-#### <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> [用戶登錄](chromos+-login.md)
+#### <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> [用户登录](chloros+-login.md)
 
-用戶登錄側邊欄允許您登錄 Chloros+ 帳戶以解鎖高級功能。您還可以查看當前應用程序版本，以及調整 Chloros GUI 和 CLI 中顯示文本的語言。
+用户登录侧边栏可用于登录您的Chloros+账户以解锁高级功能。您还可在此查看当前应用程序版本，并调整Chloros GUI及CLI界面中显示文本的语言设置。

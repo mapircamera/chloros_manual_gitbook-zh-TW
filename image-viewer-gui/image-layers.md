@@ -1,352 +1,352 @@
-# Image Layers
+# 图像图层
 
-The Image Layers dropdown in the Chloros Image Viewer allows you to quickly switch between different versions of the same image - from the original captures to processed reflectance outputs and calculated index images.
+在 Chloros 图像查看器中，&quot;图像图层&quot;下拉菜单可让您快速在同一图像的不同版本间切换——从原始采集图像到处理后的反射率输出图，再到计算得出的指数图。
 
-## What are Image Layers?
+## 什么是图像图层？
 
-In Chloros, **layers** refer to the different image outputs available for a single source image. When you process images, Chloros creates multiple versions:
+在Chloros中，**图层**指单一源图像可生成的不同输出形式。图像处理过程中，Chloros会创建多个版本：
 
-* **Original images** (JPG and RAW files from your camera)
-* **Reflectance calibrated** outputs (if reflectance calibration was enabled)
-* **Target images** (if the image contains calibration targets)
-* **Index images** (NDVI, NDRE, GNDVI, etc. if indices were configured)
+* **原始图像**（相机生成的JPG和RAW文件）
+* **反射率校正**输出（若启用了反射率校准）
+* **目标图像**（若图像包含校准目标）
+* **索引图像**（若配置了索引，则生成NDVI、NDRE、GNDVI等）
 
-The **Layer Selector dropdown** in the top-right of the Image Viewer lets you instantly switch between these versions without leaving the viewer.
+图像查看器右上角的**图层选择器下拉菜单**可让您在不离开查看器的情况下即时切换这些版本。
 
 ***
 
-## Available Layer Types
+## 可用图层类型
 
 ### JPG
 
-* The original JPG preview image from your camera
-* Always available for all images
-* Unprocessed, as captured by the camera
-* Fastest to load and display
+* 相机原始JPG预览图像
+* 所有图像均可随时调用
+* 未处理，保持相机原始拍摄状态
+* 加载和显示速度最快
 
-**When to view:**
+**适用场景：**
 
-* Quick preview of original capture
-* Checking image composition and framing
-* Verifying capture quality before processing
+* 快速预览原始拍摄内容
+* 检查图像构图与取景
+* 处理前验证拍摄质量
 
-### RAW (Original)
+### RAW（原始）
 
-* The original RAW sensor data from your camera
-* Debayered with no post processing applied
-* Higher bit depth than JPG (typically 12-bit or 14-bit sensor data)
+* 相机原始RAW传感器数据
+* 完成去马赛克处理但未进行后期处理
+* 比JPG更高位深度（通常为12位或14位传感器数据）
 
-**When to view:**
+**适用场景：**
 
-* Inspecting original sensor data quality
-* Checking for sensor issues or artifacts
-* Comparing before/after processing results
+* 检验原始传感器数据质量
+* 排查传感器故障或伪像
+* 对比处理前后的效果
 
-### RAW (Target)
+### RAW（目标）
 
-* Only appears for images identified as containing calibration targets
-* Shows the original RAW image with target detected
-* Used to verify target detection was successful
+* 仅在识别出含校准目标的图像时显示
+* 呈现带目标标记的原始RAW图像
+* 用于验证目标检测成功性
 
-**When to view:**
+**适用场景：**
 
-* Confirming calibration targets were detected correctly
-* Checking target image quality
-* Troubleshooting calibration issues
+* 确认校准目标检测准确性
+* 检查目标图像质量
+* 排查校准问题
 
-{% hint style="info" %}
-**Target Layer**: This layer only appears in the dropdown for images that contain calibration targets. Regular capture images will not have this option.
+{% hint style=&quot;info&quot; %}
+**目标图层**：仅在含校准目标的图像下拉菜单中显示。常规采集图像不提供此选项。
 {% endhint %}
 
-### RAW (Reflectance)
+### RAW（反射率）
 
-* The calibrated reflectance output image
-* Vignette corrected (if enabled in processing)
-* Reflectance calibrated using target data (if enabled)
-* Multi-band TIFF with all camera channels
-* Pixel values represent percent reflectance (when using percent mode)
-* Ready to manipulate with the [Index/LUT Sandbox](index-lut-sandbox.md)
+* 经校准的反射率输出图像
+* 暗角校正（若在处理中启用）
+* 基于目标数据校准反射率（若启用）
+* 多波段TIFF（含所有相机通道）
+* 像素值代表百分比反射率（使用百分比模式时）
+* 可通过[索引/LUT沙盒]进行处理(index-lut-sandbox.md)
 
-**When to view:**
+**适用场景：**
 
-* Inspecting calibrated results
-* Verifying calibration quality
-* Checking pixel values for scientific accuracy
-* Comparing with original to see calibration effects
+* 检查校准结果
+* 验证校准质量
+* 核查科学测量像素值的准确性
+* 与原始图像对比校准效果
 
-{% hint style="success" %}
-**Recommended**: Use RAW (Reflectance) layer when checking pixel values for scientific measurements and analysis.
+{% hint style=&quot;success&quot; %}
+**推荐**：进行科学测量与分析时，请使用原始反射率图层检查像素值。
 {% endhint %}
 
-### RAW (NDVI Index)... and similar
+### 原始反射率(NDVI 指数)...及相关图层
 
-* Calculated vegetation index image (NDVI in this example)
-* The index name changes based on which index was configured during processing
-* Examples: RAW (NDVI Index), RAW (NDRE Index), RAW (GNDVI Index), etc.
-* Single-band grayscale image showing index calculation results
-* One layer appears for each index configured in Project Settings
+* 计算植被指数图像 （本例中为NDVI）
+* 指数名称根据处理过程中配置的指数而变化
+* 示例：RAW（NDVI指数）、RAW（NDRE指数）、RAW（GNDVI指数）等
+* 显示指数计算结果的单波段灰度图像
+* 项目设置中配置的每个指数对应一层
 
-**Possible index names:**
+**可能的指数名称：**
 
-* RAW (NDVI Index)
-* RAW (NDRE Index)
-* RAW (GNDVI Index)
-* RAW (OSAVI Index)
-* RAW (EVI Index)
-* RAW (SAVI Index)
-* And many more... (see [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md))
+* RAW (NDVI指数)
+* RAW (NDRE指数)
+* RAW (GNDVI指数)
+* RAW（OSAVI指数）
+* RAW（EVI指数）
+* RAW（SAVI指数）
+* 更多指数...（详见[多光谱指数公式](../project-settings/multispectral-index-formulas.md))
 
-**When to view:**
+**适用场景：**
 
-* Examining index calculation results
-* Checking index value ranges
-* Identifying areas of interest
-* Verifying index images before using in GIS or analysis
-
-***
-
-## Using the Layer Selector
-
-### Opening the Dropdown
-
-1. Open an image in fullscreen mode (click any thumbnail in the Image Viewer)
-2. Locate the **layer dropdown** in the top-right corner of the viewer
-3. The dropdown shows the currently selected layer (e.g., "JPG")
-4. Click the dropdown to see all available layers
-
-### Switching Layers
-
-1. Click the layer dropdown to open the list
-2. All available layers for the current image are shown
-3. Click any layer name to switch to that version
-4. The image updates immediately to show the selected layer
-
-**Quick switching:**
-
-* The dropdown remembers your last selection
-* When navigating to the next image, Chloros attempts to show the same layer type
-* If that layer doesn't exist on the next image, it defaults to JPG
-
-### Layer Availability
-
-Not all layers are available for every image:
-
-**Always available:**
-
-* ✅ JPG (every image has a JPG preview)
-
-**Conditionally available:**
-
-* ⚠️ RAW (Original) - Only if image was captured in RAW or RAW+JPG mode
-* ⚠️ RAW (Target) - Only if image contains detected calibration targets
-* ⚠️ RAW (Reflectance) - Only after processing with reflectance calibration enabled
-* ⚠️ RAW (\[Index] Index) - Only after processing with indices configured
+* 分析指数计算结果
+* 核查指数数值范围
+* 定位目标区域
+* 在GIS或分析前验证指数图像
 
 ***
 
-## Layer Persistence
+## 层选择器使用指南
 
-### Navigating Between Images
+### 展开下拉菜单
 
-When you navigate to a different image (using arrow keys or clicking thumbnails):
+1. 以全屏模式打开图像（点击图像查看器任意缩略图）
+2. 在查看器右上角定位**图层下拉菜单**
+3. 下拉菜单显示当前选定图层（例如&quot;JPG&quot;）
+4. 点击下拉菜单查看所有可用图层
 
-**Layer preference is preserved:**
+### 切换图层
 
-* If viewing "RAW (Reflectance)", next image shows "RAW (Reflectance)" (if available)
-* If viewing "RAW (NDVI Index)", next image shows "RAW (NDVI Index)" (if available)
-* If the same layer doesn't exist, defaults to JPG
+1. 点击图层下拉菜单展开列表
+2. 显示当前图像的所有可用图层
+3. 点击任意图层名称即可切换至该版本
+4. 图片将即时更新为所选图层
 
-**Example workflow:**
+**快速切换技巧：**
 
-1. Open Image 1, switch to RAW (NDVI Index)
-2. Press → to view Image 2
-3. Image 2 automatically displays RAW (NDVI Index) layer
-4. Continue navigating - all images show NDVI layer
-5. Very efficient for reviewing index results across many images
+* 下拉菜单会记住您的上次选择
+* 浏览下一张图片时，Chloros将尝试显示相同图层类型
+* 若下一张图片不存在该图层，则默认显示JPG
 
-***
+### 图层可用性
 
-## Common Workflows
+并非所有图层在每张图像中均可用：
 
-### Workflow 1: Before/After Comparison
+**始终可用：**
 
-**Goal**: Compare original vs. calibrated image
+* ✅ JPG（每张图像均有JPG预览）
 
-1. Open processed image in Image Viewer
-2. Select **RAW (Original)** from dropdown
-3. Note the vignetting and uncalibrated values
-4. Switch to **RAW (Reflectance)** from dropdown
-5. Compare - vignetting removed, values calibrated
+**条件可用：**
 
-### Workflow 2: Index Review
-
-**Goal**: Quickly review NDVI results across dataset
-
-1. Open first processed image
-2. Select **RAW (NDVI Index)** from dropdown
-3. Use → arrow key to navigate to next image
-4. NDVI layer persists automatically
-5. Continue through all images, checking NDVI patterns
-6. Switch to **RAW (NDRE Index)** to compare
-
-### Workflow 3: Target Verification
-
-**Goal**: Verify all target images were detected correctly
-
-1. Navigate to a target image
-2. Select **RAW (Target)** from dropdown
-3. Verify calibration targets are clearly visible and detected
-4. Navigate to next target image
-5. Repeat verification for all targets
-
-### Workflow 4: Pixel Value Inspection
-
-**Goal**: Check reflectance values for scientific accuracy
-
-1. Open processed image
-2. Select **RAW (Reflectance)** layer
-3. Enable **Pixel Percent** mode (button in top-right toolbar)
-4. Move cursor over vegetation areas
-5. Verify pixel values are in expected ranges (30-70% for NIR, 5-15% for Red)
-6. Check soil and water areas for appropriate values
+* ⚠️ RAW（原始）- 仅当图像以RAW或RAW+JPG模式拍摄时可用
+* ⚠️ RAW（目标）- 仅当图像包含检测到的校准目标时可用
+* ⚠️ RAW（反射率）- 仅在启用反射率校准处理后可用
+* ⚠️ RAW（\[索引]索引）- 仅在配置索引处理后可用
 
 ***
 
-## Understanding Pixel Values by Layer
+## 图层持久性
 
-Different layers show different pixel value ranges:
+### 图片间导航
 
-### JPG Layer
+当您切换至其他图片（使用方向键或点击缩略图）：
 
-* **Range**: 0-255 (8-bit)
-* **Meaning**: Display values, gamma-corrected
-* **Use**: Visual inspection only, not for scientific measurement
+**图层偏好将被保留：**
 
-### RAW (Original)
+* 若当前查看&quot;RAW (反射率)&quot;，下一张图像将显示&quot;RAW (反射率)&quot;（若可用）
+* 若当前查看&quot;RAW (NDVI 索引)&quot;，下一张图像将显示&quot;RAW (NDVI 索引)&quot;（若可用）
+* 若不存在相同图层，则默认显示JPG格式
 
-* **Range**: 0-65535 (16-bit)
-* **Meaning**: Raw sensor digital numbers
-* **Use**: Checking sensor performance, not calibrated
+**示例工作流程：**
 
-### RAW (Reflectance)
-
-* **Range**: 0-65,535 (16-bit TIFF) or 0.0-1.0 (32-bit Percent)
-* **Meaning**: Calibrated percent reflectance
-* **Use**: Scientific measurements and analysis
-
-**For 16-bit TIFF:** Divide by 65,535 to get percent reflectance **For 32-bit Percent:** Values directly represent percent (0.5 = 50% reflectance)
-
-### RAW (Index Images)
-
-* **Range**: Varies by index (typically -1.0 to +1.0 for normalized indices)
-* **Meaning**: Index calculation result
-* **Examples**:
-  * NDVI: -1 to +1 (vegetation typically 0.4 to 0.9)
-  * NDRE: -1 to +1 (stress detection)
-  * EVI: 0 to 1 (enhanced vegetation)
+1. 打开图像1，切换至RAW (NDVI索引)图层
+2. 按→键查看图像2
+3. 图像2自动显示RAW (NDVI索引)图层
+4. 继续浏览——所有图像均显示NDVI图层
+5. 跨多张图像审阅索引结果时效率极高
 
 ***
 
-## Tips and Best Practices
+## 常用工作流程
 
-### Efficient Layer Switching
+### 工作流程1：前后对比
 
-* **Keyboard shortcut awareness**: While there's no keyboard shortcut for layers, navigation arrows (←/→) work across all layers
-* **Consistent workflows**: Pick one layer (e.g., NDVI) and review entire dataset before switching to another
-* **Quick comparisons**: Toggle between Original and Reflectance to verify processing quality
+**目标**：对比原始图像与校准图像
 
-### Performance Considerations
+1. 在图像查看器中打开处理后的图像
+2. 从下拉菜单选择**RAW（原始）**
+3. 记录暗角现象及未校准数值
+4. 切换至下拉菜单中的**RAW（反射率）**
+5. 对比效果——暗角消除，数值完成校准
 
-* **JPG loads fastest**: Use for quick navigation through many images
-* **RAW layers load slower**: Higher resolution and bit depth
-* **Index layers**: Similar speed to Reflectance layers
-* **First load is slowest**: Subsequent views of same layer are cached and faster
+### 工作流程 2：索引审查
 
-### Quality Verification
+**目标**：快速审查数据集中的NDVI结果
 
-* **Always check RAW (Original)**: Verify source data quality before trusting processed outputs
-* **Compare layers**: Use layer switching to validate processing worked correctly
-* **Check index ranges**: Use Pixel Percent mode with index layers to verify values are reasonable
+1. 打开首张处理图像
+2. 从下拉菜单选择**原始（NDVI指数）**
+3. 使用→方向键切换至下一张图像
+4. NDVI图层自动保留
+5. 循环检查所有图像的NDVI图案
+6. 切换至**原始数据（XPROTX索引）**进行比对
 
-***
+### 工作流程3：目标验证
 
-## Troubleshooting
+**目标**：验证所有目标图像是否正确检测
 
-### Layer Not Available
+1. 导航至目标图像
+2. 从下拉菜单选择**RAW (目标)**
+3. 确认校准目标清晰可见且被检测
+4. 导航至下一目标图像
+5. 对所有目标重复验证
 
-**Problem**: Expected layer doesn't appear in dropdown
+### 工作流程 4：像素值检查
 
-**Possible causes:**
+**目标**：核查反射率值的科学准确性
 
-* Image wasn't processed (only JPG and RAW (Original) available)
-* Reflectance calibration was disabled during processing
-* Specific index wasn't configured in Project Settings
-* Image is a target-only image (no indices generated for targets)
-
-**Solutions:**
-
-1. Verify image was processed (check output folder for processed files)
-2. Check Project Settings to confirm indices were configured
-3. Reprocess with desired indices enabled
-
-### Wrong Layer Shown
-
-**Problem**: Image opens in unexpected layer
-
-**Cause**: Layer preference from previous image carried forward, but that layer doesn't exist on current image
-
-**Solution**: Chloros automatically falls back to JPG when preferred layer unavailable - this is normal behavior
-
-### Can't See Calibration Targets
-
-**Problem**: RAW (Target) layer doesn't show target detection
-
-**Possible causes:**
-
-* Targets weren't detected during processing
-* Image doesn't actually contain targets
-* Target detection settings too strict
-
-**Solutions:**
-
-1. Check Debug Log for "Target found" messages
-2. Verify image actually contains visible calibration targets
-3. Adjust target detection settings in Project Settings
-4. See [Choosing Target Images](../processing-images-gui/choosing-target-images.md)
+1. 打开处理后的图像
+2. 选择 **RAW (反射率)** 图层
+3. 启用 **像素百分比** 模式（右上角工具栏按钮）
+4. 将光标悬停于植被区域
+5. 验证像素值是否在预期范围内（NIR为30-70%，Red为5-15%）
+6. 检查土壤与水域区域是否具有合理数值
 
 ***
 
-## Related Features
+## 不同图层的像素值解析
 
-### Image Viewer Tools
+各图层显示的像素值范围不同：
 
-When viewing any layer, you can use:
+### JPG图层
 
-* **Zoom controls**: Magnify to inspect details
-* **Pan**: Click and drag to move around zoomed image
-* **Pixel value inspection**: See values at cursor location
-* **Navigation arrows**: Move between images while maintaining layer
-* **Pixel Percent mode**: Toggle between DN and percent display
+* **范围**：0-255（8位）
+* **含义**：显示值，经伽马校正
+* **用途**：仅供目视检查，不可用于科学测量
 
-See [Opening an Image Full Screen](page-3.md) for complete Image Viewer documentation.
+### RAW（原始）图层
 
-### Index/LUT Sandbox
+* **范围**：0-65535（16位）
+* **含义**：原始传感器数字值
+* **用途**：检测传感器性能（未校准）
 
-For interactive index testing and visualization:
+### RAW（反射率）
 
-* **Real-time index calculation**: Test different index formulas
-* **LUT color mapping**: Apply color gradients to grayscale indices
-* **Export visualizations**: Save colored index images
+* **范围**：0-65,535（16位TIFF）或0.0-1.0（32位百分比）
+* **含义**：校准后的百分比反射率
+* **用途**：科学测量与分析
 
-See [Index/LUT Sandbox](index-lut-sandbox.md) for details.
+**16位TIFF格式：**除以65,535可得百分比反射率 **32位百分比格式：**数值直接代表百分比（0.5 = 50%反射率）
+
+### RAW（指数图像）
+
+* **范围**：随指数变化（归一化指数通常为-1.0至+1.0）
+* **含义**：指数计算结果
+* **示例**：
+  * NDVI：-1至+1（植被指数通常为0.4至0.9）
+  * NDRE：-1至+1（应力检测）
+  * EVI：0至1（增强植被）
 
 ***
 
-## Next Steps
+## 技巧与最佳实践
 
-Now that you understand image layers:
+### 高效图层切换
 
-* [**Opening an Image Full Screen**](page-3.md) - Complete Image Viewer guide
-* [**Index/LUT Sandbox**](index-lut-sandbox.md) - Interactive index visualization
-* [**Multispectral Index Formulas**](../project-settings/multispectral-index-formulas.md) - Available indices reference
-* [**Finishing the Processing**](../processing-images-gui/finishing-the-processing.md) - Understanding processed outputs
+* **键盘快捷键提示**：虽无图层专属快捷键，但方向键（←/→）可跨图层操作
+* **统一工作流程**：选定单一图层（如NDVI）审阅完整数据集后再切换至其他图层
+* **快速对比**：在原始图层与反射率图层间切换以验证处理质量
+
+### 性能考量
+
+* **JPG加载最快**：适用于快速浏览大量图像
+* **RAW图层加载较慢**：因其更高分辨率与位深度
+* **索引图层**：加载速度与反射率图层相当
+* **首次加载最慢**：同图层后续查看将缓存加载
+
+### 质量验证
+
+* **务必检查原始RAW图层**：处理前验证源数据质量
+* **图层比对验证**：通过切换图层确认处理流程正确性
+* **检查索引范围**：使用索引图层的像素百分比模式验证数值合理性
+
+***
+
+## 故障排除
+
+### 图层不可用
+
+**问题**：预期图层未出现在下拉菜单中
+
+**可能原因：**
+
+* 图像未处理（仅JPG和原始RAW可用）
+* 处理过程中禁用了反射率校准
+* 项目设置中未配置特定指数
+* 图像为目标专用图像（未生成目标指数）
+
+**解决方案：**
+
+1. 确认图像已处理（检查输出文件夹中的处理文件）
+2. 核查项目设置中是否配置了索引
+3. 重新处理并启用所需索引
+
+### 显示错误图层
+
+**问题**：图像在非预期图层打开
+
+**原因**：前次图像的图层偏好被继承，但当前图像不存在该图层
+
+**解决方案**：Chloros在首选图层不可用时会自动回退至JPG图层——此为正常行为
+
+### 无法显示校准目标
+
+**问题**：RAW（目标）图层未显示目标检测结果
+
+**可能原因：**
+
+* 处理过程中未检测到目标
+* 图像实际不包含校准目标
+* 目标检测设置过于严格
+
+**解决方案：**
+
+1. 检查调试日志中的&quot;目标已找到&quot;提示
+2. 确认图像实际包含可见校准目标
+3. 在项目设置中调整目标检测参数
+4. 参阅[目标图像选择指南](../processing-images-gui/choosing-target-images.md)
+
+***
+
+## 相关功能
+
+### 图像查看器工具
+
+查看任意图层时可使用：
+
+* **缩放控件**：放大以检查细节
+* **平移**：点击拖拽可在放大图像中移动
+* **像素值检测**：查看光标位置的数值
+* **导航箭头**：在保持图层状态下切换图像
+* **像素百分比模式**：在数字值与百分比显示间切换
+
+完整图像查看器文档请参阅[全屏打开图像](opening-an-image-full-screen.md)。
+
+### 索引/LUT沙盒
+
+用于交互式索引测试与可视化：
+
+* **实时索引计算**：测试不同索引公式
+* **LUT色彩映射**：为灰度索引应用色彩渐变
+* **导出可视化效果**：保存彩色索引图像
+
+详情参见[索引/LUT沙盒](index-lut-sandbox.md)。
+
+***
+
+## 下一步操作
+
+了解图像图层后：
+
+* [**全屏打开图像**](opening-an-image-full-screen.md) - 完整图像查看器指南
+* [**指数/LUT沙盒**](index-lut-sandbox.md) - 互动式指数可视化
+* [**多光谱指数公式**](../project-settings/multispectral-index-formulas.md) - 可用指数参考
+* [**完成图像处理**](../processing-images-gui/finishing-the-processing.md) - 理解处理后的输出结果

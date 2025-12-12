@@ -1,26 +1,22 @@
 ---
-description: 實驗室測量面板用於校准後處理中捕獲的數據
+description: Lab-measured panels used to calibrate captured data in post processing
 metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/calibration-targets
 ---
 
-# 校準目標
+# 校准靶标
 
-MAPIR 提供各種校準目標來涵蓋一系列應用。下面看到的緊湊型 T4-R50 包含 4 個面板，這些面板已在 250 - 2,500 nm 範圍內測量光反射率。
+MAPIR提供多种校准靶标以满足各类应用需求。下图所示的紧凑型T4-R50内含4块面板，其光反射率已在250-2500纳米波段完成测量。
 
-<figure><img src=".gitbook/assets/t4-r50_2.jpg" alt=""><figcaption><p>MAPIR T4-R50</p></figcaption></figure>
+<figure><img src=".gitbook/assets/t4-r50_2.jpg" alt=""><figcaption><p>MAPIR T4-R50</p></figcaption></figure>T4漫反射参考靶标具有以下反射率曲线，[数据下载链接](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157)：
 
-T4 漫反射參考目標具有以下反射率曲線 [數據在這裡下載](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157)：
+<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (250-2500nm).png" alt=""><figcaption><p>MAPIR T4 反射率 :: 250-2500nm</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (250-2500nm).png" alt=""><figcaption><p>MAPIR T4 反射率::250-2500nm</p></figcaption></figure>
+<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (400-1000nm).png" alt=""><figcaption><p>MAPIR T4反射率 :: 400-1000nm</p></figcaption></figure>观察反射率曲线可知，横轴为波长，纵轴为反射率百分比。当我们拍摄校准靶标图像时，便会在相机传感器各波段敏感的频谱范围内，建立像素值与反射率百分比之间的对应关系。
 
-<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (400-1000nm).png" alt=""><figcaption><p>MAPIR T4 反射率::400-1000nm</p></figcaption></figure>
+这意味着使用我们的相机拍摄的每张图像，均可通过反射率目标照片（如[T4-R50](https://www.mapir.camera/collections/calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t3-r50)或[T4-R125](https://www.mapir.camera/collections/multispectral-reflectance-reference-calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t4-r125)）进行反射率校准。 校准后，图像中每个像素值即代表百分比反射率。
 
-查看反射率圖，您可以看到這些值是波長（x 軸）與反射率百分比（y 軸）。當我們捕獲校準目標的圖像時，我們會在每個相機傳感器波段敏感的光譜內創建像素值和反射率百分比之間的關係。
-
-這意味著，對於您使用我們的相機拍攝的每張圖像，您都可以使用我們的反射率目標（例如 [T4-R50](https://www.mapir.camera/collections/calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t3-r50) 或 [T4-R125](https://www.mapir.camera/collections/multispectral-reflectance-reference-calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t4-r125)）的照片來校準圖像的反射率。校准後，圖像中的每個像素都等於反射率百分比。
-
-如果在 Chloros 中將校準圖像輸出為典型的 JPG 或 TIFF，則反射率百分比是通過將像素值除以圖像格式的位深度來計算的。因此，對於 JPG，則除以 255；對於 TIFF，則除以 65,535。您還可以在 Chloros 中選擇 PERCENT 格式輸出，然後每個像素的百分比值範圍為 0.0 到 1.0（0% 到 100% 反射率）。請記住，某些圖像應用程序無法接受百分比（浮點）圖像，並且它們的存儲尺寸很大。
+若将校准后的图像以Chloros（典型JPG格式）或TIFF输出，则反射率百分比通过像素值除以图像格式位深度计算得出：JPG格式除以255，TIFF格式除以65,535。 您也可选择Chloros的PERCENT格式输出，此时每个像素值将呈现0.0至1.0的百分比范围（即0%至100%反射率）。但需注意部分图像应用程序无法处理百分比（浮点数）图像，且此类图像存储占用空间较大。
 
 <div><figure><img src=".gitbook/assets/t3-125.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure> <figure><img src=".gitbook/assets/t3-125_2.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure> <figure><img src=".gitbook/assets/t3-125_closed.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure></div>

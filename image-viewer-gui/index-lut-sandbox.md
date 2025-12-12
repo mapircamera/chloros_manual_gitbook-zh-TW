@@ -1,86 +1,86 @@
-# Index/LUT Sandbox
+# 指数/LUT沙盒
 
-The Index/LUT Sandbox is an interactive workspace within the Chloros Image Viewer that allows you to experiment with multispectral index calculations and color visualizations in real-time. This powerful tool helps you test different indices, refine value ranges, and create publication-ready visualizations without reprocessing your entire dataset.
+指数/LUT沙盒是Chloros图像查看器中的交互式工作区，支持实时进行多光谱指数计算与彩色可视化实验。这款强大工具可帮助您测试不同指数、优化数值范围，并创建可直接用于出版的可视化效果，无需重新处理整个数据集。
 
-## What is the Index/LUT Sandbox?
+## 什么是索引/LUT沙盒？
 
-### Purpose
+### 功能定位
 
-The Sandbox provides:
+沙盒提供：
 
-* **Real-time index calculation** - Apply any vegetation index instantly
-* **Interactive LUT adjustment** - Fine-tune color gradients and ranges
-* **Workflow optimization** - Determine best settings before batch processing
+* **实时索引计算** - 即时应用任意植被指数
+* **交互式LUT调整** - 精细调节色彩渐变与色域范围
+* **工作流优化** - 批量处理前确定最佳参数设置
 
-### Sandbox vs. Project Processing
+### 沙盒与项目处理对比
 
-**Index/LUT Sandbox (Interactive):**
+**指数/LUT沙盒（交互式）：**
 
-* Single image at a time
-* Instant feedback
-* Experimental and iterative
-* No permanent changes to files
-* Perfect for exploring and testing
+* 单次处理单张图像
+* 即时反馈
+* 实验性与迭代性
+* 不对文件作永久性修改
+* 探索测试的理想选择
 
-**Project Processing (Batch):**
+**项目处理（批量）：**
 
-* Entire dataset at once
-* Pre-configured settings
-* Permanent output files
-* Time-intensive
-* Best when settings are finalized
+* 整组数据批量处理
+* 预设参数配置
+* 生成永久性输出文件
+* 耗时较长
+* 适用于最终确定的参数方案
 
-{% hint style="success" %}
-**Best Workflow**: Use the Sandbox to experiment and find optimal index and LUT settings, then apply those settings during Project Processing for your entire dataset.
+{% 提示 style=&quot;success&quot; %}
+**最佳工作流**：先在沙盒中实验以确定最佳索引与LUT设置，再通过项目处理将这些设置应用于整个数据集。
 {% endhint %}
 
 ***
 
-## Working with the Index/LUT Sandbox
+## 使用索引/LUT沙盒
 
-### Understanding Pre-Calculated Indices
+### 预计算索引原理解析
 
-In Chloros, indices can be applied during project processing. To determine which index and LUT settings you want to apply to exports it is easiest to use the image viewer sandbox.
+在Chloros中，索引可在项目处理阶段应用。要确定导出时需采用的索引与LUT设置，最便捷的方式是使用图像查看器沙盒。
 
-The sandbox allows you to:
+沙盒支持以下操作：
 
-* **Apply new index and color gradients (LUTs)** to visualize the data
-* **Adjust visualization settings** interactively
-* **View** already-calculated index images
-* **Inspect** pixel values at all zoom levels
+* **应用新指数与色彩渐变（LUT）**以可视化数据
+* **交互式调整可视化设置**
+* **查看**已计算的指数图像
+* **检查**所有缩放级别的像素值
 
-### Opening the Sandbox
+### 打开沙盒
 
-The Index/LUT Sandbox is accessed in the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> sidebar tab:
+通过**图像查看器**侧边栏标签访问索引/LUT沙盒： <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 侧边栏选项卡：
 
-1. Click an image in the file browser image grid, it opens in the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab
-2. Click **the Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab to open the left pop-out sidebar if it's not already open
+1. 在文件浏览器图像网格中点击图像，它将在**图像查看器** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 标签页中打开
+2. 点击**图像查看器** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 选项卡以展开左侧弹出式侧边栏（若尚未展开）
 
-### Selecting an Image to Apply an Index/LUT to
+### 选择应用索引/LUT的图像
 
-To work with an index in the Image Viewer <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> sandbox:
+在图像查看器 <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 沙盒中处理索引：
 
-1. **Open an image** from the main image grid by clicking on it
-2. The **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab will then open
-3. Click the **Layer dropdown** (top-right of viewer)
-4. Select the layer from the dropdown:
-   * RAW (Reflectance)
+1. 在主图像网格中点击**打开图像**
+2. **图像查看器** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 标签页随即展开
+3. 点击**图层下拉菜单**（查看器右上角）
+4. 从下拉菜单选择图层：
+   * RAW (反射率)
 
-### Applying an Index to an Image
+### 为图像应用索引
 
-Once the image is fullscreen and the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab sidebar is open:
+当图像全屏显示且**图像查看器** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 标签侧边栏开启时：
 
-1. Check the Index box at the top of the sidebar
-2. Choose your camera's filter from the left dropdown
-3. Choose the desired index formula from the right dropdown
-4. Drag the filter channel color circles to the locations in the index formula below
-5. Once the formula is valid the image will update and show the index values
-6. Move your mouse cursor around to see the values at the cursor's location
-7. Zoom in to see individual pixels and their associated values
+1. 勾选侧边栏顶部的索引框
+2. 从左侧下拉菜单选择相机滤镜
+3. 从右侧下拉菜单选择所需索引公式
+4. 将滤镜通道的彩色圆圈拖拽至下方索引公式对应位置
+5. 公式有效时图像将更新并显示索引值
+6. 移动鼠标光标可查看光标位置的数值
+7. 放大查看单个像素及其关联数值
 
-Each index has a specific value range and meaning:
+每个指数均具有特定数值范围与含义：
 
-#### NDVI Example
+#### XPROTX示例
 
 ```
 Formula: (NIR - Red) / (NIR + Red)
@@ -96,293 +96,293 @@ Bare soil: 0.0 to 0.2
 Water: -0.1 to 0.1
 ```
 
-For complete index formula documentation, see [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md).
+完整指数公式文档请参阅[多光谱指数公式](../project-settings/multispectral-index-formulas.md)。
 
 ***
 
-## Working with LUTs (Look-Up Tables)
+## 查找表（LUT）操作指南
 
-### What is a LUT?
+### 什么是查找表？
 
-A **Look-Up Table (LUT)** maps numerical index values to colors for visualization:
+**查找表（LUT）**通过数值索引映射颜色实现可视化：
 
-* **Input**: Index pixel value (e.g., NDVI 0.65)
-* **Output**: RGB color (e.g., bright green)
-* **Purpose**: Make patterns easier to see and interpret
+* **输入**：索引像素值（例如 NDVI 0.65）
+* **输出**：RGB 颜色（例如亮绿色）
+* **用途**：使模式更易于观察和解读
 
-**Grayscale vs. Color LUT:**
+**灰度与彩色LUT对比：**
 
-* Grayscale: Scientific and neutral, shows raw data
-* Color LUT: Intuitive and impactful, highlights patterns and differences
+* 灰度：科学中性，呈现原始数据
+* 彩色LUT：直观有力，突出模式差异
 
-{% hint style="success" %}
-**Visualization Power**: Applying a color LUT to a grayscale index image makes it dramatically easier to identify patterns, anomalies, and areas of interest at a glance.
+{% hint style=&quot;success&quot; %}
+**可视化效能**：为灰度索引图像应用彩色LUT后，可瞬间识别模式、异常及关注区域。
 {% endhint %}
 
-### Applying a LUT to an Index Image
+### 为索引图像应用LUT
 
-Once you have an index image showing
+获取索引图像后：
 
-1. Click the <img src="../.gitbook/assets/image.png" alt="" data-size="line"> "+Add LUT" button
-2. Select the color gradient
-3. Adjust the clipping min/max end points
-4. Adjust the Clipping Mode
-5. Check the Index box in the **Image Viewer** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> tab sidebar to apply the LUT
+1. 点击 <img src="../.gitbook/assets/image.png" alt="" data-size="line"> &quot;+添加LUT&quot;按钮
+2. 选择颜色渐变
+3. 调整裁剪最小/最大端点
+4. 调整裁剪模式
+5. 在**图像查看器** <img src="../.gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> 选项卡侧边栏中的**索引**框
 
-### Choosing a Color Gradient
+### 选择颜色渐变
 
-**Selecting a gradient:**
+**渐变选择步骤：**
 
-1. In the LUT panel, locate the **colored gradient bar**
-2. Hover your mouse over it to view available gradient presets
-3. Select desired gradient
-4. The image **updates immediately** with new colors when the Index box is checked
+1. 在LUT面板定位**彩色渐变条**
+2. 鼠标悬停查看可用渐变预设
+3. 选择所需渐变
+4. 勾选索引框后图像将**即时更新**显示新色彩
 
-{% hint style="success" %}
-**Best Practice**: For vegetation indices like NDVI, the Red-Yellow-Green gradient is most intuitive because it aligns with natural color associations (green=healthy, yellow=moderate, red=stressed).
+{%提示 style=&quot;success&quot; %}
+**最佳实践**： 对于植被指数（如NDVI），Red-黄-Green渐变最直观，因其符合自然色彩关联（绿=健康，黄=中等，红=受胁）。
 {% endhint %}
 
-### Adjusting Color Classes
+### 调整颜色分级
 
-The **Classes control** determines how many discrete color steps appear in your gradient:
+**分级控制**决定渐变中显示的离散色阶数量：
 
-**Class count options:**
+**分级数量选项：**
 
-* **2-5 classes**: Very broad categories, distinct zones
-* **6-10 classes**: Balanced, good for classification
-* **11-20 classes**: Smooth gradients, continuous appearance
-* **20+ classes**: Near-continuous, maximum smoothness
+* **2-5级**：宽泛类别，分区明显
+* **6-10级**：均衡分布，适于分类
+* **11-20级**：平滑渐变，连续视觉效果
+* **20+级**：近乎连续，实现最大平滑度
 
-**How to adjust:**
+**调整方法：**
 
-1. In the LUT panel, locate the **color swatch squares below the gradient bar**
-2. Adjust the number of classes by adding with the + button
-3. Remove the number of classes by double clicking on a color swatch
-4. The gradient updates **in real-time** on the image
+1. 在LUT面板中，定位**渐变条下方的色块区域**
+2. 通过+按钮增加级数
+3. 双击色块可减少级数
+4. 渐变效果将**实时**更新于图像
 
-**Effect on visualization:**
+**可视化效果：**
 
-* **Fewer classes** (3-5): Creates distinct zones, simplified classification, easier to distinguish categories
-* **Medium classes** (6-10): Balanced approach, good for most applications
-* **More classes** (15-20): Smooth transitions, detailed variation, photographic appearance
+* **少类（3-5类）**：形成鲜明区域，简化分类，易于区分类别
+* **中类（6-10类）**：平衡方案，适用于多数场景
+* **多类（15-20类）**：平滑过渡，精细变化，呈现照片级效果
 
-**When to use:**
+**适用场景：**
 
-* **Few classes (3-5)**: Presentation slides, classification maps, simple reports
-* **Medium classes (6-10)**: General analysis, balanced detail, standard reports
-* **Many classes (15-20)**: Scientific analysis, detailed inspection, publication-quality outputs
+* **少类（3-5类）**：演示幻灯片、分类地图、简易报告
+* **中类（6-10类）**：常规分析、均衡细节、标准报告
+* **多类（15-20类）**：科学分析、精细检测、出版级输出
 
-### Fine-Tuning Value Ranges
+### 精细调整数值范围
 
-The **value range controls** determine which index values map to which colors in your gradient:
+**数值范围控制**决定渐变色中各指数值对应的颜色：
 
-**Range controls in LUT panel:**
+**LUT面板中的范围控制：**
 
-* **Minimum value**: Lower bound of the color scale
-* **Maximum value**: Upper bound of the color scale
-* **Intermediate values**: Automatically distributed between min and max (based on class count)
+* **最小值**：色阶下限
+* **最大值**：色阶上限
+* **中间值**：自动分布于最小值与最大值之间 （基于类别数量）
 
-#### Adjusting Min/Max Values
+#### 调整最小/最大值
 
-**To adjust value ranges:**
+**调整数值范围步骤：**
 
-1. In the LUT panel, locate the **Min Value** and **Max Value** input fields
-2. Click the **Min Value** field
-3. Type the desired minimum value (e.g., `0.2`)
-4. Press **Enter** or click outside the field
-5. Repeat for **Max Value** field (e.g., `0.9`)
-6. The visualization **updates immediately**
+1. 在LUT面板中定位**最小值**与**最大值**输入框
+2. 点击**最小值**输入框
+3. 输入目标最小值（例如：`0.2`）
+4. 按**Enter**键或点击字段外区域
+5. 对**最大值**字段重复操作（例如：`0.9`）
+6. 可视化效果**即时更新**
 
-{% hint style="info" %}
-**Auto-Scaling**: When you first apply a LUT, Chloros automatically sets the min/max to the actual data range in the image. You can then narrow this range to focus on specific value ranges of interest.
+{% 提示 style=&quot;info&quot; %}
+**自动缩放**：初次应用LUT时，Chloros会自动将最小/最大值设为图像实际数据范围。随后可缩小该范围以聚焦特定关注值域。
 {% endhint %}
 
-**Example NDVI range adjustments:**
+**NDVI 范围调整示例：**
 
-* **Full range**: `-1.0` to `1.0` (show all possible values)
-* **Vegetation-focused**: `0.2` to `0.9` (exclude bare soil and water)
-* **Healthy vegetation only**: `0.5` to `0.9` (highlight only vigorous plants)
-* **Stress detection**: `0.2` to `0.5` (emphasize problem areas)
-* **Custom range**: Adjust based on your observed pixel values
+* **全范围**：`-1.0` 至 `1.0`（显示所有可能值）
+* **植被聚焦**：`0.2` 至 `0.9`（排除裸土与水体）
+* **仅健康植被**：`0.5` 至 `0.9`（仅突出显示旺盛植被）
+* **胁迫检测**：`0.2` 至 `0.5` （突出问题区域）
+* **自定义范围**：根据观测像素值调整
 
-**Why adjust ranges?**
+**为何调整范围？**
 
-* **Increase contrast** in your area of interest
-* **Exclude irrelevant values** (e.g., water bodies, bare soil)
-* **Standardize visualization** across multiple images or dates
-* **Emphasize subtle differences** within a narrow value range
+* **增强** 目标区域的**对比度**
+* **排除无关值**（如水体、裸露土壤）
+* **标准化** 多张图像或不同时段的**可视化效果**
+* **强调** 窄值域内的**细微差异**
 
-### Clipping Out-of-Range Values
+### 裁剪超出范围的值
 
-When pixel values fall outside your defined min/max range, you can control how they're displayed using **clipping modes**.
+当像素值超出定义的最小/最大范围时，可通过**裁剪模式**控制其显示方式。
 
-#### **Available clipping mode options:**
+#### **可用裁剪模式选项：**
 
-#### 1. Minimum and Maximum
+#### 1. 最小值与最大值
 
-* Pixels **below minimum** → display using the **first color** in gradient (e.g., red)
-* Pixels **above maximum** → display using the **last color** in gradient (e.g., green)
-* **Use case**: Emphasize extremes, show full data range with saturated colors at limits
-* **Example**: NDVI values below 0.2 all appear red, values above 0.9 all appear green
+* **低于最小值**的像素 → 使用渐变色**首色**显示（如红色）
+* 像素值**高于上限** → 显示渐变中的**末尾颜色**（如绿色）
+* **应用场景**：突出极端值，通过饱和色显示完整数据范围
+* **示例**：NDVI值低于0.2均显示为红色，高于0.9均显示为绿色
 
-#### 2. Transparent Background
+#### 2. 透明背景
 
-* Pixels **outside the range** become **fully transparent**
-* Only pixels **within range** show color gradient
-* **Use case**: GIS overlay, isolating specific value ranges, highlighting only areas of interest
-* **Example**: Show only NDVI 0.4-0.7 in color, everything else transparent
+* **超出范围**的像素变为**完全透明**
+* 仅**范围内的像素**显示颜色渐变
+* **应用场景**：GIS叠加层，隔离特定数值范围，仅突出显示关注区域
+* **示例**：仅显示NDVI 0.4-0.7区间为彩色，其余透明
 
-{% hint style="warning" %}
-**Transparency Limitation**: Transparent pixels will appear as the background color in the viewer. When exported during processing, transparency is preserved in PNG format but not in JPG.
+{% hint style=&quot;warning&quot; %}
+**透明度限制**：透明像素在查看器中将显示为背景色。处理时导出为PNG格式可保留透明度，JPG格式则不可。
 {% endhint %}
 
-#### 3. Index Background
+#### 3. 指数背景
 
-* Pixels **outside range** display in **grayscale** (showing raw index values)
-* Pixels **within range** show **color gradient**
-* **Use case**: Subtle highlighting, maintain context while emphasizing areas of interest
-* **Example**: Color-highlight stressed vegetation (NDVI 0.3-0.5) while showing healthy areas in gray
+* **超出范围**的像素以**灰度**显示（呈现原始指数值）
+* **在范围内的**像素显示**色彩渐变**
+* **应用场景**：细微高亮处理，在保持上下文的同时突出关注区域
+* **示例**：以彩色高亮显示受胁迫植被（NDVI 0.3-0.5），健康区域以灰色呈现
 
-#### 4. Original Background
+#### 4. 原图背景
 
-* Pixels **outside range** display the **original multispectral image**
-* Pixels **within range** show **color gradient**
-* **Use case**: Most intuitive - combines natural image context with analytical color overlay
-* **Example**: See the actual field/crop appearance with color-coded stress areas overlaid
+* **超出范围**像素显示**原始多光谱图像**
+* **在范围内的**像素呈现**色彩渐变**
+* **应用场景**：最直观模式——融合自然图像背景与分析性色彩叠加
+* **示例**：观察实际田间/作物外观，同时叠加色码标注的胁迫区域
 
-### Choosing the Right Clipping Mode
+### 选择合适的裁剪模式
 
-| Clipping Mode              | Best For                                   | Visualization Style          |
+| 裁剪模式              | 最佳适用场景                                   | 可视化风格           |
 | -------------------------- | ------------------------------------------ | ---------------------------- |
-| **Minimum and Maximum**    | Full data display, scientific analysis     | All pixels colored           |
-| **Transparent Background** | GIS overlays, isolating specific ranges    | Color on range, blank beyond |
-| **Index Background**       | Subtle emphasis, maintaining data context  | Color on range, gray beyond  |
-| **Original Background**    | Reports, presentations, intuitive analysis | Color on range, photo beyond |
+| **最小值与最大值**    | 全数据展示，科学分析     | 所有像素着色           |
+| **透明背景**         | GIS叠加，特定范围隔离     | 范围着色，超出空白 |
+| **索引背景**       | 弱化强调，保持数据语境     | 范围着色，超出范围灰化  |
+| **原始背景**    | 报告演示，直观分析     | 范围着色，超出范围照片 |
 
-### Creating Custom LUT Colors
+### 创建自定义LUT颜色
 
-For full control over your visualization, you can create **custom color gradients** by editing individual color stops.
+为实现可视化全局控制，可通过编辑单个色彩停点创建**自定义渐变色**。
 
-**To create a custom gradient:**
+**创建自定义渐变步骤：**
 
-1. In the LUT panel, locate the **gradient preview bar**
-2. Look for **color swatch squares** below the gradient
-3. **Click a color stop** to select it
-4. A **color picker** opens
-5. Choose a new color using:
-   * **Color wheel**: Visual color selection
-   * **RGB/HSV sliders**: Precise color control
-   * **Hex code entry**: Exact color specification (e.g., `#FF0000` for red)
-6. Click off the color picker **to apply the new color**
-7. The gradient **updates immediately** on the image
+1. 在LUT面板中定位**渐变预览条**
+2. 查找渐变下方**色块方格**
+3. **点击色阶点**进行选取
+4. 弹出**颜色选择器**
+5. 通过以下方式选择新颜色：
+   * **色轮**：直观选色
+   * **RGB/HSV滑块**：精准调色
+   * **十六进制代码输入**：精确指定颜色（如红色输入`#FF0000`）
+6. 点击色板外部**应用新颜色**
+7. 图像中的渐变效果**即时更新**
 
-**Adding or removing color stops:**
+**添加或删除颜色停靠点：**
 
-* **Add a stop**: Click the + icon to add a new swatch at the end
-* **Remove a stop**: Double click the color square to remove the swatch
+* **添加停靠点**：点击+图标在末尾添加新色块
+* **删除停靠点**：双击颜色方块移除该色块
 
-**Customization strategies:**
+**定制策略：**
 
-* **Invert gradient**: Flip color order to reverse the meaning (e.g., green=low, red=high)
-* **Brand colors**: Match your organization's color palette for reports
-* **Colorblind-friendly**: Use orange-blue or purple-yellow combinations
-* **Print optimization**: Choose colors that work in both color and grayscale printing
-* **Multi-threshold**: Use distinct colors at specific value thresholds for classification
+* **反转渐变**：颠倒颜色顺序以逆转含义（例如绿色=低，红色=高）
+* **品牌色**：匹配组织报告的配色方案
+* **色盲友好**：使用橙蓝或紫黄配色组合
+* **打印优化**：选择同时适用于彩色和灰度打印的颜色
+* **多阈值**：在特定数值阈值处使用不同颜色进行分类
 
-{% hint style="info" %}
-**Saving Custom Gradients**: Custom gradients can be saved and reused. Click the save icon in the LUT panel to preserve your custom color schemes for future use.
+{%提示 style=&quot;info&quot; %}
+**保存自定义渐变**：可保存并重复使用自定义渐变。点击LUT面板中的保存图标，即可将自定义配色方案保存供后续使用。
 {% endhint %}
 
 ***
 
-## Interactive Workflow
+## 互动式工作流程
 
-### Real-Time Updates
+### 实时更新
 
-All LUT adjustments in the sandbox update the image **instantly and interactively**:
+沙盒中的所有LUT调整均可**即时交互式**更新图像：
 
-* **Switch layer** → Image changes immediately
-* **Select gradient** → Colors update instantly
-* **Adjust value range** → Contrast changes in real-time
-* **Change classes** → Gradient smoothness updates immediately
-* **Modify clipping** → Background display changes instantly
-* **Edit colors** → Custom gradient applies immediately
+* **切换图层** → 图像立即变化
+* **选择渐变** → 颜色即时更新
+* **调整数值范围** → 对比度实时变化
+* **切换类** → 渐变平滑度即时更新
+* **修改剪切** → 背景显示即时变化
+* **编辑颜色** → 自定义渐变立即生效
 
-**No "Apply" button needed** - all changes are live and interactive!
+**无需&quot;应用&quot;按钮** - 所有更改均实时交互！
 
-{% hint style="success" %}
-**Live Feedback**: The instant visual feedback allows you to rapidly experiment with different settings until you find the optimal visualization for your analysis needs.
-{% endhint %}
+{%提示 style=&quot;success&quot; %}
+**实时反馈**：即时视觉反馈助您快速尝试不同设置，直至找到满足分析需求的最佳可视化方案。
+{%结束提示 %}
 
-### Iterative Refinement Workflow
+### 迭代优化工作流
 
-**Typical LUT optimization workflow:**
+**典型LUT优化流程：**
 
-1. **Select index layer** (e.g., RAW (Reflectance))
-2. **Apply index** - Choose camera filter and index formula, drag colored circles to appropriate location in the index formula
-3. **Apply LUT gradient** - Start with Red-Yellow-Green preset
-4. **Inspect pixel values** - Move cursor around, note value ranges
-5. **Adjust min/max** - Narrow to focus on vegetation (e.g., 0.2 to 0.9)
-6. **Choose clipping** - Try "Original Background" for context
-7. **Refine colors** - Customize gradient if needed for specific emphasis
-8. **Finalize settings** - Document settings and copy to Project Settings for export processing
+1. **选择指数层**（例如：RAW（反射率））
+2. **应用指数** - 选择相机滤镜与指数公式，将彩色圆圈拖拽至指数公式中对应位置
+3. **应用LUT梯度** - 采用Red-Yellow-Green预设
+4. **检查像素值** - 移动光标观察数值范围
+5. **调整最小/最大值** - 缩小范围聚焦植被（例如0.2至0.9）
+6. **选择裁剪模式** - 尝试&quot;原始背景&quot;以保留上下文
+7. **精细调整色彩** - 根据需要定制渐变以突出特定区域
+8. **最终确认设置** - 记录参数并复制至项目设置以供导出处理
 
-### Pixel Value Inspection
+### 像素值检测
 
-Understanding actual pixel values is crucial for setting effective LUT ranges:
+理解实际像素值对设定有效LUT范围至关重要：
 
-**How to inspect values:**
+**检测方法：**
 
-1. Pixel values show when the image has either the Index, or both the Index and LUT **boxes checked**.
-2. **Move your cursor** over different areas of the image
-3. **Observe pixel values** displayed in the legend as you hover
-4. Zoom in to see individual pixels highlighted with a floating value
-5. **Take notes** of value ranges for different features:
-   * **Healthy vegetation**: e.g., NDVI 0.55-0.85
-   * **Stressed vegetation**: e.g., NDVI 0.30-0.50
-   * **Bare soil**: e.g., NDVI 0.05-0.25
-   * **Water** (if present): e.g., NDVI -0.05 to 0.10
+1. 当图像勾选索引值或同时勾选索引值与LUT选项时，像素值将显示
+2. 将光标悬停于图像不同区域
+3. 观察悬停时图例中显示的像素值
+4. 放大查看带浮动数值的高亮单个像素
+5. **记录**不同特征的数值范围：
+   * **健康植被**：例如 NDVI 0.55-0.85
+   * **受胁植被**：例如 NDVI 0.30-0.50
+   * **裸露土壤**：例如 NDVI 0.05-0.25
+   * **水体**（若存在）：例如 NDVI -0.05 至 0.10
 
-**Using pixel values to set LUT ranges:**
+**使用像素值设定LUT范围：**
 
-After inspecting pixel values, adjust your LUT min/max accordingly:
+检查像素值后，相应调整LUT最小/最大值：
 
-**Example scenario:**
+**示例场景：**
 
-* **Observation**: Soil values = 0.05-0.25, Stressed = 0.25-0.50, Healthy = 0.50-0.85
-* **Goal**: Visualize only plant health (exclude soil)
-* **LUT settings**: Min = `0.25`, Max = `0.85`
-* **Clipping**: "Original Background" to see soil in natural color
-* **Result**: Color gradient only applies to vegetation, soil shows as original image
+* **观测结果**：土壤值 = 0.05-0.25，胁迫值 = 0.25-0.50，健康值 = 0.50-0.85
+* **目标**：仅可视化植物健康状况 （排除土壤）
+* **LUT设置**：最小值=`0.25`，最大值=`0.85`
+* **裁剪**：&quot;原始背景&quot;模式以自然色呈现土壤
+* **结果**：色彩渐变仅作用于植被，土壤保持原始图像
 
-{% hint style="info" %}
-**Dynamic Range**: Different crops, seasons, and growth stages will have different value ranges. Always inspect pixel values in your specific dataset before setting LUT ranges.
+{% hint style=&quot;info&quot; %}
+**动态范围**：不同作物、季节及生长阶段对应不同数值区间。设置LUT范围前务必核查特定数据集的像素值。
 {% endhint %}
 
 ***
 
-## Custom Indices (Chloros+)
+## 自定义指数（Chloros+）
 
-### Creating Custom Index Formulas
+### 创建自定义指数公式
 
-{% hint style="info" %}
-**Where to Create**: Custom indices can be configured in **Project Settings** before processing, as well as in the Image Viewer sandbox sidebar.
+{% hint style=&quot;info&quot; %}
+**创建位置**：自定义索引可在处理前通过**项目设置**配置，也可在图像查看器沙盒侧边栏中设置。
 {% endhint %}
 
-**To create a custom index:**
+**创建自定义索引步骤：**
 
-1. **Open Project Settings** (before processing) or Image Viewer sandbox sidebar
-2. Navigate to the **Index formula dropdown**
-3. Look for **"Custom"** option (must be logged in with Chloros+ license)
-4. **Define your formula** using band variables:
-   * Band names: `NIR`, `Red`, `Green`, `Blue`, `RedEdge`, etc.
-   * Operators: `+`, `-`, `*`, `/`, `^` (exponent)
-   * Functions: `sqrt()`, `abs()`, etc. (if supported)
-   * Parentheses: `()` for order of operations
-5. **Name your index** (e.g., "MyIndex" or "CustomNDVI")
-6. **Save the configuration**
+1. **打开项目设置**（处理前）或图像查看器沙盒侧边栏
+2. 导航至**索引公式下拉菜单**
+3. 查找**&quot;自定义&quot;**选项（需使用Chloros+许可证登录）
+4. **使用波段变量定义公式**：
+   * 波段名称：`NIR`, `Red`, `Green`, `Blue`, `RedEdge`, 等等
+   * 运算符：`+`, `-`, `*`, `/`, `^` （指数）
+   * 函数：`sqrt()`、`abs()` 等（如支持）
+   * 括号：`()`（用于运算顺序）
+5. **命名索引**（例如&quot;MyIndex&quot;或&quot;CustomNDVI&quot;）
+6. **保存配置**
 
-**Example custom formulas:**
+**自定义公式示例：**
 
 ```
 Modified NDVI with offset:
@@ -398,22 +398,22 @@ Exponential index:
 (NIR / Red) ^ 2
 ```
 
-{% hint style="warning" %}
-**Formula Validation**: Ensure your formula uses bands available in your camera. For example, RedEdge is only available on cameras with a RedEdge filter.
+{% 提示 style=&quot;warning&quot; %}
+**公式验证**：确保公式使用的波段在相机中可用。例如，RedEdge仅适用于配备RedEdge滤镜的相机。
 {% endhint %}
 
 ***
 
-## Next Steps
+## 后续步骤
 
-Now that you understand the Index/LUT Sandbox:
+了解索引/LUT沙盒后：
 
-* **Apply to processing**: Use discovered settings in [Project Settings](../project-settings/page-2.md)
-* **Batch process**: Apply optimized indices to full datasets
-* **Learn more**: Read [Multispectral Index Formulas](../project-settings/multispectral-index-formulas.md)
+* **应用于处理**：在[项目设置](../project-settings/project-settings.md)中使用发现的设置
+* **批量处理**：将优化索引应用于完整数据集
+* **深入学习**：阅读[多光谱索引公式](../project-settings/multispectral-index-formulas.md)
 
-Related documentation:
+相关文档：
 
-* [**Image Layers**](image-layers.md) - Layer management and visualization
-* [**Opening an Image Full Screen**](page-3.md) - Image Viewer basics
-* [**Processing Images (GUI)**](../processing-images-gui/page-1.md) - Full processing workflow
+* [**图像图层**](image-layers.md) - 图层管理与可视化
+* [**全屏打开图像**](opening-an-image-full-screen.md) - 图像查看器基础
+* [**图像处理（GUI）**](../processing-images-gui/adding-files-to-a-project.md) - 完整处理工作流

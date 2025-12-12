@@ -1,48 +1,48 @@
 # API : Python SDK
 
-The **Chloros Python SDK** provides programmatic access to the Chloros image processing engine, enabling automation, custom workflows, and seamless integration with your Python applications and research pipelines.
+**Chloros Python SDK** 提供对Chloros图像处理引擎的编程访问，支持自动化、自定义工作流，并与您的Python应用程序及研究流程无缝集成。
 
-### Key Features
+### 核心特性
 
-* 🐍 **Native Python** - Clean, Pythonic API for image processing
-* 🔧 **Full API Access** - Complete control over Chloros processing
-* 🚀 **Automation** - Build custom batch processing workflows
-* 🔗 **Integration** - Embed Chloros in existing Python applications
-* 📊 **Research-Ready** - Perfect for scientific analysis pipelines
-* ⚡ **Parallel Processing** - Scales to your CPU cores (Chloros+)
+* 🐍 **原生Python** - 简洁的Python式图像处理
+* 🔧 **完整访问** - 全面掌控图像处理流程
+* 🚀 **自动化** - 构建定制化批量处理工作流
+* 🔗 **集成** - 将Chloros嵌入现有Python应用程序
+* 📊 **科研就绪** - 完美适配科学分析管道
+* ⚡ **并行处理** - 扩展至CPU核心（Chloros+）
 
-### Requirements
+### 系统要求
 
-| Requirement          | Details                                                             |
+| 要求          | 详细说明                                                             |
 | -------------------- | ------------------------------------------------------------------- |
-| **Chloros Desktop**  | Must be installed locally                                           |
-| **License**          | Chloros+ ([paid plan required](https://cloud.mapir.camera/pricing)) |
-| **Operating System** | Windows 10/11 (64-bit)                                              |
-| **Python**           | Python 3.7 or higher                                                |
-| **Memory**           | 8GB RAM minimum (16GB recommended)                                  |
-| **Internet**         | Required for license activation                                     |
+| **Chloros桌面版**  | 必须本地安装                                           |
+| **许可证**          | Chloros+ ([需付费方案](https://cloud.mapir.camera/pricing)) |
+| **操作系统** | Windows 10/11 (64位)                                              |
+| **Python**           | Python 3.7 或更高版本                                                |
+| **内存**           | 最低8GB RAM（推荐16GB）                                  |
+| **网络连接**         | 需联网激活许可证                                     |
 
-{% hint style="warning" %}
-**License Requirement**: The Python SDK requires a paid Chloros+ subscription for API access. Standard (free) plans do not have API/SDK access. Visit [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) to upgrade.
+{% 提示 style=&quot;warning&quot; %}
+**许可证要求**：Python SDK 需付费订阅 Chloros+ 才能访问 API。 标准（免费）方案不包含API/SDK访问权限。请访问[https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)进行升级。
 {% endhint %}
 
-## Quick Start
+## 快速入门
 
-### Installation
+### 安装
 
-Install via pip:
+通过pip安装：
 
 ```bash
 pip install chloros-sdk
 ```
 
-{% hint style="info" %}
-**First-Time Setup**: Before using the SDK, activate your Chloros+ license by opening Chloros, Chloros (Browser) or Chloros CLI and logging in with your credentials. This only needs to be done once.
+{% hint style=&quot;info&quot; %}
+**首次设置**：使用SDK前，请通过打开Chloros激活Chloros+许可证， Chloros（浏览器）或 Chloros CLI 并使用您的凭据登录。此操作仅需执行一次。
 {% endhint %}
 
-### Basic Usage
+### 基础用法
 
-Process a folder with just a few lines:
+处理仅含少量数据的文件夹：
 
 ```python
 from chloros_sdk import process_folder
@@ -51,9 +51,9 @@ from chloros_sdk import process_folder
 results = process_folder("C:\\DroneImages\\Flight001")
 ```
 
-### Full Control
+### 全面控制
 
-For advanced workflows:
+用于高级工作流：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -80,39 +80,39 @@ chloros.process(mode="parallel", wait=True)
 
 ***
 
-## Installation Guide
+## 安装指南
 
-### Prerequisites
+### 先决条件
 
-Before installing the SDK, ensure you have:
+安装 SDK 前请确保：
 
-1. **Chloros Desktop** installed ([download](download.md))
-2. **Python 3.7+** installed ([python.org](https://www.python.org))
-3. **Active Chloros+ license** ([upgrade](https://cloud.mapir.camera/pricing))
+1. 已安装 **Chloros Desktop** ([下载](download.md))
+2. 已安装 **Python 3.7+** ([python.org](https://www.python.org))
+3. **有效的 Chloros+ 许可证** ([升级](https://cloud.mapir.camera/pricing))
 
-### Install via pip
+### 通过 pip 安装
 
-**Standard installation:**
+**标准安装：**
 
 ```bash
 pip install chloros-sdk
 ```
 
-**With progress monitoring support:**
+**带进度监控支持：**
 
 ```bash
 pip install chloros-sdk[progress]
 ```
 
-**Development installation:**
+**开发环境安装：**
 
 ```bash
 pip install chloros-sdk[dev]
 ```
 
-### Verify Installation
+### 验证安装
 
-Test that the SDK is installed correctly:
+测试SDK是否正确安装：
 
 ```python
 import chloros_sdk
@@ -121,23 +121,23 @@ print(f"Chloros SDK version: {chloros_sdk.__version__}")
 
 ***
 
-## First-Time Setup
+## 初始配置
 
-### License Activation
+### 许可证激活
 
-The SDK uses the same license as Chloros, Chloros (Browser), and Chloros CLI. Activate once via the GUI or CLI:
+SDK与Chloros、Chloros（浏览器版）及Chloros CLI共享同一许可证。 通过图形界面或CLI激活一次：
 
-1. Open **Chloros or Chloros (Browser)** and login on the User <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> tab. Or, open the **CLI**.
-2. Enter your Chloros+ credentials and log in
-3. License is cached locally (persists across reboots)
+1. 打开**Chloros或Chloros（浏览器版）**，在用户 <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> 标签页登录。或直接打开**CLI**。
+2. 输入Chloros+凭证并登录
+3. 许可证缓存于本地（重启后仍有效）
 
-{% hint style="success" %}
-**One-Time Setup**: After logging in via the GUI or CLI, the SDK automatically uses the cached license. No additional authentication needed!
+{% 提示 style=&quot;success&quot; %}
+**一次性设置**：通过GUI或CLI登录后，SDK将自动使用缓存许可证。 无需额外认证！
 {% endhint %}
 
-### Test Connection
+### 测试连接
 
-Verify the SDK can connect to Chloros:
+验证SDK能否连接至Chloros：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -152,13 +152,13 @@ print(f"Backend running: {status['running']}")
 
 ***
 
-## API Reference
+## API 参考文档
 
-### ChlorosLocal Class
+### ChlorosLocal 类
 
-Main class for local Chloros image processing.
+本地图像处理的核心类。
 
-#### Constructor
+#### 构造函数
 
 ```python
 ChlorosLocal(
@@ -170,17 +170,17 @@ ChlorosLocal(
 )
 ```
 
-**Parameters:**
+**参数：**
 
-| Parameter                 | Type | Default                   | Description                           |
+| 参数                 | 类型 | 默认值                   | 描述                           |
 | ------------------------- | ---- | ------------------------- | ------------------------------------- |
-| `api_url`                 | str  | `"http://localhost:5000"` | URL of local Chloros backend          |
-| `auto_start_backend`      | bool | `True`                    | Automatically start backend if needed |
-| `backend_exe`             | str  | `None` (auto-detect)      | Path to backend executable            |
-| `timeout`                 | int  | `30`                      | Request timeout in seconds            |
-| `backend_startup_timeout` | int  | `60`                      | Timeout for backend startup (seconds) |
+| `api_url`                 | str  | `"http://localhost:5000"` | 本地Chloros后端的URL          |
+| `auto_start_backend`      | bool | `True`                    | 需要时自动启动后端 |
+| `backend_exe`             | str  | `None` (自动检测)      | 后端可执行文件路径            |
+| `timeout`                 | int  | `30`                      | 请求超时时间（秒）            |
+| `backend_startup_timeout` | int  | `60`                      | 后端启动超时时间（秒） |
 
-**Examples:**
+**示例：**
 
 ```python
 # Default (auto-start backend)
@@ -198,22 +198,22 @@ chloros = ChlorosLocal(timeout=60)
 
 ***
 
-### Methods
+### 方法
 
 #### `create_project(project_name, camera=None)`
 
-Create a new Chloros project.
+创建新的Chloros项目。
 
-**Parameters:**
+**参数：**
 
-| Parameter      | Type | Required | Description                                              |
+| 参数         | 类型 | 是否必填 | 描述                                              |
 | -------------- | ---- | -------- | -------------------------------------------------------- |
-| `project_name` | str  | Yes      | Name for the project                                     |
-| `camera`       | str  | No       | Camera template (e.g., "Survey3N\_RGN", "Survey3W\_OCN") |
+| `project_name` | 字符串 | 是      | 项目名称                                     |
+| `camera`       | 字符串 | 否       | 相机模板（例如&quot;Survey3N\_RGN&quot;, &quot;Survey3W\_OCN&quot;) |
 
-**Returns:** `dict` - Project creation response
+**返回值：** `dict` - 项目创建响应
 
-**Example:**
+**示例：**
 
 ```python
 # Basic project
@@ -227,18 +227,18 @@ chloros.create_project("DroneField_A", camera="Survey3N_RGN")
 
 #### `import_images(folder_path, recursive=False)`
 
-Import images from a folder.
+从文件夹导入图像。
 
-**Parameters:**
+**参数：**
 
-| Parameter     | Type     | Required | Description                        |
+| 参数         | 类型       | 必填       | 描述                        |
 | ------------- | -------- | -------- | ---------------------------------- |
-| `folder_path` | str/Path | Yes      | Path to folder with images         |
-| `recursive`   | bool     | No       | Search subfolders (default: False) |
+| `folder_path` | 字符串/路径 | 是      | 图片所在文件夹路径         |
+| `recursive`   | 布尔值 | 否       | 搜索子文件夹（默认：False） |
 
-**Returns:** `dict` - Import results with file count
+**返回值：** `dict` - 包含文件数量的导入结果
 
-**Example:**
+**示例：**
 
 ```python
 # Import from folder
@@ -252,32 +252,32 @@ chloros.import_images("C:\\DroneImages", recursive=True)
 
 #### `configure(**settings)`
 
-Configure processing settings.
+配置处理设置。
 
-**Parameters:**
+**参数：**
 
-| Parameter                 | Type | Default                 | Description                     |
+| 参数                 | 类型 | 默认值                 | 描述                     |
 | ------------------------- | ---- | ----------------------- | ------------------------------- |
-| `debayer`                 | str  | "High Quality (Faster)" | Debayer method                  |
-| `vignette_correction`     | bool | `True`                  | Enable vignette correction      |
-| `reflectance_calibration` | bool | `True`                  | Enable reflectance calibration  |
-| `indices`                 | list | `None`                  | Vegetation indices to calculate |
-| `export_format`           | str  | "TIFF (16-bit)"         | Output format                   |
-| `ppk`                     | bool | `False`                 | Enable PPK corrections          |
-| `custom_settings`         | dict | `None`                  | Advanced custom settings        |
+| `debayer`                 | str  | &quot;高品质（更快）&quot; | 去马赛克方法                  |
+| `vignette_correction`     | 布尔值 | `True`                  | 启用晕影校正                  |
+| `reflectance_calibration` | 布尔值 | `True`                  | 启用反射率校准                  |
+| `indices`                 | list | `None`                  | 待计算植被指数 |
+| `export_format`           | str  | &quot;TIFF (16位)&quot;         | 输出格式                   |
+| `ppk`                     | 布尔值 | `False`                 | 启用PPK校正          |
+| `custom_settings`         | 字典 | `None`                  | 高级自定义设置        |
 
-**Export Formats:**
+**导出格式：**
 
-* `"TIFF (16-bit)"` - Recommended for GIS/photogrammetry
-* `"TIFF (32-bit, Percent)"` - Scientific analysis
-* `"PNG (8-bit)"` - Visual inspection
-* `"JPG (8-bit)"` - Compressed output
+* `"TIFF (16-bit)"` - 推荐用于GIS/摄影测量
+* `"TIFF (32-bit, Percent)"` - 科学分析
+* `"PNG (8-bit)"` - 目视检查
+* `"JPG (8-bit)"` - 压缩输出
 
-**Available Indices:**
+**可用指数：**
 
-NDVI, NDRE, GNDVI, OSAVI, CIG, EVI, SAVI, MSAVI, MTVI2, and more.
+NDVI, NDRE, GNDVI, OSAVI, CIG, EVI, SAVI, MSAVI, MTVI2, 及其他。
 
-**Example:**
+**示例：**
 
 ```python
 # Basic configuration
@@ -302,24 +302,24 @@ chloros.configure(
 
 #### `process(mode="parallel", wait=True, progress_callback=None)`
 
-Process the project images.
+处理项目图像。
 
-**Parameters:**
+**参数：**
 
-| Parameter           | Type     | Default      | Description                               |
+| 参数           | 类型     | 默认值      | 描述                               |
 | ------------------- | -------- | ------------ | ----------------------------------------- |
-| `mode`              | str      | `"parallel"` | Processing mode: "parallel" or "serial"   |
-| `wait`              | bool     | `True`       | Wait for completion                       |
-| `progress_callback` | callable | `None`       | Progress callback function(progress, msg) |
-| `poll_interval`     | float    | `2.0`        | Polling interval for progress (seconds)   |
+| `mode`              | 字符串 | `"parallel"` | 处理模式：&quot;parallel&quot; 或 &quot;serial&quot;   |
+| `wait`              | 布尔值 | `True`       | 等待完成                       |
+| `progress_callback` | 可调用对象 | `None`       | 进度回调函数(progress, msg) |
+| `poll_interval`     | 浮点数    | `2.0`        | 进度轮询间隔（秒）   |
 
-**Returns:** `dict` - Processing results
+**返回值：** `dict` - 处理结果
 
-{% hint style="warning" %}
-**Parallel Mode**: Requires Chloros+ license. Automatically scales to your CPU cores (up to 16 workers).
+{% 提示 style=&quot;warning&quot; %}
+**并行模式**：需Chloros+许可证。自动扩展至CPU核心数 （最多16个工作进程）。
 {% endhint %}
 
-**Example:**
+**示例：**
 
 ```python
 # Simple processing
@@ -343,11 +343,11 @@ chloros.process(wait=False)
 
 #### `get_config()`
 
-Get current project configuration.
+获取当前项目配置。
 
-**Returns:** `dict` - Current project configuration
+**返回值：** `dict` - 当前项目配置
 
-**Example:**
+**示例：**
 
 ```python
 config = chloros.get_config()
@@ -358,11 +358,11 @@ print(config['Project Settings'])
 
 #### `get_status()`
 
-Get backend status information.
+获取后端状态信息。
 
-**Returns:** `dict` - Backend status
+**返回值：** `dict` - 后端状态
 
-**Example:**
+**示例：**
 
 ```python
 status = chloros.get_status()
@@ -374,9 +374,9 @@ print(f"URL: {status['url']}")
 
 #### `shutdown_backend()`
 
-Shutdown the backend (if started by SDK).
+关闭后端（若由SDK启动）。
 
-**Example:**
+**示例：**
 
 ```python
 chloros.shutdown_backend()
@@ -384,29 +384,29 @@ chloros.shutdown_backend()
 
 ***
 
-### Convenience Functions
+### 便捷函数
 
 #### `process_folder(folder_path, **options)`
 
-One-line convenience function to process a folder.
+用于处理文件夹的一行便捷函数。
 
-**Parameters:**
+**参数：**
 
-| Parameter                 | Type     | Default         | Description                    |
+| 参数                 | 类型     | 默认值         | 描述                    |
 | ------------------------- | -------- | --------------- | ------------------------------ |
-| `folder_path`             | str/Path | Required        | Path to folder with images     |
-| `project_name`            | str      | Auto-generated  | Project name                   |
-| `camera`                  | str      | `None`          | Camera template                |
-| `indices`                 | list     | `["NDVI"]`      | Indices to calculate           |
-| `vignette_correction`     | bool     | `True`          | Enable vignette correction     |
-| `reflectance_calibration` | bool     | `True`          | Enable reflectance calibration |
-| `export_format`           | str      | "TIFF (16-bit)" | Output format                  |
-| `mode`                    | str      | `"parallel"`    | Processing mode                |
-| `progress_callback`       | callable | `None`          | Progress callback              |
+| `folder_path`             | str/Path | 必填        | 含图像的文件夹路径     |
+| `project_name`            | str      | 自动生成  | 项目名称                   |
+| `camera`                  | 字符串      | `None`          | 相机模板                |
+| `indices`                 | 列表     | `["NDVI"]`      | 计算索引           |
+| `vignette_correction`     | 布尔     | `True`          | 启用暗角校正                 |
+| `reflectance_calibration` | 布尔     | `True`          | 启用反射率校准                |
+| `export_format`           | 字符串    | &quot;TIFF (16位)&quot; | 输出格式                  |
+| `mode`                    | 字符串    | `"parallel"`    | 处理模式                |
+| `progress_callback`       | 可调用对象 | `None`          | 进度回调函数              |
 
-**Returns:** `dict` - Processing results
+**返回值：** `dict` - 处理结果
 
-**Example:**
+**示例：**
 
 ```python
 from chloros_sdk import process_folder
@@ -435,9 +435,9 @@ results = process_folder(
 
 ***
 
-## Context Manager Support
+## 上下文管理器支持
 
-The SDK supports context managers for automatic cleanup:
+SDK支持上下文管理器实现自动清理：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -453,11 +453,11 @@ with ChlorosLocal() as chloros:
 
 ***
 
-## Complete Examples
+## 完整示例
 
-### Example 1: Basic Processing
+### 示例1：基础处理
 
-Process a folder with default settings:
+使用默认设置处理文件夹：
 
 ```python
 from chloros_sdk import process_folder
@@ -470,9 +470,9 @@ print(f"Processing complete: {results}")
 
 ***
 
-### Example 2: Custom Workflow
+### 示例 2：自定义工作流
 
-Full control over processing pipeline:
+对处理管道实现全局控制：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -512,9 +512,9 @@ print("Processing complete!")
 
 ***
 
-### Example 3: Batch Processing Multiple Folders
+### 示例 3：批量处理多个文件夹
 
-Process multiple flight datasets:
+处理多个飞行数据集：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -564,9 +564,9 @@ print("All flights processed!")
 
 ***
 
-### Example 4: Research Pipeline Integration
+### 示例 4：研究管道集成
 
-Integrate Chloros with data analysis:
+将Chloros与数据分析集成：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -619,9 +619,9 @@ print(df)
 
 ***
 
-### Example 5: Custom Progress Monitoring
+### 示例5：自定义进度监控
 
-Advanced progress tracking with logging:
+带日志记录的高级进度追踪：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -658,9 +658,9 @@ logging.info("Processing complete!")
 
 ***
 
-### Example 6: Error Handling
+### 示例 6：错误处理
 
-Robust error handling for production use:
+面向生产环境的健壮错误处理：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -710,9 +710,9 @@ else:
 
 ***
 
-### Example 7: Command-Line Tool
+### 示例 7：命令行工具
 
-Build a custom CLI tool with the SDK:
+基于 SDK 构建自定义 CLI 工具：
 
 ```python
 #!/usr/bin/env python
@@ -775,7 +775,7 @@ if __name__ == '__main__':
     sys.exit(main())
 ```
 
-**Usage:**
+**用法：**
 
 ```bash
 python my_processor.py "C:\Flight001" "C:\Flight002" --indices NDVI NDRE GNDVI
@@ -783,11 +783,11 @@ python my_processor.py "C:\Flight001" "C:\Flight002" --indices NDVI NDRE GNDVI
 
 ***
 
-## Exception Handling
+## 异常处理
 
-The SDK provides specific exception classes for different error types:
+SDK 为不同错误类型提供特定异常类：
 
-### Exception Hierarchy
+### 异常层次结构
 
 ```python
 ChlorosError                    # Base exception
@@ -799,7 +799,7 @@ ChlorosError                    # Base exception
 └── ChlorosConfigurationError  # Configuration errors
 ```
 
-### Exception Examples
+### 异常示例
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -824,11 +824,11 @@ except ChlorosError as e:
 
 ***
 
-## Advanced Topics
+## 高级主题
 
-### Custom Backend Configuration
+### 自定义后端配置
 
-Use a custom backend location or configuration:
+使用自定义后端位置或配置：
 
 ```python
 chloros = ChlorosLocal(
@@ -839,9 +839,9 @@ chloros = ChlorosLocal(
 )
 ```
 
-### Non-Blocking Processing
+### 非阻塞处理
 
-Start processing and continue with other tasks:
+启动处理并继续执行其他任务：
 
 ```python
 # Start processing (non-blocking)
@@ -861,9 +861,9 @@ while True:
 print("Processing complete!")
 ```
 
-### Memory Management
+### 内存管理
 
-For large datasets, process in batches:
+针对大型数据集，采用批量处理：
 
 ```python
 from pathlib import Path
@@ -888,15 +888,15 @@ for i in range(0, len(images), batch_size):
 
 ***
 
-## Troubleshooting
+## 故障排除
 
-### Backend Not Starting
+### 后端无法启动
 
-**Issue:** SDK fails to start backend
+**问题：** SDK 无法启动后端
 
-**Solutions:**
+**解决方案：**
 
-1. Verify Chloros Desktop is installed:
+1. 确认已安装 Chloros 桌面端：
 
 ```python
 import os
@@ -904,8 +904,8 @@ backend_path = r"C:\Program Files\MAPIR\Chloros\resources\backend\chloros-backen
 print(f"Backend exists: {os.path.exists(backend_path)}")
 ```
 
-2. Check Windows Firewall isn't blocking
-3. Try manual backend path:
+2. 检查防火墙是否阻塞
+3. 尝试手动指定后端路径：
 
 ```python
 chloros = ChlorosLocal(backend_exe="C:\\Path\\To\\chloros-backend.exe")
@@ -913,14 +913,14 @@ chloros = ChlorosLocal(backend_exe="C:\\Path\\To\\chloros-backend.exe")
 
 ***
 
-### License Not Detected
+### 未检测到许可证
 
-**Issue:** SDK warns about missing license
+**问题：** SDK 提示许可证缺失
 
-**Solutions:**
+**解决方案：**
 
-1. Open Chloros, Chloros (Browser) or Chloros CLI and login.
-2. Verify license is cached:
+1. 打开Chloros、Chloros（浏览器）或Chloros CLI并登录。
+2. 验证许可证是否已缓存：
 
 ```python
 from pathlib import Path
@@ -931,15 +931,15 @@ cache_path = Path(os.getenv('APPDATA')) / 'Chloros' / 'cache'
 print(f"Cache exists: {cache_path.exists()}")
 ```
 
-3. Contact support: info@mapir.camera
+3. 联系技术支持：info@mapir.camera
 
 ***
 
-### Import Errors
+### 导入错误
 
-**Issue:** `ModuleNotFoundError: No module named 'chloros_sdk'`
+**问题：** `ModuleNotFoundError: No module named 'chloros_sdk'`
 
-**Solutions:**
+**解决方案：**
 
 ```bash
 # Verify installation
@@ -955,36 +955,36 @@ python -c "import sys; print(sys.path)"
 
 ***
 
-### Processing Timeout
+### 处理超时
 
-**Issue:** Processing times out
+**问题：**处理超时
 
-**Solutions:**
+**解决方案：**
 
-1. Increase timeout:
+1. 延长超时时间：
 
 ```python
 chloros = ChlorosLocal(timeout=120)  # 2 minutes
 ```
 
-2. Process smaller batches
-3. Check available disk space
-4. Monitor system resources
+2. 分批处理较小数据量
+3. 检查可用磁盘空间
+4. 监控系统资源
 
 ***
 
-### Port Already in Use
+### 端口已被占用
 
-**Issue:** Backend port 5000 occupied
+**问题：**后端端口5000被占用
 
-**Solutions:**
+**解决方案：**
 
 ```python
 # Use different port
 chloros = ChlorosLocal(api_url="http://localhost:5001")
 ```
 
-Or find and close conflicting process:
+或查找并关闭冲突进程：
 
 ```powershell
 # PowerShell
@@ -993,36 +993,36 @@ Get-NetTCPConnection -LocalPort 5000
 
 ***
 
-## Performance Tips
+## 性能优化建议
 
-### Optimize Processing Speed
+### 提升处理速度
 
-1. **Use Parallel Mode** (requires Chloros+)
+1. **启用并行模式**（需Chloros+）
 
 ```python
 chloros.process(mode="parallel")  # Up to 16 workers
 ```
 
-2. **Reduce Output Resolution** (if acceptable)
+2. **降低输出分辨率** （若可接受）
 
 ```python
 chloros.configure(export_format="PNG (8-bit)")  # Faster than TIFF
 ```
 
-3. **Disable Unnecessary Indices**
+3. **禁用非必要索引**
 
 ```python
 # Only calculate needed indices
 chloros.configure(indices=["NDVI"])  # Not all indices
 ```
 
-4. **Process on SSD** (not HDD)
+4. **在SSD上处理**（非HDD）
 
 ***
 
-### Memory Optimization
+### 内存优化
 
-For large datasets:
+针对大型数据集：
 
 ```python
 # Process in batches instead of all at once
@@ -1031,9 +1031,9 @@ For large datasets:
 
 ***
 
-### Background Processing
+### 后台处理
 
-Free up Python for other tasks:
+释放Python资源供其他任务使用：
 
 ```python
 chloros.process(wait=False)  # Non-blocking
@@ -1044,9 +1044,9 @@ chloros.process(wait=False)  # Non-blocking
 
 ***
 
-## Integration Examples
+## 集成示例
 
-### Django Integration
+### Django集成
 
 ```python
 # views.py
@@ -1064,7 +1064,7 @@ def process_images_view(request):
             return JsonResponse({'success': False, 'error': str(e)})
 ```
 
-### Flask API
+### Flask集成
 
 ```python
 # app.py
@@ -1088,7 +1088,7 @@ if __name__ == '__main__':
     app.run()
 ```
 
-### Jupyter Notebook
+### Jupyter Notebook集成
 
 ```python
 # notebook.ipynb
@@ -1119,49 +1119,49 @@ chloros.process(progress_callback=notebook_progress)
 
 ***
 
-## FAQ
+## 常见问题
 
-### Q: Does the SDK require an internet connection?
+### Q: SDK是否需要联网？
 
-**A:** Only for initial license activation. After logging in via Chloros, Chloros (Browser) or Chloros CLI the license is cached locally and works offline for 30 days.
-
-***
-
-### Q: Can I use the SDK on a server without GUI?
-
-**A:** Yes! Requirements:
-
-* Windows Server 2016 or later
-* Chloros installed (one-time)
-* License activated on any machine (cached license copied to server)
+**答：**仅初始授权激活时需要。通过Chloros、Chloros（浏览器）或Chloros CLI登录后，授权将本地缓存并支持离线使用30天。
 
 ***
 
-### Q: What's the difference between Desktop, CLI, and SDK?
+### 问：能否在无GUI的服务器上使用SDK？
 
-| Feature         | Desktop GUI | CLI Command Line | Python SDK  |
+**答：**可以！要求如下：
+
+* Windows Server 2016或更高版本
+* 已安装Chloros（仅需安装一次）
+* 任何设备上激活的许可证（缓存许可证已复制至服务器）
+
+***
+
+### 问：桌面版、CLI 和 SDK 有何区别？
+
+| 功能         | 桌面图形界面 | CLI 命令行 | Python SDK  |
 | --------------- | ----------- | ---------------- | ----------- |
-| **Interface**   | Point-click | Command          | Python API  |
-| **Best For**    | Visual work | Scripting        | Integration |
-| **Automation**  | Limited     | Good             | Excellent   |
-| **Flexibility** | Basic       | Good             | Maximum     |
-| **License**     | Chloros+    | Chloros+         | Chloros+    |
+| **界面类型**   | 点击式操作 | 命令行模式   | Python API  |
+| **适用场景**    | 可视化工作 | 脚本编写        | 系统集成     |
+| **自动化程度**  | 有限         | 良好             | 卓越       |
+| **灵活性** | 基础       | 良好             | 最大化     |
+| **许可证**     | Chloros+    | Chloros+         | Chloros+    |
 
 ***
 
-### Q: Can I distribute apps built with the SDK?
+### 问：能否分发使用SDK构建的应用程序？
 
-**A:** SDK code can be integrated into your applications, but:
+**答：**SDK代码可集成至您的应用程序，但需满足：
 
-* End users need Chloros installed
-* End users need active Chloros+ licenses
-* Commercial distribution requires OEM licensing
+* 终端用户需安装Chloros
+* 终端用户需持有有效的Chloros+许可证
+* 商业分发需获取OEM授权
 
-Contact info@mapir.camera for OEM inquiries.
+OEM授权咨询请联系info@mapir.camera。
 
 ***
 
-### Q: How do I update the SDK?
+### 问：如何更新SDK？
 
 ```bash
 pip install --upgrade chloros-sdk
@@ -1169,9 +1169,9 @@ pip install --upgrade chloros-sdk
 
 ***
 
-### Q: Where are processed images saved?
+### 问：处理后的图像保存在何处？
 
-By default, in the Project Path :
+默认存储于项目路径：
 
 ```
 Project_Path/
@@ -1181,9 +1181,9 @@ Project_Path/
 
 ***
 
-### Q: Can I process images from Python scripts running on schedule?
+### 问：能否通过定时任务处理Python脚本中的图像？
 
-**A:** Yes! Use Windows Task Scheduler with Python scripts:
+**答：**可以！请配合Python脚本使用Windows任务计划程序：
 
 ```python
 # scheduled_processing.py
@@ -1193,13 +1193,13 @@ from chloros_sdk import process_folder
 results = process_folder("C:\\Flights\\Today")
 ```
 
-Schedule via Task Scheduler to run daily.
+通过任务计划程序设置每日运行。
 
 ***
 
-### Q: Does the SDK support async/await?
+### 问：SDK是否支持异步/等待？
 
-**A:** Current version is synchronous. For async behavior, use `wait=False` or run in separate thread:
+**答：**当前版本为同步模式。如需异步行为，请使用`wait=False`或在独立线程中运行：
 
 ```python
 import threading
@@ -1215,26 +1215,26 @@ thread.start()
 
 ***
 
-## Getting Help
+## 获取帮助
 
-### Documentation
+### 文档
 
-* **API Reference**: This page
+* **API 参考**：本页面
 
-### Support Channels
+### 支持渠道
 
-* **Email**: info@mapir.camera
-* **Website**: [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* **Pricing**: [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
+* **电子邮件**：info@mapir.camera
+* **官网**：[https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* **定价**：[https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
 
-### Sample Code
+### 示例代码
 
-All examples listed here are tested and production-ready. Copy and adapt them for your use case.
+此处列出的所有示例均经过测试且可投入生产环境。 请根据您的使用场景复制并调整代码。
 
 ***
 
-## License
+## 许可协议
 
-**Proprietary Software** - Copyright (c) 2025 MAPIR Inc.
+**专有软件** - 版权所有 (c) 2025 MAPIR 公司。
 
-SDK requires an active Chloros+ subscription. Unauthorized use, distribution, or modification is prohibited.
+SDK 需持有有效的 Chloros+ 订阅服务。禁止未经授权的使用、分发或修改。

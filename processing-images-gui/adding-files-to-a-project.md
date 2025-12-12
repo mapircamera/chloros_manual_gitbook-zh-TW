@@ -1,204 +1,204 @@
-# Adding Files to a Project
+# 向项目添加文件
 
-Once you've created or opened a project in Chloros, the next step is to add your multispectral images to begin processing. The File Browser<img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> tab makes it easy to import images and manage your dataset.
+在Chloros中创建或打开项目后，下一步需添加多光谱图像以开始处理。文件浏览器<img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> 选项卡可轻松导入图像并管理数据集。
 
-## Accessing the File Browser
+## 访问文件浏览器
 
-1. Open or create a project in Chloros
-2. Click the **File Browser** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> icon in the left sidebar
-3. The File Browser panel will display your project's file list
+1. 在Chloros中打开或创建项目
+2. 点击左侧边栏的**文件浏览器** <img src="../.gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> 图标
+3. 文件浏览器面板将显示项目文件列表
 
-{% hint style="info" %}
-**Supported File Types**: Chloros supports RAW+JPG and JPG image files from MAPIR Survey3W and Survey3N cameras. Only RAW+JPG are recommended.
+{% 提示 style=&quot;info&quot; %}
+**支持文件类型**：Chloros支持MAPIR、Survey3W及Survey3N相机的RAW+JPG与JPG图像文件。仅推荐使用RAW+JPG格式。
 {% endhint %}
 
 ***
 
-## Adding Images to Your Project
+## 向项目添加图像
 
-There are two primary ways to add images to your project:
+向项目添加图像主要有两种方式：
 
-### Method 1: Add Files
+### 方法1：添加文件
 
-Use this option to import individual image files or a small selection of files.
+使用此选项导入单个图像文件或少量文件。
 
-1. Click the **"Add Files"** button at the top of the File Browser panel
-2. Navigate to the folder containing your images
-3. Select one or more image files (hold **Ctrl** to select multiple files)
-4. Click **"Open"** to import the selected files
+1. 点击文件浏览器面板顶部的**&quot;添加文件&quot;**按钮
+2. 导航至包含图像的文件夹
+3. 选择一个或多个图像文件（按住**Ctrl**键可多选）
+4. 点击**&quot;打开&quot;**导入选定文件
 
-### Method 2: Add Folder
+### 方法二：添加文件夹
 
-Use this option to import all images from a folder at once.
+使用此选项可一次性导入文件夹内所有图像。
 
-1. Click the **"Add Folder"** button at the top of the File Browser panel
-2. Navigate to and select the folder containing your capture session images
-3. Click **"Select Folder"** to import all supported images from that folder
-
-***
-
-## Understanding the File Browser Table
-
-Once images are imported, they appear in a table with the following columns:
-
-### Thumbnail
-
-* Small preview of each image
-* Click thumbnail to view full image in the main preview area
-
-### File Name
-
-* Original filename from the camera
-* Maintains camera naming convention (e.g., IMG\_0001.RAW)
-
-### Timestamp
-
-* Date and time the image was captured
-* Extracted from image EXIF metadata
-* Used for PPK synchronization and calibration target detection
-
-### Camera Model
-
-* Automatically detected camera and filter configuration
-* Examples: Survey3W\_RGN, Survey3N\_OCN, Survey3W\_RGB
-* Used to apply correct processing profiles
-
-### Target Column (Checkbox)
-
-* Check this box for images that contain calibration targets
-* Greatly speeds up target detection during processing
-* See [Choosing Target Images](choosing-target-images.md) for details
+1. 点击文件浏览器面板顶部的**&quot;添加文件夹&quot;**按钮
+2. 导航至并选择包含拍摄会话图像的文件夹
+3. 点击**&quot;选择文件夹&quot;**导入该文件夹内所有支持的图像
 
 ***
 
-## Managing Files in Your Project
+## 文件浏览器表格说明
 
-### Removing Files
+图像导入后将显示在表格中，包含以下列：
 
-To remove unwanted images from your project:
+### 缩略图
 
-1. Select one or more images in the File Browser table
-2. Click the **"Remove Selected"** button
-3. Confirm removal (files are not deleted from disk, only removed from the project)
+* 每张图像的小型预览
+* 点击缩略图可在主预览区查看完整图像
 
-### Sorting and Filtering
+### 文件名
 
-* **Sort by column**: Click any column header to sort images
-* **Timestamp sort**: Useful for organizing chronological capture sequences
-* **Camera model filter**: Group images by camera type if using multiple cameras
+* 相机原始文件名
+* 保持相机命名规范（例如：IMG\_0001.RAW）
 
-***
+### 时间戳
 
-## Image Preview
+* 图像拍摄日期与时间
+* 从图像EXIF元数据中提取
+* 用于PPK同步及标靶检测
 
-### Viewing Full Image
+### 相机型号
 
-Click any image thumbnail in the File Browser to display it in the main preview area:
+* 自动检测的相机及滤镜配置
+* 示例：Survey3W\_RGN, Survey3N\_OCN, Survey3W\_RGB
+* 用于应用正确的处理配置文件
 
-1. Image appears in the center preview panel
-2. Use zoom controls to inspect image details
-3. Navigate between images using arrow keys
+### 目标列（复选框）
 
-### Quick Navigation
-
-* **Previous Image**: Click left arrow or press ← key
-* **Next Image**: Click right arrow or press → key
-* **Zoom In/Out**: Use mouse wheel or zoom buttons
-* **Pan**: Click and drag on image when zoomed in
+* 勾选此框标记含校准目标的图像
+* 显著加速处理过程中的目标检测
+* 详情参见[目标图像选择指南](choosing-target-images.md)
 
 ***
 
-## Duplicate File Handling
+## 项目文件管理
 
-Chloros automatically detects and ignores duplicate files:
+### 删除文件
 
-* Files with identical filenames are skipped
-* Prevents accidental double-processing
-* Warning message displayed when duplicates are detected
+从项目中移除不需要的图像：
 
-{% hint style="warning" %}
-**Important**: Do not rename or modify your original image files before importing. Chloros relies on original filenames and metadata for proper processing.
+1. 在文件浏览器表格中选中一个或多个图像
+2. 点击**&quot;移除选定项&quot;**按钮
+3. 确认移除（文件不会从磁盘删除，仅从项目中移除）
+
+### 排序与筛选
+
+* **按列排序**：点击任意列标题即可排序图像
+* **时间戳排序**：便于按拍摄顺序整理序列
+* **相机型号筛选**：多机位拍摄时按相机类型分组
+
+***
+
+## 图片预览
+
+### 完整图片查看
+
+点击文件浏览器中的任意缩略图，即可在主预览区显示：
+
+1. 图片显示于中央预览面板
+2. 使用缩放控件检查图像细节
+3. 使用方向键在图像间切换
+
+### 快速导航
+
+* **上一张图像**：点击左箭头或按←键
+* **下一张图像**：点击右箭头或按→键
+* **缩放**：使用鼠标滚轮或缩放按钮
+* **平移**：放大状态下点击并拖动图像
+
+***
+
+## 重复文件处理
+
+Chloros自动检测并忽略重复文件：
+
+* 跳过完全同名的文件
+* 防止意外重复处理
+* 检测到重复文件时显示警告信息
+
+{%提示 style=&quot;warning&quot; %}
+**重要提示**：导入前请勿重命名或修改原始图像文件。Chloros依赖原始文件名及元数据进行正确处理。
 {% endhint %}
 
 ***
 
-## Mixed Camera Datasets
+## 混合相机数据集
 
-If your project contains images from multiple MAPIR cameras:
+若项目包含多台相机的图像：
 
-1. Chloros automatically detects each camera model
-2. Each camera type is processed with its appropriate calibration profile
-3. File Browser displays camera model in the Camera Model column
-4. Processing applies correct settings for each camera type
+1. Chloros将自动检测每台相机型号
+2. 每种相机类型均采用对应的校准配置文件处理
+3. 文件浏览器将在&quot;相机型号&quot;列显示设备型号
+4. 处理系统将为每种相机类型应用正确设置
 
-**Example scenario**: Survey3W RGN + Survey3N OCN dual-camera setup
-
-***
-
-## Best Practices
-
-### Organize Before Import
-
-* Keep calibration target images in the same folder as survey images
-* Maintain original folder structure from your camera/SD card
-* Don't mix datasets from different sessions in one project
-
-### File Naming
-
-* Preserve original camera filenames (IMG\_0001.RAW, etc.)
-* Don't rename files before import
-* Original names contain important metadata
-
-### Calibration Target Images
-
-* Always include 1-2 calibration target images per session
-* Capture targets before and after the capture session
-* Place targets in the same lighting conditions as capture area
-* Mark target images using the Target checkbox to speed up processing
+**示例场景**：Survey3W + Survey3N + OCN 双相机配置
 
 ***
 
-## Common Issues and Solutions
+## 最佳实践
 
-### Images Not Appearing After Import
+### 导入前整理
 
-**Possible causes:**
+* 将校准目标图像与测绘图像存放于同一文件夹
+* 保留相机/SD卡原始文件夹结构
+* 不同会话的数据集勿混用于单个项目
 
-* File format not supported (only RAW+JPG and JPG from MAPIR cameras)
-* Images are from non-MAPIR cameras (see [Supported Cameras](../supported-cameras.md))
-* File corruption or incomplete transfer from SD card
+### 文件命名规范
 
-**Solution**: Verify file format and camera model compatibility
+* 保留原始相机文件名（如IMG\_0001.RAW等）
+* 导入前勿重命名文件
+* 原始文件名包含重要元数据
 
-### Camera Model Not Detected
+### 校准目标图像
 
-**Possible causes:**
-
-* Modified EXIF metadata
-* Images edited in external software
-* Incomplete file transfer
-
-**Solution**: Re-import original, unmodified files from camera/SD card
-
-### Missing Timestamps
-
-**Possible causes:**
-
-* Camera clock not set correctly
-* EXIF data stripped by external software
-
-**Solution**: Verify camera time settings were correct during capture
+* 每次拍摄都需包含1-2张校准目标图像
+* 在拍摄前后分别采集目标图像
+* 将目标置于与拍摄区域相同的照明条件下
+* 勾选目标图像的&quot;目标&quot;复选框以加速处理
 
 ***
 
-## Next Steps
+## 常见问题与解决方案
 
-Once your files are imported:
+### 导入后图像未显示
 
-1. **Review the file list** - Ensure all images loaded correctly
-2. **Check camera models** - Verify correct camera detection
-3. **Mark target images** - See [Choosing Target Images](choosing-target-images.md)
-4. **Adjust settings** - Configure processing options in [Project Settings](adjusting-project-settings.md)
-5. **Start processing** - See [Starting the Processing](starting-the-processing.md)
+**可能原因：**
 
-For detailed information about project configuration, see [Adjusting Project Settings](adjusting-project-settings.md).
+* 不支持的文件格式（仅支持MAPIR相机的RAW+JPG及JPG格式）
+* 非MAPIR相机拍摄的图像（参见[支持相机列表](../supported-cameras.md))
+* 文件损坏或SD卡传输不完整
+
+**解决方案：**验证文件格式与相机型号兼容性
+
+### 相机型号未被识别
+
+**可能原因：**
+
+* EXIF元数据被修改
+* 图片在外部软件中编辑过
+* 文件传输不完整
+
+**解决方案：**从相机/SD卡重新导入原始未修改文件
+
+### 时间戳缺失
+
+**可能原因：**
+
+* 相机时钟设置错误
+* EXIF数据被外部软件删除
+
+**解决方案**：确认拍摄时相机时间设置正确
+
+***
+
+## 后续步骤
+
+文件导入完成后：
+
+1. **检查文件列表** - 确保所有图像正确加载
+2. **核对相机型号** - 确认相机识别准确
+3. **标记目标图像** - 参见[选择目标图像](choosing-target-images.md)
+4. **调整设置** - 在[项目设置](adjusting-project-settings.md)中配置处理选项
+5. **启动处理** - 参见[开始处理](starting-the-processing.md)
+
+有关项目配置的详细信息，请参阅[调整项目设置](adjusting-project-settings.md)。

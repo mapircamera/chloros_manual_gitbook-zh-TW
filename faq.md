@@ -1,72 +1,72 @@
 ---
-description: 常見問題解答
+description: Frequently Asked Questions
 metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/faq
 ---
 
-# 常問問題
+# 常见问题
 
 <details>
 
-<summary>我可以使用 Chloros 處理來自非 MAPIR 品牌的相機的圖像嗎？ </summary>
+<summary>能否使用Chloros处理非MAPIR品牌的相机图像？</summary>
 
-不，Chloros 僅支持處理 MAPIR 相機圖像。請參閱 [支持的相機型號](supported-cameras.md) 列表了解更多信息。我們確實在 MAPIR 雲上提供其他攝像機的處理，請參閱完整列表 [這裡](https://mapir.gitbook.io/mapir-cloud/supported-cameras)。
+不行，Chloros仅支持处理MAPIR相机图像。 更多信息请参阅[支持的相机型号列表](supported-cameras.md)。我们确实提供MAPIR云端对其他相机的处理服务，完整列表请见[此处](https://mapir.gitbook.io/mapir-cloud/supported-cameras)。
 
 </details>
 
 <details>
 
-<summary>我可以在沒有校準目標的情況下校準圖像的反射率嗎？ </summary>
+<summary>能否在没有校准目标的情况下对图像进行反射率校准？</summary>
 
-不能。如果在捕獲非目標圖像時沒有捕獲校準目標的圖像，您將無法將圖像的像素值與已知的反射率百分比聯繫起來。如果您也不包含來自 MAPIR 光傳感器的日誌，則將不會測量環境光譜，並且反射率結果將不准確。
-
-</details>
-
-<details>
-
-<summary>我可以在 Chloros 中處理之前編輯圖像嗎？ </summary>
-
-不會。 Chloros 假設輸入數據未被修改。不要更改文件名。
+不行。若未在拍摄非校准图像时同步采集校准靶标图像，则无法将图像像素值与已知反射率百分比建立关联。若同时未包含MAPIR光传感器日志，则环境光谱将无法测得，反射率结果亦不准确。
 
 </details>
 
 <details>
 
-<summary>我可以將 MAPIR Survey3 相機設置為自動曝光並在 Chloros 中處理圖像嗎？ </summary>
+<summary>能否在Chloros处理前编辑图像？</summary>
 
-不可以。 Survey3 圖像數據集必須具有固定/鎖定曝光，因此沒有自動快門速度或自動 ISO。同一相機型號的所有圖像必須具有相同的快門速度和 ISO（曝光）。
-
-</details>
-
-<details>
-
-<summary>Chloros 可以處理或分析正射馬賽克圖像嗎？ </summary>
-
-不。僅支持單個 MAPIR 相機圖像，而不支持像正射馬賽克地圖那樣的拼接圖像。
+不可以。Chloros假定输入数据未经修改。请勿更改文件名。
 
 </details>
 
 <details>
 
-<summary>如何加快 Chloros 的目標檢測步驟？ </summary>
+<summary>能否将MAPIR相机设置为自动曝光后在Chloros中处理图像？</summary>
 
-在文件瀏覽器表中，在右列中預先選擇目標圖像將告訴 Chloros 僅在這些圖像中查找校準目標，從而大大加快處理速度。
-
-</details>
-
-<details>
-
-<summary>如果我要將圖像上傳到<a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">MAPIR Cloud</a>我應該在上傳之前在 Chloros 中進行處理嗎？ </summary>
-
-如果您打算上傳到我們的在線處理平台[馬皮爾雲](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription)，請勿在上傳前編輯圖像。雲將執行所有相同的處理甚至更多。
+不可以。Survey3图像数据集必须采用固定/锁定曝光参数，禁止使用自动快门速度或自动ISO设置。同一型号相机的所有图像必须保持完全一致的快门速度和ISO（曝光）参数。
 
 </details>
 
 <details>
 
-<summary>MAPIR 會支持 X 功能嗎？我真的希望 MAPIR 提供 X.</summary>
+<summary>Chloros能否处理或分析正射镶嵌图像？</summary>
 
-我們始終有興趣收到有關我們產品的反饋。如果您發現我們的產品存在問題，或者對我們如何改進產品有建議，請[聯繫我們](https://www.mapir.camera/community/contact) 分享您的想法。我們的大部分研發都是以傾聽客戶的最大需求為指導的。
+不支持。仅支持单张MAPIR相机图像，不支持正射镶嵌图等拼接图像。
+
+</details>
+
+<details>
+
+<summary>如何加快Chloros的目标检测步骤？</summary>
+
+在文件浏览器表格中，预先在右侧列中选择目标图像，Chloros 就会只从这些图像中寻找校准目标，大大加快了处理速度。
+
+</details>
+
+<details>
+
+<summary>若计划将图像上传至<a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">XPROTX云平台</a>，是否需要在XPROTX中预先处理？</summary>
+
+若计划上传至我们的在线处理平台[MAPIR云](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription)，请勿在上传前编辑图像。云平台将执行全部相同处理流程并提供更多功能。
+
+</details>
+
+<details>
+
+<summary>MAPIR是否会支持X功能？我非常希望MAPIR能提供X功能。</summary>
+
+我们始终重视产品反馈。若您发现产品问题或有改进建议，请[联系我们](https://www.mapir.camera/community/contact)分享您的想法。我们的研发工作主要依据客户的核心需求进行。
 
 </details>

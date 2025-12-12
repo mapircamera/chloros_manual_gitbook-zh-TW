@@ -1,221 +1,221 @@
-# Choosing Target Images
+# 选择目标图像
 
-Marking which images contain calibration targets is a crucial step that significantly speeds up the Chloros processing pipeline. By pre-selecting target images, you eliminate the need for Chloros to scan every image in your dataset for calibration targets.
+标记包含校准目标的图像至关重要，此步骤能显著加速Chloros处理流程。通过预先筛选目标图像，可避免Chloros对数据集中的每张图像进行校准目标扫描。
 
-## Why Mark Target Images?
+## 为何标记目标图像？
 
-### Processing Speed
+### 提升处理速度
 
-Without marking target images, Chloros must:
+若未标记目标图像，Chloros必须执行：
 
-* Scan every single image in your project
-* Run target detection algorithms on each image
-* Check hundreds or thousands of images unnecessarily
+* 扫描项目中的每张图像
+* 对每张图像运行目标检测算法
+* 无谓地检查数百甚至数千张图像
 
-**Result**: Processing can take significantly longer, especially for large datasets.
+**结果**：处理时间将显著延长，尤其针对大型数据集。
 
-### With Marked Target Images
+### 标记目标图像时
 
-When you check the Target column for specific images:
+当您勾选特定图像的&quot;目标&quot;列：
 
-* Chloros only scans the checked images for targets
-* Target detection completes much faster
-* Overall processing time is greatly reduced
+* Chloros仅扫描已勾选图像中的目标
+* 目标检测速度大幅提升
+* 整体处理时间显著缩短
 
-{% hint style="success" %}
-**Speed Improvement**: Marking 2-3 target images in a 500-image dataset can reduce target detection time from 30+ minutes to under 1 minute.
+{%提示 style=&quot;success&quot; %}
+**速度提升**：在500张图像的数据集中标记2-3张目标图像，可将目标检测时间从30多分钟缩短至1分钟以内。
 {% endhint %}
 
 ***
 
-## How to Mark Target Images
+## 如何标记目标图像
 
-### Step 1: Identify Your Target Images
+### 步骤1：识别目标图像
 
-Look through your imported images in the File Browser and identify which images contain calibration targets.
+在文件浏览器中查看导入的图像，确定哪些图像包含校准目标。
 
-**Common scenarios:**
+**常见场景：**
 
-* **Pre-capture target**: Captured before starting the session
-* **Post-capture target**: Captured after completing the session
-* **In-field targets**: Targets placed within the capture area
-* **Multiple targets**: 2-3 target images per session (recommended)
+* **预捕获目标**：在开始会话前拍摄
+* **后捕获目标**：在完成会话后拍摄
+* **现场目标**：放置在捕获区域内的目标
+* **多目标**：每会话2-3张目标图像（推荐）
 
-### Step 2: Check the Target Column
+### 步骤二：核对目标列
 
-For each image containing a calibration target:
+针对每张含校准目标的图像：
 
-1. Locate the image in the File Browser table
-2. Find the **Target** column (rightmost column)
-3. Click the checkbox in the Target column for that image
-4. Repeat for all images containing targets
+1. 在文件浏览器表格中定位该图像
+2. 查找**目标**列（最右侧列）
+3. 勾选该图像对应目标列的复选框
+4. 对所有含目标的图像重复此操作
 
-### Step 3: Verify Your Selection
+### 步骤三：验证选择结果
 
-Before processing, double-check:
+处理前请双重确认：
 
-* [ ] All images with calibration targets are checked
-* [ ] No non-target images are accidentally checked
-* [ ] Targets are clearly visible in checked images
-
-***
-
-## Best Practices for Target Images
-
-### Target Capture Guidelines
-
-**Timing:**
-
-* Capture target images immediately before and throughout your capture session
-* Within the same lighting conditions as your DAQ light sensor
-* Ideally capture target images as often as possible for the best results. Otherwise, the light sensor data will be used to adjust the calibration over time.
-
-**Camera Position:**
-
-* Hold camera above target such that is is centered and fills around 40-60% of the image center.
-* Keep camera parallel/nadir to target surface
-
-**Lighting:**
-
-* Same ambient lighting as your DAQ light sensor
-* Avoid shadows on the target surfaces
-* Don't block your light source with your body, vehicle or vegetation
-* Overcast conditions provide most consistent results
-
-**Target Condition:**
-
-* Keep target panels clean and dry
-* All 4 panels should be clearly visible and unobstructed
-* Targets perpendicular/nadir to the light source if possible
-
-### How Many Target Images?
-
-**Minimum:** 1 target image per session. **Recommended:** 3-5 target images per session.
-
-**Best practice schedule:**
-
-* 3-5 images captured shortly after the light sensor is recording
-* Rotate the camera between captures for the best results
-* Optional: periodically mid-session if lighting conditions change constantly
+* [ ] 所有含校准目标的图像均已勾选
+* [ ] 未误选非目标图像
+* [ ] 目标在选中图像中清晰可见
 
 ***
 
-## Working with Multiple Cameras
+## 目标图像最佳实践
 
-### Dual-Camera Setups
+### 目标采集指南
 
-If using two MAPIR cameras simultaneously (e.g., Survey3W RGN + Survey3N OCN):
+**时机：**
 
-1. Capture target images with **both cameras** at the same time
-2. Use the **same physical target** for both cameras
-3. Mark target images for **both camera types** in the File Browser
-4. Chloros will use appropriate targets for each camera's calibration
+* 拍摄目标图像应紧接在采集会话前及整个采集过程中进行
+* 保持与DAQ光传感器相同的照明条件
+* 尽可能高频采集目标图像以获得最佳效果。否则将随时间推移使用光传感器数据调整校准
 
-### Camera Model Column
+**相机定位：**
 
-The **Camera Model** column helps identify which images came from which camera:
+* 将相机置于目标上方，使目标居中并占据图像中心区域40-60%
+* 保持相机与目标表面平行/垂直
+
+**光照条件：**
+
+* 环境光照需与DAQ光传感器一致
+* 避免目标表面产生阴影
+* 身体、车辆或植被不得遮挡光源
+* 多云条件可获得最稳定结果
+
+**目标状态：**
+
+* 保持目标面板清洁干燥
+* 四块面板均需清晰可见且无遮挡
+* 目标面尽可能与光源垂直/垂直对准
+
+### 目标图像数量要求？
+
+**最低要求：**每次采集至少1张目标图像。**推荐标准：**每次采集3-5张目标图像。
+
+**最佳实践流程：**
+
+* 光传感器开始记录后立即采集3-5张图像
+* 每次采集间隔旋转相机以获得最佳效果
+* 可选操作：若光照条件持续变化，可在采集中途定期补充拍摄
+
+***
+
+## 多相机协同工作
+
+### 双摄像头配置
+
+若同时使用两台MAPIR摄像头（例如Survey3W与RGN组合）：
+
+1. 使用**两台相机**同时捕捉目标图像
+2. 两台相机使用**同一物理目标**
+3. 在文件浏览器中为**两种相机类型**标记目标图像
+4. Chloros将为每台相机的校准使用相应目标
+
+### 相机型号列
+
+**相机型号**列用于识别图像来源：
 
 * Survey3W\_RGN
 * Survey3N\_OCN
 * Survey3W\_RGB
-* etc.
+* 等
 
-Use this column to verify you've marked targets for each camera type in your project.
-
-***
-
-## Target Detection Settings
-
-### Adjusting Detection Sensitivity
-
-If Chloros isn't detecting your targets correctly, adjust these settings in [Project Settings](adjusting-project-settings.md):
-
-**Minimum calibration sample area:**
-
-* **Default**: 25 pixels
-* **Increase** if getting false detections on small artifacts
-* **Decrease** if targets aren't being detected
-
-**Minimum target clustering:**
-
-* **Default**: 60
-* **Increase** if targets are being split into multiple detections
-* **Decrease** if targets with color variation aren't fully detected
+请通过此列核查项目中是否为每种相机类型标记了目标。
 
 ***
 
-## Common Target Image Issues
+## 目标检测设置
 
-### Problem: No Targets Detected
+### 调整检测灵敏度
 
-**Possible causes:**
+若Chloros无法正确检测目标，请在[项目设置](adjusting-project-settings.md)中调整以下参数：
 
-* Target images not marked in File Browser
-* Target too small in frame (< 30% of image)
-* Poor lighting (shadows, glare)
-* Target detection settings too strict
+**最小校准采样区域：**
 
-**Solutions:**
+* **默认值**：25像素
+* 若小尺寸物体出现误检测，请**增大**该值
+* 若目标未被检测，请**减小**该值
 
-1. Verify Target column is checked for correct images
-2. Review target image quality in preview
-3. Recapture targets if quality is poor
-4. Adjust target detection settings if needed
+**最小目标聚类：**
 
-### Problem: False Target Detections
-
-**Possible causes:**
-
-* White buildings, vehicles, or ground cover mistaken for targets
-* Bright patches in vegetation
-* Detection sensitivity too low
-
-**Solutions:**
-
-1. Mark only actual target images to limit detection scope
-2. Increase minimum calibration sample area
-3. Increase minimum target clustering value
-4. Ensure target images show only the target (minimal background clutter)
+* **默认值**：60
+* **增大**：若目标被分割为多个检测结果
+* **减小**：若存在色差的目标未被完整检测
 
 ***
 
-## Verification Checklist
+## 常见目标图像问题
 
-Before starting processing, verify your target image selection:
+### 问题：未检测到目标
 
-* [ ] At least 1 target image marked per session
-* [ ] Target column checkboxes are checked for all target images
-* [ ] Target images captured within same timeframe as survey
-* [ ] Targets clearly visible in preview when clicked
-* [ ] All 4 calibration panels visible in each target image
-* [ ] No shadows or obstructions on targets
-* [ ] For dual-camera: Targets marked for both camera types
+**可能原因：**
+
+* 文件浏览器中未标记目标图像
+* 目标在画面中过小（&lt;图像面积的30%）
+* 照明条件差（阴影、眩光）
+* 目标检测设置过严
+
+**解决方案：**
+
+1. 确认目标列已勾选正确图像
+2. 在预览中检查目标图像质量
+3. 若质量不佳则重新捕获目标
+4. 必要时调整目标检测设置
+
+### 问题：虚假目标检测
+
+**可能原因：**
+
+* 白色建筑、车辆或地面覆盖物被误判为目标
+* 植被中的高亮区域
+* 检测灵敏度过低
+
+**解决方案：**
+
+1. 仅标记实际目标图像以缩小检测范围
+2. 增加最小校准采样面积
+3. 提高最小目标聚类值
+4. 确保目标图像仅显示目标（背景干扰最小）
 
 ***
 
-## Target-Free Processing
+## 验证检查清单
 
-### Processing Without Calibration Targets
+开始处理前请核对目标图像选择：
 
-While not recommended for scientific work, you can process without targets:
+* [ ] 每轮次至少标记1张目标图像
+* [ ] 所有目标图像均勾选目标列复选框
+* [ ] 目标图像拍摄时间与测绘同步
+* [ ] 点击预览时目标清晰可见
+* [ ] 每张目标图像均显示全部4个校准面板
+* [ ] 目标区域无阴影或遮挡
+* [ ] 双摄像头模式：两种摄像头类型均标记目标
 
-1. Leave all Target column checkboxes unchecked
-2. **Disable** "Reflectance calibration" in Project Settings
-3. Vignette correction will still be applied
-4. Output will not be calibrated for absolute reflectance
+***
 
-{% hint style="warning" %}
-**Not Recommended**: Without reflectance calibration, pixel values represent relative brightness only, not scientific reflectance measurements. Use calibration targets for accurate, repeatable results.
+## 无目标处理
+
+### 无校准目标处理
+
+虽不推荐用于科研工作，仍可执行无目标处理：
+
+1. 保持所有目标列复选框未勾选
+2. 在项目设置中**禁用**&quot;反射率校准&quot;
+3. 仍将应用暗角校正
+4. 输出结果不进行绝对反射率校准
+
+{% 提示 style=&quot;warning&quot; %}
+**不推荐**：未进行反射率校准时，像素值仅代表相对亮度，而非科学反射率测量值。请使用校准目标以获得准确、可重复的结果。
 {% endhint %}
 
 ***
 
-## Next Steps
+## 后续步骤
 
-Once you've marked your target images:
+标记目标图像后：
 
-1. **Review your settings** - See [Adjusting Project Settings](adjusting-project-settings.md)
-2. **Start processing** - See [Starting the Processing](starting-the-processing.md)
-3. **Monitor progress** - See [Monitoring the Processing](monitoring-the-processing.md)
+1. **检查设置** - 参见[调整项目设置](adjusting-project-settings.md)
+2. **启动处理** - 参见[启动处理](starting-the-processing.md)
+3. **监控进度** - 参见[处理进度监控](monitoring-the-processing.md)
 
-For more information about calibration targets themselves, see [Calibration Targets](../calibration-targets.md).
+有关校准目标的详细信息，请参阅[校准目标](../calibration-targets.md)。
