@@ -16,7 +16,7 @@
 ## 處理圖像（GUI）
 
 * [調整項目設置](processing-images-gui/adjusting-project-settings.md)
-* [將文件添加到項目](processing-images-gui/page-1.md)
+* [將文件添加到項目](processing-images-gui/adding-files-to-a-project.md)
 * [選擇目標圖像](processing-images-gui/choosing-target-images.md)
 * [開始處理](processing-images-gui/starting-the-processing.md)
 * [監控處理過程](processing-images-gui/monitoring-the-processing.md)
@@ -24,11 +24,11 @@
 
 ## 項目設置
 
-* [項目設置](project-settings/page-2.md)
+* [項目設置](project-settings/project-settings.md)
 * [多光譜指數公式](project-settings/multispectral-index-formulas.md)
 
 ## 圖像查看器（GUI）
 
-* [全屏打開圖像](image-viewer-gui/page-3.md)
+* [全屏打開圖像](image-viewer-gui/opening-an-image-full-screen.md)
 * [圖像層](image-viewer-gui/image-layers.md)
 * [索引/LUT 沙箱](image-viewer-gui/index-lut-sandbox.md)
