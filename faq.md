@@ -1,17 +1,16 @@
 ---
-description: Frequently Asked Questions
+description: 常见问题解答
 metaLinks:
   alternates:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/faq
 ---
-
 # 常见问题
 
 <details>
 
 <summary>能否使用Chloros处理非MAPIR品牌的摄像机图像？</summary>
 
-不行，Chloros仅支持处理MAPIR相机图像。 更多信息请参阅[支持的相机型号列表](supported-cameras.md)。我们确实提供MAPIR云端对其他相机的处理服务，完整列表请见[此处](https://mapir.gitbook.io/mapir-cloud/supported-cameras)。
+不行，Chloros仅支持处理MAPIR相机的图像。 更多信息请参阅[支持的相机型号列表](supported-cameras.md)。我们确实提供MAPIR云端对其他相机的处理服务，完整列表请见[此处](https://mapir.gitbook.io/mapir-cloud/supported-cameras)。
 
 </details>
 
@@ -25,7 +24,7 @@ metaLinks:
 
 <details>
 
-<summary>能否在Chloros处理前编辑图像？</summary>
+<summary>在Chloros处理前能否编辑图像？</summary>
 
 不可以。Chloros假定输入数据未经修改。请勿更改文件名。
 
@@ -35,7 +34,7 @@ metaLinks:
 
 <summary>能否将MAPIR相机设置为自动曝光后在Chloros中处理图像？</summary>
 
-不可以。Survey3图像数据集必须采用固定/锁定曝光参数，禁止使用自动快门速度或自动ISO设置。同一型号相机的所有图像必须保持完全一致的快门速度和ISO（曝光值）。
+不可以。Survey3图像数据集必须采用固定/锁定曝光参数，禁止使用自动快门速度或自动ISO设置。同一型号相机的所有图像必须保持完全一致的快门速度和ISO（曝光）参数。
 
 </details>
 
@@ -51,7 +50,7 @@ metaLinks:
 
 <summary>如何加快Chloros的目标检测步骤？</summary>
 
-在文件浏览器表格中，预先在右侧列中选择目标图像，Chloros 就会只从这些图像中寻找校准目标，大大加快处理速度。
+在文件浏览器表格中，预先在右侧列中选择目标图像，Chloros 就会只从这些图像中寻找校准目标，大大加快了处理速度。
 
 </details>
 
@@ -65,7 +64,7 @@ metaLinks:
 
 <details>
 
-<summary>MAPIR是否会支持X功能？我非常希望MAPIR能提供X功能。</summary>
+<summary>MAPIR未来是否支持X功能？我非常希望MAPIR能提供X功能。</summary>
 
 我们始终重视产品反馈。若您发现产品问题或有改进建议，请[联系我们](https://www.mapir.camera/community/contact)分享您的想法。我们的研发工作主要依据客户的核心需求进行。
 
