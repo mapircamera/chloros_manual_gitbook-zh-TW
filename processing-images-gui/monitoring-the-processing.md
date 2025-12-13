@@ -1,165 +1,165 @@
-# 处理监控
+# Monitoring the Processing
 
-处理启动后，Chloros提供多种方式来监控进度、排查问题并了解数据集的处理状态。本页面将说明如何追踪处理进程并解读Chloros提供的信息。
+Once processing has started, Chloros provides several ways to monitor progress, check for issues, and understand what's happening with your dataset. This page explains how to track your processing and interpret the information Chloros provides.
 
-## 进度条概览
+## Progress Bar Overview
 
-顶部标题栏的进度条实时显示处理状态及完成百分比。
+The progress bar in the top header shows real-time processing status and completion percentage.
 
-### 免费模式进度条
+### Free Mode Progress Bar
 
-针对未持有Chloros+许可证的用户：
+For users without Chloros+ license:
 
-**两阶段进度显示：**
+**2-Stage Progress Display:**
 
-1. **目标检测** - 在图像中定位校准目标
-2. **处理阶段** - 执行校正并导出数据
+1. **Target Detect** - Finding calibration targets in images
+2. **Processing** - Applying corrections and exporting
 
-**进度条显示：**
+**Progress bar shows:**
 
-* 整体完成百分比（0-100%）
-* 当前阶段名称
-* 简约横向条形可视化
+* Overall completion percentage (0-100%)
+* Current stage name
+* Simple horizontal bar visualization
 
-### Chloros+ 进度条
+### Chloros+ Progress Bar
 
-针对持有 Chloros+ 许可证的用户：
+For users with Chloros+ license:
 
-**四阶段进度显示：**
+**4-Stage Progress Display:**
 
-1. **检测** - 定位校准目标
-2. **分析** - 检查图像并准备处理流程
-3. **校准** - 应用晕影与反射率校正
-4. **导出** - 保存处理后文件
+1. **Detecting** - Finding calibration targets
+2. **Analyzing** - Examining images and preparing pipeline
+3. **Calibrating** - Applying vignette and reflectance corrections
+4. **Exporting** - Saving processed files
 
-**交互功能：**
+**Interactive Features:**
 
-* **悬停**进度条可展开四阶段面板
-* **点击进度条** 可冻结/固定展开面板
-* **再次点击** 解除冻结，鼠标移出时自动隐藏
-* 各阶段独立显示进度（0-100%）
-
-***
-
-## 处理阶段详解
-
-### 第一阶段：检测（目标识别）
-
-**处理流程：**
-
-* Chloros扫描标记目标复选框的图像
-* 计算机视觉算法识别4个校准面板
-* 从每个面板提取反射率值
-* 记录目标时间戳以安排正确校准
-
-**耗时：**
-
-* 含标记目标：10-60秒
-* 无标记目标：5-30+分钟（扫描所有图像）
-
-**进度指示：**
-
-* 检测中：0% → 100%
-* 已扫描图像数量
-* 目标检测数量
-
-**注意事项：**
-
-* 若目标标记正确，应快速完成
-* 若耗时过长，可能是目标未被标记
-* 请检查调试日志中的&quot;目标检测成功&quot;提示
-
-### 第二阶段：分析
-
-**当前操作：**
-
-* 读取图像EXIF元数据（时间戳、曝光参数）
-* 根据目标时间戳确定校准策略
-* 组织图像处理队列
-* 准备并行处理任务（仅限Chloros+版本）
-
-**耗时：** 5-30秒
-
-**进度指示：**
-
-* 分析中：0% → 100%
-* 快速阶段，通常迅速完成
-
-**需关注事项：**
-
-* 进度应持续推进无停滞
-* 元数据缺失警告将显示在调试日志中
-
-### 第三阶段：校准
-
-**当前操作：**
-
-* **去拜耳化**：将RAW拜耳阵列转换为三通道图像
-* **暗角校正**：消除镜头边缘暗化现象
-* **反射率校准**：参照目标值进行归一化处理
-* **指数计算**：计算多光谱指数
-* 对每张图像执行完整处理流程
-
-**耗时：**占总处理时间的大部分（60-80%）
-
-**进度指示：**
-
-* 校准中：0% → 100%
-* 当前处理图像
-* 已完成图像 / 总图像数
-
-**处理模式：**
-
-* **自由模式**：顺序处理单张图像
-* **Chloros+模式**：同时处理最多16张图像
-* **GPU加速**：显著提升此阶段处理速度
-
-**注意事项：**
-
-* 持续关注图像处理进度
-* 通过调试日志查看单张图像完成提示
-* 注意图像质量或校准问题警告
-
-### 第四阶段：导出
-
-**处理内容：**
-
-* 将校准图像按选定格式写入磁盘
-* 导出带LUT色彩的多光谱指数图像
-* 创建相机模型子文件夹
-* 保留原始文件名并添加相应后缀
-
-**耗时：** 总处理时间的10-20%
-
-**进度指示：**
-
-* 导出进度：0% → 100%
-* 文件写入状态
-* 输出格式与目标路径
-
-**需关注事项：**
-
-* 磁盘空间警告
-* 文件写入错误
-* 所有配置输出的完成状态
+* **Hover over** progress bar to see expanded 4-stage panel
+* **Click** progress bar to freeze/pin the expanded panel
+* **Click again** to unfreeze and auto-hide on mouse leave
+* Each stage shows individual progress (0-100%)
 
 ***
 
-## 调试日志标签页
+## Understanding Each Processing Stage
 
-调试日志提供处理进度及异常问题的详细信息。
+### Stage 1: Detecting (Target Detection)
 
-### 访问调试日志
+**What's happening:**
 
-1. 点击左侧边栏的**调试日志** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> 图标
-2. 日志面板打开，显示实时处理消息
-3. 自动滚动显示最新消息
+* Chloros scans images marked with Target checkbox
+* Computer vision algorithms identify the 4 calibration panels
+* Reflectance values extracted from each panel
+* Target timestamps recorded for proper calibration scheduling
 
-### 日志消息解析
+**Duration:**
 
-#### 信息消息（白色/灰色）
+* With marked targets: 10-60 seconds
+* Without marked targets: 5-30+ minutes (scans all images)
 
-正常处理更新：
+**Progress indicator:**
+
+* Detecting: 0% → 100%
+* Number of images scanned
+* Targets found count
+
+**What to watch for:**
+
+* Should complete quickly if targets properly marked
+* If taking too long, targets may not be marked
+* Check Debug Log for "Target found" messages
+
+### Stage 2: Analyzing
+
+**What's happening:**
+
+* Reading image EXIF metadata (timestamps, exposure settings)
+* Determining calibration strategy based on target timestamps
+* Organizing image processing queue
+* Preparing parallel processing workers (Chloros+ only)
+
+**Duration:** 5-30 seconds
+
+**Progress indicator:**
+
+* Analyzing: 0% → 100%
+* Fast stage, usually completes quickly
+
+**What to watch for:**
+
+* Should progress steadily without pauses
+* Warnings about missing metadata will appear in Debug Log
+
+### Stage 3: Calibrating
+
+**What's happening:**
+
+* **Debayering**: Converting RAW Bayer pattern to 3 channels
+* **Vignette correction**: Removing lens edge darkening
+* **Reflectance calibration**: Normalizing with target values
+* **Index calculation**: Computing multispectral indices
+* Processing each image through the full pipeline
+
+**Duration:** Majority of total processing time (60-80%)
+
+**Progress indicator:**
+
+* Calibrating: 0% → 100%
+* Current image being processed
+* Images completed / Total images
+
+**Processing behavior:**
+
+* **Free mode**: Processes one image at a time sequentially
+* **Chloros+ mode**: Processes up to 16 images simultaneously
+* **GPU acceleration**: Significantly speeds up this stage
+
+**What to watch for:**
+
+* Steady progress through image count
+* Check Debug Log for per-image completion messages
+* Warnings about image quality or calibration issues
+
+### Stage 4: Exporting
+
+**What's happening:**
+
+* Writing calibrated images to disk in selected format
+* Exporting multispectral index images with LUT colors
+* Creating camera model subfolders
+* Preserving original filenames with appropriate suffixes
+
+**Duration:** 10-20% of total processing time
+
+**Progress indicator:**
+
+* Exporting: 0% → 100%
+* Files being written
+* Export format and destination
+
+**What to watch for:**
+
+* Disk space warnings
+* File write errors
+* Completion of all configured outputs
+
+***
+
+## Debug Log Tab
+
+The Debug Log provides detailed information about processing progress and any issues encountered.
+
+### Accessing the Debug Log
+
+1. Click the **Debug Log** <img src="../.gitbook/assets/icon_log.JPG" alt="" data-size="line"> icon in the left sidebar
+2. Log panel opens showing real-time processing messages
+3. Auto-scrolls to show latest messages
+
+### Understanding Log Messages
+
+#### Information Messages (White/Gray)
+
+Normal processing updates:
 
 ```
 [INFO] Processing started
@@ -169,9 +169,9 @@
 [INFO] Processing complete
 ```
 
-#### 警告消息（黄色）
+#### Warning Messages (Yellow)
 
-非致命性问题（不停止处理）：
+Non-critical issues that don't stop processing:
 
 ```
 [WARN] No GPS data found in IMG_0145.RAW
@@ -179,11 +179,11 @@
 [WARN] Low contrast in calibration panel - results may vary
 ```
 
-**操作：**处理后审查警告，但无需中断
+**Action:** Review warnings after processing, but don't interrupt
 
-#### 错误消息（Red）
+#### Error Messages (Red)
 
-可能导致处理失败的严重问题：
+Critical issues that may cause processing to fail:
 
 ```
 [ERROR] Cannot write file - disk full
@@ -191,202 +191,202 @@
 [ERROR] No targets detected - enable reflectance calibration or mark target images
 ```
 
-**操作：**停止处理，解决错误，重启
+**Action:** Stop processing, resolve error, restart
 
-### 常见日志消息
+### Common Log Messages
 
-| 消息                          | 含义                                | 所需操作                                         |
+| Message                          | Meaning                                | Action Needed                                         |
 | -------------------------------- | -------------------------------------- | ----------------------------------------------------- |
-| &quot;在\[文件名\]中检测到目标&quot; | 校准目标检测成功                          | 无 - 正常                                         |
-| &quot;处理第X张图像（共Y张）&quot;        | 当前进度更新                               | 无 - 正常                                         |
-| &quot;未检测到目标&quot;               | 未检测到校准目标                          | 标记目标图像或禁用反射率校准                          |
-| &quot;磁盘空间不足&quot;        | 输出存储空间不足          | 释放磁盘空间                                    |
-| &quot;跳过损坏文件&quot;        | 图像文件已损坏                  | 从SD卡重新复制文件                             |
-| &quot;PPK数据已应用&quot;               | 应用.daq文件中的GPS校正数据 | 无异常 - 正常状态                                         |
+| "Target detected in \[filename]" | Calibration target found successfully  | None - normal                                         |
+| "Processing image X of Y"        | Current progress update                | None - normal                                         |
+| "No targets found"               | No calibration targets detected        | Mark target images or disable reflectance calibration |
+| "Insufficient disk space"        | Not enough storage for output          | Free up disk space                                    |
+| "Skipping corrupted file"        | Image file is damaged                  | Re-copy file from SD card                             |
+| "PPK data applied"               | GPS corrections from .daq file applied | None - normal                                         |
 
-### 复制日志数据
+### Copying Log Data
 
-为故障排查或技术支持复制日志：
+To copy log for troubleshooting or support:
 
-1. 打开调试日志面板
-2. 点击**&quot;复制日志&quot;**按钮（或右键→全选）
-3. 粘贴至文本文件或邮件
-4. 如有需要发送至MAPIR支持团队
-
-***
-
-## 系统资源监控
-
-### CPU使用率
-
-**自由模式：**
-
-* 1个CPU核心约100%负载
-* 其他核心空闲或可用
-* 系统保持响应
-
-**Chloros+并行模式：**
-
-* 多个核心80-100%负载（最多16核）
-* 整体CPU利用率较高
-* 系统响应可能变慢
-
-**监控方式：**
-
-* Windows 任务管理器（Ctrl+Shift+Esc）
-* 性能选项卡 → CPU 部分
-* 查找 &quot;Chloros&quot; 或 &quot;chloros-backend&quot; 进程
-
-### 内存（RAM）使用率
-
-**典型使用场景：**
-
-* 小型项目（&lt;100张图像）：2-4 GB
-* 中型项目（100-500张图像）：4-8 GB
-* 大型项目（500+张图像）：8-16 GB
-* Chloros+并行模式将消耗更多内存
-
-**内存不足时：**
-
-* 处理更小批量数据
-* 关闭其他应用程序
-* 若需定期处理大型数据集，请升级内存
-
-### GPU使用情况（Chloros+配合CUDA）
-
-启用GPU加速时：
-
-* NVIDIA GPU利用率显著提升（60-90%）
-* 显存使用量增加（需4GB+显存）
-* 校准阶段显著提速
-
-**监控方式：**
-
-* NVIDIA系统托盘图标
-* 任务管理器→性能→GPU
-* GPU-Z等监控工具
-
-### 磁盘I/O
-
-**预期表现：**
-
-* 分析阶段出现高磁盘读取
-* 导出阶段出现高磁盘写入
-* SSD 速度远快于 HDD
-
-**性能优化建议：**
-
-* 尽可能使用 SSD 存储项目文件夹
-* 大型数据集避免使用网络驱动器
-* 确保磁盘空间充足（影响写入速度）
+1. Open Debug Log panel
+2. Click **"Copy Log"** button (or right-click → Select All)
+3. Paste into text file or email
+4. Send to MAPIR support if needed
 
 ***
 
-## 处理过程中问题检测
+## System Resource Monitoring
 
-### 警告信号
+### CPU Usage
 
-**进度停滞（5分钟以上无变化）：**
+**Free Mode:**
 
-* 检查调试日志中的错误
-* 确认可用磁盘空间
-* 通过任务管理器验证Chloros进程是否运行
+* 1 CPU core at \~100%
+* Other cores idle or available
+* System remains responsive
 
-**频繁出现错误提示：**
+**Chloros+ Parallel Mode:**
 
-* 停止处理并排查错误
-* 常见原因：磁盘空间不足、文件损坏、内存问题
-* 参见下方故障排除章节
+* Multiple cores at 80-100% (up to 16 cores)
+* High overall CPU utilization
+* System may feel less responsive
 
-**系统无响应：**
+**To monitor:**
 
-* Chloros+并行模式占用过多资源
-* 考虑减少并发任务或升级硬件
-* 自由模式资源消耗较低
+* Windows Task Manager (Ctrl+Shift+Esc)
+* Performance tab → CPU section
+* Look for "Chloros" or "chloros-backend" processes
 
-### 处理中止时机
+### Memory (RAM) Usage
 
-出现以下情况时应停止处理：
+**Typical usage:**
 
-* ❌ &quot;磁盘已满&quot;或&quot;无法写入文件&quot;错误
-* ❌ 反复出现图像文件损坏错误
-* ❌ 系统完全冻结（无响应）
-* ❌ 发现配置错误参数
-* ❌ 导入错误图像
+* Small projects (< 100 images): 2-4 GB
+* Medium projects (100-500 images): 4-8 GB
+* Large projects (500+ images): 8-16 GB
+* Chloros+ parallel mode uses more RAM
 
-**停止操作步骤：**
+**If memory is low:**
 
-1. 点击**停止/取消按钮**（替代开始按钮）
-2. 处理立即终止，进度数据丢失
-3. 修复问题后从头开始重新处理
+* Process smaller batches
+* Close other applications
+* Upgrade RAM if regularly processing large datasets
 
-***
+### GPU Usage (Chloros+ with CUDA)
 
-## 处理过程中的故障排除
+When GPU acceleration is enabled:
 
-### 处理速度极慢
+* NVIDIA GPU shows high utilization (60-90%)
+* VRAM usage increases (requires 4GB+ VRAM)
+* Calibrating stage is significantly faster
 
-**可能原因：**
+**To monitor:**
 
-* 未标记目标图像（扫描全部图像）
-* 使用机械硬盘而非固态硬盘存储
-* 系统资源不足
-* 配置过多索引
-* 访问网络驱动器
+* NVIDIA System Tray icon
+* Task Manager → Performance → GPU
+* GPU-Z or similar monitoring tool
 
-**解决方案：**
+### Disk I/O
 
-1. 若刚启动且处于检测阶段：取消操作→标记目标图像→重启
-2. 长期解决方案：使用SSD→减少索引数量→升级硬件
-3. 处理大型数据集时考虑使用CLI批处理工具
+**What to expect:**
 
-### &quot;磁盘空间不足&quot;警告
+* High disk read during Analyzing stage
+* High disk write during Exporting stage
+* SSD significantly faster than HDD
 
-**解决方案：**
+**Performance tip:**
 
-1. 立即释放磁盘空间
-2. 将项目迁移至空间充足的驱动器
-3. 减少导出索引数量
-4. 使用JPG格式替代TIFF（文件更小）
-
-### 频繁出现&quot;文件损坏&quot;提示
-
-**解决方案：**
-
-1. 从SD卡重新复制图像以确保完整性
-2. 检测SD卡错误
-3. 从项目中移除损坏文件
-4. 继续处理剩余图像
-
-### 系统过热/降频
-
-**解决方案：**
-
-1. 确保通风良好
-2. 清理计算机散热孔积尘
-3. 降低处理负载（使用Free模式替代Chloros+）
-4. 选择气温较低时段进行处理
+* Use SSD for project folder when possible
+* Avoid network drives for large datasets
+* Ensure disk isn't near capacity (affects write speed)
 
 ***
 
-## 处理完成通知
+## Detecting Problems During Processing
 
-处理完成时：
+### Warning Signs
 
-* 进度条达到100%
-* 调试日志中出现**&quot;处理完成&quot;**提示
-* 开始按钮重新启用
-* 所有输出文件存放于相机型号子文件夹
+**Progress stalls (no change for 5+ minutes):**
+
+* Check Debug Log for errors
+* Verify disk space available
+* Check Task Manager to ensure Chloros is running
+
+**Error messages appear frequently:**
+
+* Stop processing and review errors
+* Common causes: disk space, corrupted files, memory issues
+* See Troubleshooting section below
+
+**System becomes unresponsive:**
+
+* Chloros+ parallel mode using too many resources
+* Consider reducing concurrent tasks or upgrading hardware
+* Free mode is less resource-intensive
+
+### When to Stop Processing
+
+Stop processing if you see:
+
+* ❌ "Disk full" or "Cannot write file" errors
+* ❌ Repeated image file corruption errors
+* ❌ System completely frozen (not responding)
+* ❌ Realized wrong settings were configured
+* ❌ Wrong images imported
+
+**How to stop:**
+
+1. Click **Stop/Cancel button** (replaces Start button)
+2. Processing halts, progress is lost
+3. Fix issues and restart from beginning
 
 ***
 
-## 后续步骤
+## Troubleshooting During Processing
 
-处理完成后：
+### Processing is Very Slow
 
-1. **检查结果** - 参见[处理收尾指南](finishing-the-processing.md)
-2. **检查输出文件夹** - 确认所有文件导出正确
-3. **查看调试日志** - 检查是否有警告或错误
-4. **预览处理后的图像** - 使用图像查看器或外部软件
+**Possible causes:**
 
-有关查看和使用处理结果的详细信息，请参阅[完成处理](finishing-the-processing.md)。
+* Unmarked target images (scanning all images)
+* HDD instead of SSD storage
+* Insufficient system resources
+* Many indices configured
+* Network drive access
+
+**Solutions:**
+
+1. If just started and in Detecting stage: Cancel, mark targets, restart
+2. For future: Use SSD, reduce indices, upgrade hardware
+3. Consider CLI for batch processing large datasets
+
+### "Disk Space" Warnings
+
+**Solutions:**
+
+1. Free up disk space immediately
+2. Move project to drive with more space
+3. Reduce number of indices to export
+4. Use JPG format instead of TIFF (smaller files)
+
+### Frequent "Corrupted File" Messages
+
+**Solutions:**
+
+1. Re-copy images from SD card to ensure integrity
+2. Test SD card for errors
+3. Remove corrupted files from project
+4. Continue processing remaining images
+
+### System Overheating / Throttling
+
+**Solutions:**
+
+1. Ensure adequate ventilation
+2. Clean dust from computer vents
+3. Reduce processing load (use Free mode instead of Chloros+)
+4. Process during cooler times of day
+
+***
+
+## Processing Complete Notification
+
+When processing finishes:
+
+* Progress bar reaches 100%
+* **"Processing Complete"** message appears in Debug Log
+* Start button becomes enabled again
+* All output files are in camera model subfolder
+
+***
+
+## Next Steps
+
+Once processing completes:
+
+1. **Review results** - See [Finishing the Processing](finishing-the-processing.md)
+2. **Check output folder** - Verify all files exported correctly
+3. **Review Debug Log** - Check for any warnings or errors
+4. **Preview processed images** - Use Image Viewer or external software
+
+For information about reviewing and using your processed results, see [Finishing the Processing](finishing-the-processing.md).
