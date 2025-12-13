@@ -1,18 +1,18 @@
 # CLI : 命令行
 
-<figure><img src=".gitbook/assets/cli.JPG" alt=""><figcaption></figcaption></figure>**Chloros CLI** 为 Chloros 图像处理引擎提供强大的命令行访问功能，可实现成像工作流的自动化、脚本编写及无头操作。
+<figure><img src=".gitbook/assets/cli.JPG" alt=""><figcaption></figcaption></figure>**Chloros CLI** 为 Chloros 图像处理引擎提供强大的命令行访问功能，支持自动化、脚本编写及无头操作，助力您的成像工作流程。
 
 ### 核心特性
 
-* 🚀 **自动化** - 脚本化批量处理多数据集
-* 🔗 **集成** - 嵌入现有工作流与管道
-* 💻 **无头操作** - 无需图形界面运行
-* 🌍 **多语言** - 支持38种语言
+* 🚀 **自动化** - 实现多数据集批量处理脚本化
+* 🔗 **集成性** - 嵌入现有工作流与数据管道
+* 💻 **无界面运行** - 无需图形界面即可执行
+* 🌍 **多语言支持** - 覆盖38种语言
 * ⚡ **并行处理** - 动态扩展至您的CPU（最多支持16个并行工作进程）
 
 ### 系统要求
 
-| 要求                                                             | 详细说明                                                             |
+| 要求          | 详细说明                                                             |
 | -------------------- | ------------------------------------------------------------------- |
 | **操作系统** | Windows 10/11 (64位)                                              |
 | **许可证**          | Chloros+ ([需付费方案](https://cloud.mapir.camera/pricing)) |
@@ -65,7 +65,7 @@ chloros-cli process "C:\Images\Dataset001"
 
 ## 命令参考
 
-### 通用语法
+### 基本语法
 
 ```
 chloros-cli [global-options] <command> [command-options]
@@ -129,7 +129,7 @@ chloros-cli login <email> <password>
 chloros-cli login user@example.com 'MyP@ssw0rd123'
 ```
 
-{%提示 style=&quot;warning&quot; %}
+{% 提示 style=&quot;warning&quot; %}
 **特殊字符**：密码中若包含`$`、`!`或空格等字符，请使用单引号包裹。
 {% endhint %}
 
@@ -195,7 +195,7 @@ chloros-cli status
 
 ### `export-status` - 检查导出进度
 
-在处理过程中或处理后监控线程4的导出进度。
+在处理过程中或结束后监控线程4的导出进度。
 
 **语法：**
 
@@ -253,7 +253,7 @@ chloros-cli language ja
 | `en`    | 英语               | English          |
 | `es`    | 西班牙语         | Español          |
 | `pt`    | 葡萄牙语         | Português        |
-| `fr`    | 法语                | Français         |
+| `fr`    | 法语               | Français         |
 | `de`    | 德语                | Deutsch          |
 | `it`    | 意大利语               | Italiano         |
 | `ja`    | 日语               | 日本語              |
@@ -286,7 +286,7 @@ chloros-cli language ja
 | `hr`    | 克罗地亚语         | Hrvatski         |
 | `lt`    | 立陶宛语            | Lietuvių         |
 | `lv`    | 拉脱维亚语         | Latviešu         |
-| `et`    | 爱沙尼亚语         | Eesti            |
+| `et`    | 爱沙尼亚语        | Eesti            |
 | `sl`    | 斯洛文尼亚语       | Slovenščina      |
 
 {% 提示 style=&quot;success&quot; %}
@@ -353,10 +353,10 @@ chloros-cli reset-project-folder
 
 以下选项适用于所有命令：
 
-| 选项          | 类型    | 默认值       | 说明                                                 |
+| 选项          | 类型    | 默认值       | 说明                                      |
 | --------------- | ------- | ------------- | ------------------------------------------------ |
 | `--backend-exe` | 路径    | 自动检测 | 后端可执行文件路径                       |
-| `--port`        | 整数 | 5000          | 后端 API 端口号                          |
+| `--port`        | 整数 | 5000          | 后端端口号                          |
 | `--restart`     | 标志    | -             | 强制重启后端（终止现有进程） |
 | `--version`     | 标志    | -             | 显示版本信息并退出                |
 | `--help`        | 标志    | -             | 显示帮助信息并退出                   |
@@ -389,7 +389,7 @@ Chloros+ CLI **自动扩展**并行处理以匹配计算机性能：
 | **中端**   | 8-15核   | 16-31 GB   | 8-16个   | 卓越速度   |
 | **低端**   | 4-7核   | 8-15 GB   | 4-8个   | 良好速度   |
 
-{% 提示 style=&quot;success&quot; %}
+{%提示 style=&quot;success&quot; %}
 **自动优化**：CLI可自动检测系统配置并配置最佳并行处理方案，无需手动设置！
 {% endhint %}
 
@@ -603,7 +603,7 @@ MyProject/
 | **并行模式** | 5-10 分钟 | i7/锐龙7处理器，16GB内存，SSD（最多16个工作进程） |
 | **并行模式** | 10-15 分钟 | i5/锐龙5处理器，8GB内存，机械硬盘（最多8个工作进程） |
 
-{% hint style=&quot;info&quot; %}
+{% 提示 style=&quot;info&quot; %}
 **性能提示**：处理时间因图像数量、分辨率及计算机配置而异。
 {% endhint %}
 
@@ -723,7 +723,7 @@ No images found in the specified folder
 
 ### 端口已被占用
 
-**错误代码：**
+**错误：**
 
 ```
 Port 5000 is already in use
@@ -745,10 +745,10 @@ chloros-cli --port 5001 process "C:\Datasets\Field_A"
 
 **答：**需要！CLI需付费获取**Chloros+许可证**。
 
-* ❌ 标准（免费）方案：CLI功能禁用
+* ❌ 标准（免费）方案：CLI禁用
 * ✅ Chloros+（付费）方案：CLI功能完全启用
 
-订阅链接：[https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
+订阅地址：[https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing)
 
 ***
 
@@ -759,13 +759,13 @@ chloros-cli --port 5001 process "C:\Datasets\Field_A"
 * Windows Server 2016或更高版本
 * 已安装Visual C++再发行包
 * 充足内存（最低8GB，推荐16GB）
-* 任意设备上的一次性GUI许可证激活
+* 任意设备均可进行一次性GUI许可证激活
 
 ***
 
 ### 问：处理后的图像保存在何处？
 
-**答：**默认情况下，处理后的图像保存在**与输入文件相同的目录**内，并归类于相机型号子文件夹（例如`Survey3N_RGN/`）。
+**答：**默认情况下，处理后的图像将保存在**与输入文件相同的目录**下，并归类至相机型号子文件夹（例如`Survey3N_RGN/`）。
 
 使用`-o`选项可指定其他输出文件夹：
 
@@ -867,7 +867,7 @@ chloros-cli process "C:\Datasets\Field_A_2025_01_15"
 
 ***
 
-### 示例 2：高品质科研输出
+### 示例 2：高质量科研输出
 
 32位浮点TIFF：
 
@@ -882,7 +882,7 @@ chloros-cli process "C:\Datasets\Field_A" ^
 
 ### 示例3：快速预览处理
 
-8位PNG（无校准）用于快速查看：
+8位PNG（无校准）用于快速审阅：
 
 ```powershell
 chloros-cli process "C:\Datasets\Field_A" ^
