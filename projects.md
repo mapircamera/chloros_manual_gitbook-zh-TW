@@ -8,6 +8,6 @@ Chloros 允许您创建项目，这些项目可在未来重新打开。
 
 ## 打开项目
 
-<figure><img src=".gitbook/assets/project_open.JPG" alt=""><figcaption></figcaption></figure>选择&quot;打开项目&quot;可查看项目文件夹中的现有项目列表。若无项目存在，侧边菜单将不会展开。如上图所示，您可看到若干由GUI创建的项目（t1、t2、t3）。DATE\_TIME项目是由CLI使用默认命名规则创建的。点击任意项目名称即可打开。
+<figure><img src=".gitbook/assets/project_open.JPG" alt=""><figcaption></figcaption></figure>选择&quot;打开项目&quot;可查看项目文件夹中的现有项目列表。若无项目存在，侧边菜单将不会展开。上图所示为GUI创建的项目（t1、t2、t3）。DATE\_TIME项目由CLI使用默认命名规则生成。点击任意项目名即可打开。
 
 点击&quot;打开项目文件夹&quot;按钮将直接在项目路径位置打开计算机文件资源管理器。您可在[项目设置](project-settings/project-settings.md)中调整项目路径。

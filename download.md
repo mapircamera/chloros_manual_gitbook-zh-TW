@@ -1,14 +1,19 @@
+---
+metaLinks:
+  alternates:
+    - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/download
+---
 # 下载
 
-下载最新版本的Chloros，用于Windows，开始进行多光谱图像处理。
+下载最新版本的Chloros（适用于Windows），开始进行多光谱图像处理。
 
 ### 系统要求
 
-| 要求                         | 最低                           | 推荐                           |
+| 要求                         | 最低要求                         | 推荐要求                     |
 | -------------------- | ------------------------------- | ------------------------------- |
 | **操作系统** | Windows 10 (64位)             | Windows 11 (64位)             |
-| **处理器**        | 英特尔酷睿i5或同等性能     | 英特尔酷睿i7或更高性能         |
-| **内存 (RAM)**     | 8GB                             | 16GB 或更高                    |
+| **处理器**        | Intel Core i5 或同等性能     | Intel Core i7 或更高性能         |
+| **内存（RAM）**     | 8GB                             | 16GB 或更高                    |
 | **显卡**    | DirectX 11 兼容           | NVIDIA GPU 配备 4GB+ 显存       |
 | **存储空间**          | 2GB 可用空间                  | SSD 配备 10GB+ 可用空间       |
 | **显示器**          | 1920x1080                       | 2560x1440 或更高分辨率             |
@@ -37,12 +42,12 @@
 
 1. 下载 `CHLOROS INSTALLER - CURRENT VERSION.exe` 文件
 2. 双击安装程序启动安装
-3. 跟随安装向导提示操作
+3. 按照安装向导提示操作
 4. 选择安装目录（默认：`C:\Program Files\Chloros\`）
 5. 完成安装并启动 Chloros
-6. 使用您的MAPIR云端Chloros+账户登录（或继续使用免费版）
+6. 使用您的 MAPIR 云端 Chloros+ 账户登录（或继续使用免费版）
 
-{%提示 style=&quot;success&quot; %}
+{% 提示 style=&quot;success&quot; %}
 安装程序会自动将`chloros-cli`添加至系统PATH环境变量，以便命令行访问。
 {% endhint %}
 
@@ -52,7 +57,7 @@
 
 ### Python SDK
 
-面向开发者及自动化工作流，请安装 Chloros Python SDK：
+面向开发者及自动化工作流，请安装Chloros Python SDK：
 
 ```bash
 pip install chloros-sdk
@@ -69,16 +74,16 @@ pip install chloros-sdk
 Chloros安装包包含：
 
 * ✅ **Chloros桌面版GUI** - 全功能图形界面
-* ✅ **Chloros（浏览器版）** - 适用于低配置系统的网页界面
+* ✅ **Chloros（浏览器版）** - 面向低配置系统的网页界面
 * ✅ **Chloros CLI** - 命令行界面（需Chloros+许可证）
 * ✅ **后端引擎** - 图像处理管道
 * ✅ **摄像机配置文件** - 预配置相机模板
 
 ***
 
-## 升级至XPROTX+
+## 升级至Chloros+
 
-订阅XPROTX+解锁高级功能：
+订阅Chloros+解锁高级功能：
 
 * 🚀 **多线程处理** - 并行处理图像
 * ⚡ **GPU（CUDA）加速** - 释放NVIDIA GPU性能
@@ -95,9 +100,9 @@ Chloros安装包包含：
 
 **安装失败并显示错误信息：**
 
-* 确保拥有管理员权限
-* 暂时禁用杀毒软件
-* 确认满足最低系统要求
+* 确保您拥有管理员权限
+* 暂时禁用防病毒软件
+* 检查是否满足最低系统要求
 
 **应用程序无法启动：**
 
@@ -121,7 +126,7 @@ Chloros安装包包含：
 * 📧 **邮件**：info@mapir.camera
 * 🌐 **官网**：[https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
 * 📚 **文档**：[入门指南](./)
-* ❓ **常见问题**：[FAQ解答](faq.md)
+* ❓ **常见问题**：[常见问题解答](faq.md)
 
 ***
 
@@ -135,19 +140,19 @@ Chloros安装包包含：
 
 #### 新增功能
 
-* 初始发布
+* 初始版本发布
 
-#### 改进
+#### 改进项
 
-* 初始发布
+* 初始版本发布
 
 #### 错误修复
 
-* 初始发布
+* 初始版本发布
 
 #### 已知问题
 
-* 初始发布
+* 初始版本发布
 
 </details>***
 
@@ -157,6 +162,8 @@ Chloros安装包包含：
 
 禁止未经授权的使用、分发或修改。
 
-**免费版**：可用于个人及商业用途，功能受限
+**免费版**：可用于个人及商业用途，功能有限制
 
 **Chloros+**：订阅制许可，提供高级功能及商业部署支持
+
+<figure><img src=".gitbook/assets/t3-125_2.jpg" alt=""><figcaption></figcaption></figure>
