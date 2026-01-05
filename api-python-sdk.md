@@ -1,12 +1,12 @@
 # API : Python SDK
 
-**Chloros Python SDK** 提供对Chloros图像处理引擎的程序化访问，支持自动化操作、自定义工作流，并与您的Python应用程序及研究流程无缝集成。
+**Chloros Python SDK** 提供对Chloros图像处理引擎的编程访问，支持自动化、自定义工作流，并与您的Python应用程序及研究流程无缝集成。
 
 ### 核心特性
 
-* 🐍 **原生Python** - 简洁的Python式图像处理
-* 🔧 **完整访问** - 全面掌控图像处理流程
-* 🚀 **自动化** - 构建定制化批量处理工作流
+* 🐍 **原生Python** - 简洁的Python化图像处理接口
+* 🔧 **全功能访问** - 完全掌控图像处理流程
+* 🚀 **自动化** - 构建定制化批处理工作流
 * 🔗 **集成** - 将Chloros嵌入现有Python应用程序
 * 📊 **科研就绪** - 完美适配科学分析管道
 * ⚡ **并行处理** - 扩展至CPU核心（Chloros+）
@@ -15,7 +15,7 @@
 
 | 要求                                                             | 详细说明                                                             |
 | -------------------- | ------------------------------------------------------------------- |
-| **Chloros Desktop**  | 必须本地安装                                           |
+| **Chloros桌面版**  | 必须本地安装                                           |
 | **许可证**          | Chloros+ ([需付费方案](https://cloud.mapir.camera/pricing)) |
 | **操作系统** | Windows 10/11 (64位)                                              |
 | **Python**           | Python 3.7 或更高版本                                                |
@@ -30,19 +30,19 @@
 
 ### 安装
 
-通过pip安装：
+通过 pip 安装：
 
 ```bash
 pip install chloros-sdk
 ```
 
 {% hint style=&quot;info&quot; %}
-**首次设置**：使用SDK前，请通过打开Chloros激活Chloros+许可证， Chloros（浏览器）或 Chloros CLI 并使用凭证登录。此操作仅需执行一次。
+**首次设置**：使用SDK前，请通过Chloros+打开Chloros或Chloros (浏览器) 或 Chloros CLI 并使用凭证登录。此操作仅需执行一次。
 {% endhint %}
 
 ### 基础用法
 
-处理仅含少量数据的文件夹：
+处理仅含少量内容的文件夹：
 
 ```python
 from chloros_sdk import process_folder
@@ -84,13 +84,13 @@ chloros.process(mode="parallel", wait=True)
 
 ### 先决条件
 
-安装 SDK 前请确保：
+安装 SDK 前，请确保您已具备：
 
-1. 已安装 **Chloros 桌面版** ([下载](download.md))
-2. 已安装 **Python 3.7+** ([python.org](https://www.python.org))
-3. **有效的 Chloros+ 许可证** ([升级](https://cloud.mapir.camera/pricing))
+1. 已安装**Chloros桌面版** ([下载](download.md))
+2. 已安装**Python 3.7+** ([python.org](https://www.python.org))
+3. **有效的Chloros+许可证** ([升级](https://cloud.mapir.camera/pricing))
 
-### 通过 pip 安装
+### 通过pip安装
 
 **标准安装：**
 
@@ -129,10 +129,14 @@ SDK与Chloros、Chloros（浏览器版）及Chloros CLI共享同一许可证。 
 
 1. 打开**Chloros或Chloros（浏览器版）**，在用户 <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> 标签页登录。或直接打开**CLI**。
 2. 输入Chloros+凭证并登录
-3. 许可证将本地缓存（重启后仍有效）
+3. 许可证本地缓存（重启后仍有效）
 
-{%提示 style=&quot;success&quot; %}
+{% 提示 style=&quot;success&quot; %}
 **一次性设置**：通过GUI或CLI登录后，SDK将自动使用缓存许可证。无需额外认证！
+{% endhint %}
+
+{% hint style=&quot;info&quot; %}
+**注销**：SDK用户可通过`logout()`方法以编程方式清除缓存凭证。 参见 API 参考文档中的 [logout() 方法](#logout)。
 {% endhint %}
 
 ### 测试连接
@@ -154,7 +158,7 @@ print(f"Backend running: {status['running']}")
 
 ## API 参考文档
 
-### ChlorosLocal类
+### ChlorosLocal 类
 
 本地图像处理的核心类。
 
@@ -174,11 +178,11 @@ ChlorosLocal(
 
 | 参数                 | 类型 | 默认值                   | 描述                           |
 | ------------------------- | ---- | ------------------------- | ------------------------------------- |
-| `api_url`                 | 字符串 | `"http://localhost:5000"` | 本地Chloros后端的URL          |
+| `api_url`                 | 字符串 | `"http://localhost:5000"` | 本地后端 URL 的 Chloros          |
 | `auto_start_backend`      | 布尔值 | `True`                    | 需要时自动启动后端 |
 | `backend_exe`             | str  | `None` (自动检测)      | 后端可执行文件路径            |
 | `timeout`                 | int  | `30`                      | 请求超时时间（秒）            |
-| `backend_startup_timeout` | int  | `60`                      | 后端启动超时时间（秒） |
+| `backend_startup_timeout` | int  | `60`                      | 后端启动超时（秒） |
 
 **示例：**
 
@@ -206,14 +210,12 @@ chloros = ChlorosLocal(timeout=60)
 
 **参数：**
 
-| 参数        | 类型 | 必填 | 描述                                              |
+| 参数         | 类型 | 是否必填 | 描述                                              |
 | -------------- | ---- | -------- | -------------------------------------------------------- |
-| `project_name` | str  | 是      | 项目名称                                     |
-| `camera`       | 字符串 | 否       | 相机模板（例如&quot;Survey3N\_RGN&quot;、&quot;Survey3W\_OCN&quot;） |
+| `project_name` | 字符串 | 是      | 项目名称                                     |
+| `camera`       | 字符串 | 否       | 相机模板（例如&quot;Survey3N\_RGN&quot;, &quot;Survey3W\_OCN&quot;) |
 
-**返回值：** `dict` - 项目创建响应
-
-**示例：**
+**返回值：** `dict` - 项目创建响应**示例：**
 
 ```python
 # Basic project
@@ -231,14 +233,12 @@ chloros.create_project("DroneField_A", camera="Survey3N_RGN")
 
 **参数：**
 
-| 参数         | 类型       | 必填       | 描述                        |
+| 参数         | 类型     | 必填      | 描述                        |
 | ------------- | -------- | -------- | ---------------------------------- |
 | `folder_path` | 字符串/路径 | 是      | 图片所在文件夹路径         |
-| `recursive`   | 布尔值 | 否       | 搜索子文件夹（默认：False） |
+| `recursive`   | 布尔值 | 否       | 搜索子文件夹（默认：假） |
 
-**返回值：** `dict` - 包含文件数量的导入结果
-
-**示例：**
+**返回值：** `dict` - 包含文件数量的导入结果**示例：**
 
 ```python
 # Import from folder
@@ -258,12 +258,12 @@ chloros.import_images("C:\\DroneImages", recursive=True)
 
 | 参数                 | 类型 | 默认值                 | 描述                     |
 | ------------------------- | ---- | ----------------------- | ------------------------------- |
-| `debayer`                 | str  | &quot;高品质 (更快)&quot; | 去马赛克方法                  |
-| `vignette_correction`     | 布尔值 | `True`                  | 启用晕影校正      |
-| `reflectance_calibration` | 布尔值 | `True`                  | 启用反射率校准  |
-| `indices`                 | list | `None`                  | 待计算植被指数 |
+| `debayer`                 | str  | &quot;高质量（更快）&quot; | 去拜耳化方法                  |
+| `vignette_correction`     | 布尔值 | `True`                  | 启用晕影校正                  |
+| `reflectance_calibration` | 布尔值 | `True`                  | 启用反射率校准                  |
+| `indices`                 | list | `None`                  | 待计算植被指数         |
 | `export_format`           | str  | &quot;TIFF (16-bit)&quot;         | 输出格式                   |
-| `ppk`                     | 布尔值 | `False`                 | 启用PPK校正          |
+| `ppk`                     | bool | `False`                 | 启用PPK校正                  |
 | `custom_settings`         | 字典 | `None`                  | 高级自定义设置        |
 
 **导出格式：**
@@ -273,11 +273,7 @@ chloros.import_images("C:\\DroneImages", recursive=True)
 * `"PNG (8-bit)"` - 可视化检查
 * `"JPG (8-bit)"` - 压缩输出
 
-**可用索引：**
-
-NDVI, NDRE, GNDVI, OSAVI, CIG, EVI, SAVI, MSAVI, MTVI2 等。
-
-**示例：**
+**可用指数：**NDVI, NDRE, GNDVI, OSAVI, CIG, EVI, SAVI, MSAVI, MTVI2, 等。**示例：**
 
 ```python
 # Basic configuration
@@ -308,15 +304,15 @@ chloros.configure(
 
 | 参数           | 类型     | 默认值      | 描述                               |
 | ------------------- | -------- | ------------ | ----------------------------------------- |
-| `mode`              | str      | `"parallel"` | 处理模式：&quot;parallel&quot; 或 &quot;serial&quot;   |
-| `wait`              | 布尔     | `True`       | 等待处理完成                       |
-| `progress_callback` | 可调用    | `None`       | 进度回调函数(progress, msg) |
-| `poll_interval`     | float    | `2.0`        | 进度轮询间隔（秒）   |
+| `mode`              | 字符串 | `"parallel"` | 处理模式：&quot;parallel&quot; 或 &quot;serial&quot;   |
+| `wait`              | 布尔值 | `True`       | 等待完成                       |
+| `progress_callback` | 可调用对象 | `None`       | 进度回调函数(progress, msg) |
+| `poll_interval`     | 浮点数    | `2.0`        | 进度轮询间隔（秒）   |
 
 **返回值：** `dict` - 处理结果
 
 {% 提示 style=&quot;warning&quot; %}
-**并行模式**：需Chloros+许可证。自动扩展至CPU核心数 （最多16个工作进程）。
+**并行模式**：需Chloros+许可证。自动扩展至CPU核心数（最多16个工作进程）。
 {% endhint %}
 
 **示例：**
@@ -345,9 +341,7 @@ chloros.process(wait=False)
 
 获取当前项目配置。
 
-**返回值：** `dict` - 当前项目配置
-
-**示例：**
+**返回值：** `dict` - 当前项目配置**示例：**
 
 ```python
 config = chloros.get_config()
@@ -360,9 +354,7 @@ print(config['Project Settings'])
 
 获取后端状态信息。
 
-**返回值：** `dict` - 后端状态
-
-**示例：**
+**返回值：** `dict` - 后端状态**示例：**
 
 ```python
 status = chloros.get_status()
@@ -374,13 +366,45 @@ print(f"URL: {status['url']}")
 
 #### `shutdown_backend()`
 
-关闭后端（若由 SDK 启动）。
+关闭后端（若由SDK启动）。
 
 **示例：**
 
 ```python
 chloros.shutdown_backend()
 ```
+
+***
+
+#### `logout()`
+
+清除本地系统缓存的凭据。
+
+**说明：**
+
+通过移除缓存的身份验证凭据实现程序化注销。适用于：
+* 在不同Chloros+账户间切换
+* 自动化环境中清除凭据
+* 安全需求（例如卸载前清除凭据）
+
+**返回值：** `dict` - 注销操作结果**示例：**
+
+```python
+from chloros_sdk import ChlorosLocal
+
+# Initialize SDK
+chloros = ChlorosLocal()
+
+# Clear cached credentials
+result = chloros.logout()
+print(f"Logout successful: {result}")
+
+# After logout, login required via GUI/CLI/Browser before next SDK use
+```
+
+{% hint style=&quot;info&quot; %}
+**需重新认证**：调用`logout()`后， 必须通过Chloros、Chloros（浏览器）或Chloros CLI重新登录，方可使用SDK。
+{% endhint %}
 
 ***
 
@@ -394,19 +418,17 @@ chloros.shutdown_backend()
 
 | 参数                 | 类型     | 默认值         | 描述                    |
 | ------------------------- | -------- | --------------- | ------------------------------ |
-| `folder_path`             | str/Path | 必填        | 含图像的文件夹路径     |
-| `project_name`            | 字符串      | 自动生成      | 项目名称                   |
+| `folder_path`             | 字符串/路径 | 必填        | 含图像的文件夹路径     |
+| `project_name`            | 字符串      | 自动生成  | 项目名称                   |
 | `camera`                  | 字符串      | `None`          | 相机模板                |
-| `indices`                 | list     | `["NDVI"]`      | 待计算索引数组           |
-| `vignette_correction`     | bool     | `True`          | 启用暗角校正功能     |
-| `reflectance_calibration` | 布尔值     | `True`          | 启用反射率校准         |
-| `export_format`           | str      | &quot;TIFF (16-bit)&quot; | 输出格式                  |
-| `mode`                    | str      | `"parallel"`    | 处理模式                |
+| `indices`                 | 列表     | `["NDVI"]`      | 计算索引           |
+| `vignette_correction`     | 布尔     | `True`          | 启用暗角校正     |
+| `reflectance_calibration` | 布尔值     | `True`          | 启用反射率校准                |
+| `export_format`           | 字符串    | &quot;TIFF (16位)&quot; | 输出格式                  |
+| `mode`                    | 字符串      | `"parallel"`    | 处理模式                |
 | `progress_callback`       | 可调用对象 | `None`          | 进度回调函数              |
 
-**返回值：** `dict` - 处理结果
-
-**示例：**
+**返回值：** `dict` - 处理结果**示例：**
 
 ```python
 from chloros_sdk import process_folder
@@ -455,7 +477,7 @@ with ChlorosLocal() as chloros:
 
 ## 完整示例
 
-### 示例1：基础处理
+### 示例 1：基础处理
 
 使用默认设置处理文件夹：
 
@@ -472,7 +494,7 @@ print(f"Processing complete: {results}")
 
 ### 示例 2：自定义工作流
 
-对处理管道实现完全控制：
+完全掌控处理管道：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -621,7 +643,7 @@ print(df)
 
 ### 示例 5：自定义进度监控
 
-通过日志实现高级进度追踪：
+通过日志实现高级进度跟踪：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -660,7 +682,7 @@ logging.info("Processing complete!")
 
 ### 示例 6：错误处理
 
-面向生产环境的健壮性错误处理：
+面向生产环境的健壮错误处理：
 
 ```python
 from chloros_sdk import ChlorosLocal
@@ -710,9 +732,52 @@ else:
 
 ***
 
-### 示例 7：命令行工具
+### 示例 7：账户管理与注销
 
-使用SDK构建自定义工具：
+程序化管理凭证：
+
+```python
+from chloros_sdk import ChlorosLocal
+
+def switch_account():
+    """Clear credentials to switch to a different account"""
+    try:
+        chloros = ChlorosLocal()
+        
+        # Clear current credentials
+        result = chloros.logout()
+        print("✓ Credentials cleared successfully")
+        print("Please log in with new account via Chloros, Chloros (Browser), or CLI")
+        
+        return True
+    
+    except Exception as e:
+        print(f"✗ Logout failed: {e}")
+        return False
+
+def secure_cleanup():
+    """Remove credentials for security purposes"""
+    try:
+        chloros = ChlorosLocal()
+        chloros.logout()
+        print("✓ Credentials removed for security")
+        
+    except Exception as e:
+        print(f"Warning: Cleanup error: {e}")
+
+# Switch accounts
+if switch_account():
+    print("\nRe-authenticate via Chloros GUI/CLI/Browser before next SDK use")
+
+# Or perform secure cleanup
+# secure_cleanup()
+```
+
+***
+
+### 示例 8：命令行工具
+
+基于 SDK 构建自定义工具：
 
 ```python
 #!/usr/bin/env python
@@ -735,8 +800,18 @@ def main():
                        help='Camera template')
     parser.add_argument('--format', default='TIFF (16-bit)',
                        help='Export format')
+    parser.add_argument('--logout', action='store_true',
+                       help='Clear cached credentials before processing')
     
     args = parser.parse_args()
+    
+    # Handle logout if requested
+    if args.logout:
+        from chloros_sdk import ChlorosLocal
+        chloros = ChlorosLocal()
+        chloros.logout()
+        print("Credentials cleared. Please re-login via Chloros GUI/CLI/Browser.")
+        return 0
     
     successful = []
     failed = []
@@ -778,7 +853,11 @@ if __name__ == '__main__':
 **用法：**
 
 ```bash
+# Process multiple folders
 python my_processor.py "C:\Flight001" "C:\Flight002" --indices NDVI NDRE GNDVI
+
+# Clear cached credentials
+python my_processor.py --logout
 ```
 
 ***
@@ -863,7 +942,7 @@ print("Processing complete!")
 
 ### 内存管理
 
-对于大型数据集，采用分批处理：
+处理大型数据集时采用批处理模式：
 
 ```python
 from pathlib import Path
@@ -890,13 +969,11 @@ for i in range(0, len(images), batch_size):
 
 ## 故障排除
 
-### 后端无法启动
+### 后端启动失败
 
-**问题：** SDK 启动后端失败
+**问题：** SDK 无法启动后端**解决方案：**
 
-**解决方案：**
-
-1. 确认已安装 Chloros 桌面端：
+1. 确认已安装Chloros桌面版：
 
 ```python
 import os
@@ -904,7 +981,7 @@ backend_path = r"C:\Program Files\MAPIR\Chloros\resources\backend\chloros-backen
 print(f"Backend exists: {os.path.exists(backend_path)}")
 ```
 
-2. 检查防火墙是否阻塞
+2. 检查Windows防火墙是否阻塞
 3. 尝试手动指定后端路径：
 
 ```python
@@ -913,13 +990,9 @@ chloros = ChlorosLocal(backend_exe="C:\\Path\\To\\chloros-backend.exe")
 
 ***
 
-### 未检测到许可证
+### 未检测到许可证**问题：** SDK 提示许可证缺失**解决方案：**
 
-**问题：** SDK 提示许可证缺失
-
-**解决方案：**
-
-1. 打开Chloros、Chloros（浏览器）或Chloros CLI并登录。
+1. 打开Chloros、Chloros（浏览器）或Chloros CLI并登录
 2. 验证许可证是否已缓存：
 
 ```python
@@ -931,15 +1004,23 @@ cache_path = Path(os.getenv('APPDATA')) / 'Chloros' / 'cache'
 print(f"Cache exists: {cache_path.exists()}")
 ```
 
-3. 联系支持：info@mapir.camera
+3. 若凭证出现问题，请清除缓存凭证并重新登录：
+
+```python
+from chloros_sdk import ChlorosLocal
+
+# Clear cached credentials
+chloros = ChlorosLocal()
+chloros.logout()
+
+# Then login again via Chloros, Chloros (Browser), or Chloros CLI
+```
+
+4. 联系技术支持：info@mapir.camera
 
 ***
 
-### 导入错误
-
-**问题：** `ModuleNotFoundError: No module named 'chloros_sdk'`
-
-**解决方案：**
+### 导入错误**问题：** `ModuleNotFoundError: No module named 'chloros_sdk'`**解决方案：**
 
 ```bash
 # Verify installation
@@ -955,11 +1036,7 @@ python -c "import sys; print(sys.path)"
 
 ***
 
-### 处理超时
-
-**问题：** 处理超时
-
-**解决方案：**
+### 处理超时**问题：** 处理超时**解决方案：**
 
 1. 延长超时时间：
 
@@ -967,17 +1044,13 @@ python -c "import sys; print(sys.path)"
 chloros = ChlorosLocal(timeout=120)  # 2 minutes
 ```
 
-2. 分批处理更小数据量
+2. 分批处理较小数据量
 3. 检查可用磁盘空间
 4. 监控系统资源
 
 ***
 
-### 端口已被占用
-
-**问题：**后端端口5000被占用
-
-**解决方案：**
+### 端口已被占用**问题：**后端端口5000被占用**解决方案：**
 
 ```python
 # Use different port
@@ -1016,9 +1089,7 @@ chloros.configure(export_format="PNG (8-bit)")  # Faster than TIFF
 chloros.configure(indices=["NDVI"])  # Not all indices
 ```
 
-4. **在SSD上处理** (非 HDD)
-
-***
+4. **在SSD上处理**（非HDD）***
 
 ### 内存优化
 
@@ -1033,7 +1104,7 @@ chloros.configure(indices=["NDVI"])  # Not all indices
 
 ### 后台处理
 
-释放 Python 资源用于其他任务：
+释放Python资源供其他任务使用：
 
 ```python
 chloros.process(wait=False)  # Non-blocking
@@ -1064,7 +1135,7 @@ def process_images_view(request):
             return JsonResponse({'success': False, 'error': str(e)})
 ```
 
-### Flask集成
+### Flask集成API
 
 ```python
 # app.py
@@ -1088,7 +1159,7 @@ if __name__ == '__main__':
     app.run()
 ```
 
-### Jupyter Notebook集成
+### Jupyter Notebook
 
 ```python
 # notebook.ipynb
@@ -1123,45 +1194,37 @@ chloros.process(progress_callback=notebook_progress)
 
 ### 问：SDK是否需要联网？
 
-**答：**仅初始授权激活时需要。通过Chloros、Chloros（浏览器）或Chloros CLI登录后，授权信息将本地缓存，支持离线使用30天。
+**答：**仅需初始许可证激活时联网。 通过Chloros、Chloros（浏览器）或Chloros CLI登录后，许可证将缓存至本地，支持离线使用30天。***
 
-***
-
-### 问：能否在无GUI的服务器上使用SDK？
-
-**答：**可以！要求如下：
+### 问：能否在无图形界面的服务器上使用SDK？**答：**可以！要求如下：
 
 * Windows Server 2016或更高版本
 * 安装Chloros（仅需一次）
-* 在任意设备上激活许可证 （缓存许可证已复制至服务器）
+* 任何设备激活的许可证（缓存许可证复制至服务器）
 
 ***
 
-### 问：桌面版、CLI和SDK有何区别？
+### 问：桌面版、CLI与SDK有何区别？
 
 | 功能         | 桌面图形界面 | CLI 命令行 | Python SDK  |
 | --------------- | ----------- | ---------------- | ----------- |
-| **界面类型**   | 点击式操作 | 命令行        | Python API  |
-| **适用场景**    | 可视化工作 | 脚本编写        | 集成应用 |
-| **自动化**  | 有限     | 良好             | 卓越   |
-| **灵活性** | 基础       | 良好             | 最大     |
-| **许可证**     | Chloros+    | Chloros+         | Chloros+    |
+| **界面类型**   | 点击式操作 | 命令行模式 | Python API  |
+| **适用场景**    | 可视化工作 | 脚本编写        | 系统集成 |
+| **自动化程度**  | 有限     | 良好             | 卓越   |
+| **灵活性** | 基础       | 良好             | 最高     |
+| **许可类型**   | Chloros+    | Chloros+         | Chloros+    |***
 
-***
-
-### 问：能否分发使用SDK构建的应用程序？
-
-**答：**SDK代码可集成至您的应用程序，但需满足：
+### 问：能否分发使用SDK构建的应用程序？**答：**SDK代码可集成至您的应用程序，但需满足：
 
 * 终端用户需安装Chloros
 * 终端用户需持有有效的Chloros+许可证
 * 商业分发需获取OEM授权
 
-OEM授权咨询请联系info@mapir.camera。
+有关OEM授权事宜请联系info@mapir.camera。
 
 ***
 
-### 问：如何更新SDK？
+### Q: 如何更新SDK？
 
 ```bash
 pip install --upgrade chloros-sdk
@@ -1174,6 +1237,7 @@ pip install --upgrade chloros-sdk
 默认存储于项目路径：
 
 ```
+
 Project_Path/
 └── MyProject/
     └── Survey3N_RGN/          # Processed outputs
@@ -1181,9 +1245,7 @@ Project_Path/
 
 ***
 
-### 问：能否通过定时运行的Python脚本处理图像？
-
-**答：**可以！ 请配合Python脚本使用Windows任务计划程序：
+### 问：能否通过定时任务处理Python脚本中的图像？**答：**可以！请结合Windows任务计划程序与Python脚本使用：
 
 ```python
 # scheduled_processing.py
@@ -1197,9 +1259,7 @@ results = process_folder("C:\\Flights\\Today")
 
 ***
 
-### 问：SDK是否支持异步/等待？
-
-**A:** 当前版本为同步模式。需异步行为请使用`wait=False`或在独立线程运行：
+### 问：SDK是否支持异步/等待？**答：**当前版本为同步模式。如需异步行为，请使用`wait=False`或在独立线程中运行：
 
 ```python
 import threading
@@ -1215,11 +1275,27 @@ thread.start()
 
 ***
 
+### 问：如何在不同Chloros+账户间切换？**答：**使用`logout()`方法清除缓存凭证，然后用新账户重新登录：
+
+```python
+from chloros_sdk import ChlorosLocal
+
+# Clear current credentials
+chloros = ChlorosLocal()
+chloros.logout()
+
+# Re-login via Chloros, Chloros (Browser), or Chloros CLI with new account
+```
+
+注销后，请通过图形界面、浏览器或CLI使用新账户进行身份验证，再重新使用SDK。
+
+***
+
 ## 获取帮助
 
 ### 文档
 
-* **API参考文档**：本页面
+* **API 参考**：本页面
 
 ### 支持渠道
 
@@ -1233,8 +1309,6 @@ thread.start()
 
 ***
 
-## 许可协议
-
-**专有软件** - 版权所有 (c) 2025 MAPIR 公司
+## 许可协议**专有软件** - 版权所有 (c) 2025 MAPIR 公司
 
 SDK 需有效 Chloros+ 订阅支持。禁止未经授权的使用、分发或修改。
