@@ -22,19 +22,7 @@
 * **連接光感測器** — 跳轉至 [光感測器分頁](daq/) 以連接 DAQ 光感測器。無需開啟專案即可使用。
 
 {% hint style="info" %}
-**僅限 Windows**：Chloros
-
-桌面 GUI 僅在 Windows
-
-系統上提供。Linux
-
-使用者應參閱 [CLI
-
-](CLI.md) 及 [Python
-
-SDK
-
-](api-python-sdk.md) 文件，以進行無頭處理。
+**僅限 Windows**：Chloros 桌面 GUI 僅在 Windows 系統上提供。Linux 使用者應參閱 [CLI](CLI.md) 及 [Python SDK](api-python-sdk.md) 文件，以進行無頭處理。
 {% endhint %}
 
 ### <img src=".gitbook/assets/image (2) (1) (1).png" alt="" data-size="line">
@@ -49,15 +37,9 @@ SDK
 
 
 
-在免費的 Chloros
+在免費的 Chloros 模式下，系統會依序處理所有檔案，進度條將顯示 2 個階段：目標偵測與處理。
 
-模式下，系統會依序處理所有檔案，進度條將顯示 2 個階段：目標偵測與處理。
-
-在付費的 Chloros
-
-+ 授權模式下，系統會同時處理所有檔案，進度條將顯示 4 個階段：偵測、分析、校準、匯出。 若將滑鼠游標懸停在Chloros
-
-+ 進度條上，將會下拉顯示擴展的 4 階段進度條面板，以便您追蹤進度。點擊頂部的進度條將凍結下拉面板，再次點擊則解除凍結。
+在付費的 Chloros+ 授權模式下，系統會同時處理所有檔案，進度條將顯示 4 個階段：偵測、分析、校準、匯出。 若將滑鼠游標懸停在Chloros+ 進度條上，將會下拉顯示擴展的 4 階段進度條面板，以便您追蹤進度。點擊頂部的進度條將凍結下拉面板，再次點擊則解除凍結。
 
 <figure><img src=".gitbook/assets/plus_prog.JPG" alt=""><figcaption></figcaption></figure>
 

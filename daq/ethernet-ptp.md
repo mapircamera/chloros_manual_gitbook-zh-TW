@@ -1,8 +1,6 @@
 # DAQ-E 網路連線與時間同步
 
-> 感測器的實體網路設定——包括線路佈置、PoE、IP 位址指派以及裝置本身的網路設定——詳見 **[DAQ 使用手冊](https://mapir.gitbook.io/daq/daq-e/network-setup)**。 本頁說明 Chloros
-
-端相關內容：連線、時間同步，以及當發現程序未找到裝置時應如何處理。
+> 感測器的實體網路設定——包括線路佈置、PoE、IP 位址指派以及裝置本身的網路設定——詳見 **[DAQ 使用手冊](https://mapir.gitbook.io/daq/daq-e/network-setup)**。 本頁說明 Chloros 端相關內容：連線、時間同步，以及當發現程序未找到裝置時應如何處理。
 
 DAQ-E 是 DAQ 產品系列中的乙太網路成員：透過 PoE 供電、藉由 mDNS（服務 `_daq-e._tcp`）進行發現，並可透過由其感測器 ID 衍生的主機名稱進行存取 — `daq-e-<6 hex>.local`，例如 `daq-e-def330.local`。本頁說明其如何在網路中傳輸資料，以及如何參與 PTP 時間同步。
 
@@ -13,35 +11,17 @@ DAQ-E 是 DAQ 產品系列中的乙太網路成員：透過 PoE 供電、藉由 
 | **多播**（預設） | UDP `239.10.10.10:5002` | 同一局域網內任意數量節點皆可接收相同資料流 | 每個資料包均經過 CRC-16/CCITT 驗證 |
 | **原始模式** | TCP 埠 `5000` | 僅限一位客戶端（專用） | 與 DAQ-U 具備字節相容性，可直接套用 |
 
-Chloros
-
-預設使用多播模式，這使得 GUI、CLI
-
-和 SDK
-
-都能同時監控同一感測器。
+Chloros 預設使用多播模式，這使得 GUI、CLI 和 SDK 都能同時監控同一感測器。
 
 ## 網路需求
 
-* **同一廣播域。** 執行 Chloros
-
-的機器必須與感測器位於同一 L2 網路區段 — mDNS 發現機制無法穿越路由器。
-* **防火牆。** 在 Windows
-
-系統上，安裝程式會為後端在每個網路設定檔中新增 **Chloros
-
-後端 (UDP-In)**防火牆規則，該規則涵蓋 DAQ-E 資料（UDP 5002）、 mDNS（UDP 5353）及 PTP（UDP 319/320）；此外，還會新增一條僅限於本機子網的**「Chloros
-
-後端（TCP-In）」** 規則，用於 DAQ-E 在韌體更新期間與電腦建立回連線。 在 Linux
-
-系統上，若安裝時該防火牆處於啟用狀態，`.deb` 會為 `ufw` 或 `firewalld` 開啟 UDP 埠。 若使用第三方防火牆，或於後續啟用防火牆，則需對相同埠開放存取權限。
+* **同一廣播域。** 執行 Chloros 的機器必須與感測器位於同一 L2 網路區段 — mDNS 發現機制無法穿越路由器。
+* **防火牆。** 在 Windows 系統上，安裝程式會為後端在每個網路設定檔中新增 **Chloros 後端 (UDP-In)**防火牆規則，該規則涵蓋 DAQ-E 資料（UDP 5002）、 mDNS（UDP 5353）及 PTP（UDP 319/320）；此外，還會新增一條僅限於本機子網的**「Chloros 後端（TCP-In）」** 規則，用於 DAQ-E 在韌體更新期間與電腦建立回連線。 在 Linux 系統上，若安裝時該防火牆處於啟用狀態，`.deb` 會為 `ufw` 或 `firewalld` 開啟 UDP 埠。 若使用第三方防火牆，或於後續啟用防火牆，則需對相同埠開放存取權限。
 * **PoE 供電，無狀態 LED。** DAQ-E 本身沒有 LED 指示燈 — 請透過交換機或注入器埠上的連結/PoE 指示燈確認供電狀態，並在通電後等待數秒，讓裝置完成開機並加入網路。
 
 ## 連線
 
-**GUI：** 「光感測器」分頁 → 「連線感測器」 → 裝置類型「DAQ-E (乙太網路)」。裝置偵測僅在連線對話方塊顯示於螢幕時執行（Windows
-
-系統會進行 mDNS 瀏覽及 ARP 掃描），每 15 秒重複一次；按下「重新整理」按鈕可立即重新掃描。 偵測到的感測器會顯示在下拉式選單中；系統會自動選取第一個偵測到的感測器。
+**GUI：** 「光感測器」分頁 → 「連線感測器」 → 裝置類型「DAQ-E (乙太網路)」。裝置偵測僅在連線對話方塊顯示於螢幕時執行（Windows 系統會進行 mDNS 瀏覽及 ARP 掃描），每 15 秒重複一次；按下「重新整理」按鈕可立即重新掃描。 偵測到的感測器會顯示在下拉式選單中；系統會自動選取第一個偵測到的感測器。
 
 <!-- SCREENSHOT-NEEDED: DAQ connect dialog with Device Type set to "DAQ-E (Ethernet)" and at least one discovered sensor listed in the Hostname/IP dropdown (e.g. daq-e-xxxxxx.local), Connect button enabled. -->
 
@@ -67,23 +47,9 @@ chloros-cli daq pool-connect --eth-host daq-e-def330.local
 
 ## 裝置設定與韌體
 
-感測器本身儲存其網路設定：DHCP（出廠預設值，若無 DHCP 伺服器回應則退而採用 169.254.x.x 的鏈路本地位址）或靜態位址。它亦儲存開機時是否開始串流的設定。 請透過圖形化介面（感測器的齒輪圖示設定，**網路**：**變更…**、**開機時串流**、**重新啟動感測器**；請參閱 [DAQ 標籤頁](gui.md))，或透過 CLI
+感測器本身儲存其網路設定：DHCP（出廠預設值，若無 DHCP 伺服器回應則退而採用 169.254.x.x 的鏈路本地位址）或靜態位址。它亦儲存開機時是否開始串流的設定。 請透過圖形化介面（感測器的齒輪圖示設定，**網路**：**變更…**、**開機時串流**、**重新啟動感測器**；請參閱 [DAQ 標籤頁](gui.md))，或透過 CLI 和 SDK 使用 `pool-set-network`、 `pool-set-auto-stream` 及 `pool-reboot` (`DAQSensorSession.set_network()`、`set_auto_stream()`、`reboot()`；請參閱 [CLI 參考手冊](../reference/cli-reference.md#daq-e-device-settings))。 感測器會重新啟動以套用網路變更，而 Chloros 會重新連線至該感測器。靜態 IP 位址必須位於執行 Chloros 的電腦所屬網路中：若重新啟動後無法連線至該位址，Chloros 將拒絕接受該位址。感測器的 ID 及其 `daq-e-<id>.local` 主機名稱永遠不會改變。 1.3.0 版本新增功能。
 
-和 SDK
-
-使用 `pool-set-network`、 `pool-set-auto-stream` 及 `pool-reboot` (`DAQSensorSession.set_network()`、`set_auto_stream()`、`reboot()`；請參閱 [CLI
-
-參考手冊](../reference/cli-reference.md#daq-e-device-settings))。 感測器會重新啟動以套用網路變更，而 Chloros
-
-會重新連線至該感測器。靜態 IP 位址必須位於執行 Chloros
-
-的電腦所屬網路中：若重新啟動後無法連線至該位址，Chloros
-
-將拒絕接受該位址。感測器的 ID 及其 `daq-e-<id>.local` 主機名稱永遠不會改變。 1.3.0 版本新增功能。
-
-**韌體更新已整合至 GUI 中。** 當已連線的 DAQ-E 所執行之韌體版本早於您 Chloros
-
-建置版本所附帶的映像檔時，其感測器列會顯示一個琥珀色的 **有更新可用** 圓點，且齒輪設定模態視窗中會提供一個「更新至<version>」按鈕</version>
+**韌體更新已整合至 GUI 中。** 當已連線的 DAQ-E 所執行之韌體版本早於您 Chloros 建置版本所附帶的映像檔時，其感測器列會顯示一個琥珀色的 **有更新可用** 圓點，且齒輪設定模態視窗中會提供一個「更新至<version>」按鈕</version>
 
 。<version> 更新過程透過網路進行，約需 30 秒；感測器會自動重新啟動並重新連線，若傳輸中途中斷，當前韌體將保持不變。 若透過 CLI 或 SDK 操作，或在未提供 GUI 的 Linux 系統上，請執行 `chloros-cli daq pool-update-firmware --sensor-id <id>`（`DAQSensorSession.update_firmware()`）。
 

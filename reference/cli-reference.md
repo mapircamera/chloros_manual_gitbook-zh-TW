@@ -102,7 +102,7 @@
 - `CHLOROS_BACKEND_URL=<url>` 會將 **`lattice`**、**`project`**及**`daq pool-*`** 指令群指向另一個後端（`lattice network-analysis` 則指向 `--backend-url`）。核心指令會刻意鎖定 `http://127.0.0.1:<port>` 並忽略它 （IPv4 字面值可避免 Windows 的 `localhost`→`::1` 每請求約 2 秒的效能開銷）。請參閱 [環境變數](#environment-variables)。
 - **相對路徑會以您執行 `chloros-cli` 的資料夾為基準進行解析。** 後端是開啟輸出與輸入資料夾的程序，因此在傳送路徑之前，CLI 會將其轉為絕對路徑： `-o` / `--output`（包括其預設值 `output`）、`--input`、 `--burst-dir`、`--profile`、`--save` 以及 `--mask`，一個 [配方](#recipe-dsl) 步驟的 `output`（預設為 `output`），以及 `lattice index --live` 的預設 `output` 資料夾。因此，`-o captures/` 會寫入 `<current folder>/captures/`，且列印出的路徑為絕對路徑。 `~` 會被展開。針對遠端後端（`CHLOROS_BACKEND_URL` 指定另一台機器），路徑會以輸入的原始形式傳送，並在該機器上進行解析。
 - 所有 SDK/CLI 呼叫均需使用 Chloros+ 帳戶登入（每台機器執行一次 `chloros-cli login`；結果會快取於 `~/.chloros/`）。
-- 範例使用 Linux 路徑；在 Windows 上，請將 `/home/user/...` 替換為 `C:/Users/.../...`。DAQ-U&#x27;的序列埠在 Windows 上採用 `COM3` 格式，而在 Linux 上則採用 `/dev/ttyUSB0` / `/dev/ttyACM0` 格式。
+- 範例使用 Linux 路徑；在 Windows 上，請將 `/home/user/...` 替換為 `C:/Users/.../...`。DAQ-U'的序列埠在 Windows 上採用 `COM3` 格式，而在 Linux 上則採用 `/dev/ttyUSB0` / `/dev/ttyACM0` 格式。
 - 功能摘要將互斥旗標寫為 `{--a | --b}` 格式寫入，而可選標誌則以 `[...]` 格式寫入。
 
 ---
@@ -492,12 +492,11 @@ ndvi = lo + raw.astype(np.float64) / np.iinfo(raw.dtype).max * (hi - lo)
 BigTIFF 問題。若您的正射影像輸出比例尺顯得
 不合理， 請先對匯出的產品執行 `exiftool -FocalLength` 指令。
 
-此副本刻意**未**使用 `-all:all`：IFD0&#x27;的結構標籤在
+此副本刻意**未**使用 `-all:all`：IFD0'的結構標籤在
 複製時會破壞 LATTICE 的輸出，而 `ExifImageWidth` / `ExifImageHeight` 則被排除，因為它們描述的是
 *原始* 擷取檔——若曾經調整尺寸的匯出檔，其尺寸
 與其自身光柵相矛盾。XMP 會直接寫入而非複製，因為當 XMP 區塊被複製時，ExifTool
-會捨棄同一呼叫中的 XMP 標籤（這將導致 MAPIR
-校準標籤遺失）。
+會捨棄同一呼叫中的 XMP 標籤（這將導致 MAPIR 校準標籤遺失）。
 
 ### 輸出檔案的存放位置
 
@@ -1361,7 +1360,7 @@ output/
 
 ### 與曝光值相距甚遠的 DAQ 讀數
 
-每次擷取所儲存的 `.daq` 皆為與該曝光值對應的 DAQ 讀數，而其旁的 `.match.json` 則記錄兩者之間的差距 (`gap_ms`)，以及該偏差是否在容差範圍內 (`in_tolerance`，預設為 500 毫秒，除非擷取設定中另有指定 `--daq-tolerance-ms`)。 超出容差範圍的讀數仍會被採用，因此不會遺失任何幀，且會加以標記：反射率檔案的 XMP 中會包含 `DlsInTolerance=False` 和 `DlsMatchGapS`。 `lattice capture`、`multi-capture` 和 `array-capture` 也會在相關的 `.daq` 下輸出此資訊，並在說明時標示為 DAQ&#x27;資料擷取（DAQ）串流故障：
+每次擷取所儲存的 `.daq` 皆為與該曝光值對應的 DAQ 讀數，而其旁的 `.match.json` 則記錄兩者之間的差距 (`gap_ms`)，以及該偏差是否在容差範圍內 (`in_tolerance`，預設為 500 毫秒，除非擷取設定中另有指定 `--daq-tolerance-ms`)。 超出容差範圍的讀數仍會被採用，因此不會遺失任何幀，且會加以標記：反射率檔案的 XMP 中會包含 `DlsInTolerance=False` 和 `DlsMatchGapS`。 `lattice capture`、`multi-capture` 和 `array-capture` 也會在相關的 `.daq` 下輸出此資訊，並在說明時標示為 DAQ'資料擷取（DAQ）串流故障：
 
 **讀數如何與曝光時間配對。** 擷取指令會等待曝光結束後 DAQ 的第一個讀數，以便將該讀數前後的讀數進行融合（`method` `interpolated`）。DAQ-E 在日光下每 0.4 秒傳送一次讀數，室內則每 1-2 秒傳送一次，因此等待時間會使指令總計增加約一個半的間隔，而非曝光時間。若 DAQ 已停止傳送，則不會等待。DAQ-E 的讀數代表自上次讀數以來該間隔內的平均光照值，因此會置於該間隔的中點：`gap_ms` 是以曝光時間為起點計算至該中點，而 `bracket_stamps_ns` 則顯示讀數本身的時間戳記。 `array-capture --continuous` 會進行等待，但不會減慢擷取速度：其原始檔會立即寫入，而 `.daq` 則在讀數送達後隨即寫入。 透過 `--interval`，每個循環的等待時間皆等同於單次擷取。
 
@@ -1614,12 +1613,9 @@ Get-NetAdapterAdvancedProperty  -Name "Ethernet 5" -RegistryKeyword ReceiveBuffe
 
 > **`lattice network --fix` 適用於 USB 10GbE 網卡。**系統現已能偵測網卡類型並調整正確的接收環鍵字：PCIe 網卡（Intel I219、 等），或針對 Realtek**USB** 10GbE 控制器（該控制器未公開 `*ReceiveBuffers`）設定為 `ReceiveBufferLen`→256 + `PendingReceives`→64。目標值會被限制在各驅動程式回報的最大值（`NumericParameterMaxValue`）內，因此絕不會寫入超出範圍的數值。 請從 **提升權限** 的終端機執行此操作；如同任何基於登錄檔的調整，變更需在網卡重新啟動或系統重新開機後才會生效。上述的手動 `Set-NetAdapterAdvancedProperty` 指令仍是很好的替代方案——它們可在不重新啟動的情況下即時生效（重新綁定網卡）。
 
-### Linux
-主機 — 套接字接收緩衝區
+### Linux 主機 — 套接字接收緩衝區
 
-在 Linux
-系統（包括 NVIDIA Jetson）上，核心的套接字接收緩衝區與網路介面卡（NIC）的接收環同樣重要。 在內核預設值（`net.core.rmem_max` / `net.core.rmem_default` = 212,992 位元組）下，攝影機發送的 GVSP 封包洪流會在 Chloros
-讀取之前就導致流套接字溢出。 這些封包會在核心中被丟棄，儘管網路介面卡本身並未報告任何丟失，而影像陣列會因此遺失幀群組並降低幀率。 經測試，在連接 USB 10 GbE 適配器的 4 台攝影機陣列上，將兩者均調升至 32 MB 後，陣列在連線後的幀率從 4.96 fps 提升至 7.52 fps，連續原始擷取速率則從 4.7 次/秒提升至 7.6 次/秒，且內核中未丟失任何封包。
+在 Linux 系統（包括 NVIDIA Jetson）上，核心的套接字接收緩衝區與網路介面卡（NIC）的接收環同樣重要。 在內核預設值（`net.core.rmem_max` / `net.core.rmem_default` = 212,992 位元組）下，攝影機發送的 GVSP 封包洪流會在 Chloros 讀取之前就導致流套接字溢出。 這些封包會在核心中被丟棄，儘管網路介面卡本身並未報告任何丟失，而影像陣列會因此遺失幀群組並降低幀率。 經測試，在連接 USB 10 GbE 適配器的 4 台攝影機陣列上，將兩者均調升至 32 MB 後，陣列在連線後的幀率從 4.96 fps 提升至 7.52 fps，連續原始擷取速率則從 4.7 次/秒提升至 7.6 次/秒，且內核中未丟失任何封包。
 
 - **.deb 套件會設定這些參數。** 安裝套件時會寫入 `/etc/sysctl.d/60-chloros-gige.conf`（兩者皆設為 `33554432`），並立即套用。 若該值已設定為更高，則不予變更。
 - **`lattice network` 負責檢查這些設定。** 當任一數值較低時，系統會在 *發現的問題* 下列出 `socket receive buffers too small for GigE Vision (…)`，且後端日誌會在第一台攝影機或陣列連線時顯示相同的警告。
@@ -1641,23 +1637,14 @@ Get-NetAdapterAdvancedProperty  -Name "Ethernet 5" -RegistryKeyword ReceiveBuffe
 
 ### 陣列 fps 與突發傳輸模型
 
-如何解讀「陣列設定」面板（以及 `lattice analyze-array` / SDK
-的 `analyze_array_network`）：
+如何解讀「陣列設定」面板（以及 `lattice analyze-array` / SDK 的 `analyze_array_network`）：
 
 - **突發速率是根據每台攝影機的實際像素格式進行累計的。**單色**M3M**攝影機傳輸**Mono12（2 B/px）**，或透過 `--pixel-format` 傳輸其深度圖的單色格式 （`BayerRG8` 即為 `Mono8`， 1 B/px)；**M3C**拜耳相機則傳輸 8 位元或 12 位元（即使請求的是 BayerRG8，M3C 韌體仍會靜默輸出 BayerRG12）。因此，若四台相機皆為 8 位元，**全解析度畫面約為 12.6 MB；但若三台為 12 位元單色相機，則約為 25 MB**。 投影機制會根據型號（識別快取）解析各攝影機的格式，因此傳輸幀內容與線路實際傳輸的資料相符——而非預設為統一的 BayerRG8 格式。
-- **USB 以太網轉接器的傳輸速率上限為 200 MB/s，無論其標示規格為何。** 將鏈路速率轉換為持續傳輸速率的效率表是基於 PCIe 推導而來；USB 網路卡雖宣稱其 *乙太網路* 鏈路速率，但實際上受限於 USB 匯流排及其驅動程式。一款 USB 10GbE 轉接器曾測得約 1063 MB/s 「持續」傳輸速率——這個數值從未被實際驗證過——而由此產生的速率調控導致 6–18 % 的幀資料損壞，同時仍報告正常的目標 fps 數值。目前，透過 USB 連接的網路介面卡已設定絕對上限：在 Windows
-及 NVIDIA Jetson 上為 **200 MB/s**， 在 Linux
-x86_64 系統上則為 **400 MB/s**（在 Linux
-系統中，連接至 USB 2.0 埠的網卡預設配額為 **30 MB/s**，且功能說明建議將其插入 USB 3.0 埠） （此限制取決於主機的 USB 匯流排與驅動程式，因此不會隨標稱規格線性提升；USB 1 GbE 網卡可達到約 80 MB/s，且不受此限制影響）。在 Linux
-系統中，此轉接器可透過 sysfs 識別（若無法識別則回退至 `ethtool -i` 的 `bus-info`）。各項數據均經實測：在 Windows
-系統上，同一組 4 台攝影機陣列在傳輸速率超過 200 MB/s 時，會有 6–10 % 的幀出現損壞；在 Linux
-x86_64 系統上，同一款轉接卡在最高達 480 MB/s 的所有傳輸速率下均能穩定運作（實際傳輸速率為 273 MB/s，此為攝影機本身的極限）。在 NVIDIA Jetson 上，同一張適配卡僅在 200 MB/s 時運作正常，超過此速度後會間歇性地丟失幀。能力記錄中的 `wire_ceiling_source` 以文字說明了這一點，而 `nic_is_usb` 則以標記標示。無論哪種方式，皆可透過 `--wire-ceiling-mbps` 即可。
-- **通量控制會考量匯出通道負載，而非以「整組突發」對比「環形緩衝區」。** 同時發生的突發傳輸只需符合 *瞬態積壓* = `max(0, Σ per-cam arrival − host drain) × emit_window`，而非整個突發傳輸。在高速主機／低速攝像機的架構中（例如 **PCIe**10G 主機 + 4× 1 GbE CAM：傳入速率 ≈ 320 MB/s，排出速率 ≈ 1063 MB/s）的環境下，主機的排空速度快於攝影機的填充速度，積壓量 ≈ 0，因此全解析度的模擬發射模式仍會**允許**傳輸，即使 25 MB 的突發流量超過了 13.5 MB 的環形容量。 若將這四台攝影機連接至 Windows
-系統上的 **USB**10GbE 轉接器後端，資料排出速率為 200 MB/s，而非 1063 —— 資料抵達速率超過排出速率，且資料遺失會以損壞幀的形式呈現，而非幀率降低。 在 1 GbE 主機上，攝影機 31.25 MB/s 的 DLThr 下限會導致傳入流量超過傳出流量 → 系統會正確地**阻擋**（針對 *此類* 阻擋情況，請降低 ROI 或使用 ≥ 2 的像素合併）。 通量是 **兩個** 連接閘門之一——另一個是下方的聚合超訂閱檢查。
+- **USB 以太網轉接器的傳輸速率上限為 200 MB/s，無論其標示規格為何。** 將鏈路速率轉換為持續傳輸速率的效率表是基於 PCIe 推導而來；USB 網路卡雖宣稱其 *乙太網路* 鏈路速率，但實際上受限於 USB 匯流排及其驅動程式。一款 USB 10GbE 轉接器曾測得約 1063 MB/s 「持續」傳輸速率——這個數值從未被實際驗證過——而由此產生的速率調控導致 6–18 % 的幀資料損壞，同時仍報告正常的目標 fps 數值。目前，透過 USB 連接的網路介面卡已設定絕對上限：在 Windows 及 NVIDIA Jetson 上為 **200 MB/s**， 在 Linux x86_64 系統上則為 **400 MB/s**（在 Linux 系統中，連接至 USB 2.0 埠的網卡預設配額為 **30 MB/s**，且功能說明建議將其插入 USB 3.0 埠） （此限制取決於主機的 USB 匯流排與驅動程式，因此不會隨標稱規格線性提升；USB 1 GbE 網卡可達到約 80 MB/s，且不受此限制影響）。在 Linux 系統中，此轉接器可透過 sysfs 識別（若無法識別則回退至 `ethtool -i` 的 `bus-info`）。各項數據均經實測：在 Windows 系統上，同一組 4 台攝影機陣列在傳輸速率超過 200 MB/s 時，會有 6–10 % 的幀出現損壞；在 Linux x86_64 系統上，同一款轉接卡在最高達 480 MB/s 的所有傳輸速率下均能穩定運作（實際傳輸速率為 273 MB/s，此為攝影機本身的極限）。在 NVIDIA Jetson 上，同一張適配卡僅在 200 MB/s 時運作正常，超過此速度後會間歇性地丟失幀。能力記錄中的 `wire_ceiling_source` 以文字說明了這一點，而 `nic_is_usb` 則以標記標示。無論哪種方式，皆可透過 `--wire-ceiling-mbps` 即可。
+- **通量控制會考量匯出通道負載，而非以「整組突發」對比「環形緩衝區」。** 同時發生的突發傳輸只需符合 *瞬態積壓* = `max(0, Σ per-cam arrival − host drain) × emit_window`，而非整個突發傳輸。在高速主機／低速攝像機的架構中（例如 **PCIe**10G 主機 + 4× 1 GbE CAM：傳入速率 ≈ 320 MB/s，排出速率 ≈ 1063 MB/s）的環境下，主機的排空速度快於攝影機的填充速度，積壓量 ≈ 0，因此全解析度的模擬發射模式仍會**允許**傳輸，即使 25 MB 的突發流量超過了 13.5 MB 的環形容量。 若將這四台攝影機連接至 Windows 系統上的 **USB**10GbE 轉接器後端，資料排出速率為 200 MB/s，而非 1063 —— 資料抵達速率超過排出速率，且資料遺失會以損壞幀的形式呈現，而非幀率降低。 在 1 GbE 主機上，攝影機 31.25 MB/s 的 DLThr 下限會導致傳入流量超過傳出流量 → 系統會正確地**阻擋**（針對 *此類* 阻擋情況，請降低 ROI 或使用 ≥ 2 的像素合併）。 通量是 **兩個** 連接閘門之一——另一個是下方的聚合超訂閱檢查。
 - **預估 fps 取自最慢相機的週期。**在同步發射模式下，每台相機皆於同一時間傳送其幀，因此陣列的週期取決於其最慢成員的感測器讀出時間與發射時間兩者中較長者（幀位元組 ÷ 其發射速率：即相機的**存取鏈路**，1 GbE ≈ 80 MB/s，或當主機線路上限較低時，其佔用的比例）。每次曝光都會與前一幀的讀出時間重疊，因此曝光過程不計入週期： 自動曝光會填滿由傳輸速率決定的週期，隨後提高增益，且昏暗場景不再降低傳輸速率（在 1.2.0 版本中會降低）。只有手動曝光時間長於該週期時，才會減慢觸發速度（參見 [陣列成員上的曝光](#exposure-on-an-array-member))。增加相機數量並不會減慢陣列速度，除非其線路共享空間縮減。在串列發射模式（`slip-emit-and-capture`）中，各相機的發射時間會累積，且每個成員的曝光時間會被納入交錯時序的計算中。 在 9 台相機陣列上，以全感測器、12 位元模式，搭配 PCIe 10 GbE 主機進行測量：10.7 fps，若採用 [壓縮傳輸](#packed-12-bit-transport---packed) 則為 14.0 fps。
 - **連續擷取結束後，預估值會顯示其維持的幀率。** 若以自動幀率進行 30 秒或更長時間的擷取，系統會記錄該陣列尺寸在此電腦上最終穩定的幀率；幀率控制器短暫嘗試的較高幀率則不被計入。 此後，當該幀率低於模型預設值時，`array-connect` 的行以及「陣列設定」面板會顯示該幀率，並註明限制因素：`clock-bound`（陣列以穩定後的幀率運行， 抓取迴路正在等待其觸發時鐘)、`loop-bound`（抓取迴路時間已耗盡）、`capture-bound`（擷取落後並跳過群組）或 `measured` （未明確指出具體原因）。該模型的數值見於 `wire_fps_max`。陣列的幀率仍會攀升至線路所能承載的上限。
-- **陣列可在任何網路環境下運作——幀率才是決定性因素。**每台攝影機均能均等分配**防衝突線路上限**（`sustained × sim_emit_factor`），並配合 GevSCPD 進行節拍控制，且所有攝影機仍能同步觸發曝光。 在低速線路上，分配比例較小，幀率也會隨之下降：8 台全解析度 12 位元相機連接 1 GbE（未啟用巨型幀）時，每台可獲得 52 / 8 = 6.5 MB/s，約**1 fps**（壓縮後約 1.3 fps），而 10G 主機運行時則可達到 11-14 fps。若無法將相機的同步速度調至如此緩慢——請透過讀取各相機的 GevSCPD 範圍來確認——陣列將切換至**串列**發射模式 (`slip-emit-and-capture`)：相機將以全鏈路速率輪流使用傳輸線，依序觸發，因此每個幀仍會送達，但各成員的資料**不會同時曝光**。 `analyze-array` 以及 connect 指令的輸出會標示該模式；將 `--force-tier sim-capture-sim-emit` 設為固定值可拒絕此退避機制。幀大小不影響此共享機制，因此**像素合併與較小的 ROI 雖能提高幀率，但不會改變陣列是否符合**。 只有當一條線路連以串列方式都無法傳輸陣列時，才會發生**超額訂閱**—— 例如：相機數量遠超過一條線路所能處理的數量，或該線路上有太多其他相機正在串流 —— 此時出現的症狀是 GVSP 封包遺失，而非傳輸速率降低： `analyze-array` 會將可達幀率數值設為零並輸出 `** OVER-SUBSCRIBED**`，連線會伴隨明顯警告繼續進行，而出現 `pin_resolution: true`（嚴格模式）的 HTTP
-連線則會 **會被拒絕**。解決方案包括減少攝影機數量、端到端啟用巨型幀，或使用更快的網路介面卡。`CHLOROS_ARRAY_ALLOW_OVERSUBSCRIBED=1` 會將拒絕狀態降級為「強烈警告」，以便進行基準測試 — 請參閱 [環境變數](#environment-variables)。
+- **陣列可在任何網路環境下運作——幀率才是決定性因素。**每台攝影機均能均等分配**防衝突線路上限**（`sustained × sim_emit_factor`），並配合 GevSCPD 進行節拍控制，且所有攝影機仍能同步觸發曝光。 在低速線路上，分配比例較小，幀率也會隨之下降：8 台全解析度 12 位元相機連接 1 GbE（未啟用巨型幀）時，每台可獲得 52 / 8 = 6.5 MB/s，約**1 fps**（壓縮後約 1.3 fps），而 10G 主機運行時則可達到 11-14 fps。若無法將相機的同步速度調至如此緩慢——請透過讀取各相機的 GevSCPD 範圍來確認——陣列將切換至**串列**發射模式 (`slip-emit-and-capture`)：相機將以全鏈路速率輪流使用傳輸線，依序觸發，因此每個幀仍會送達，但各成員的資料**不會同時曝光**。 `analyze-array` 以及 connect 指令的輸出會標示該模式；將 `--force-tier sim-capture-sim-emit` 設為固定值可拒絕此退避機制。幀大小不影響此共享機制，因此**像素合併與較小的 ROI 雖能提高幀率，但不會改變陣列是否符合**。 只有當一條線路連以串列方式都無法傳輸陣列時，才會發生**超額訂閱**—— 例如：相機數量遠超過一條線路所能處理的數量，或該線路上有太多其他相機正在串流 —— 此時出現的症狀是 GVSP 封包遺失，而非傳輸速率降低： `analyze-array` 會將可達幀率數值設為零並輸出 `** OVER-SUBSCRIBED**`，連線會伴隨明顯警告繼續進行，而出現 `pin_resolution: true`（嚴格模式）的 HTTP 連線則會 **會被拒絕**。解決方案包括減少攝影機數量、端到端啟用巨型幀，或使用更快的網路介面卡。`CHLOROS_ARRAY_ALLOW_OVERSUBSCRIBED=1` 會將拒絕狀態降級為「強烈警告」，以便進行基準測試 — 請參閱 [環境變數](#environment-variables)。
 
 ### 陣列健康狀態 — 哪個子系統正在丟失幀
 
@@ -1687,8 +1674,7 @@ x86_64 系統上，同一款轉接卡在最高達 480 MB/s 的所有傳輸速率
 | 欄位 | 代表意義 |
 | --- | --- |
 | `wire_ceiling_mbps` | 主機當前生效的持續線路預算，單位為 MB/s。 |
-| `wire_ceiling_source` | 該數值的來源（文字說明）——例如 `USB-capped 200 MB/s (was theoretical 1062; PnPDeviceID=USB\VID_0BDA&PID_815A)` （在 Linux
-x86_64 系統上，為 `USB-capped 400 MB/s (…; sysfs: bus=usb (usb2/2-1/2-1:1.0))`）或 `user override 120 MB/s (auto said 200)`。 |
+| `wire_ceiling_source` | 該數值的來源（文字說明）——例如 `USB-capped 200 MB/s (was theoretical 1062; PnPDeviceID=USB\VID_0BDA&PID_815A)` （在 Linux x86_64 系統上，為 `USB-capped 400 MB/s (…; sysfs: bus=usb (usb2/2-1/2-1:1.0))`）或 `user override 120 MB/s (auto said 200)`。 |
 | `wire_ceiling_is_user_set` | 當由 `--wire-ceiling-mbps`（或 GUI 中的 **線路預算** 欄位）設定時，則為 `true`。 |
 | `nic_is_usb` | 針對 USB 以太網路轉接器，此值為 `true` — 請參閱上方的 USB 上限說明。 |
 
@@ -1715,9 +1701,7 @@ x86_64 系統上，為 `USB-capped 400 MB/s (…; sysfs: bus=usb (usb2/2-1/2-1:1
 | 重新啟動／關機卡死；隨後出現 `Invalid class` WMI 錯誤， 網卡無法啟用、USB 裝置遺失 | 舊版 2016 年 Realtek USB 10GbE 驅動程式 → 藍屏死機 `0x9F` → 強制關機 | 將網卡驅動程式更新至 ≥ v10.67 (2026)，然後重新套用上述的接收環設定 |
 | 陣列雖以全感測器速度連線，但幀率偏低 | 自動模式會維持全感測器狀態，並讓幀率降至線路所能承載的水平 | 選擇「連線輸出」清單中較快的選項之一（`--binning 2` / `4`，或較小的 `--width`/`--height`），啟用巨型幀，或升級鏈路 |
 | Array 回報目標 fps 狀態正常，但實際傳輸量僅為其一部分；`health.gvsp_corrupt_rate_pct` 值不為零， `never_arrived_rate_pct` 0 | 主機推斷的線路頻寬預算高於其實際可維持的值（常見於 USB 以太網適配器、窄頻 PCIe 通道或共用架構） | 請以較低的 `--wire-ceiling-mbps` 值重新連線，並再次檢查健康狀態區塊。 **非** `--target-fps` — GevSCPD 調速機制在連線時即已固定 |
-| Linux
-：某個陣列會遺失幀群組並降低幀率，而網路介面卡卻報告未發生丟包； `lattice network` 列出 `socket receive buffers too small` | 核心的套接字接收緩衝區設定為預設值，導致攝影機封包在核心中遭丟棄 | 將 `net.core.rmem_max` / `rmem_default` 至 32 MB — 參見 [Linux
-主機](#linux-hosts--socket-receive-buffers)。.deb 套件會在安裝時自動執行此設定 |
+| Linux：某個陣列會遺失幀群組並降低幀率，而網路介面卡卻報告未發生丟包； `lattice network` 列出 `socket receive buffers too small` | 核心的套接字接收緩衝區設定為預設值，導致攝影機封包在核心中遭丟棄 | 將 `net.core.rmem_max` / `rmem_default` 至 32 MB — 參見 [Linux 主機](#linux-hosts--socket-receive-buffers)。.deb 套件會在安裝時自動執行此設定 |
 | 已發佈的群組中缺少攝影機；`health.never_arrived_rate_pct` 值不為零， `gvsp_corrupt_rate_pct` 為 0 | 觸發／同步路徑 — 攝影機未啟動，非網路問題 | 檢查 M8 同步線纜及 `--line`；確認每個成員皆已啟用 (`TriggerMode=On`) |
 | `**OVER-SUBSCRIBED**` / `Wire budget` 在 `analyze-array` 中超限，或嚴格模式下發生連線拒絕 (`pin_resolution`；`array over-subscribes the wire`) | 無論攝影機以何種頻率運作，該線路皆無法同時或輪流傳輸該陣列——攝影機數量遠超線路可分攤的負荷，或線路上已有其他攝影機正在傳輸 | 減少攝影機數量、端到端使用巨型幀，或使用更快的網路介面卡。 **ROI/像素合併無助於解決問題**（資源共享與幀大小無關）。在測試平台上，`CHLOROS_ARRAY_ALLOW_OVERSUBSCRIBED=1` 會覆蓋此設定（接受封包遺失） |
 | 陣列透過 `slip-emit-and-capture`（序列埠）連接至低速網路 | 相機無法以足夠慢的節奏運作以同時共用該線路，因此需輪流運作；幀資料不會在同一瞬間傳輸 | 使用巨型幀或更快的網路介面卡可恢復同時擷取； `--force-tier sim-capture-sim-emit` 堅持此模式（並因此導致封包遺失） |
@@ -1726,21 +1710,11 @@ x86_64 系統上，為 `USB-capped 400 MB/s (…; sysfs: bus=usb (usb2/2-1/2-1:1
 
 ## `chloros-cli daq`
 
-光譜感測器指令。 `pool-*` 指令是輕量級的 HTTP
-客戶端，透過後端的持久化連接池驅動感測器，因此需要一個正在運行的後端（參見 [啟動後端](#start-the-backend))。後端擁有傳輸通道，因此 CLI
-和 SDK
-腳本共享一個活躍的處理程序，而非爭奪串列埠。`pool-discover` 是獲取 DAQ-M 的 BLE MAC 位址的唯一方法。
+光譜感測器指令。 `pool-*` 指令是輕量級的 HTTP 客戶端，透過後端的持久化連接池驅動感測器，因此需要一個正在運行的後端（參見 [啟動後端](#start-the-backend))。後端擁有傳輸通道，因此 CLI 和 SDK 腳本共享一個活躍的處理程序，而非爭奪串列埠。`pool-discover` 是獲取 DAQ-M 的 BLE MAC 位址的唯一方法。
 
-> **`chloros-cli daq --help`**（或 `-h`、或 `daq help`）會列出 `pool-*` 的子指令（在 Linux
-上，還會一併列出建置時包含的直接硬體指令）， 而 `chloros-cli daq <subcommand> --help`（或 `daq help <subcommand>`）則列出各項指令的選項。這些指令涵蓋連線、 串流、記錄經校準的 `.daq` 檔案、交換電容曲線檔，以及將 DAQ 綁定至攝影機；對於 DAQ-E 裝置，還包含其網路設定、PTP、重新啟動及韌體更新。 此外，亦可透過 `chloros_sdk.connect_daq_sensor()` 從 Python
-驅動 DAQ，該指令使用相同的彙總路徑。
+> **`chloros-cli daq --help`**（或 `-h`、或 `daq help`）會列出 `pool-*` 的子指令（在 Linux 上，還會一併列出建置時包含的直接硬體指令）， 而 `chloros-cli daq <subcommand> --help`（或 `daq help <subcommand>`）則列出各項指令的選項。這些指令涵蓋連線、 串流、記錄經校準的 `.daq` 檔案、交換電容曲線檔，以及將 DAQ 綁定至攝影機；對於 DAQ-E 裝置，還包含其網路設定、PTP、重新啟動及韌體更新。 此外，亦可透過 `chloros_sdk.connect_daq_sensor()` 從 Python 驅動 DAQ，該指令使用相同的彙總路徑。
 >
-> **請在所有平台上使用 `pool-*` 指令。** 這些指令在 Windows
-、Linux
-和 Jetson 上的運作方式完全相同。在 Windows
-上， `daq discover` 和 `daq list` 是 `pool-discover` 的別名，而任何其他非  的 `daq` 指令2567 以外的任何其他 `daq` 指令，都會以 `1` 搭配 `DAQ direct-hardware commands require the full daq package` 退出。在 Linux
-和 Jetson 上， `daq discover`、`daq list` 以及其他非 `pool-*` 的 `daq` 指令，是 DAQ 工具的直接非硬體指令：它們會在CLI
-的自有程序中開啟感測器， 位於後端資源池之外（因此並非由後端、GUI 或腳本所持有的感測器），且該處接受 `daq discover`、`--only` 及 `--timeout`，但不接受 `--json`。本參考文件僅記錄 `pool-*` 指令。
+> **請在所有平台上使用 `pool-*` 指令。** 這些指令在 Windows、Linux 和 Jetson 上的運作方式完全相同。在 Windows 上， `daq discover` 和 `daq list` 是 `pool-discover` 的別名，而任何其他非  的 `daq` 指令2567 以外的任何其他 `daq` 指令，都會以 `1` 搭配 `DAQ direct-hardware commands require the full daq package` 退出。在 Linux 和 Jetson 上， `daq discover`、`daq list` 以及其他非 `pool-*` 的 `daq` 指令，是 DAQ 工具的直接非硬體指令：它們會在CLI 的自有程序中開啟感測器， 位於後端資源池之外（因此並非由後端、GUI 或腳本所持有的感測器），且該處接受 `daq discover`、`--only` 及 `--timeout`，但不接受 `--json`。本參考文件僅記錄 `pool-*` 指令。
 
 ### DAQ 感測器首次連線工作流程
 
@@ -1785,33 +1759,24 @@ chloros-cli daq pool-disconnect --sensor-id CB-7C-A8-2E-5F
 | `daq pool-connect --ble` | 透過 BLE 進行 DAQ-M，自動掃描 MAC 位址。 |
 | `daq pool-connect --mac MAC` (`-m`) | 透過 BLE 連線至已知 MAC 位址的 DAQ-M（隱含 `--ble`）。 |
 | `daq pool-connect --eth-host HOST` | 透過乙太網路進行 DAQ-E，使用已知主機名稱或 IP 位址（隱含 `--eth`）。 |
-| `daq pool-connect --eth` | 透過乙太網路進行 DAQ-E，自動偵測主機（mDNS + ARP 備用機制；在 Windows
-和 Linux
-的冷 ARP 快取環境下仍可運作）。 |
+| `daq pool-connect --eth` | 透過乙太網路進行 DAQ-E，自動偵測主機（mDNS + ARP 備用機制；在 Windows 和 Linux 的冷 ARP 快取環境下仍可運作）。 |
 | `daq pool-connect --integration-time MS (-t) --frame-avg N (-f) --no-ae` | 調整積分視窗／AE 狀態。 |
 | `daq pool-connect --no-stream` | 建立連線但尚未開始串流 （請以 `pool-stream --start` 繼續）。 |
 | `daq pool-connect --cap-id {none, fov_15, fov_30, fov_45, fov_60, fov_90, sunshine_cosine}` | 上限校正設定檔。後端預設值為 `sunshine_cosine`； `none` 為裸感測器。[DAQ-E-S](#daq-e-s--fixed-diffuser-and-tilt-sensor) 會忽略此感測器（固定擴散片）。**感測器出貨時為裸感測器，因此請為您安裝的蓋子命名：** 系統會預設記錄為 (`cap_id_source=auto_default`)，且處理程序會就此發出警告，因為未加裝擴散片的 DAQ-U 在陽光校正下讀數會高出約 30 倍。 |
-| `daq pool-discover [--only usb,ble,eth] [--timeout SEC] [--json]` | 掃描每個傳輸通道，尋找可連接的感測器，但不會實際連接。 **這是查找 DAQ-M 的 BLE MAC 位址的方法。** `--timeout` 適用於每個傳輸通道（預設 5 秒，範圍 1-20）。傳輸池中已開啟的感測器不會列出——已連線的 DAQ-M 會停止廣播——因此請使用 `pool-list` 來查詢這些感測器。 `usb` 僅列出 USB 序列裝置：電腦自身的序列埠（`COM1`、Linux
-的 `/dev/ttyS*`）無法作為感測器，因此不會被列入。 |
+| `daq pool-discover [--only usb,ble,eth] [--timeout SEC] [--json]` | 掃描每個傳輸通道，尋找可連接的感測器，但不會實際連接。 **這是查找 DAQ-M 的 BLE MAC 位址的方法。** `--timeout` 適用於每個傳輸通道（預設 5 秒，範圍 1-20）。傳輸池中已開啟的感測器不會列出——已連線的 DAQ-M 會停止廣播——因此請使用 `pool-list` 來查詢這些感測器。 `usb` 僅列出 USB 序列裝置：電腦自身的序列埠（`COM1`、Linux 的 `/dev/ttyS*`）無法作為感測器，因此不會被列入。 |
 | `daq pool-list` | 顯示後端池中的所有感測器。 |
-| `daq pool-bind (--camera SERIAL \| --array ARRAY_ID) {SENSOR \| --clear}` | 將相機或陣列綁定至 DAQ，如同 GUI 中的光感測器選取功能： 其擷取操作會使用、比對並儲存該 DAQ 的讀數。`SENSOR` 為來自 `pool-list` 的感測器 ID，或是用以存取該 DAQ 的位址。`--clear` （無 `SENSOR`）將解除綁定， 且擷取作業將回退至最新的 DAQ。此綁定關係將持續至後端重新啟動，或該攝影機、陣列或 DAQ 斷開連接為止：任何斷開連接（此處指來自 SDK
-或應用程式內的斷開）都會解除所斷開硬體的所有綁定，無論由誰設定，陣列成員的綁定亦隨陣列一併解除。 該相機必須已連接、位於開啟中的專案中，或先前已在此電腦上開啟過；且該陣列必須已連接或位於開啟中的專案中；任何其他序列號或識別碼將因名稱不符而被拒絕，且不會建立任何綁定。 |
-| `daq pool-disconnect {--sensor-id ID \| --all}` | 釋放 — 無論由誰開啟該感測器，因此也會釋放因腳本當機而殘留在感測器池中的感測器（但會先完成該感測器上的任何錄製作業）。若感測器不在感測器池中，則無需釋放任何內容： 它會輸出 `ID: already released (not in the pool)` 並退出 `0`；若後端拒絕釋放或未確認釋放，則會輸出 `1`。 SDK
-：`DAQSensorSession.force_disconnect()`。 |
+| `daq pool-bind (--camera SERIAL \| --array ARRAY_ID) {SENSOR \| --clear}` | 將相機或陣列綁定至 DAQ，如同 GUI 中的光感測器選取功能： 其擷取操作會使用、比對並儲存該 DAQ 的讀數。`SENSOR` 為來自 `pool-list` 的感測器 ID，或是用以存取該 DAQ 的位址。`--clear` （無 `SENSOR`）將解除綁定， 且擷取作業將回退至最新的 DAQ。此綁定關係將持續至後端重新啟動，或該攝影機、陣列或 DAQ 斷開連接為止：任何斷開連接（此處指來自 SDK 或應用程式內的斷開）都會解除所斷開硬體的所有綁定，無論由誰設定，陣列成員的綁定亦隨陣列一併解除。 該相機必須已連接、位於開啟中的專案中，或先前已在此電腦上開啟過；且該陣列必須已連接或位於開啟中的專案中；任何其他序列號或識別碼將因名稱不符而被拒絕，且不會建立任何綁定。 |
+| `daq pool-disconnect {--sensor-id ID \| --all}` | 釋放 — 無論由誰開啟該感測器，因此也會釋放因腳本當機而殘留在感測器池中的感測器（但會先完成該感測器上的任何錄製作業）。若感測器不在感測器池中，則無需釋放任何內容： 它會輸出 `ID: already released (not in the pool)` 並退出 `0`；若後端拒絕釋放或未確認釋放，則會輸出 `1`。 SDK：`DAQSensorSession.force_disconnect()`。 |
 | `daq pool-latest --sensor-id ID [--recent N] [--json]` | 最近的 N 個頻譜幀（預設為 1）。 |
 | `daq pool-stream --sensor-id ID [--start \| --stop]` | 恢復／暫停串流。 |
 | `daq pool-record --sensor-id ID [--duration SEC] [-o DIR] [--device-name NAME] [--confirm-after S] [--heartbeat S]` / `--stop` | 開始／停止 .daq 錄製。 `-o` 預設值為後端電腦上的 `~/Documents/DAQ Live View`（相對路徑位於執行命令的資料夾之下）；`--duration`（`-d`，預設值為 `0`，直至 `--stop`）。 `--confirm-after S` 會在開始後 S 秒內未收到讀數時發出警告（預設值為 20；設定為 0 則關閉此功能）；而 `--duration` 則 `--heartbeat S` 會每 S 秒輸出讀數計數，並在計數停止增加時發出警告（預設值為 30；設為 0 則關閉此功能）。當 DAQ-E 上的記錄若出現靜默，一旦後端重新連線，便會繼續寫入同一檔案；而 `--stop` 會列出資料缺口（[停止傳輸的 DAQ-E](#a-daq-e-that-stops-delivering))。按下 Ctrl+C 可提前終止 `--duration` 的記錄並回報此狀況； 若未啟用 `--duration`，按下 Ctrl+C 後（退出 `130`）錄製仍會持續運行，直至 `--stop`。 |
 | `daq pool-set-cap --sensor-id ID --cap-id CAP` | 於執行時切換電容校正配置檔。必須設定 `--cap-id`；`--cap-id none` 會移除電容校正 （裸感測器）。DAQ-E-S 會將 `as_recorded` 維持為當前設定值。 |
-| `daq pool-enable-ptp --sensor-id ID` | 針對 PTP 已關閉的 DAQ-E，重新啟用 PTP。此設定會儲存於裝置中， 因此若裝置處於關閉狀態，將保持關閉——其時間戳記不會與 PTP 同步——直到執行此指令為止。 `pool-list` 會標記此類裝置（`!! PTP is switched OFF`）並為其輸出此指令。Chloros
-絕不會自行將裝置重新啟用，因為關閉狀態可能是刻意設定的。 |
-| `daq pool-info --sensor-id ID [--json]` | DAQ-E 本身的設定：其韌體（以及此Chloros
-版本是否包含更新版本）、其位址及取得方式 （DHCP／鏈路本地／靜態），以及在感測器執行該指令前儲存的網路設定（包含由 `--no-reboot` 儲存的設定）、開機時的資料串流，以及 PTP。若感測器的資料串流未能傳送至這台電腦，系統會在建立新連線時讀取感測器狀態並發出提示。 |
+| `daq pool-enable-ptp --sensor-id ID` | 針對 PTP 已關閉的 DAQ-E，重新啟用 PTP。此設定會儲存於裝置中， 因此若裝置處於關閉狀態，將保持關閉——其時間戳記不會與 PTP 同步——直到執行此指令為止。 `pool-list` 會標記此類裝置（`!! PTP is switched OFF`）並為其輸出此指令。Chloros 絕不會自行將裝置重新啟用，因為關閉狀態可能是刻意設定的。 |
+| `daq pool-info --sensor-id ID [--json]` | DAQ-E 本身的設定：其韌體（以及此Chloros 版本是否包含更新版本）、其位址及取得方式 （DHCP／鏈路本地／靜態），以及在感測器執行該指令前儲存的網路設定（包含由 `--no-reboot` 儲存的設定）、開機時的資料串流，以及 PTP。若感測器的資料串流未能傳送至這台電腦，系統會在建立新連線時讀取感測器狀態並發出提示。 |
 | `daq pool-set-network --sensor-id ID {--auto \| --static IP [--mask M] [--gateway G]} [--no-reboot] [--force] [--timeout S]` | 將 DAQ-E 設定為 DHCP (`--auto`) 或靜態位址 (`--mask` 預設為 `255.255.255.0`)。感測器會重新啟動以套用設定，並以原先的設定重新連線，最多會等待 `--timeout` 秒（預設 45 秒）； `--no-reboot` 僅會儲存該設定。請參閱 [DAQ-E 裝置設定](#daq-e-device-settings)。 |
-| `daq pool-set-auto-stream --sensor-id ID {--on \| --off}` | DAQ-E 在開機時若未連接任何軟體，是否開始串流（儲存於感測器中）。無論如何，Chloros
-都會自行啟動串流。 |
+| `daq pool-set-auto-stream --sensor-id ID {--on \| --off}` | DAQ-E 在開機時若未連接任何軟體，是否開始串流（儲存於感測器中）。無論如何，Chloros 都會自行啟動串流。 |
 | `daq pool-reboot --sensor-id ID [--timeout S]` | 重新啟動 DAQ-E 並以其先前設定重新連線 （最多等待 `--timeout` 時間，預設 45 秒）。 |
-| `daq pool-update-firmware --sensor-id ID [--timeout S]` | 將此 Chloros
-版本隨附的 DAQ-E 韌體刷寫至運行舊版本的感測器，然後重新連接 （約需一分鐘；請勿關機；`--timeout` 預設等待 45 秒使其恢復運作）。已為最新版本的感測器則不予處理。 |
+| `daq pool-update-firmware --sensor-id ID [--timeout S]` | 將此 Chloros 版本隨附的 DAQ-E 韌體刷寫至運行舊版本的感測器，然後重新連接 （約需一分鐘；請勿關機；`--timeout` 預設等待 45 秒使其恢復運作）。已為最新版本的感測器則不予處理。 |
 
 ### 停止傳輸資料的 DAQ-E
 
@@ -1829,8 +1794,7 @@ chloros-cli daq pool-disconnect --sensor-id CB-7C-A8-2E-5F
 
 ### DAQ-E-S — 固定式漫射器與傾斜感測器
 
-**DAQ-E-S** 是一款 DAQ-E，但有兩項對軟體而言至關重要的差異。其餘所有功能——包括裝置偵測、連線、PTP、記錄以及下方的裝置設定——皆與 DAQ-E 的運作方式完全相同。**其漫射器為固定式，因此無需進行蓋帽校正。** 此款 Sunshine 風格的漫射器為內建設計，且在進行工廠校準測量時已安裝於裝置上，因此該校準值已能準確讀取向下輻射照度。Chloros
-會將其蓋帽設定為 `as_recorded`（無配置檔），無論系統要求為何： 若指定以該裝置命名的上限值（`sunshine_cosine`、`fov_*`、`none`），系統會顯示訊息並忽略該設定，且其記錄資料會儲存為 `cap_id_source=model`，因此針對該感測器的「假設上限」警告永遠不會觸發。請勿手動對其資料套用上限：若在頂部放置 `sunshine_cosine`，讀數將高出約 11 倍。
+**DAQ-E-S** 是一款 DAQ-E，但有兩項對軟體而言至關重要的差異。其餘所有功能——包括裝置偵測、連線、PTP、記錄以及下方的裝置設定——皆與 DAQ-E 的運作方式完全相同。**其漫射器為固定式，因此無需進行蓋帽校正。** 此款 Sunshine 風格的漫射器為內建設計，且在進行工廠校準測量時已安裝於裝置上，因此該校準值已能準確讀取向下輻射照度。Chloros 會將其蓋帽設定為 `as_recorded`（無配置檔），無論系統要求為何： 若指定以該裝置命名的上限值（`sunshine_cosine`、`fov_*`、`none`），系統會顯示訊息並忽略該設定，且其記錄資料會儲存為 `cap_id_source=model`，因此針對該感測器的「假設上限」警告永遠不會觸發。請勿手動對其資料套用上限：若在頂部放置 `sunshine_cosine`，讀數將高出約 11 倍。
 
 **此感測器配備三軸加速度計。** 陽光漫射器的餘弦響應僅在水平狀態下有效，因此傾斜的感測器會回報錯誤的輻照度——且反射率會繼承此誤差——且無其他症狀。因此，每個 DAQ-E-S 讀數皆包含其姿態資訊：
 
@@ -1863,30 +1827,21 @@ chloros-cli daq pool-update-firmware --sensor-id daq-e-def330
 ```
 
 - **若未設定 `--gateway`，則 `--static` 不會儲存任何閘道**（先前設定的任何閘道皆會被捨棄），這對於沒有路由器的攝影機網路而言是正確的。
-- **靜態 IP 位址必須位於此電腦的網路中。** 若感測器網路中，Chloros
-會拒絕子網中未包含本電腦位址的設定：重新啟動後，將無法連線至感測器以將其改回原設定。僅當本電腦將被重新分配位址，或透過路由轉至新子網時，才應傳遞 `--force`。
+- **靜態 IP 位址必須位於此電腦的網路中。** 若感測器網路中，Chloros 會拒絕子網中未包含本電腦位址的設定：重新啟動後，將無法連線至感測器以將其改回原設定。僅當本電腦將被重新分配位址，或透過路由轉至新子網時，才應傳遞 `--force`。
 - **感測器正在錄製時，系統將拒絕重新啟動。** 請先停止錄製（`pool-record --stop`）。在重新啟動前一刻開始的錄製，將因重新啟動而結束， 且 `pool-set-network`、`pool-reboot` 及 `pool-update-firmware` 將以 `Warning:` 行結尾，該行會標示錄製檔案名稱 （即使感測器隨後未重新連線亦然）。
-- **重新啟動後，Chloros
-僅會重新連線感測器本身。** 它會在感測器原先所在的位置——以及在 `--auto` 之後，亦在其 `daq-e-<id>.local` 名稱下——等待包含感測器名稱、 主機名稱及型號，並根據其原先擁有的網路介面卡（MAC）位址，在回應的位址上重新連線。 僅接受來自該 MAC 位址的回應，因此若透過路由器連線至感測器的電腦，或處於預設 NAT 網路環境中的 WSL2，當感測器因 DHCP 被移至新位址時，將無法重新連線： 該指令會顯示此訊息，並輸出 `pool-connect --eth-host <its address> …` 指令，以感測器原先的快門速度與曝光設定將其恢復連線。
+- **重新啟動後，Chloros 僅會重新連線感測器本身。** 它會在感測器原先所在的位置——以及在 `--auto` 之後，亦在其 `daq-e-<id>.local` 名稱下——等待包含感測器名稱、 主機名稱及型號，並根據其原先擁有的網路介面卡（MAC）位址，在回應的位址上重新連線。 僅接受來自該 MAC 位址的回應，因此若透過路由器連線至感測器的電腦，或處於預設 NAT 網路環境中的 WSL2，當感測器因 DHCP 被移至新位址時，將無法重新連線： 該指令會顯示此訊息，並輸出 `pool-connect --eth-host <its address> …` 指令，以感測器原先的快門速度與曝光設定將其恢復連線。
 - **`pool-update-firmware` 會拒絕無法讀取其韌體版本的感測器。** 若感測器在閃光後花費的時間超過等待時間，並不表示其已故障：一旦其回應，系統便會以新韌體的設定重新連線，且該指令會警告其回應速度較慢。
-- **韌體更新需要一個傳入的 TCP 連線。** 感測器會重新連線至這台電腦以擷取影像。Chloros
-會監聽路由至感測器的網卡（若無法辨識具體網卡，則會監聽所有網卡），且僅服務該感測器本身的位址； 任何其他連線都會在未處理的情況下被關閉。在 Windows
-系統中，安裝程式設定的 `Chloros Backend (TCP-In)` 防火牆規則會允許其連線（參見 [Windows
-(.exe)](#windows-exe))；若防火牆阻擋此連線，更新將因 `… device never connected back on TCP <port> …` 錯誤而失敗。
+- **韌體更新需要一個傳入的 TCP 連線。** 感測器會重新連線至這台電腦以擷取影像。Chloros 會監聽路由至感測器的網卡（若無法辨識具體網卡，則會監聽所有網卡），且僅服務該感測器本身的位址； 任何其他連線都會在未處理的情況下被關閉。在 Windows 系統中，安裝程式設定的 `Chloros Backend (TCP-In)` 防火牆規則會允許其連線（參見 [Windows (.exe)](#windows-exe))；若防火牆阻擋此連線，更新將因 `… device never connected back on TCP <port> …` 錯誤而失敗。
 - **在 WSL2 環境下，請使用鏡像網路**（`networkingMode=mirrored` 及 `%UserProfile%\.wslconfig`）。 在預設的 NAT 模式下，這台電腦在感測器網路上的位址是 WSL 自身的位址，因此所有靜態位址都會被拒絕（除非出現 `--force` 錯誤），即時串流無法傳送到 WSL，且韌體更新無法完成，因為感測器會連回電腦以接收映像檔。
 - **感測器 ID 和主機名稱不會改變。** 無論其位址為何，DAQ-E 仍為 `daq-e-<id>` 和 `daq-e-<id>.local`，因此 `--eth-host daq-e-<id>.local` 仍能持續找到它。
-- **GUI 的設定保持不變**：在「光感測器」分頁中，點選感測器的設定（齒輪圖示），然後選擇「網路」。GUI 會維持與感測器的獨立連線，因此若要變更 GUI 已開啟的感測器設定，請透過 GUI 進行操作： 若透過 CLI
-重新啟動，將終止 GUI 與該感測器的連線。
-- 對應的 SDK
-型號為 `DAQSensorSession.device_info()`、`set_network()`、`set_auto_stream()`、 `reboot()` 以及 `update_firmware()`。
+- **GUI 的設定保持不變**：在「光感測器」分頁中，點選感測器的設定（齒輪圖示），然後選擇「網路」。GUI 會維持與感測器的獨立連線，因此若要變更 GUI 已開啟的感測器設定，請透過 GUI 進行操作： 若透過 CLI 重新啟動，將終止 GUI 與該感測器的連線。
+- 對應的 SDK 型號為 `DAQSensorSession.device_info()`、`set_network()`、`set_auto_stream()`、 `reboot()` 以及 `update_firmware()`。
 
 ---
 
 ## `chloros-cli project`
 
-開啟、連線並執行已儲存的 Chloros
-專案 （內含 `cameras.json`、`sensors.json` 及 `project.json` 的資料夾）。所有操作皆透過後端進行，因此圖形介面（GUI）與命令列介面（CLI
-）所呈現的硬體狀態完全一致。
+開啟、連線並執行已儲存的 Chloros 專案 （內含 `cameras.json`、`sensors.json` 及 `project.json` 的資料夾）。所有操作皆透過後端進行，因此圖形介面（GUI）與命令列介面（CLI）所呈現的硬體狀態完全一致。
 
 ### 子指令參考
 
@@ -1894,21 +1849,18 @@ chloros-cli daq pool-update-firmware --sensor-id daq-e-def330
 | --- | --- |
 | `project open PATH [--relink FOLDER]` | 列印專案的裝置清單（攝影機、陣列、感測器），從其檔案中讀取資料，並檢查其原始檔案（參見 [已移動的專案](#a-moved-project---relink)）。 此指令不會在後端開啟該專案：該專案在後端的開啟狀態，以及其中的裝置與錄影檔，均維持原狀。若無法找到該專案的任何原始檔，則退出 `1`。 |
 | `project devices PATH [--reconnect]` | 列出或重新執行偵測。 |
-| `project connect PATH [--cameras-only] [--sensors-only] [--packed {auto,on,off}]` | 連線所有已儲存的攝影機／陣列／感測器。每個陣列的連線方式與 `lattice array-connect` 相同： 最長 600 秒，其步驟會輸出至 stderr（`[array <id>]    <s> s: <step>`；標準輸出為 JSON
-報告）， 若陣列未能在該時間內連線成功，則會撤銷該陣列的連線設定——其攝影機將恢復為初始偵測狀態——並於 `errors` 下進行報告，絕不會保持連線狀態。`--packed` 會為每個陣列設定 12 位元壓縮傳輸模式 （預設值為 `auto`；專案不會儲存各陣列的個別設定；參見 [12 位元壓縮傳輸](#packed-12-bit-transport---packed))。每個光感測器都會在後端的 DAQ 池中，以其儲存的位址、積分時間、幀平均、自動曝光及蓋帽設定開啟： 未選取上限的感測器將採用 `sunshine_cosine`；已儲存為「裸感測器」（`none`）的感測器將維持「裸感測器」狀態；而 DAQ-E-S 感測器則永遠不會設定上限。 GUI 的 DAQ 面板不屬於此池的一部分：請先在該處關閉感測器。 |
+| `project connect PATH [--cameras-only] [--sensors-only] [--packed {auto,on,off}]` | 連線所有已儲存的攝影機／陣列／感測器。每個陣列的連線方式與 `lattice array-connect` 相同： 最長 600 秒，其步驟會輸出至 stderr（`[array <id>]    <s> s: <step>`；標準輸出為 JSON 報告）， 若陣列未能在該時間內連線成功，則會撤銷該陣列的連線設定——其攝影機將恢復為初始偵測狀態——並於 `errors` 下進行報告，絕不會保持連線狀態。`--packed` 會為每個陣列設定 12 位元壓縮傳輸模式 （預設值為 `auto`；專案不會儲存各陣列的個別設定；參見 [12 位元壓縮傳輸](#packed-12-bit-transport---packed))。每個光感測器都會在後端的 DAQ 池中，以其儲存的位址、積分時間、幀平均、自動曝光及蓋帽設定開啟： 未選取上限的感測器將採用 `sunshine_cosine`；已儲存為「裸感測器」（`none`）的感測器將維持「裸感測器」狀態；而 DAQ-E-S 感測器則永遠不會設定上限。 GUI 的 DAQ 面板不屬於此池的一部分：請先在該處關閉感測器。 |
 | `project capture PATH NAME [-o DIR] [--format FMT] [--exposure US] [--gain DB] [--prefix P] [--orient]` | 來自命名相機或陣列的單次擷取（預設為 `--prefix`，`capture`）。`--orient` （陣列）：陣列儲存原始資料，並保持原生格式——這表示由 `process` 從中產生的產出需進行方向調整，如 `array-capture --orient` 所示。預設值：原生。 `project burst` / `stream` 以及配方中的 `capture` / `burst` / `stream`（`orient: true`）皆採用相同的選項。 |
 | `project burst PATH NAME [-n N] [-i S] [-o DIR] [--format FMT] [--exposure US] [--gain DB] [--prefix P] [--orient]` | 來自指定攝影機或陣列的 N 幀連拍（`-n/--count` 預設值為 5；`-i/--interval` 幀間間隔（以秒為單位），預設值為 0）。 陣列連拍會對重複的同步群組進行去重（過期監控機制），因此部分循環的陣列無法回傳同一幀的 N 份副本； 並輸出每次迭代的結果。若擷取過程中途失敗，將停止連拍並退出 `1`，同時顯示失敗前已儲存的幀數。 |
 | `project stream PATH NAME [-n N] [--fps F] [-o DIR] [--format FMT] [--exposure US] [--gain DB] [--orient]` | 循環將擷取資料寫入磁碟：`--fps F` 每秒擷取一次 （預設為 3），每次擷取來自一臺相機的一幀畫面，以及來自陣列的一組同步幀（採用與 `project burst` 相同的過期監控機制），直到 `-n N` 擷取 （預設 `0` = 直到按下 Ctrl+C 為止，此時會顯示已儲存的張數並退出 `0`；若未儲存任何畫面或檔案傳輸失敗，則退出 `1`； 若在 `-n N` 擷取完成前按下 Ctrl+C，則會退出 `130`)。若擷取過程中途失敗，將停止串流並退出 `1`，同時顯示在此之前已儲存的幀數。`--poll-interval` 已廢棄且被忽略： 但系統仍會接受該指令，因此舊版腳本仍可執行，並會在標準錯誤輸出（stderr）中顯示相關提示。 |
 | `project sensor read PATH NAME [--json]` | 最新光譜幀。 |
 | `project sensor log PATH NAME [--seconds SEC] [-o DIR] [--device-name NAME]` | 為 `--seconds` 錄製 .daq 檔案 （預設 10）。若記錄檔中未包含任何讀數，系統將在標準錯誤輸出 (stderr) 中報告此狀況並退出 `1`。 |
-| `project run PATH RECIPE.yaml` | 執行 YAML／JSON
-擷取配方。 `--dry-run` 進行驗證而不執行。 |
+| `project run PATH RECIPE.yaml` | 執行 YAML／JSON 擷取配方。 `--dry-run` 進行驗證而不執行。 |
 | `project align calibrate PATH NAME [--method M] [--model M] [--frames N] [--reference SN] [--max-features N] [--ratio-threshold F] [--ransac-threshold-px F] [--min-matches N] [--max-reproj-err-px F] [--checkerboard RxC] [--name PROFILE]` | 計算陣列的對齊 — 請參閱 [下方的旗標表](#project-align-calibrate-options)。 |
 | `project align status PATH NAME [--json]` | 列印當前對齊設定檔。 |
 | `project align clear PATH NAME` | 清除快取中的設定檔。 |
 | `project align tweak PATH NAME --serial SN [--dx N] [--dy N] [--rotation-deg N] [--scale N]` | 微調一個從屬節點的變換 （預設為 `0`、`0`、`0`、`1.0`：不作變更）。 |
-| `project align export PATH NAME --to FILE` | 將設定檔儲存為 JSON
-。 |
+| `project align export PATH NAME --to FILE` | 將設定檔儲存為 JSON。 |
 | `project align import PATH NAME --from FILE [--no-validate]` | 載入已儲存的設定檔。 |
 
 #### `project align calibrate` 選項
@@ -1920,13 +1872,12 @@ chloros-cli daq pool-update-firmware --sensor-id daq-e-def330
 | `--frames N` | `1` | 將同步幀快照與 平均值。 |
 | `--reference SN` | 主相機 | 參考相機序列號；其餘所有成員皆會變形對應至該主相機。 |
 | `--max-features N` | `5000` | ORB 特徵點數量上限。 |
-| `--ratio-threshold F` | `0.75` | Lowe&#x27;比率測試。 |
+| `--ratio-threshold F` | `0.75` | Lowe'比率測試。 |
 | `--ransac-threshold-px F` | `3.0` | RANSAC 內點閾值。 |
 | `--min-matches N` | `15` | **品質門檻** — 若符合的內點數低於此數值，則拒絕該解。 |
 | `--max-reproj-err-px F` | `4.0` | **品質門檻** — 若重投影均方根誤差超過此值，則拒絕該求解結果。 |
 | `--checkerboard RxC` | — | `--method checkerboard` 的板級幾何結構，例如 `9x6`。 |
-| `--name PROFILE` | 空 | 嵌入至儲存之 JSON
-中的輪廓名稱。 **非陣列名稱** — 該陣列名稱指的是位置參數 `NAME`。 |
+| `--name PROFILE` | 空 | 嵌入至儲存之 JSON 中的輪廓名稱。 **非陣列名稱** — 該陣列名稱指的是位置參數 `NAME`。 |
 
 這兩項品質門檻是校準過程雖能成功解算，卻仍
 拒絕儲存的原因：若配置檔未能通過其中任何一項，將會在後續
@@ -1942,8 +1893,7 @@ chloros-cli daq pool-update-firmware --sensor-id daq-e-def330
 資料夾內的檔案，會被搜尋至專案目前所在的資料夾中，並將該處找到的
 每個路徑重新指向新位置並儲存 （`project.json` 會先備份為
 `project.json.before-relink-<date>-<time>`）。此過程會在每次開啟時執行——無論是應用程式本身、
-`chloros-cli project open`， `chloros-cli process` 匯入現有專案時，SDK
-的
+`chloros-cli project open`， `chloros-cli process` 匯入現有專案時，SDK 的
 以及 `chloros-mcp` 的。路徑僅會重新指向該處存在的檔案。
 
 原本位於專案資料夾外的檔案——例如透過 Hub 會話或「新增資料夾」匯入——
@@ -1960,8 +1910,7 @@ chloros-cli project open "N:/Chloros Projects/Field_A" --relink "E:/backup/Hub P
 重新指向的內容、找到的原始檔數量，以及其餘檔案所在的
 資料夾。 仍有部分檔案缺失：顯示警告，並退出 `0` —— 專案會連同其餘檔案一併開啟。未
 找到任何檔案：顯示錯誤訊息，列出那些資料夾名稱及 `--relink`，並退出 `1`；後端同樣
-亦拒絕開啟此類專案，例如 `process` 或 `project devices --reconnect`（HTTP
-409 `PROJECT_SOURCES_MISSING`）。
+亦拒絕開啟此類專案，例如 `process` 或 `project devices --reconnect`（HTTP 409 `PROJECT_SOURCES_MISSING`）。
 
 ### 範例
 
@@ -2056,7 +2005,7 @@ chloros-cli project run "/path/to/project" recipe.yaml
 chloros-cli project run "/path/to/project" recipe.yaml --dry-run
 ```
 
-**每次執行前，系統都會先對照專案進行檢查。**每個動作的鍵值必須精確對應上述動詞之一 — 例如 `- capture: {name: FrontLeft}`，而非 `- action: capture` 或 `- type: capture` ——若使用 `name`，該專案的 `cameras.json` / `sensors.json` 會包含一個相機或陣列，而 `apply` / `capture` / `burst` / `stream` 以及一個用於 `sensor` 的光感測器； `stream` 需要 `count` &gt; 0，而 `wait` 則需要一個持續時間。若食譜中存在任何此類錯誤，則**不會**執行任何動作 （`[recipe] error: …`、`[recipe] not run: …`、退出 `1`），即使包含 `stop_on_error: false` 亦然。 步驟未使用的鍵會觸發 `[recipe] warning:`，凡是該配方所驅動但目前未連接的陣列或光感測器，亦會觸發此錯誤。 配方絕不會直接連接裝置：請先執行 `chloros-cli project connect PATH`。`--dry-run` 會輸出配方內容，接著顯示相同的錯誤與警告，並在配方發生錯誤時執行 `[recipe] valid: …` / `NOT valid: …`，若配方出現錯誤，則不執行任何操作並退出 `1`。
+**每次執行前，系統都會先對照專案進行檢查。**每個動作的鍵值必須精確對應上述動詞之一 — 例如 `- capture: {name: FrontLeft}`，而非 `- action: capture` 或 `- type: capture` ——若使用 `name`，該專案的 `cameras.json` / `sensors.json` 會包含一個相機或陣列，而 `apply` / `capture` / `burst` / `stream` 以及一個用於 `sensor` 的光感測器； `stream` 需要 `count` > 0，而 `wait` 則需要一個持續時間。若食譜中存在任何此類錯誤，則**不會**執行任何動作 （`[recipe] error: …`、`[recipe] not run: …`、退出 `1`），即使包含 `stop_on_error: false` 亦然。 步驟未使用的鍵會觸發 `[recipe] warning:`，凡是該配方所驅動但目前未連接的陣列或光感測器，亦會觸發此錯誤。 配方絕不會直接連接裝置：請先執行 `chloros-cli project connect PATH`。`--dry-run` 會輸出配方內容，接著顯示相同的錯誤與警告，並在配方發生錯誤時執行 `[recipe] valid: …` / `NOT valid: …`，若配方出現錯誤，則不執行任何操作並退出 `1`。
 
 ---
 
@@ -2095,7 +2044,7 @@ chloros-cli project run "/path/to/project" recipe.yaml --dry-run
 ## 疑難排解提示
 
 - **「需要登入」** → 請在此電腦上執行一次 `chloros-cli login EMAIL PASSWORD`。
-- **「此電腦的專案資料夾層級過深」** → 此電腦已停用 Windows 長路徑功能（此為 Windows 預設設定），因此任何路徑長度不得超過 260 個字元，且產品路徑位於專案資料夾下方最多約 130 個字元的深度內。 未處理任何項目。該訊息會顯示符合條件的最長專案資料夾名稱：請改用較短的專案資料夾（例如 `-o` 或 `chloros-cli set-project-folder`），或啟用 Windows 長路徑並重新啟動 Chloros。 Windows 安裝程式會提供「啟用 Windows 長路徑」選項，預設為勾選狀態；否則請使用群組原則：*電腦設定 &gt; 管理範本 &gt; 系統 &gt; 檔案系統 &gt; 啟用 Win32 長路徑*。
+- **「此電腦的專案資料夾層級過深」** → 此電腦已停用 Windows 長路徑功能（此為 Windows 預設設定），因此任何路徑長度不得超過 260 個字元，且產品路徑位於專案資料夾下方最多約 130 個字元的深度內。 未處理任何項目。該訊息會顯示符合條件的最長專案資料夾名稱：請改用較短的專案資料夾（例如 `-o` 或 `chloros-cli set-project-folder`），或啟用 Windows 長路徑並重新啟動 Chloros。 Windows 安裝程式會提供「啟用 Windows 長路徑」選項，預設為勾選狀態；否則請使用群組原則：*電腦設定 > 管理範本 > 系統 > 檔案系統 > 啟用 Win32 長路徑*。
 - **「無法連線至後端」** → 啟動 Chloros 桌面應用程式（Windows），或手動啟動後端：Windows 上的 `"C:\Program Files\Chloros\backend\chloros-backend.exe"`（位於安裝資料夾內的 `backend` 資料夾中； 該檔案不在 `PATH` 中），Linux 系統上則為 `chloros-backend`。若為遠端連線，請檢查 `CHLOROS_BACKEND_URL`。
 - **`lattice` 指令執行失敗並顯示「找不到 LATTICE 攝影機驅動程式」** → 後端無法載入其安裝時附帶的 LATTICE 攝影機執行階段。 所有 `lattice` 指令皆在後端執行；CLI 本身並不包含任何攝影機驅動程式。請重新安裝 Chloros：Windows 安裝程式和 .deb 套件會將執行時環境安裝在後端旁。
 - **「Array connect」／「Array Settings」顯示「FRAMES WILL DROP」或「請縮小 ROI 以啟用」** → 主機網路介面卡 (NIC) 的接收環大小過小（通常在更新 NIC 驅動程式後會重設為 32）。 請參閱 [主機網路介面卡設定與調校](#host-nic-setup--tuning-lattice-arrays) — 設定 `ReceiveBufferLen=256`、`PendingReceives=64`。

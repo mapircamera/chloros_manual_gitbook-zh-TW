@@ -16,49 +16,21 @@
 | 方案 | `plan_id` | 類型 |
 | --- | --- | --- |
 | 鐵級 | `0` | 免費 |
-| 銅級 | `1` | 付費（Chloros
-
-+） |
-| 青銅級 | `2` | 付費（Chloros
-
-+） |
-| 銀級 | `3` | 付費（Chloros
-
-+） |
-| 黃金 | `4` | 付費（Chloros
-
-+） |
+| 銅級 | `1` | 付費（Chloros+） |
+| 青銅級 | `2` | 付費（Chloros+） |
+| 銀級 | `3` | 付費（Chloros+） |
+| 黃金 | `4` | 付費（Chloros+） |
 
 請參閱 [方案與定價](https://cloud.mapir.camera/pricing)，了解各付費層級的包含內容。
 
-### 存取 CLI
+### 存取 CLI／SDK 需具備付費層級
 
-／SDK
+使用 CLI 和 Python SDK 需具備 **任何付費 Chloros+ 方案（銅級或更高）**。此限制由**伺服器端** 強制執行 — 每個 CLI/SDK 請求都必須同時包含有效會話和付費方案：
 
-需具備付費層級
-
-使用 CLI
-
-和 Python
-
-SDK
-
-需具備 **任何付費 Chloros
-
-+ 方案（銅級或更高）**。此限制由**伺服器端** 強制執行 — 每個 CLI
-
-/SDK
-
-請求都必須同時包含有效會話和付費方案：
-
-| HTTP
-
-狀態 | `error_code` | 含義 | 解決方法 |
+| HTTP 狀態 | `error_code` | 含義 | 解決方法 |
 | --- | --- | --- | --- |
 | `401` | `AUTH_REQUIRED` | 未在此機器上登入 | `chloros-cli login <email> <password>` |
-| `403` | `PLAN_UPGRADE_REQUIRED` | 已登入，但方案等級過低（免費 Iron 等級） | 升級至任何付費的 Chloros
-
-+ 方案 |
+| `403` | `PLAN_UPGRADE_REQUIRED` | 已登入，但方案等級過低（免費 Iron 等級） | 升級至任何付費的 Chloros+ 方案 |
 
 `chloros-cli status` 在免費方案下仍可存取，因此您隨時都能查看當前方案及遭拒的理由。
 
@@ -73,17 +45,9 @@ SDK
 | Silver | 10 | 6 |
 | Gold | 20 | 12 |
 
-## CLI
+## CLI 登入
 
-登入
-
-請使用您的 Chloros
-
-+ 憑證登入以啟用 CLI
-
-處理功能。在 Linux
-
-（無 GUI）環境中，這是啟用授權的唯一方式。
+請使用您的 Chloros+ 憑證登入以啟用 CLI 處理功能。在 Linux（無 GUI）環境中，這是啟用授權的唯一方式。
 
 **語法：**
 
@@ -92,15 +56,7 @@ chloros-cli login <email> <password>
 ```
 
 {% hint style="info" %}
-**SDK
-
-使用者**：Python
-
-SDK
-
-亦提供程式化方法 `logout()` 來清除快取的憑證。詳情請參閱 [SDK
-
-參考手冊](reference/sdk-reference.md)。
+**SDK 使用者**：Python SDK 亦提供程式化方法 `logout()` 來清除快取的憑證。詳情請參閱 [SDK 參考手冊](reference/sdk-reference.md)。
 {% endhint %}
 
 **範例：**
@@ -127,23 +83,13 @@ chloros-cli login user@example.com 'MyP@ssw0rd123'
 | **Windows** | `%USERPROFILE%\.chloros\` |
 | **Linux** | `~/.chloros/` |
 
-若在現有版本上安裝新版，您的登入資訊將被保留，此情況適用於 Windows
-
-（安裝程式）及 Linux
-
-（`.deb`，包含 `chloros-cli update`）。 若解除安裝 Chloros
-
-—— 或移除 Linux
-
-套件 —— 將清除快取的登入資訊，因此重新安裝後需再次登入。
+若在現有版本上安裝新版，您的登入資訊將被保留，此情況適用於 Windows（安裝程式）及 Linux（`.deb`，包含 `chloros-cli update`）。 若解除安裝 Chloros —— 或移除 Linux 套件 —— 將清除快取的登入資訊，因此重新安裝後需再次登入。
 
 ### 方案到期與離線寬限期
 
 GUI 中顯示的方案到期日期，代表您的授權將於該日期失效。 對於每月自動續訂的訂閱，到期日為當月月底；對於年度訂閱，則為您開始訂閱後的一年。
 
-Chloros
-
-會線上驗證您的授權，但在寬限期內仍支援離線運作：
+Chloros 會線上驗證您的授權，但在寬限期內仍支援離線運作：
 
 * 成功的伺服器驗證結果會被快取 **5 分鐘**，因此正常使用時幾乎不會發出授權查詢請求。
 * 經簽名且與機器綁定的授權快取可涵蓋更長的離線時段：**月費方案為 30 天**，**年費方案則持續至訂閱到期日（最長 365 天）**。
@@ -151,13 +97,7 @@ Chloros
 
 ### 裝置數量限制
 
-每種 Chloros
-
-+ 方案提供的註冊裝置數量各不相同。您使用 Chloros
-
-+ 帳戶登入的每台裝置，都會計入您的註冊裝置總數。您可以在 MAPIR
-
-雲端帳戶頁面中重新命名或移除裝置。
+每種 Chloros+ 方案提供的註冊裝置數量各不相同。您使用 Chloros+ 帳戶登入的每台裝置，都會計入您的註冊裝置總數。您可以在 MAPIR 雲端帳戶頁面中重新命名或移除裝置。
 
 <table><thead><tr><th width="168.5999755859375" align="right">Chloros+ 方案</th><th align="center">銅級</th><th align="center">BRONZE</th><th align="center">銀級</th><th align="center">GOLD</th></tr></thead><tbody><tr><td align="right">支援裝置</td><td align="center">2</td><td align="center">2</td><td align="center">5</td><td align="center">10</td></tr></tbody></table>
 

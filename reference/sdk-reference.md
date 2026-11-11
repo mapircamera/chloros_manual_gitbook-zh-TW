@@ -32,10 +32,10 @@
 > - **讀取超時或連線中斷會觸發 `ChlorosConnectError`** 錯誤，此錯誤源自每個 smart-connect 呼叫，以及 `analyze_array_network()`，其中 1.2.0 版本會觸發底層的超時或連線錯誤。
 > - **`connect_array()` 預設等待 600 秒（`timeout`，1.2.0 版本中為 180 秒），若其放棄的連線將被撤銷。** 該呼叫會將其 `timeout` 傳送至後端，後端會將每台攝影機恢復至最初被偵測到的狀態，並在連線未及時完成時不進行任何連線；該呼叫會觸發 `ChlorosConnectError` （HTTP 504 `CLIENT_DEADLINE_PASSED`）。在 1.2.0 版本中，若在攝影機通電後立即進行連線，可能會持續時間超過該呼叫，並在呼叫拋出錯誤後仍成功連線陣列。`connect_all()` 會以相同方式等待每個已儲存的陣列 （1.2.0 版本中為 120 秒）。請參閱 [`connect_array()` 簽名](#connect_array-signature)。
 > - **`connect_array()` 會保留完整的感測器。** 若未啟用 `width` / `height` / `binning`，每台攝影機皆會設定為全感測器模式，幀率將降至主機與網路所能提供的水準；1.2.0 會縮小或合併幀以維持幀率。請參閱 [同步陣列](#synchronized-array--arraysession-smart-prep)。
-> - **M3M（單色）攝影機上的拜耳像素格式即為其深度格式。** M3M 僅提供單色格式，而預設名稱中標示為拜耳格式的： 在 1.2.0 版本中，相機拒絕此格式並維持其原有設定，而 `settings.pixel_format` 則命名為拜耳格式。`LatticeCamera(preset=...)`、`apply_preset()`、`set_format()`、`CameraSettings(pixel_format=...)`、`connect_camera(preset=...)` 以及一個陣列&#x27;共享格式，現於 M3M 上設定相同深度的 Mono 格式：`"BayerRG8"` 與 `high_speed` 產生 `Mono8`；`"BayerRG12"`、`high_quality` 和 `triggered` 會產生 `Mono12`；`cam.settings.pixel_format` 則為其命名。 反之亦然：M3C 絕不會以 Mono 格式儲存，因此 `"Mono12"` —— 無論源自上述任何一種， `connect_array(pixel_format=...)`、`set_settings(pixel_format=...)` 或陣列的儲存格式——在 M3C 上都會產生 `BayerRG12`，無論該陣列的主相機是哪一台。 您傳入的 `CameraSettings` 會保留其名稱，因此同一物件仍會向每個相機查詢其自身家族中的該深度。`connect_camera(preset=...)` 會保留預設值的格式 （1.2.0 版本在套用預設值後會將相機設定為 12 位元），且透過預設值開啟的相機將不再將其擷取的內容寫入 `PRESETS`。若相機拒絕任何其他格式 （其 `PixelFormat` 清單中未包含的格式，例如 M3M 上的 `RGB8` 或未支援該格式的韌體上的 `BayerRG16`），也不會被命名為獨立項目：當 `LatticeCamera` 連線後，無論是 `apply_settings()` 或 `set_format()`， `cam.settings.pixel_format` 和 `packed_transport` 會標示攝影機串流的格式，而其中一行列印內容則會標示其拒絕的格式。
-> - **`analyze_array_network()` 顯示該連線適用之設定：** `pixel_format=None`（原為 `"BayerRG8"`）表示連線所設定的格式 (Mono12 / BayerRG12)，而 `packed="auto"` 則代表封裝傳輸的設定，因此其報出的 fps 可能與 1.2.0&#x27;版本有所不同。若傳入的參數為 `pixel_format`，則表示該深度下的 M3M 格式。請參閱 [網路分析輔助工具](#network-analysis-helper)。
+> - **M3M（單色）攝影機上的拜耳像素格式即為其深度格式。** M3M 僅提供單色格式，而預設名稱中標示為拜耳格式的： 在 1.2.0 版本中，相機拒絕此格式並維持其原有設定，而 `settings.pixel_format` 則命名為拜耳格式。`LatticeCamera(preset=...)`、`apply_preset()`、`set_format()`、`CameraSettings(pixel_format=...)`、`connect_camera(preset=...)` 以及一個陣列'共享格式，現於 M3M 上設定相同深度的 Mono 格式：`"BayerRG8"` 與 `high_speed` 產生 `Mono8`；`"BayerRG12"`、`high_quality` 和 `triggered` 會產生 `Mono12`；`cam.settings.pixel_format` 則為其命名。 反之亦然：M3C 絕不會以 Mono 格式儲存，因此 `"Mono12"` —— 無論源自上述任何一種， `connect_array(pixel_format=...)`、`set_settings(pixel_format=...)` 或陣列的儲存格式——在 M3C 上都會產生 `BayerRG12`，無論該陣列的主相機是哪一台。 您傳入的 `CameraSettings` 會保留其名稱，因此同一物件仍會向每個相機查詢其自身家族中的該深度。`connect_camera(preset=...)` 會保留預設值的格式 （1.2.0 版本在套用預設值後會將相機設定為 12 位元），且透過預設值開啟的相機將不再將其擷取的內容寫入 `PRESETS`。若相機拒絕任何其他格式 （其 `PixelFormat` 清單中未包含的格式，例如 M3M 上的 `RGB8` 或未支援該格式的韌體上的 `BayerRG16`），也不會被命名為獨立項目：當 `LatticeCamera` 連線後，無論是 `apply_settings()` 或 `set_format()`， `cam.settings.pixel_format` 和 `packed_transport` 會標示攝影機串流的格式，而其中一行列印內容則會標示其拒絕的格式。
+> - **`analyze_array_network()` 顯示該連線適用之設定：** `pixel_format=None`（原為 `"BayerRG8"`）表示連線所設定的格式 (Mono12 / BayerRG12)，而 `packed="auto"` 則代表封裝傳輸的設定，因此其報出的 fps 可能與 1.2.0'版本有所不同。若傳入的參數為 `pixel_format`，則表示該深度下的 M3M 格式。請參閱 [網路分析輔助工具](#network-analysis-helper)。
 > - **`CameraSession.capture()` 會傳回一個 `CaptureResult`** （仍為一組幀字典清單），其中包含 `.skipped`、`.failed`、`.daq_files` 及 `.daq_matches`。`ArraySession.capture()` 的結果中，亦包含 `.alignment`（標示是否已套用對齊變形，以及未套用的原因）與 `.oriented`。
-> - **陣列擷取預設會進行對齊，與應用程式的處理方式相同。** `ArraySession.capture()`、`continuous()`、 `capture_repeated()` 以及 `ArrayHandle.capture()` / `capture_smart()` 會將每個成員的 `debayered`、`display`、`display`、`reflectance` 以及索引檔案，並將其裁切至成員的疊加 （比感光元件小，幅度等於相機的偏移量，`XMP-mapir:AlignmentJSON` `"applied": true`），因此這些檔案與Chloros應用程式擷取的同一場景所產生的檔案相同； `raw` 則維持原始格式。 先前，若未使用 `aligned=True` 進行擷取，所有檔案皆會以原始尺寸儲存且未經變形處理。`aligned=False` 維持此設定。`chloros-mcp`&#x27;的 `capture_array` 和 `start_capture_run` 採用相同的預設值。請參閱 [`ArraySession` 方法](#arraysession-methods)。
+> - **陣列擷取預設會進行對齊，與應用程式的處理方式相同。** `ArraySession.capture()`、`continuous()`、 `capture_repeated()` 以及 `ArrayHandle.capture()` / `capture_smart()` 會將每個成員的 `debayered`、`display`、`display`、`reflectance` 以及索引檔案，並將其裁切至成員的疊加 （比感光元件小，幅度等於相機的偏移量，`XMP-mapir:AlignmentJSON` `"applied": true`），因此這些檔案與Chloros應用程式擷取的同一場景所產生的檔案相同； `raw` 則維持原始格式。 先前，若未使用 `aligned=True` 進行擷取，所有檔案皆會以原始尺寸儲存且未經變形處理。`aligned=False` 維持此設定。`chloros-mcp`'的 `capture_array` 和 `start_capture_run` 採用相同的預設值。請參閱 [`ArraySession` 方法](#arraysession-methods)。
 > - **`connect_all()` 指稱一個拒絕 SDK 的後端。** 已登出或使用低於 Copper 方案的運行中後端，將以 `errors` 報告，並附上其專屬原因 （HTTP 401 / 403），而非以「沒有 Chloros 後端正在運行」的形式報告；且每次 `connect_all()` 呼叫都會重新檢查後端，因此於登入後呼叫該函式，在同一個專案物件上仍可正常運作。
 > - **相對路徑的 `output_dir` 適用於本機後端。** 相對路徑在傳送前會轉換為以您的腳本工作目錄為基準的絕對路徑。在 1.2.0 版本中，後端會嘗試在其自身的安裝資料夾內解析這些路徑，導致出現「存取被拒絕」的錯誤。
 > - **`numpy` 現已成為** SDK 的必備條件（live-frame 呼叫會傳回 numpy 陣列）。
@@ -453,7 +453,7 @@ ChlorosLocal(
 | `camera_capture(output_dir, format="tiff", **settings)` |**透過後端**擷取單一幀影像（由此處理程序自動啟動），使其獲得與 GUI／CLI 相同的預處理設定（預設 12 位元、池資源重複使用、嵌入式校準元資料）。請使用 `serial=` 或 `device_index=` 解析目標； 將 `exposure`/`gain`/`pixel_format`/`preset` 作為 `**settings` 傳入。回傳舊版元資料字典（`filepath`、`width`、 `height`、`pixel_format`、`exposure_time`、`gain`、`timestamp`). |
 | `camera_stream(serial, *, fps=10.0, overlay=None, decode=True, connect_timeout=10.0, read_timeout=15.0)` | 從彙總式攝影機產生疊加合成預覽幀 — 透過後端的 `/api/camera/<serial>/stream-annotated` 路徑運作的輕量級 MJPEG 客戶端 （斑馬線／網格／十字線／直方圖／峰值／點狀圖皆由伺服器端繪製）。`decode=True` 產出 BGR 陣列，並需要 OpenCV (`cv2`)，而SDK並未安裝該套件；`False` 產出原始 JPEG 位元組。亦可透過專案層級存取 `ChlorosProject.stream(overlays=True)`。 |
 
-**執行中的處理任務會保留其專案。** 當處理執行中時——無論是此腳本、應用程式、`chloros-cli process` 或 `chloros-mcp` 的執行——後端將拒絕建立、開啟、匯入或變更專案的處理設定 （HTTP 409 `PROCESSING_IN_PROGRESS`）：`create_project()` 和 `import_images()` 會觸發 `ChlorosProcessingError`， 而 `configure()` 會觸發 `ChlorosConfigurationError`；此外，若 `process()` 的模式與當前執行模式不同，則會觸發 `ChlorosProcessingError` （執行程序會保留其啟動時的模式），並各自附帶後端傳來的訊息。儲存至專案中的擷取資料會在執行結束時加入該專案（其回覆中的 `project_add` 如此表示）。請等待執行完成（`get_status()`），然後繼續。**已移動的專案。** 專案的 `project.json` 會以完整路徑為每個原始檔（每張影像和光感測器記錄）命名，因此若將專案資料夾——或整個專案資料夾——移至另一顆磁碟機，這些檔案仍會保留舊位置的路徑名稱。 每次開啟時，系統會自行修正可修正的部分：原本位於專案資料夾內的檔案，會被搜尋至專案目前所在的資料夾中，並將其中找到的每個路徑重新指向正確位置後儲存 （`project.json` 會先備份為 `project.json.before-relink-<date>-<time>`）。路徑重定向僅適用於該位置確實存在的檔案。 原本位於專案資料夾外的檔案——例如 Hub 工作階段或「新增資料夾」匯入的檔案——僅會透過 `relink=<the folder they are in now>`（或其上層的任何資料夾）被找到。`open_project()` 會返回 `source_files`： `total`、`found`、`missing`、`missing_roots`（缺失檔案原先所在的資料夾）， `missing_outside_project` 和 `relink`（重新指向的對象，從何處指向何處）。若專案中部分檔案遺失，其餘檔案仍會正常開啟；若完全找不到任何檔案，則無法開啟該專案， 而 `open_project()` 會觸發 `ChlorosProjectFilesMissingError`（`.missing_roots`、`.audit`； HTTP 409 `PROJECT_SOURCES_MISSING`）。CLI 的 `project open --relink` 和 `chloros-mcp`&#x27;`open_project`（`relink_folder`）亦會產生相同行為。
+**執行中的處理任務會保留其專案。** 當處理執行中時——無論是此腳本、應用程式、`chloros-cli process` 或 `chloros-mcp` 的執行——後端將拒絕建立、開啟、匯入或變更專案的處理設定 （HTTP 409 `PROCESSING_IN_PROGRESS`）：`create_project()` 和 `import_images()` 會觸發 `ChlorosProcessingError`， 而 `configure()` 會觸發 `ChlorosConfigurationError`；此外，若 `process()` 的模式與當前執行模式不同，則會觸發 `ChlorosProcessingError` （執行程序會保留其啟動時的模式），並各自附帶後端傳來的訊息。儲存至專案中的擷取資料會在執行結束時加入該專案（其回覆中的 `project_add` 如此表示）。請等待執行完成（`get_status()`），然後繼續。**已移動的專案。** 專案的 `project.json` 會以完整路徑為每個原始檔（每張影像和光感測器記錄）命名，因此若將專案資料夾——或整個專案資料夾——移至另一顆磁碟機，這些檔案仍會保留舊位置的路徑名稱。 每次開啟時，系統會自行修正可修正的部分：原本位於專案資料夾內的檔案，會被搜尋至專案目前所在的資料夾中，並將其中找到的每個路徑重新指向正確位置後儲存 （`project.json` 會先備份為 `project.json.before-relink-<date>-<time>`）。路徑重定向僅適用於該位置確實存在的檔案。 原本位於專案資料夾外的檔案——例如 Hub 工作階段或「新增資料夾」匯入的檔案——僅會透過 `relink=<the folder they are in now>`（或其上層的任何資料夾）被找到。`open_project()` 會返回 `source_files`： `total`、`found`、`missing`、`missing_roots`（缺失檔案原先所在的資料夾）， `missing_outside_project` 和 `relink`（重新指向的對象，從何處指向何處）。若專案中部分檔案遺失，其餘檔案仍會正常開啟；若完全找不到任何檔案，則無法開啟該專案， 而 `open_project()` 會觸發 `ChlorosProjectFilesMissingError`（`.missing_roots`、`.audit`； HTTP 409 `PROJECT_SOURCES_MISSING`）。CLI 的 `project open --relink` 和 `chloros-mcp`'`open_project`（`relink_folder`）亦會產生相同行為。
 
 用作上下文管理器以確保清理：
 
@@ -764,8 +764,8 @@ ndvi = lo + raw.astype(np.float64) / np.iinfo(raw.dtype).max * (hi - lo)
 - **`clamp_masks/<product folder>/<product name>_clampmask.tif`**— 位於產品資料夾**旁邊**的 `clamp_masks/` 資料夾中， 絕不會位於其內部（`radiance/x_radiance.tif` → `clamp_masks/radiance/x_radiance_clampmask.tif`）——適用於每個輻照度、反射率及指數產品，其中至少有一個像素發生了截斷。 單波段 `uint8`，位於該產品自身的像素網格上（包含方向、 ROI、像素合併及陣列對齊變形均已包含在內）。每個遮罩會標示其產品所屬的相機（`Make` / `Model` / 序列號）、擷取時間及鏡頭標籤，並列出其位元所代表的波段 （`XMP-Camera:BandName`，以位元 0 為首）；其 `ImageDescription` 和 `Software` 標記其為夾緊遮罩，且不包含任何校正資訊。
 - **位元**：位元 0 = 產品 R 通道中的波段 (`Chloros:BandRName`)，位元 1 = G (`BandGName`)，位元 2 = B (`BandBName`)。若位元被設定為 1，表示該頻段中該像素的值已被鉗位為 0 — 請將其（以及由此建立的任何索引）視為可信度較低。
 - **`Chloros:UnmixClampMask`** 會標記在每個執行過分離處理的產品上：此為遮罩相對於產品自身資料夾的相對路徑（`../clamp_masks/<product folder>/<product name>_clampmask.tif`，始終以 `/`分隔 — 將其與影像資料夾名稱結合即可開啟遮罩），若無像素被限制則標記為 `none`。若無標記，表示該產品從未執行過解混程（RGB 或單色相機、raw/去拜耳化級別）。
-- 擷取結果會將其作為幀的 **`clamp_mask`** 傳遞（即遮罩的路徑；若無像素被限制，則為 `None`） — 在 `CameraSession.capture()` 結果中，`ArraySession.capture()`&#x27;`CaptureResult` 幀以及 HTTP 擷取回應中。離線建置會將其遮罩列為 `clamp_masks`。
-- 即時索引的多頻段堆疊（`/api/camera/cli-array-index` 與 `save_multiband`）會針對每台來源攝影機產生一個遮罩，並存放於輸出資料夾內的 `clamp_masks/` 中 — 請參閱 CLI 參考手冊&#x27;中的 `lattice index`。影片則沒有遮罩：離線建置的結果會改為報告每幀的夾緊比例。
+- 擷取結果會將其作為幀的 **`clamp_mask`** 傳遞（即遮罩的路徑；若無像素被限制，則為 `None`） — 在 `CameraSession.capture()` 結果中，`ArraySession.capture()`'`CaptureResult` 幀以及 HTTP 擷取回應中。離線建置會將其遮罩列為 `clamp_masks`。
+- 即時索引的多頻段堆疊（`/api/camera/cli-array-index` 與 `save_multiband`）會針對每台來源攝影機產生一個遮罩，並存放於輸出資料夾內的 `clamp_masks/` 中 — 請參閱 CLI 參考手冊'中的 `lattice index`。影片則沒有遮罩：離線建置的結果會改為報告每幀的夾緊比例。
 
 由於任何層級的產品資料夾都不包含遮罩，因此可將產品資料夾（包含子資料夾）直接傳遞給攝影測量軟體——該軟體僅會讀取影像。請將產品資料夾傳遞給該軟體， 而非其上層的資料夾。Chloros 自身的匯入功能會跳過遮罩。
 
@@ -878,7 +878,7 @@ for name, note in r.get("notes", {}).items():
 
 1. **網路分析**(`/api/camera/array/recommend`) — 設定**完整感測器** （無像素合併、無 ROI 裁切），並讓幀率降至該主機與網路所能提供的水準，此數值會根據 Connect 將使用的像素格式與封裝方式進行預估。系統絕不會為了維持幀率而縮小影像幀：傳入較小的 `width` / `height` 或 `binning=2` / `4` 參數，以犧牲解析度換取幀率（該終點的的 `alternatives` 清單中列出了這些選項及其預估的 fps)。
 2. **層級自動選擇** — `sim-capture-sim-emit`（所有攝影機在同一觸發信號下曝光，發射節奏經調控以共享傳輸線，當共享空間縮減時幀率隨之下降），適用於任何可透過節奏調控使攝影機共享傳輸線的網路； `slip-emit-and-capture`（攝影機輪流使用通訊線路，不會同時進行曝光）僅在無法共享時啟用。
-3. 預設 **啟用 PTP**— 跨相機的時間戳記會以**約 1 毫秒**的精度對齊至單一共享時鐘，後端 [PTP 主時鐘](#ptp-grandmaster--time_sync_status)。同步曝光源自 M8 硬體觸發器（**&lt; 100 µs** 模組間延遲），而非來自 PTP：PTP 僅對齊 *時間戳記*，而非曝光時機。
+3. 預設 **啟用 PTP**— 跨相機的時間戳記會以**約 1 毫秒**的精度對齊至單一共享時鐘，後端 [PTP 主時鐘](#ptp-grandmaster--time_sync_status)。同步曝光源自 M8 硬體觸發器（**< 100 µs** 模組間延遲），而非來自 PTP：PTP 僅對齊 *時間戳記*，而非曝光時機。
 4. **每台相機的像素格式自動選擇** — 單色 → `Mono12`，彩色 → `BayerRG12`。
 5. **自動曝光（AE）初始化** — 快照各相機當前的 AE 狀態，以確保連接時不會在運作中重置曝光。
 6. **GPIO 觸發設定** — `connect_array` 將每台相機設為就緒狀態（`TriggerMode=On`、`TriggerSource=Line2`），以便主機的的脈衝能透過 M8 纜線驅動從機。此步驟僅適用於陣列模式：若僅開啟單一攝影機並執行 `LatticeCamera`，該攝影機則會改為自由運行模式。釋放陣列（`disconnect()` / `force_disconnect()`、`chloros-cli lattice array-disconnect`）將所有攝影機重設為自由運行模式（`TriggerMode=Off`），其餘設定則維持連接時所偵測到的狀態：觸發器與同步線設定 （`TriggerSource`、`TriggerActivation`、`TriggerOverlap`、`TriggerDelay`、 `LineMode` / `LineSource`；主機的同步線恢復為輸入模式），PTP，以及該工作階段所變更的相機設定——除非 `keep_settings=True` / `clear_settings=True`（參見 [相機記憶體](#camera-memory--keep_settings--clear_settings)）。
@@ -1157,7 +1157,7 @@ for m in r.daq_matches:                      # one per .daq in r.daq_files
 
 每次擷取都會將所使用的光感測器讀數儲存為 `.daq`，並附帶一個 `<file>.daq.match.json` 值，用以說明該讀數如何與曝光相關聯：`method`、`gap_ms`（從曝光到最接近的 DAQ 讀數）以及 `in_tolerance`（在 500 毫秒內，或該擷取的 `daq_tolerance_ms`）。反射率檔案的 XMP 所載的判定結果與 `Chloros:DlsMatchMethod`、`Chloros:DlsMatchGapS` 及 `Chloros:DlsInTolerance` 相同。
 
-擷取會等待 DAQ 在曝光後的第一個讀數，以便能將其兩側的讀數進行混合（`method` `interpolated`）。 DAQ-E 在日光下每 0.4 秒傳送一次讀數，在室內則每 1 至 2 秒傳送一次，因此 `capture()` 會在約一個半讀數間隔後返回； 曝光本身並不會延遲。若 DAQ 已停止傳送讀數，系統不會等待其恢復。DAQ-E 的讀數代表自上次讀數以來該時間區間內的平均光照值，因此會被置於該區間的中間位置： `gap_ms` 會以該中點為基準進行測量，而 `.match.json`&#x27;的 `bracket_stamps_ns` 則提供讀數本身的時間戳記。`ArraySession.continuous()` 會進行等待，但不會減慢擷取速度。`capture_repeated()` 的回往返傳輸過程不會等待，因此能維持其速率，並與曝光前最接近的讀數進行配對。
+擷取會等待 DAQ 在曝光後的第一個讀數，以便能將其兩側的讀數進行混合（`method` `interpolated`）。 DAQ-E 在日光下每 0.4 秒傳送一次讀數，在室內則每 1 至 2 秒傳送一次，因此 `capture()` 會在約一個半讀數間隔後返回； 曝光本身並不會延遲。若 DAQ 已停止傳送讀數，系統不會等待其恢復。DAQ-E 的讀數代表自上次讀數以來該時間區間內的平均光照值，因此會被置於該區間的中間位置： `gap_ms` 會以該中點為基準進行測量，而 `.match.json`'的 `bracket_stamps_ns` 則提供讀數本身的時間戳記。`ArraySession.continuous()` 會進行等待，但不會減慢擷取速度。`capture_repeated()` 的回往返傳輸過程不會等待，因此能維持其速率，並與曝光前最接近的讀數進行配對。
 
 讀數永不失效，因此不會因讀數延遲而遺失任何幀——取而代之的是會標記為：
 
@@ -1573,7 +1573,7 @@ analyze_array_network(
 - **連拍 (`frame_bytes_total`) 會以每台攝影機的實際像素格式進行加總。**單色**M3M**攝影機傳輸 Mono12（2 B/px），或透過 `pixel_format` 採用其深度通道的單色格式 （`"BayerRG8"` 即 `Mono8`， 1 B/px)，因此若未啟用深度功能，由三台單色相機組成的 4 台相機全解析度畫面大小為**~25 MB**，而非基於全 8 位元假設所得的 ~12.6 MB。後端會根據相機型號解析各相機的格式。
 - **通量 (`burst_fits_nic_ring`) 會考量匯流排負載**， 而非「整批傳輸 vs 環形傳輸」：當主機從接收環中讀取資料的速度快於攝像模組填充環的速度時，模擬發射機制便能正常運作。即使傳輸批次超過環形容量，10G 主機搭配 1 GbE 攝像模組仍能**傳輸**全解析度影像； 而 1 GbE 主機則會阻塞（`needs_force_slip` / `auto_shrunk`）。
 - **`achievable_fps_max` 是一個保守的串列讀取上限** — `max(readout+emit, N×emit)` 將每台相機的發射量限制在 1 GbE 相機鏈路之內，且與曝光值無關。 例如：4 台相機的全解析度 12 位元陣列約為 2.8 fps（與執行時測得的 ~2.7–3.0 相符）。 完整模型：[CLI 參考 → 陣列 fps 與連拍模型](cli-reference.md#array-fps--burst-model)。
-- **連續擷取結束後，投影結果會顯示其維持的幀率。** 若以自動幀率進行 30 秒或更長時間的擷取，則記錄的是該陣列大小在此電腦上最終穩定的幀率；幀率控制器短暫嘗試的較高幀率將被忽略。從此之後，根據 `array-connect`&#x27;起，`connect_array()` 的分析結果以及「陣列設定」面板，當幀率低於模型預設值時，會引用該幀率，並在 `cycle_limiter` 中說明其限制因素：`"clock"` （陣列以最終穩定的速率運行，擷取迴路等待其觸發時鐘）、`"loop"`（擷取迴路時間已耗盡）、 `"capture"`（擷取落後並跳過幀組）或 `"measured"`（未明確說明是哪種情況）。模型的數值見於 `wire_fps_max`。 該陣列的數值仍會攀升至傳輸線所能承載的範圍。
+- **連續擷取結束後，投影結果會顯示其維持的幀率。** 若以自動幀率進行 30 秒或更長時間的擷取，則記錄的是該陣列大小在此電腦上最終穩定的幀率；幀率控制器短暫嘗試的較高幀率將被忽略。從此之後，根據 `array-connect`'起，`connect_array()` 的分析結果以及「陣列設定」面板，當幀率低於模型預設值時，會引用該幀率，並在 `cycle_limiter` 中說明其限制因素：`"clock"` （陣列以最終穩定的速率運行，擷取迴路等待其觸發時鐘）、`"loop"`（擷取迴路時間已耗盡）、 `"capture"`（擷取落後並跳過幀組）或 `"measured"`（未明確說明是哪種情況）。模型的數值見於 `wire_fps_max`。 該陣列的數值仍會攀升至傳輸線所能承載的範圍。
 - **超額訂閱（`oversubscribed: true`）意味著無論攝影機達到何種幀率，傳輸線都無法承載該陣列** — 幀率（fps）欄位（`achievable_fps_max` / `fps_bright` / `fps_dark`）讀取值為 0，且無法透過像素合併來解決此問題 （此舉僅會降低每幀的位元組數，而非每秒的步調位元組數）。單純因網路線速率過低並不會導致此狀況：此時幀率反而會下降，且若無法將攝影機的步調調得足夠慢，層級將變為 `slip-emit-and-capture` （串列模式）。解決方案包括減少攝影機數量、使用巨型幀，或更換更快的網路介面卡；`max_cams_collision_safe` 會回報您的線路與攝影機的上限值。 該回應中亦包含 `aggregate_demand_bps`、`collision_safe_ceiling_bps` 及 `per_cam_floor_bps`。請參閱 [超額訂閱](#over-subscription-the-per-cam-floor)。
 
 ### 發現與清單
@@ -1981,7 +1981,7 @@ chloros_sdk.reset_project_folder()                 # -> {"path": <default>, "was
 
 若已設定的資料夾不再存在，系統將回退至預設值（`Documents/MAPIR/Chloros Projects`），此行為與應用程式相同。 當後端位於本機時，提供給 `set_project_folder()` 的相對路徑將以您的工作目錄為基準。
 
-**配方** 是指 `chloros-cli project run PATH RECIPE` 針對已儲存專案執行的 YAML / JSON 動作清單。`run_project_recipe()` 則透過 CLI&#x27;專屬執行器（隨 SDK 安裝）來執行，因此同一份配方在以下兩種情況下的行為完全一致：
+**配方** 是指 `chloros-cli project run PATH RECIPE` 針對已儲存專案執行的 YAML / JSON 動作清單。`run_project_recipe()` 則透過 CLI'專屬執行器（隨 SDK 安裝）來執行，因此同一份配方在以下兩種情況下的行為完全一致：
 
 ```python
 r = chloros_sdk.run_project_recipe("D:/campaign/morning.yaml", "D:/Projects/Field_A")
@@ -2615,7 +2615,7 @@ with LatticeCamera(serial="213800234", settings=settings) as cam:
 >
 > 這是**設計上的備用機制**：SDK 會自動切換回標準的 1500 位元組封包，而攝影機仍會正常連線（隨後的 `[chunk-enable …]` 記錄行屬於正常的連線流程）。擷取功能仍可正常運作。
 >
-> 您可以跳過此探測，但 **它不僅僅是消除日誌記錄的工具——它會直接關閉巨型幀功能。** 無論您的網路品質多好，攝影機對「Don&#x27;t-Fragment」ping 請求的回應大小上限始終為 1500 位元組，因此僅靠 ping 測試永遠無法偵測巨型幀；唯有此探測功能能做到。若停用此功能，攝影機將永遠以標準 1500 位元組封包運作， 無論在何種網路環境下：
+> 您可以跳過此探測，但 **它不僅僅是消除日誌記錄的工具——它會直接關閉巨型幀功能。** 無論您的網路品質多好，攝影機對「Don't-Fragment」ping 請求的回應大小上限始終為 1500 位元組，因此僅靠 ping 測試永遠無法偵測巨型幀；唯有此探測功能能做到。若停用此功能，攝影機將永遠以標準 1500 位元組封包運作， 無論在何種網路環境下：
 >
 > ```bash
 > CHLOROS_GVSP_PROBE_FALLBACK=0   # gives up jumbo — see the warning it prints
@@ -3034,7 +3034,7 @@ chloros-mcp --help
 
 ### 客戶端設定
 
-**Claude Desktop：**將伺服器新增至 `claude_desktop_config.json`（在 Windows 系統中為 `%APPDATA%\Claude\claude_desktop_config.json`；透過**設定 &gt; 開發者 &gt; 編輯設定** 可開啟該視窗），然後重新啟動 Claude Desktop：
+**Claude Desktop：**將伺服器新增至 `claude_desktop_config.json`（在 Windows 系統中為 `%APPDATA%\Claude\claude_desktop_config.json`；透過**設定 > 開發者 > 編輯設定** 可開啟該視窗），然後重新啟動 Claude Desktop：
 
 ```json
 {
@@ -3250,7 +3250,7 @@ chloros_sdk.ChlorosLocal(backend_url="http://127.0.0.1:5000")
 ## 疑難排解要點
 
 - **`ChlorosAuthenticationError: Login required`**（源自 `ChlorosLocal`；智慧連線呼叫因相同原因會觸發 `ChlorosConnectError: Login required. …`） → 在此機器上執行一次 `chloros-cli login EMAIL PASSWORD`，或透過 Chloros 桌面應用程式登入。
-- **`ChlorosProcessingError: Failed to start processing: … The project folder is too deep for this computer …`**（或源自 `create_project()` 的 `Failed to create project: …`）→ 此機器已停用 Windows 長路徑功能（此為 Windows 預設設定）， 因此路徑長度不得超過 260 個字元，且產品路徑位於專案資料夾下方約 130 個字元之處。系統未進行任何處理。此訊息會顯示符合條件的最長專案資料夾名稱：請改用較短的專案資料夾名稱，或啟用 Windows 長路徑功能並重新啟動 Chloros。 Windows 安裝程式會提供「啟用 Windows 長路徑」選項，預設為勾選狀態；否則請使用群組原則：*電腦設定 &gt; 管理範本 &gt; 系統 &gt; 檔案系統 &gt; 啟用 Win32 長路徑*。
+- **`ChlorosProcessingError: Failed to start processing: … The project folder is too deep for this computer …`**（或源自 `create_project()` 的 `Failed to create project: …`）→ 此機器已停用 Windows 長路徑功能（此為 Windows 預設設定）， 因此路徑長度不得超過 260 個字元，且產品路徑位於專案資料夾下方約 130 個字元之處。系統未進行任何處理。此訊息會顯示符合條件的最長專案資料夾名稱：請改用較短的專案資料夾名稱，或啟用 Windows 長路徑功能並重新啟動 Chloros。 Windows 安裝程式會提供「啟用 Windows 長路徑」選項，預設為勾選狀態；否則請使用群組原則：*電腦設定 > 管理範本 > 系統 > 檔案系統 > 啟用 Win32 長路徑*。
 - **`ChlorosConnectError: No Chloros backend is running …`** → 智慧連線會呼叫自動啟動本機後端，因此此錯誤僅在無法找到或啟動內建二進位檔時才會出現（例如：僅有 pip專用主機未安裝桌面套件）。此訊息會根據平台調整：在 Windows 上請開啟桌面應用程式或執行任何 `chloros-cli` 指令； 在 Linux 上執行 `chloros-cli` 指令（無 GUI 介面）或安裝 `.deb`。若為遠端後端，請傳入 `backend_url=` （以及 `auto_start_backend=False`）。
 - **`CAMERA_AVAILABLE == False`** 在匯入時 → `lattice_sdk` 載入失敗：Arena SDK 執行階段，或 OpenCV (`cv2`)，無法在此Python環境中匯入。後端驅動的表面 (`connect_*`，透過後端進行投影，`ChlorosLocal`) 仍可正常運作。
 - **陣列在全感測器模式下連接，但幀率偏低**→ 設計使然：自動模式會維持全感測器，並讓幀率降至線路所能承載的水平。傳遞 `binning=2` / `4`，或使用較小的 `width` / `height` 以獲得更高每秒幀數，亦可啟用巨型幀 / 升級鏈路。 像素合併與 ROI**無法**解決彙總超訂閱問題（`oversubscribed: true`，fps 欄位 0）： 線路承載的攝影機數量過多無法透過像素合併/ROI 解決 — 請減少攝影機數量、啟用巨型幀，或更換為更快的網路介面卡（參見 [超訂閱](#over-subscription-the-per-cam-floor)）。

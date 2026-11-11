@@ -161,7 +161,7 @@ $$
 
 在圖形使用者介面（GUI）以及命令列介面（CLI）／軟體開發套件（SDK）的預設清單中，其符號公式為 `(z/y)*(x/y)`，其中 x=Red、y=Green、z=NIR （即RGN相機的波段）；LATTICE 指數引擎的預設值為 `nir * red / green**2`。每個表面皆計算相同的指數。
 
-_參考文獻：Vincini, M.、E. Frazzi 及 P. D&#x27;Alessio。《冠層尺度的寬頻葉綠素植被指數》。《精準農業》第 9 卷（2008）：303-319。_
+_參考文獻：Vincini, M.、E. Frazzi 及 P. D'Alessio。《冠層尺度的寬頻葉綠素植被指數》。《精準農業》第 9 卷（2008）：303-319。_
 
 ***
 
@@ -485,7 +485,7 @@ $$
 TDVI = 1.5 * {(NIR- Red) \over \sqrt{NIR^{2} + Red + 0.5}  }
 $$
 
-_參考文獻：Bannari, A.、 H. Asalhi 及 P. Teillet。《用於植被覆蓋製圖的轉換差值植被指數（TDVI）》，收錄於《地球科學與遙感研討會論文集》（IGARSS &#x27;02），IEEE 國際，第 5 卷（2002）。_
+_參考文獻：Bannari, A.、 H. Asalhi 及 P. Teillet。《用於植被覆蓋製圖的轉換差值植被指數（TDVI）》，收錄於《地球科學與遙感研討會論文集》（IGARSS '02），IEEE 國際，第 5 卷（2002）。_
 
 ***
 

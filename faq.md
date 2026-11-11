@@ -27,15 +27,9 @@ metaLinks:
 
 <summary>我可以在沒有校準標靶的情況下，對影像進行反射率校準嗎？</summary>
 
-**Survey3
+**Survey3：** 不行。若在拍攝非標靶影像時，未同步拍攝校準標靶的影像，您將無法將影像的像素值與已知的反射率百分比建立關聯。 若您亦未包含來自 MAPIR 光感測器的記錄檔，則無法測量環境光譜，反射率結果亦將不準確。
 
-：** 不行。若在拍攝非標靶影像時，未同步拍攝校準標靶的影像，您將無法將影像的像素值與已知的反射率百分比建立關聯。 若您亦未包含來自 MAPIR
-
-光感測器的記錄檔，則無法測量環境光譜，反射率結果亦將不準確。
-
-**LATTICE：** 可以。反射率可參照由 DAQ 光感測器（而非面板）測得的下行輻照度來計算（ρ = π·L/E）。 當畫面中確實存在通過品質保證（QA）的目標時，它預設會成為絕對參考（`--reflectance-source auto`）；除非該目標是帶有標記通過的，此時目標與 DAQ 鏈將根據測量分數相互競爭。 有一項例外：「F988 反射率是使用場景內的反射率面板進行校準的：該波段超出 DAQ 光感測器的校準範圍，因此 Chloros
-
-會套用您最近一次的面板擷取數據，並在兩次面板觀測之間維持該值。」 請參閱 [校準目標](calibration-targets.md)。
+**LATTICE：** 可以。反射率可參照由 DAQ 光感測器（而非面板）測得的下行輻照度來計算（ρ = π·L/E）。 當畫面中確實存在通過品質保證（QA）的目標時，它預設會成為絕對參考（`--reflectance-source auto`）；除非該目標是帶有標記通過的，此時目標與 DAQ 鏈將根據測量分數相互競爭。 有一項例外：「F988 反射率是使用場景內的反射率面板進行校準的：該波段超出 DAQ 光感測器的校準範圍，因此 Chloros 會套用您最近一次的面板擷取數據，並在兩次面板觀測之間維持該值。」 請參閱 [校準目標](calibration-targets.md)。
 
 </details>
 
@@ -43,9 +37,7 @@ metaLinks:
 
 <summary>我需要 DAQ 光感測器嗎？</summary>
 
-若為輻度則不需要：LATTICE 輻度匯出資料源自各相機的出廠輻度校準，既不需要 DAQ 感測器，也不需要標靶。至於 **反射率**，您需要一個環境光的參考值——無論是 DAQ 光感測器的下行輻度測量值，或是畫面內的校準標靶。 透過 DAQ 感測器，您可**無需在場景中放置任何面板** 即可產生經校正的反射率。記錄的 `.daq` 檔案會根據時間戳記自動與您的影像配對。 請參閱 [校準標靶](calibration-targets.md) 及 [CLI
-
-參考手冊](reference/cli-reference.md)。
+若為輻度則不需要：LATTICE 輻度匯出資料源自各相機的出廠輻度校準，既不需要 DAQ 感測器，也不需要標靶。至於 **反射率**，您需要一個環境光的參考值——無論是 DAQ 光感測器的下行輻度測量值，或是畫面內的校準標靶。 透過 DAQ 感測器，您可**無需在場景中放置任何面板** 即可產生經校正的反射率。記錄的 `.daq` 檔案會根據時間戳記自動與您的影像配對。 請參閱 [校準標靶](calibration-targets.md) 及 [CLI 參考手冊](reference/cli-reference.md)。
 
 </details>
 
@@ -143,9 +135,7 @@ LATTICE 相機則無此限制：Chloros 會即時控制其曝光（Smart AE）�
 
 <summary>如果我要將影像上傳至 <a href="https://www.mapir.camera/collections/software/products/mapir-cloud-subscription">MAPIR Cloud</a>，是否應在上傳前先在 Chloros 中進行處理？</summary>
 
-若您計劃將影像上傳至我們的線上處理平台 [MAPIR
-
-Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription)，請勿在上傳前編輯影像。Cloud 將執行所有相同的處理步驟，甚至更多。
+若您計劃將影像上傳至我們的線上處理平台 [MAPIR Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscription)，請勿在上傳前編輯影像。Cloud 將執行所有相同的處理步驟，甚至更多。
 
 </details>
 
@@ -185,9 +175,7 @@ Cloud](https://www.mapir.camera/collections/software/products/mapir-cloud-subscr
 
 <summary>何謂 4 執行緒處理管線？</summary>
 
-Chloros
-為 Chloros
-+ 使用者採用 4 執行緒管線式架構： 第 1 執行緒（偵測）負責載入影像並偵測校準目標；第 2 執行緒（校準）負責計算反射率校準；第 3 執行緒（處理）執行 GPU 加速的去拜耳化與指數計算；第 4 執行緒（匯出）則負責寫入輸出檔案。 多張影像可同時在不同執行緒中處理，以達到最大吞吐量。詳情請參閱 [處理管線](processing-architecture/processing-pipeline.md)。
+Chloros 為 Chloros+ 使用者採用 4 執行緒管線式架構： 第 1 執行緒（偵測）負責載入影像並偵測校準目標；第 2 執行緒（校準）負責計算反射率校準；第 3 執行緒（處理）執行 GPU 加速的去拜耳化與指數計算；第 4 執行緒（匯出）則負責寫入輸出檔案。 多張影像可同時在不同執行緒中處理，以達到最大吞吐量。詳情請參閱 [處理管線](processing-architecture/processing-pipeline.md)。
 
 </details>
 

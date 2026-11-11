@@ -26,28 +26,10 @@
 | **連續**| 連續擷取直至滿足停止條件。 | 根據**擷取次數**（預設 1）*或* **擷取持續時間**（預設 10 秒；單位：秒／分鐘／小時／天）停止。 |
 | **間隔**（縮時攝影） | 依計時器進行連拍。 |**每次間隔的擷取次數**(預設 1) ·**每**N 單位 (預設 5 秒) ·**持續** N 單位 (預設 1 分鐘)。 |
 
-在「連續」或「間隔」模式下，執行期間「全數擷取」按鈕會變為 **「停止 (N)」** 按鈕，並會隨擷取完成而累計擷取次數。 當所有影像皆已擷取完畢時，執行程序將停止（參見 [「擷取全部」流程](#the-capture-all-flow)）。**陣列中的「連續」模式在後端執行（1.3.0 版新增功能）。** 當清單中的每台攝影機均屬於陣列時（獨立攝影機被隱藏或排除），連續擷取模式將不再針對每次擷取發送單一請求：Chloros
-
-後端會自行執行擷取迴圈，在選取下一組資料的同時寫入一組同步資料，而按鈕則會輪詢其計數。若清單中包含獨立攝影機，Chloros
-
-將如以往般以逐幀方式進行擷取。
+在「連續」或「間隔」模式下，執行期間「全數擷取」按鈕會變為 **「停止 (N)」** 按鈕，並會隨擷取完成而累計擷取次數。 當所有影像皆已擷取完畢時，執行程序將停止（參見 [「擷取全部」流程](#the-capture-all-flow)）。**陣列中的「連續」模式在後端執行（1.3.0 版新增功能）。** 當清單中的每台攝影機均屬於陣列時（獨立攝影機被隱藏或排除），連續擷取模式將不再針對每次擷取發送單一請求：Chloros 後端會自行執行擷取迴圈，在選取下一組資料的同時寫入一組同步資料，而按鈕則會輪詢其計數。若清單中包含獨立攝影機，Chloros 將如以往般以逐幀方式進行擷取。
 
 {% hint style="warning" %}
-**Windows
-
-上的快速擷取：請將 Chloros
-
-後端排除在 Microsoft Defender 掃描範圍外。**根據 MAPIR
-
-的測試，對高幀率擷取所寫入的每個檔案進行即時掃描，會消耗約 30% 的擷取速率 （在小範圍 ROI 下每秒數百個檔案）。Windows
-
-安裝程式提供 **「將 Chloros
-
-後端排除於 Microsoft Defender 掃描範圍外（可大幅提升攝影機擷取速度；建議）」** 選項，預設為勾選狀態，並會在解除安裝時移除此排除設定。 若您曾取消勾選此選項，請重新執行安裝程式並勾選該選項，或為 `chloros-backend.exe`（位於 Chloros
-
-安裝資料夾內的 `backend` 資料夾中）新增 Defender 程序排除項目。 當 Defender 在陣列的「連續擷取」過程中佔用一個或多個 CPU 核心時，Chloros
-
-後端會在其日誌中記錄一次，並提供上述相同的兩種解決方案。
+**Windows 上的快速擷取：請將 Chloros 後端排除在 Microsoft Defender 掃描範圍外。**根據 MAPIR 的測試，對高幀率擷取所寫入的每個檔案進行即時掃描，會消耗約 30% 的擷取速率 （在小範圍 ROI 下每秒數百個檔案）。Windows 安裝程式提供 **「將 Chloros 後端排除於 Microsoft Defender 掃描範圍外（可大幅提升攝影機擷取速度；建議）」** 選項，預設為勾選狀態，並會在解除安裝時移除此排除設定。 若您曾取消勾選此選項，請重新執行安裝程式並勾選該選項，或為 `chloros-backend.exe`（位於 Chloros 安裝資料夾內的 `backend` 資料夾中）新增 Defender 程序排除項目。 當 Defender 在陣列的「連續擷取」過程中佔用一個或多個 CPU 核心時，Chloros 後端會在其日誌中記錄一次，並提供上述相同的兩種解決方案。
 {% endhint %}
 
 <!-- SCREENSHOT-NEEDED: the capture-mode area of Capture Settings with Interval selected — showing the "Captures / interval", "Every N (unit)" and "For N (unit)" rows with their defaults (1, 5 s, 1 m). -->
@@ -67,26 +49,16 @@
 
 共有六種匯出類型：**Raw、去拜耳化、輻射度、反射率、預覽、索引**。僅適用於該相機的類型才會顯示在對應的行中：
 
-| 匯出類型 | 內容 | RGB
-
-（FRGB） | 拜耳多光譜（FRGN/FOCN/FNGB） | 單色（M3M） |
+| 匯出類型 | 內容 | RGB（FRGB） | 拜耳多光譜（FRGN/FOCN/FNGB） | 單色（M3M） |
 | --- | --- | --- | --- | --- |
 | **原始檔** | 直接來自感光元件的拜耳馬賽克（單色：單一波段） | ✓ | ✓ | ✓ |
-| **去拜耳化** | 線性去馬賽克：從原始檔中移除校準套件的暗偏移量（DSNU），接著進行邊緣感知去馬賽克 — 不包含線性校正、平場校正或解混。儲存為 3 通道 RGB
-
-TIFF
-
-檔（單色：1 通道灰階） | ✓ | ✓ | ✓ |
-| **預覽** | 完整顯示鏈（依據相機設定檔進行白平衡與伽瑪校正，並加上RGB
-
-相機的「高光」設定；多光譜：假色拉伸） | ✓ | ✓ | ✓ |
+| **去拜耳化** | 線性去馬賽克：從原始檔中移除校準套件的暗偏移量（DSNU），接著進行邊緣感知去馬賽克 — 不包含線性校正、平場校正或解混。儲存為 3 通道 RGB TIFF 檔（單色：1 通道灰階） | ✓ | ✓ | ✓ |
+| **預覽** | 完整顯示鏈（依據相機設定檔進行白平衡與伽瑪校正，並加上RGB 相機的「高光」設定；多光譜：假色拉伸） | ✓ | ✓ | ✓ |
 | **輻照度** | 透過完整輻度測量鏈計算的 float32 W/m²/sr/nm | —（未提供）| ✓ | ✓ |
 | **反射率** | uint16 ρ（32768 = 1.0）| —（未提供） | ✓ — 僅在相機具備 DAQ 光感測器時顯示（自身具備或繼承自其陣列） | 與多光譜相同 |
 | **指數** | 植被指數 (LUT) 渲染 | — | ✓ — 需在相機上啟用且非空的指數表達式，且不提供給組合陣列成員（陣列擁有一個共用指數） | —（指數需 ≥2 波段；參見 [單色相機與植被指數](mono-indices.md)) |
 
-RGB
-
-相機絕不提供輻照度與反射率選項 — 對於寬頻光度感測器而言，每像素拜耳陣列的輻照度並無實質意義。
+RGB 相機絕不提供輻照度與反射率選項 — 對於寬頻光度感測器而言，每像素拜耳陣列的輻照度並無實質意義。
 
 ### 最快擷取
 
@@ -151,15 +123,11 @@ RGB
 * **需注意的一項不對稱現象：** 顯示層級儲存於名為 `preview/` 的資料夾中，而檔案名稱則保留 `_display` —— 僅此層級的資料夾名稱與後綴會有所不同。
 * 未知層級會回退至以其自身名稱命名的資料夾；若無法建立子資料夾，檔案將寫入擷取根目錄，而非遺失。
 * 擷取的 TIFF 檔案預設採用無損壓縮（DEFLATE），並將完整的校準與處理元資料 **封裝於檔案的 XMP 中** — 擷取檔具有自描述性，除了 `.daq` 讀取檔（及其對應的 `.daq.cameras.json`）外，沒有其他輔助檔案。
-* **鉗位遮罩（1.3.0 版新增功能）。**當 3×3 光譜解混必須將某波段在至少一個像素上鉗位為 0 時，輻照度、反射率及折射率產出將獲得一個逐像素遮罩， `clamp_masks/<product folder>/<product name>_clampmask.tif`（位元 0 = 產品 R 通道中的波段，位元 1 = G，位元 2 = B）；產品的 `Chloros:UnmixClampMask` XMP 標籤會指向該遮罩。 這些遮罩位於**產品資料夾旁**，絕不會置於資料夾內，因此像 `reflectance/` 這樣的產品資料夾可直接傳遞給攝影測量軟體。Chloros
-
-自身的匯入功能會跳過這些遮罩。
+* **鉗位遮罩（1.3.0 版新增功能）。**當 3×3 光譜解混必須將某波段在至少一個像素上鉗位為 0 時，輻照度、反射率及折射率產出將獲得一個逐像素遮罩， `clamp_masks/<product folder>/<product name>_clampmask.tif`（位元 0 = 產品 R 通道中的波段，位元 1 = G，位元 2 = B）；產品的 `Chloros:UnmixClampMask` XMP 標籤會指向該遮罩。 這些遮罩位於**產品資料夾旁**，絕不會置於資料夾內，因此像 `reflectance/` 這樣的產品資料夾可直接傳遞給攝影測量軟體。Chloros 自身的匯入功能會跳過這些遮罩。
 * **方向（1.3.0）。** 獨立相機的「預覽」、「輻射度」、「反射率」及「索引」產品會根據其「鏡像/旋轉」設定進行旋轉；而「原始檔」和「去拜耳化」則維持感測器讀取時的原始狀態。陣列成員檔案均維持原始格式。 每個檔案都會在其 XMP 中記錄該設定，因此重新處理時會以相同方式套用該設定。
 * **`.daq` 屬於哪台相機 (1.3.0)。** 在處理時，擷取的 `.daq` 僅會與其 `.daq.cameras.json` 所指定的相機所拍攝的影像進行配對。 因此，未配備自有光感測器的獨立攝影機將不再借用其他攝影機的讀數——請將感測器綁定至該攝影機，或在「光感測器」分頁中記錄一個感測器。 光感測器記錄檔（以及任何未包含該檔案的 `.daq`，包括較舊的擷取檔）仍可服務所有攝影機。
 
-這與 `chloros-cli lattice capture` / `array-capture` 寫入其 `-o` 目錄的佈局相同——詳見 [CLI
-
-參考指南 § 擷取資料夾的結構](../reference/cli-reference.md#what-a-captures-folder-looks-like)中已有記載。
+這與 `chloros-cli lattice capture` / `array-capture` 寫入其 `-o` 目錄的佈局相同——詳見 [CLI 參考指南 § 擷取資料夾的結構](../reference/cli-reference.md#what-a-captures-folder-looks-like)中已有記載。
 
 <!-- SCREENSHOT-NEEDED: OS file explorer showing a real <project>/captures/ folder after a multi-level array capture — the raw/debayered/radiance/reflectance/preview subfolders, the daq/ and clamp_masks/ folders, and sync_<ts>_SN<serial>_<level>.tif filenames visible inside one subfolder. -->
 
@@ -179,11 +147,7 @@ chloros-cli process "C:/ChlorosProjects/MyField/captures"
 直接為層級子資料夾命名（例如 `…/captures/raw/`）同樣有效，但會遺漏 `daq/` 資料夾——請在重新匯入時將其一併複製過來-從 `raw/` 衍生輻測產品時，請一併複製該資料夾，否則時間戳記的比對將無對應對象可解析。
 
 {% hint style="warning" %}
-**處理流程總是從 `raw` 開始。** 在每次擷取中，原始幀是處理管線的來源；`debayered`、`radiance`、`reflectance`、 以及 `preview` 雖作為可視化模式存在，但絕不會被送回處理管道——重新處理衍生產品將導致已烘焙至其像素中的暗角、色彩及輻射度運算再次套用，因此 Chloros
-
-會選擇拒絕處理，而非進行重複處理。 `index/` 和 `composite/` 的渲染結果根本不會經過任何處理（它們是輸出檔，而非擷取檔）。 一個**未**包含原始檔匯入的擷取資料夾仍能正常顯示，但 `process` 會跳過該資料夾並明確標示；`--input-level {raw,debayered,processed}` 則是刻意設計的「逃生通道」，用以強制建立處理起點。 請參閱 [CLI
-
-參考手冊](../reference/cli-reference.md#what-a-captures-folder-looks-like) 以了解確切的跳過訊息。
+**處理流程總是從 `raw` 開始。** 在每次擷取中，原始幀是處理管線的來源；`debayered`、`radiance`、`reflectance`、 以及 `preview` 雖作為可視化模式存在，但絕不會被送回處理管道——重新處理衍生產品將導致已烘焙至其像素中的暗角、色彩及輻射度運算再次套用，因此 Chloros 會選擇拒絕處理，而非進行重複處理。 `index/` 和 `composite/` 的渲染結果根本不會經過任何處理（它們是輸出檔，而非擷取檔）。 一個**未**包含原始檔匯入的擷取資料夾仍能正常顯示，但 `process` 會跳過該資料夾並明確標示；`--input-level {raw,debayered,processed}` 則是刻意設計的「逃生通道」，用以強制建立處理起點。 請參閱 [CLI 參考手冊](../reference/cli-reference.md#what-a-captures-folder-looks-like) 以了解確切的跳過訊息。
 {% endhint %}
 
 在編寫重新處理腳本時，還有兩項值得了解的行為：
@@ -191,15 +155,11 @@ chloros-cli process "C:/ChlorosProjects/MyField/captures"
 * 若執行 `chloros-cli process` 時請求產出，但**未寫入任何影像產出**，則會明確報錯並以非零狀態退出**——您絕不會遇到靜默的空運行。成功執行會回報其產出數量。（刻意僅執行元資料的運行仍被視為成功。）
 * 重新匯入的已處理輸出絕不會佔用擷取的原始資料槽 — 原始資料始終是管線的來源。
 
-## 命令列介面（CLI
-
-）對應指令
+## 命令列介面（CLI）對應指令
 
 本頁所述的所有操作皆可透過無視窗模式執行。GUI 擷取模式可直接對應至 `chloros-cli lattice array-capture`：
 
-| GUI | CLI
-
-|
+| GUI | CLI |
 | --- | --- |
 | 單次 | `chloros-cli lattice array-capture` |
 | 連續 | `array-capture --continuous [--count N] [--duration S]` |
@@ -210,6 +170,4 @@ chloros-cli process "C:/ChlorosProjects/MyField/captures"
 | 錄製索引影片 | `chloros-cli lattice array-record` |
 | 錄製原始連拍 / 建立影片 | `chloros-cli lattice array-burst` / `array-build-video` |
 
-完整的標誌表、智慧自動曝光（smart-AE）穩態擷取選項（`--smart`），以及恆定速率模式，皆詳載於 [CLI
-
-參考指南 § 擷取模式、錄影機與離線重新處理](../reference/cli-reference.md#capture-modes-recorders--offline-reprocess)。
+完整的標誌表、智慧自動曝光（smart-AE）穩態擷取選項（`--smart`），以及恆定速率模式，皆詳載於 [CLI 參考指南 § 擷取模式、錄影機與離線重新處理](../reference/cli-reference.md#capture-modes-recorders--offline-reprocess)。
