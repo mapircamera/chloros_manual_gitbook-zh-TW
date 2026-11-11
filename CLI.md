@@ -1,72 +1,72 @@
-# 命令行界面（CLI）
+# CLI：命令列
 
-> **完整参考：**[CLI参考](reference/cli-reference.md) 记录了**每个子命令的每个参数**，并针对 AI 助手进行了优化——将该 URL 粘贴到您的助手中，并请求一个可用的命令：`https://mapir.gitbook.io/chloros/reference/cli-reference`
+> **完整參考手冊：**[CLI 參考手冊](reference/cli-reference.md) 詳列了**每個子指令的所有參數**，並針對 AI 助理進行了優化 — 將其 URL 貼入您的助理中，並詢問可執行的指令：`https://mapir.gitbook.io/chloros/reference/cli-reference`
 >
-> **AI 工具使用提示：**本手册的任意页面均可通过在URL后添加 `.md`（例如 `https://mapir.gitbook.io/chloros/reference/cli-reference.md`）获取原始 Markdown 格式， 而 `https://mapir.gitbook.io/chloros/llms.txt` 则为大型语言模型（LLM）提供了整本手册的索引。
+> **AI 工具小技巧：** 只需在手冊任一頁面的 URL 後方附加 `.md`（例如 `https://mapir.gitbook.io/chloros/reference/cli-reference.md`）， 而 `https://mapir.gitbook.io/chloros/llms.txt` 則會為大型語言模型 (LLM) 提供整本手冊的索引。
 
-> **希望您的助手直接运行 Chloros 吗？** `chloros-mcp` 是一个随 Python SDK 安装的 MCP 服务器，可与 Claude Desktop、Claude Code、Cursor 及其他 MCP 客户端配合使用：请参阅 [如何在 AI 助手中使用 Chloros](ai-assistants.md)。
+> **想讓您的助理直接執行 Chloros 嗎？** `chloros-mcp` 是一個隨 Python SDK 安裝的 MCP 伺服器，可與 Claude Desktop、Claude Code、Cursor 及其他 MCP 客戶端配合使用：請參閱 [如何在 AI 助理中使用 Chloros](ai-assistants.md)。
 
 <figure><img src=".gitbook/assets/cli.JPG" alt=""><figcaption></figcaption></figure>
 <!-- SCREENSHOT-UPDATE: banner shows CLI 1.1.0; reshoot the CLI welcome/banner output on the 1.3.0 build so the version line reads "Chloros CLI 1.3.0" -->
 
 
-## 什么是 CLI
+## 什麼是 CLI
 
 
 `chloros-cli` 是 Chloros
-桌面应用所使用的同一处理引擎的命令行前端。 它是一个基于 Chloros
-后端（位于 `127.0.0.1:5000` 上的本地服务器）的轻量级 HTTP
-客户端——大多数命令会自动启动后端，因此脚本只需调用一次 `chloros-cli process …` 即可。 随后，后端将保持运行以等待下一个命令： 它会在执行 `chloros-cli logout` 时停止（除非应用程序处于打开状态，或正在进行运行或构建），在执行 `chloros-cli backend stop` 时停止，或者在 30 分钟内没有客户端、运行任务或连接设备的情况下自动停止。 `chloros-cli backend status` 会显示该状态。
+桌面應用程式所使用之相同處理引擎的命令列前端。 它是一個透過 Chloros
+後端（位於 `127.0.0.1:5000` 上的本地伺服器）運作的輕量級 HTTP
+客戶端——大多數指令會自動啟動後端，因此腳本只需單一 `chloros-cli process …` 呼叫即可。 後端隨後會持續運行以等待下一條指令： 它會在執行 `chloros-cli logout` 時停止（除非應用程式已開啟，或正在執行或建置中），或在執行 `chloros-cli backend stop` 時停止，亦或在 30 分鐘內無客戶端、執行程序或已連線裝置時自動停止。 `chloros-cli backend status` 會顯示此狀態。
 
 它可在 **Windows
-10/11 (x64)**和**Linux
-(x86_64，以及 JetPack 6 上的 NVIDIA Jetson arm64)** 上运行，支持任何终端，无需图形界面。 请使用以下命令验证安装：
+10/11 (x64)**及**Linux
+(x86_64，以及 JetPack 6 上的 NVIDIA Jetson arm64)** 環境中運行，適用於任何終端機，無需圖形介面。 請使用以下指令驗證安裝：
 
 ```bash
 chloros-cli --version    # prints "Chloros CLI 1.3.0"
 ```
 
-命令家族一览：
+指令集一覽：
 
-* **处理与账户** — `process`、`login`、`logout`、`status`、 `export-status`、`language`（38种语言——参见[支持的语言](supported-languages.md)）， `set-project-folder` / `get-project-folder` / `reset-project-folder`, `selftest`, `update` （仅限 Linux
-/Jetson）
-* **实时硬件** — `lattice`（LATTICE 摄像头控制，45+ 个子命令），`daq pool-*`（DAQ 光传感器），`time-sync` (PTP)
-* **自动化** — `project`（无头模式下运行已保存的Chloros
-项目，包括YAML捕获配方）
+* **處理與帳戶** — `process`、`login`、`logout`、`status`、 `export-status`、`language`（38 種語言 — 請參閱 [支援的語言](supported-languages.md)）， `set-project-folder` / `get-project-folder` / `reset-project-folder`, `selftest`, `update` （僅限 Linux
+／Jetson）
+* **實機硬體** — `lattice`（LATTICE 攝影機控制，45 項以上子指令）、`daq pool-*`（DAQ 光感測器）、`time-sync` (PTP)
+* **自動化** — `project`（無頭模式執行已儲存的 Chloros
+專案，包含 YAML 擷取配方）
 
-值得了解的全局选项：`--port N`（后端端口，默认值为 `5000`）、`-v/--verbose`、 `--restart`（强制重启后端）、`--backend-exe PATH`。完整列表请参阅 [CLI
-参考](reference/cli-reference.md)。
+值得了解的全域選項：`--port N`（後端連接埠，預設為 `5000`）、`-v/--verbose`、 `--restart`（強制重新啟動後端）、`--backend-exe PATH`。完整清單請參閱 [CLI
+參考手冊](reference/cli-reference.md)。
 
 ***
 
-## 安装
+## 安裝
 
 CLI
-**包含在所有平台的 Chloros
-安装程序中** —— 无需单独下载 CLI
-。请从 [下载](download.md) 页面获取安装程序。
+**已內建於各平台的 Chloros
+安裝程式中** — 無需另行下載 CLI
+。請從 [下載](download.md) 頁面取得安裝程式。
 
 ### Windows
 
 
-安装程序会将 CLI
-放置在：
+安裝程式會將 CLI
+放置於：
 
 ```
 
 C:\Program Files\Chloros\cli\chloros-cli.exe
 ```
 
-并将该文件夹添加到您的系统 `PATH` 中一次（升级时也会移除早期安装程序留下的重复条目）——安装后请 **打开一个新的终端**，以便识别更新后的 `PATH`。 安装程序还会在安装根目录下放置启动脚本（`Chloros_CLI.bat` / `Chloros_CLI.ps1`），并添加一个**Chloros
+並將該資料夾新增至您的系統 `PATH` 一次（升級時也會移除先前安裝程式留下的重複項目）——安裝完成後請 **開啟新的終端機**，以便系統能偵測到更新後的 `PATH`。 安裝程式還會將啟動腳本（`Chloros_CLI.bat` / `Chloros_CLI.ps1`）放置於安裝根目錄中，並新增一個**Chloros
 CLI
-** 开始菜单快捷方式，点击任意一个都会打开一个终端，其中已预先加载好可用的 `chloros-cli`。
+** 開始功能表捷徑，每個項目都會開啟一個已預先載入 `chloros-cli` 並可立即使用的終端機。
 
 ### Linux
 
 
-请使用 `apt` 安装适用于您架构的 `.deb`（请勿使用 `dpkg -i`，该版本会跳过 Python
+請使用 `apt` 安裝適用於您系統架構的 `.deb`（請勿使用 `dpkg -i`，該版本會跳過 Python
 SDK
-的推荐依赖项）：
+的建議需求）：
 
 ```bash
 # Linux x86_64
@@ -76,14 +76,14 @@ sudo apt install ./chloros_1.3.0_amd64.deb
 sudo apt install ./chloros_1.3.0_arm64_jp6.deb
 ```
 
-这将安装 `chloros-cli` 至 `/usr/bin/chloros-cli` （`PATH`中已包含），后端和CLI
-程序解压在`/usr/lib/chloros/backend/`和`/usr/lib/chloros/cli/`中 （`/usr/lib/chloros/chloros-backend` 是一个用于启动后端的启动器），后端运行 LATTICE 摄像头所需的 Arena SDK
-运行时，以及系统所需的 Python
+此安裝程式會將 `chloros-cli` 安裝至 `/usr/bin/chloros-cli` （已包含於 `PATH` 中），後端及 CLI
+程式則解壓縮至 `/usr/lib/chloros/backend/` 與 `/usr/lib/chloros/cli/` （`/usr/lib/chloros/chloros-backend` 是一個用於啟動後端的啟動程式），後端運作 LATTICE 攝影機所需的 Arena SDK
+執行環境，以及系統專用的 Python
 SDK
-（`python3`）。 详情请参阅 [Linux
-安装指南](linux/linux-installation.md)。
+（`python3`）。 詳情請參閱 [Linux
+安裝指南](linux/linux-installation.md)。
 
-### 验证
+### 驗證
 
 ```bash
 chloros-cli --version    # "Chloros CLI 1.3.0"
@@ -93,18 +93,18 @@ chloros-cli status       # license tier + logged-in user
 
 ***
 
-## 登录与授权
+## 登入與授權
 
-访问 CLI
-（及 Python
+CLI
+（以及 Python
 SDK
-）需要 **付费的 Chloros
-+ 套餐**—— 任何付费套餐均包含此功能；免费套餐则不包含。该限制由后端在**服务器端** 强制执行，而非由 CLI
-二进制文件执行：未登录的调用将被 `401 AUTH_REQUIRED` 拒绝， 而在免费套餐下，已登录的调用将返回错误代码 `403 PLAN_UPGRADE_REQUIRED`，无论该调用来自 `chloros-cli`、SDK
-还是自定义的 HTTP
-客户端。 请在 [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) 处进行升级。
+）的存取需具備 **付費的 Chloros
++ 方案**—— 任何付費方案皆包含此權限；免費方案則不包含。此限制由後端在**伺服器端** 強制執行，而非由 CLI
+二進位檔執行：未登入的呼叫將因 `401 AUTH_REQUIRED` 而遭拒絕， 而在免費方案下，已登入的呼叫則會返回 `403 PLAN_UPGRADE_REQUIRED`，無論呼叫來源是 `chloros-cli`、SDK
+還是手動編寫的 HTTP
+客戶端。 請至 [https://cloud.mapir.camera/pricing](https://cloud.mapir.camera/pricing) 進行升級。
 
-**每台机器仅需登录一次**：
+**每台機器僅需登入一次**：
 
 ```bash
 chloros-cli login user@example.com 'YourPassword'
@@ -116,21 +116,21 @@ chloros-cli status
 
 
 {% hint style="warning" %}
-**包含特殊字符的密码**（`$`, `!`, spaces): wrap the password in**single quotes**, as shown above. In PowerShell double quotes, `$$`会被 shell 篡改（CLI
-在遇到 401 错误时会检测到此问题并自动重试，但使用单引号可完全避免该问题）。
+**含特殊字元的密碼**（`$`, `!`, spaces): wrap the password in**single quotes**, as shown above. In PowerShell double quotes, `$$` 會被殼層篡改（CLI
+會在遇到 401 錯誤時偵測到此問題並自動重試，但使用單引號可完全避免此問題）。
 {% endhint %}
 
-会话缓存于 `~/.chloros/user_session.json` 中，并在套餐的宽限期内持续离线工作（月度套餐为 30 天，年度套餐则持续至到期）。 即使没有付费套餐，`chloros-cli status` 也能正常工作，因此拒绝的原因始终可见。
+該會話已快取於 `~/.chloros/user_session.json`，並會在方案的寬限期內持續離線運作（月費方案為 30 天，年費方案則直至到期為止）。 即使未訂閱付費方案，`chloros-cli status` 仍可運作，因此拒絕的原因始終可見。
 
 {% hint style="danger" %}
-**要调度无界面任务？请先登录。**若在**无缓存会话**的情况下运行后端进程生成命令（`process`、`status`、 `export-status` 等）若在**无缓存会话**的情况下运行，不会快速报错——而是会切换到交互式 `Email:` / `Password:` 提示符，并通过标准输入（stdin）接收命令。 因此，无人值守的 cron 任务或 CI 步骤将**因等待输入而挂起**。在安排任何任务之前，请先在该机器上运行一次 `chloros-cli login EMAIL 'PASSWORD'`。
+**要排程無介面工作嗎？請先登入。**若在**無快取會話**的情況下執行後端啟動指令（`process`、`status`、 `export-status`, …）若在**無快取會話**的情況下執行，不會立即失敗 — 而是會切換至互動式 `Email:` / `Password:` 提示符，並從標準輸入（stdin）接收指令。 因此，無人值守的 cron 工作或 CI 步驟將會**因等待輸入而卡住**。在排程任何任務之前，請先在該機器上執行一次 `chloros-cli login EMAIL 'PASSWORD'`。
 {% endhint %}
 
 ***
 
-## 首次处理运行
+## 首次處理執行
 
-将 `process` 指向捕获文件夹——它会自动检测 Survey3
+將 `process` 指向擷取檔案的資料夾 — 它會自動偵測 Survey3
 （`.raw` + `.jpg`）、 LATTICE（`.tif`/`.tiff`）、`.dng`，或上述格式的混合：
 
 ```bash
@@ -138,37 +138,37 @@ chloros-cli process "C:\Images\flight_001"          # Windows
 chloros-cli process ~/images/flight_001              # Linux
 ```
 
-进度流按管道线程实时更新（检测、分析、处理、导出），成功运行后会报告写入的图像产品数量： `Image products written: N`，若运行过程中还写入了 [钳位掩膜](output-image-formats.md#clamp-masks)，则随后会输出 `(plus M clamp masks)`（钳位掩膜不计入产品数量）。
+進度串流會根據各管線執行緒（偵測、分析、處理、匯出）即時更新，而成功執行的任務會透過回報寫入的影像產出數量來結束： `Image products written: N`，若執行過程同時寫入 [鉗位遮罩](output-image-formats.md#clamp-masks)，則隨後會出現 `(plus M clamp masks)`（鉗位遮罩不計入產品數量）。
 
 <!-- SCREENSHOT-NEEDED: terminal capture of a `chloros-cli process` run on a LATTICE captures folder completing successfully — per-thread progress lines visible and the final "Image products written: N (plus M clamp masks)" summary line -->
 
 
-如果Chloros
-后端已处于运行状态（例如桌面应用程序的后端），`process`将使用该后端并在其中打开其项目。当应用程序正在处理其已打开的项目时，该命令会拒绝执行：请通过应用程序终止该进程，或关闭该项目。 如果之前的运行仍在结束中，它会等待最多 15 秒，之后才会拒绝。`--restart` 会强制启动一个新的后端。 在 Linux
-上，由 systemd 服务运行的后端绝不会被重启：`process` 会直接使用该后端，而在原本应重启后端的情况下（如 `--restart`，或导入操作未找到任何内容时）， 它会输出 `sudo systemctl restart <unit>` 并退出 `1`。
+若已有Chloros
+後端正在運行（例如桌面應用程式的後端），`process` 會使用該後端並在其內開啟該專案。當應用程式正開啟某個專案時，系統會拒絕此操作：請從應用程式中處理，或關閉該專案。 若前一次執行仍在進行中，系統會等待最多 15 秒，之後才會拒絕執行。`--restart` 會強制啟動一個新的後端。 在 Linux
+上，由 systemd 服務執行的後端絕不會被重新啟動：`process` 會直接使用現有後端，而在原本應重新啟動後端的情況下（例如 `--restart`，或進口操作未找到任何項目時）， 它會輸出 `sudo systemctl restart <unit>` 並退出 `1`。
 
-### 输出结果的存储位置
+### 輸出檔案的存放位置
 
-`process` 将文件写入 **项目文件夹**，而非您的输入文件夹：
+`process` 會寫入 **專案資料夾**，而非您的輸入資料夾：
 
-* 若未指定 `-o`：项目将创建在您的默认项目文件夹下（与 GUI 共享；可通过 `get-project-folder` / `set-project-folder` 进行管理； 若未设置，则位于您的用户文件夹中的 `Documents/MAPIR/Chloros Projects`），若未指定名称，则以 `-n/--project-name` 或时间戳（`YYYYMMDD_HHMMSS`）命名。
-* 使用 `-o PATH` 时：该文件夹 **即** 为项目文件夹。如果其中已包含 `project.json`，则会创建以 `_1`/`_2`… 后缀的同级文件，而非覆盖原有文件。相对路径 `PATH` 是以您运行 `chloros-cli` 的文件夹为基准的。
+* 若未指定 `-o`：專案將建立於您的預設專案資料夾下（與 GUI 共用；請透過 `get-project-folder` / `set-project-folder` 進行管理； 若未設定，則位於您的使用者資料夾中的 `Documents/MAPIR/Chloros Projects`），若未指定名稱，則以 `-n/--project-name` 或時間戳記（`YYYYMMDD_HHMMSS`）命名。
+* 若使用 `-o PATH`：該資料夾 **即** 為專案資料夾。若該資料夾已包含 `project.json`，系統將建立以 `_1`/`_2`… 為後綴的同級檔案，而非覆寫原有檔案。若指定相對路徑 `PATH`，則會以您執行 `chloros-cli` 的資料夾為基準。
 
 {% hint style="info" %}
-**相对路径（在 1.3.0 版本中已更改）。** 后端打开的每个路径——无论在任何命令中（包括捕获命令的默认路径 `output`），如 `-o`/`--output`， `--input`、`--burst-dir`、`--profile`、`--save` 和 `--mask` ——将根据您运行 `chloros-cli` 的文件夹进行解析，因此 `-o captures/` 会写入 `<current folder>/captures/`。 在 1.2.0 版本中，后端会在其自身的安装文件夹中解析这些路径，这会导致“访问被拒绝”的错误。对于远程后端（`CHLOROS_BACKEND_URL`），路径将按输入形式发送，并在该机器上进行解析。
+**相對路徑（於 1.3.0 版本中變更）。** 後端開啟的每個路徑——無論是任何指令（包括擷取指令的預設 `output`）所對應的 `-o`/`--output`， `--input`、`--burst-dir`、`--profile`、`--save` 以及 `--mask` — 會根據您執行 `chloros-cli` 的資料夾進行解析，因此 `-o captures/` 會寫入 `<current folder>/captures/`。 在 1.2.0 版本中，後端會將這些路徑解析至其自身的安裝資料夾，但會因「存取被拒絕」而失敗。針對遠端後端（`CHLOROS_BACKEND_URL`），路徑會以輸入的原始形式傳送，並在該機器上進行解析。
 {% endhint %}
 
 {% hint style="warning" %}
 **Windows
-：除非启用了长路径，否则请保持项目文件夹名称简短。** 当 Windows
-关闭长路径功能（Windows
-默认设置）时，任何文件路径的长度不得超过 260 个字符，且子文件夹名称在项目文件夹下的层级深度不得超过约 130 个字符。 `process` 在启动前会进行此项检查：如果项目文件夹层级过深，将显示 **“该项目文件夹层级对这台计算机而言过深”** 并拒绝处理；同时会提示最长的符合要求的项目文件夹名称以及如何启用长路径功能——在此情况下不会进行任何处理。 请使用更短的 `-o`（或 `set-project-folder`），或启用 Windows
-长路径（安装程序中的 **启用 Windows
-长路径** 选项，默认勾选），然后重新启动 Chloros
+：除非已啟用長路徑，否則請保持專案資料夾名稱簡短。** 當 Windows
+關閉長路徑功能（此為 Windows
+預設設定）時，任何檔案路徑長度不得超過 260 個字元，且產品路徑位於專案資料夾下方最多約 130 個字元的深度內。 `process` 會在啟動前檢查此項：若專案資料夾層級過深，系統會顯示 **「此專案資料夾對這台電腦而言層級過深」** 並拒絕處理，同時會提供最長可容納的專案資料夾路徑以及如何啟用長路徑的說明——此時不會進行任何處理。 請改用較短的 `-o`（或 `set-project-folder`），或啟用 Windows
+長路徑（安裝程式的 **啟用 Windows
+長路徑** 選項，預設為勾選狀態），並重新啟動 Chloros
 。
 {% endhint %}
 
-在项目内部，产品是**按相机分类，然后按文件格式分类**的：
+在專案內部，產品會 **依相機分類，再依檔案格式分類**：
 
 ```
 <project>/
@@ -184,113 +184,113 @@ chloros-cli process ~/images/flight_001              # Linux
         └── Radiance_Images/             # float32 radiance always lands here
 ```
 
-对于 LATTICE，相机文件夹为 `LATT-<sensor>-<lens>-F<filter>`（与拍摄文件的 EXIF 信息 `Model` 匹配），而 Survey3 的相机文件夹为 `<model>_<filter>` （例如 `Survey3N_RGN`）对应Survey3
-。格式文件夹的命名规则为 `--format`：`tiff16`、`tiff8`、 `png8`、`jpg8` 或 `tiff32` 对应 `TIFF (32-bit, Percent)`。
+LATTICE 的相機資料夾為 `LATT-<sensor>-<lens>-F<filter>`（與擷取檔的 EXIF 資訊 `Model` 相符），而 Survey3 的相機資料夾則為 `<model>_<filter>` （例如 `Survey3N_RGN`）則對應於 Survey3
+。格式資料夾的命名規則依循 `--format`：`tiff16`、`tiff8`、 `png8`、`jpg8` 或 `tiff32` 對應於 `TIFF (32-bit, Percent)`。
 
-对于多光谱 M3C 相机，格式文件夹中除产品文件夹外，还可能出现一个 `clamp_masks/` 文件夹（例如 `tiff16/clamp_masks/Reflectance_Calibrated_Images/` 和 `tiff32/clamp_masks/Radiance_Images/`）。 该文件夹包含辐射度和反射率产品的逐像素掩膜，在这些产品中，波段解混将负值限制为零——参见 [限制掩膜](output-image-formats.md#clamp-masks)。任何产品文件夹中都不包含掩膜。
+對於多光譜 M3C 相機，格式資料夾中除產品資料夾外，也可能出現一個 `clamp_masks/` 資料夾（例如 `tiff16/clamp_masks/Reflectance_Calibrated_Images/` 和 `tiff32/clamp_masks/Radiance_Images/`）。 該資料夾存放輻照度與反射率產品的每像素遮罩，其中波段解混將負值限制為零 — 請參閱 [限制遮罩](output-image-formats.md#clamp-masks)。任何產品資料夾都不會包含遮罩。
 
 {% hint style="info" %}
-**每个导出的产品都保留源文件的名称。**`capture_..._raw.tif` 的辐射度导出文件仍命名为 `capture_..._raw.tif` —— 它只是位于 `tiff32/Radiance_Images/` 目录下。**文件夹用于标识产品，而非文件名**，因此应使用通配符匹配目录，而非 `*radiance*` 这样的后缀。
+**每個匯出的產品均保留原始檔案的名稱。**例如，`capture_..._raw.tif` 的輻照度匯出檔仍命名為 `capture_..._raw.tif` —— 它僅是存放於 `tiff32/Radiance_Images/` 目錄中。**資料夾用來識別產品，而非檔案名稱**，因此請使用通配符搜尋目錄，而非搜尋 `*radiance*` 這樣的副檔名。
 {% endhint %}
 
-### 您实际会用到的选项
+### 您實際會使用的選項
 
-| 标志 | 默认值 | 功能说明 |
+| 標誌 | 預設值 | 功能說明 |
 | --- | --- | --- |
-| `-o, --output PATH` | 默认项目文件夹 | 项目文件夹位置（参见上文）。 |
-| `-n, --project-name NAME` | 时间戳 | 项目名称。 |
-| `--format FMT` | `TIFF (16-bit)` | 以下选项之一：`TIFF (16-bit)`, `TIFF (8-bit)`、`TIFF (32-bit, Percent)`、`PNG (8-bit)`、`JPG (8-bit)` 中的一个。 Chloros
-不进行图像放大：对于所有8位图像，更深的格式会被写为`TIFF (8-bit)`，且仅提示一次。 |
-| `--indices NAME [NAME ...]` | 无 | 待导出的植被指数（参见 [植被指数](#vegetation-indices)）。 |
-| `--debayer {standard,texture-aware}` | `standard` | `texture-aware` = 神经网络去拜耳化，速度较慢， 最高质量（Chloros
-+，需要 CUDA GPU：若无 CUDA GPU，则运行时使用 `standard`；LATTICE 捕获数据不支持此选项，该类数据始终使用 `standard`）。 |
-| `--vignette / --no-vignette` | 启用 | 暗角校正。 |
-| `--reflectance / --no-reflectance` | 启用 | 反射率校准；对于 LATTICE，此选项同时用于切换反射率乘积功能。 |
-| `--input-level {auto,raw,debayered,processed}` | `auto` | 强制 LATTICE TIFF 文件的处理管道入口点。 |
+| `-o, --output PATH` | 預設專案資料夾 | 專案資料夾位置（參見上文）。 |
+| `-n, --project-name NAME` | 時間戳記 | 專案名稱。 |
+| `--format FMT` | `TIFF (16-bit)` | 選自 `TIFF (16-bit)`、 `TIFF (8-bit)`、`TIFF (32-bit, Percent)`、`PNG (8-bit)`、`JPG (8-bit)` 之一。 Chloros
+不會進行升頻：在所有 8 位元影像上，較深的格式會寫入為 `TIFF (8-bit)`，且僅會標示一次。 |
+| `--indices NAME [NAME ...]` | 無 | 待匯出的植被指數（參見 [植被指數](#vegetation-indices)）。 |
+| `--debayer {standard,texture-aware}` | `standard` | `texture-aware` = 神經網路去拜爾演算法，速度較慢， 最高品質（Chloros
++，需 CUDA GPU：若無 CUDA GPU，則執行時使用 `standard`；LATTICE 擷取影像不適用此選項，該類影像始終採用 `standard`）。 |
+| `--vignette / --no-vignette` | 啟用 | 暗角校正。 |
+| `--reflectance / --no-reflectance` | 啟用 | 反射率校正；對於 LATTICE 而言，此選項同時也是反射率乘積功能的開關。 |
+| `--input-level {auto,raw,debayered,processed}` | `auto` | 強制 LATTICE TIFF 檔案使用管線入口點。 |
 
-关于其他所有内容——目标检测调整、PPK、曝光定位点、阵列对齐标志——请参阅 [CLI
-参考手册中`process`部分](reference/cli-reference.md)。
+至於其他所有項目——目標偵測調整、PPK、曝光定位點、陣列對齊標誌——請參閱 [CLI
+參考手冊中的 `process` 章節](reference/cli-reference.md)。
 
 ***
 
-## 选择导出内容（LATTICE 产品）
+## 選擇要匯出的內容（LATTICE 產品）
 
-LATTICE 处理会在 **单次处理中**扩展到所有适用产品。每个产品的四个开关**默认均处于开启状态**；使用 `--no-` 格式可禁用其中一个：
+LATTICE 處理會在 **單次執行中**擴展至**所有適用產品**。每個產品的四個開關皆**預設為開啟**；請使用 `--no-` 格式來停用其中一個：
 
-| 开关 | 产品 |
+| 開關 | 產品 |
 | --- | --- |
-| `--debayered` | 线性去马赛克 → `Debayered_Images/`： 移除校准包中的暗偏移，随后进行边缘感知去马赛克处理，不进行线性校正、平场校正或分色处理——即与捕获设备在 `debayered` 级别保存的文件相同。保持传感器原生方向（记录在 XMP 中）。 |
-| `--preview` | 显示预览（白平衡 + 伽马校正；多光谱图像的伪彩色拉伸）→ `Preview_Images/` |
-| `--radiance` | float32 辐射度，W/m²/sr/nm → `Radiance_Images/`（始终为 `tiff32/`） |
-| `--reflectance` | uint16 反射率，Pix4D 兼容 → `Reflectance_Calibrated_Images/` |
+| `--debayered` | 線性去馬賽克 → `Debayered_Images/`： 移除校準套件的暗偏移，接著進行邊緣感知去馬賽克，不進行線性校正、平場校正或解混 — 此檔案與擷取功能在 `debayered` 層級所儲存的檔案相同。維持感光元件的原生方向（記錄於 XMP 中）。 |
+| `--preview` | 顯示預覽（白平衡 + 伽瑪校正；多光譜影像的假色拉伸）→ `Preview_Images/` |
+| `--radiance` | float32 輻照度，W/m²/sr/nm → `Radiance_Images/`（始終為 `tiff32/`） |
+| `--reflectance` | uint16 反射率，Pix4D 相容 → `Reflectance_Calibrated_Images/` |
 
-仅 RGB
-主相机始终输出去拜耳化 + 预览数据——对于宽带传感器而言，各波段的辐射度/反射率没有实际意义，因此这些开关对它们而言是无操作的。Survey3
-`.raw` 会忽略这些开关，并遵循标准的反射率/目标路径。
+僅限 RGB
+主相機會輸出去拜耳化 + 預覽資料 — 對於寬頻感測器而言，各波段的輻度/反射率並無實質意義，因此這些切換選項對其而言無效。Survey3
+的 `.raw` 會忽略這些切換選項，並遵循標準的反射率/目標路徑。
 
 ```bash
 # Radiance only — no DAQ downwelling needed
 chloros-cli process ~/captures/lattice_flight --no-debayered --no-preview --no-reflectance
 ```
 
-**`--reflectance-source {auto,target,daq}`**（默认 `auto`）选择反射率参考： `auto` 将通过质量保证（QA）检测的帧内 [校准目标](calibration-targets.md) 设为绝对参考，并在无目标存在时回退至数据采集（DAQ）光传感器下行光分界值 (ρ = π·L/E)（带有通过质量保证标志的目标会与数据采集模块在测量分数上产生竞争）；`target` 采用严格模式（不进行数据采集替换）； `daq`以DAQ结果为准。可通过`--target-reflectance-dir`提供按单元测量的目标扫描数据。
+**`--reflectance-source {auto,target,daq}`**（預設為 `auto`）選擇反射率參考： `auto` 將通過品質保證（QA）的幀內 [校準目標](calibration-targets.md) 設為絕對參考，並在無目標存在時回退至 DAQ 光感測器的下行分界值 (ρ = π·L/E)；當無標靶存在時（若標靶通過品質保證且設有標記，則其測量分數將與 DAQ 結果相互競爭）；`target` 採用嚴格模式（不進行 DAQ 替代）； `daq` 採 DAQ 權威模式。可透過 `--target-reflectance-dir` 提供每單位的測量標靶掃描資料。
 
 {% hint style="info" %}
-**读取反射率像素：**表示 ρ = 1.0 的 DN 是**按光源计算的** —— LATTICE 文件会在 XMP 中添加 `Chloros:PixelScale=32768` 标记； Survey3
-文件使用65535，且不包含`Chloros:PixelScale`标签（但包含其他`Chloros:*`处理标签）。 请读取该标签并以此为基准进行除法运算，而非假设其为常数。详细信息及一个刻意设计的无比例尺边界情况请参见[CLI
-参考](reference/cli-reference.md)。
+**讀取反射率像素：**表示 ρ = 1.0 的 DN 為**單一光源** — LATTICE 檔案會在 XMP 中標記 `Chloros:PixelScale=32768`； Survey3
+檔案使用65535，且不包含`Chloros:PixelScale`標籤（但會包含其他`Chloros:*`處理標籤）。 請讀取該標籤並以此為基準進行除法運算，而非假設為恆定值。詳細資訊及一個刻意設計的無比例邊緣案例，請參閱 [CLI
+參考手冊](reference/cli-reference.md)。
 {% endhint %}
 
-**处理始终从 `raw` 开始。** 衍生产品（去拜耳化/辐射度/反射率导出）绝不会被重新输入到处理管道中——重新导入并处理它们会导致校准运算被重复应用，因此 Chloros
-会跳过它们并明确提示。 `--input-level`是当您确实需要强制指定入口点时，特意设计的“后门”。
+**處理流程始終從 `raw` 開始。** 衍生產品（去拜耳化／輻射度／反射率匯出檔）絕不會被送回處理管道——若重新匯入並處理，將導致校準運算重複應用兩次，因此 Chloros
+會跳過這些檔案並明確標示。 `--input-level` 是當您確實需要強制指定起始點時，刻意預留的「逃生通道」。
 
 ***
 
-## 运行失败时
+## 當執行失敗時
 
-从 1.2.0 版本开始，`process` 会明确报错，而不是“成功”却没有任何输出：
+自 1.2.0 版本起，`process` 會明確顯示失敗訊息，而非在沒有任何輸出結果的情況下「成功」：
 
-* 若运行**请求了产物但未写入任何产物**——仅包含 `project.json` 和 `calibration_data.json` ——则会输出 `Processing finished but wrote no image products.` 并**以非零状态退出**， 因此脚本可以检测到此情况。常见原因包括：输入文件夹未被识别为捕获文件夹（请检查布局和 `--input-level`），或者所有请求的产出对于这些相机均不适用（例如，从仅支持 RGB
-的相机中请求辐射度/反射率）。
-* **刻意仅生成元数据的运行**（所有产品选项均关闭，无 `--indices`）仍被视为成功——此时输出空图像即为正确结果。
-* 请启用 `--verbose` 重新运行，并检查后端日志中是否存在 `[LATTICE-EXPORT]` / `[EXPORT-CHECK]` 相关行，这些日志条目会说明每台相机的跳过原因。
+* 若執行程序 **請求了產出但未寫入任何內容**— 僅包含 `project.json` 和 `calibration_data.json` — 則會輸出 `Processing finished but wrote no image products.` 並**以非零狀態退出**， 因此腳本能夠偵測到此情況。常見原因包括：輸入資料夾未被識別為擷取資料（請檢查佈局及 `--input-level`），或是所有請求的產出皆不適用於該批相機（例如：從僅支援 RGB
+的相機請求輻射度／反射率）。
+* **刻意僅執行元資料處理**（所有產品選項皆關閉，無 `--indices`）仍視為成功 —— 此時輸出空影像即為正確結果。
+* 請重新執行並啟用 `--verbose`，並檢查後端日誌中的 `[LATTICE-EXPORT]` / `[EXPORT-CHECK]` 記錄行，這些記錄會說明各相機被跳過的具體原因。
 * 在Windows
-系统中，若已禁用长路径功能，当项目文件夹路径深度超出260个字符的限制时，系统会在处理开始**之前**拒绝该路径，并使用符合限制的最长项目文件夹名称（参见[输出文件存放位置](#where-the-outputs-land)）。
-* 捕获命令（`lattice capture`、`lattice array-capture` 及其他捕获系列）会列出所有无法写入的文件，并以 `1` 状态退出；当磁盘空间已满时，重复捕获操作将停止。
+系統中，若已關閉長路徑功能，當專案資料夾路徑過深而超出 260 個字元的限制時，系統會在處理開始 **之前** 拒絕該專案，並使用符合限制的最長專案資料夾路徑（詳見 [輸出檔案存放位置](#where-the-outputs-land)）。
+* 擷取指令（`lattice capture`、`lattice array-capture` 及其他擷取指令系列）會列出所有無法寫入的檔案名稱，並以 `1` 狀態碼結束執行；當磁碟空間已滿時，重複擷取作業將停止。
 
-退出代码：`0` 成功 · `1` 通用错误 · `2` 参数错误 · `130` 被 Ctrl+C 中断。
+退出代碼：`0` 成功 · `1` 一般性失敗 · `2` 參數錯誤 · `130` 遭 Ctrl+C 中斷。
 
 ***
 
-## 植被指数
+## 植被指數
 
-向 `--indices` 传递一个或多个预设名称；每个指数将保存在各自的 `<INDEX>_Index_Images/` 文件夹中：
+執行 `--indices` 時，請提供一個或多個預設名稱；每個指數都會存放在專屬的 `<INDEX>_Index_Images/` 資料夾中：
 
 ```bash
 chloros-cli process ~/images/flight_001 --indices NDVI GNDVI OSAVI
 ```
 
-`process --indices` 支持的 22 个预设名称：
+`process --indices` 接受的 22 個預設名稱：
 
 `NDVI` `GNDVI` `NDRE` `OSAVI` `SAVI` `MSAVI2` `EVI` `MSR` `TDVI` `LAI` `GCI` `GRVI` `GSAVI` `GOSAVI` `NLI` `MNLI` `RDVI` `WDRVI` `CVI` `ENDVI` `GLI` `VARI`
 
-向项目中添加了一个该项目尚未列出的名称。如果名称不是预设名称，或者摄像机频段无法生成该名称，则会跳过该名称并发出警告，同时标明该名称。 如果CLI
-无法读取项目当前的索引列表，它将保持列表不变并发出警告，而非替换该列表。
+若專案中尚未列出的名稱被新增至專案中，系統會將其加入。若該名稱並非預設名稱，或攝影機的頻段無法生成該名稱，則會跳過該名稱並發出警告，同時標示該名稱。 若CLI
+無法讀取專案的當前索引清單，則會保留清單原樣並發出警告，而非替換該清單。
 
 {% hint style="warning" %}
-**共有三个索引列表——请勿混淆。**GUI 的“项目设置”下拉菜单中有 27 个公式（包括 `FCI1`、`FCI2`、`GARI`、 `GEMI`、`LCI`——这五个仅限图形用户界面使用，且**不**适用于 `--indices`）。 实时/离线命令 `lattice index --preset` 使用其独立的 22 个预设列表。公式和波段运算详见 [多光谱指数公式](project-settings/multispectral-index-formulas.md)。
+**共有三份索引清單——請勿混淆。**GUI 的「專案設定」下拉選單中有 27 個公式（新增 `FCI1`、`FCI2`、`GARI`、 `GEMI`、`LCI` — 這五項僅限於 GUI 使用，且**不適用於** `--indices`）。 「即時／離線」`lattice index --preset` 指令使用其專屬的 22 項預設清單。相關公式與波段運算詳見 [多光譜指數公式](project-settings/multispectral-index-formulas.md)。
 {% endhint %}
 
 ***
 
-## DAQ 光传感器：简要介绍
+## DAQ 光感測器：快速入門
 
-`daq pool-*`系列通过后端持久化池驱动MAPIR
-DAQ光谱传感器（通过USB连接的DAQ-U、通过BLE连接的DAQ-M、通过以太网连接的DAQ-E）——GUI、CLI
-和SDK
-均共享一个实时句柄。 **`pool-*`是出厂版CLI
-中支持的DAQ路径**；您可能看到的其他 `daq` 子命令，属于 MAPIR
-内部的仅源接口，执行后会返回显式错误并引导您使用 `pool-*`。
+`daq pool-*` 系列透過後端持久化資源池驅動 MAPIR
+DAQ 光譜感測器（透過 USB 連接的 DAQ-U、透過 BLE 連接的 DAQ-M，以及透過乙太網路連接的 DAQ-E）——GUI、CLI
+和 SDK
+皆共用一個即時處理句柄。 **`pool-*` 是出廠版 CLI
+中受支援的 DAQ 路徑**；您可能會看到其他提及的 `daq` 子命令，這些屬於 MAPIR
+內部僅供來源使用的介面，執行時會以明確的錯誤訊息引導您至 `pool-*`。
 
 ```bash
 # 1. Open a pooled session (pick the line matching your sensor)
@@ -314,17 +314,17 @@ chloros-cli daq pool-record --sensor-id CB-7C-A8-2E-5F --duration 60 \
 chloros-cli daq pool-disconnect --sensor-id CB-7C-A8-2E-5F
 ```
 
-`pool-record`（不带 `--duration`）将运行至 `pool-record --stop`； 默认输出目录为 `~/Documents/DAQ Live View/` **位于后端机器上**。 电容校正曲线在连接时选择（`--cap-id`，后端默认 `sunshine_cosine`），并可通过 `pool-set-cap` ——电平校正配置文件及传感器的校准范围在本手册的 DAQ 章节中有详细说明。
+若未指定 `--duration`，則 `pool-record` 會執行至 `pool-record --stop`； 預設輸出目錄為 `~/Documents/DAQ Live View/` **位於後端主機上**。 電容校正曲線在連線時選取（`--cap-id`，後端預設為 `sunshine_cosine`），並可透過 `pool-set-cap` — 電容配置檔及感測器的校準範圍，詳見本手冊的 DAQ 章節。
 
 {% hint style="warning" %}
-**多网卡主机上的 DAQ-E：** 即使传感器状态正常，启动后首次 `pool-connect --eth` 自动发现也可能失败。`--eth-host <ip-or-hostname>` 是可靠的形式——当发现操作未果时，请使用该配置。
+**多網卡主機上的 DAQ-E：** 即使感測器狀態正常，開機後首次執行 `pool-connect --eth` 自動偵測仍可能失敗。`--eth-host <ip-or-hostname>` 才是可靠的方案 —— 每當偵測結果為空時，請改用此選項。
 {% endhint %}
 
 ***
 
-## LATTICE 相机、PTP 与项目自动化
+## LATTICE 攝影機、PTP 與專案自動化
 
-`lattice` 系列（45 多个子命令）涵盖了 LATTICE 相机的端到端操作：发现、单次拍摄、通过 GUI 的“智能预备连接”流程实现的持久同步数组、浏览器实时预览、对齐、索引运算以及主机网卡诊断。 示例：
+`lattice` 系列（含 45 多個子指令）涵蓋 LATTICE 攝影機的端到端操作：偵測、單次擷取、透過 GUI「智慧預備連線」流程建立的持久同步陣列、瀏覽器即時預覽、對齊、索引運算，以及主機網卡診斷。 舉例說明：
 
 ```bash
 chloros-cli lattice info                                          # discover cameras
@@ -333,35 +333,35 @@ chloros-cli lattice array-connect --serials SN1,SN2,SN3,SN4       # persistent s
 chloros-cli lattice array-capture --processing reflectance -o out/
 ```
 
-此外：`chloros-cli time-sync` 会报告 Chloros
-主机运行的 PTP 主时钟（LATTICE 相机和 DAQ-E 传感器以此为主时钟，以实现跨设备时间戳同步）， 而 `chloros-cli project` 则打开一个已保存的 Chloros
-项目，并在无头模式下驱动其相机、阵列和传感器——包括通过脚本编写的 YAML 采集配方。
+此外：`chloros-cli time-sync` 會回報由 Chloros
+主機執行的 PTP 主時鐘狀態（LATTICE 攝影機與 DAQ-E 感測器皆以此為主時鐘，以實現跨裝置時間戳記同步）， 而 `chloros-cli project` 則開啟一個儲存的 Chloros
+專案，並以無視窗模式驅動其相機、陣列及感測器——包含透過腳本執行的 YAML 擷取配方。
 
-这三个系列（`lattice`、 `project`、`daq pool-*`）也是唯一支持通过 `CHLOROS_BACKEND_URL` 驱动 **远程** 后端的系列；核心命令始终针对本地机器。
+這三個系列（`lattice`、 `project`、`daq pool-*`）也是唯一支援 `CHLOROS_BACKEND_URL` 來驅動 **遠端** 後端的系列；核心指令始終以本地主機為目標。
 
-完整的操作指南详见本手册的 LATTICE 章节；所有参数均收录于 [CLI
-参考](reference/cli-reference.md)。
+完整的操作指南收錄於本手冊的 LATTICE 章節中；所有參數皆列於 [CLI
+參考手冊](reference/cli-reference.md)。
 
 ***
 
-## 故障排除：前 5 大问题
+## 疑難排解：前五大常見問題
 
-| 症状 | 解决方法 |
+| 症狀 | 解決方法 |
 | --- | --- |
-| `Login required` 或计划任务在 `Email:` 提示符处卡住 | 在该机器上运行一次 `chloros-cli login EMAIL 'PASSWORD'` —— 没有缓存会话的命令将以交互方式执行，而非立即失败。 |
-| `backend unreachable` | 启动 Chloros
-桌面应用程序，或手动启动后端：Windows
-系统上为 `"C:\Program Files\Chloros\backend\chloros-backend.exe"`（位于安装文件夹的 `backend` 文件夹中； 该文件夹不位于 `PATH` 中），Linux
-系统上的 `chloros-backend`。`chloros-cli backend status` 显示是否正在运行； `lattice`/`project`/`daq pool-*` 绝不会启动后端。若将其指向远程后端，请检查 `CHLOROS_BACKEND_URL`。 |
-| 数组连接受阻：`FRAMES WILL DROP` / `Reduce ROI to enable` | 主机网卡接收环路重置为默认值——这是此前正常运行的设备拒绝连接的首要原因，通常发生在网卡驱动程序更新之后。 请在**提升权限**的终端中运行 `chloros-cli lattice network --fix`（或设置 `ReceiveBufferLen=256`、`PendingReceives=64`）；请参阅参考手册中的 *主机网卡设置与调优*。 |
-| `daq` 子命令退出：&quot;需要完整的 DAQ 软件包…&quot; | 请使用 `daq pool-*` 命令，这些命令通过后端驱动同一传感器：连接、流式传输、记录、捕获选择，以及针对 DAQ-E 的网络设置、重启和固件更新（或通过 Python
-执行 `chloros_sdk.connect_daq_sensor()`）。 |
-| Jetson 在处理大型文件夹前会打印交换空间警告 | 添加基于文件的交换空间——CLI
-会打印出需要执行的确切 `fallocate`/`swapon` 命令。 |
+| `Login required` 或排程工作在 `Email:` 提示符處卡住 | 在此機器上執行一次 `chloros-cli login EMAIL 'PASSWORD'` — 沒有快取會話的指令將以互動模式執行，而非立即失敗。 |
+| `backend unreachable` | 啟動 Chloros
+桌面應用程式，或手動啟動後端：Windows
+上的 `"C:\Program Files\Chloros\backend\chloros-backend.exe"`（位於安裝資料夾內的 `backend` 資料夾； 該資料夾不位於 `PATH` 內），Linux
+上的 `chloros-backend`。`chloros-cli backend status` 會顯示是否正在執行； `lattice`/`project`/`daq pool-*` 絕不會啟動後端。若您將其指向遠端後端，請檢查 `CHLOROS_BACKEND_URL`。 |
+| 陣列連線受阻：`FRAMES WILL DROP` / `Reduce ROI to enable` | 主機網路介面卡 (NIC) 接收環路重設為預設值 — 這是先前運作正常的主機突然無法連線的首要原因，通常發生在更新 NIC 驅動程式之後。 請從 **具有管理權限的** 終端機執行 `chloros-cli lattice network --fix`（或設定 `ReceiveBufferLen=256`、`PendingReceives=64`）；請參閱參考手冊中的 *主機網路介面卡設定與調校*。 |
+| `daq` 子指令退出：&quot;需要完整的 DAQ 套件…&quot; | 請使用 `daq pool-*` 指令，這些指令會透過後端驅動同一感測器：連線、串流、記錄、封包擷取選項，以及針對 DAQ-E 的網路設定、重新啟動與韌體更新（或透過 Python
+執行 `chloros_sdk.connect_daq_sensor()`）。 |
+| Jetson 在處理大型資料夾前會顯示交換空間警告 | 新增基於檔案的交換空間 — CLI
+會顯示需執行的確切 `fallocate`/`swapon` 指令。 |
 
 ***
 
-## 获取帮助
+## 取得協助
 
 ```bash
 chloros-cli --help              # top-level help
@@ -370,10 +370,10 @@ chloros-cli lattice --help
 chloros-cli daq --help          # lists the pool-* subcommands
 ```
 
-* **所有标志、所有子命令：** [CLI
-参考](reference/cli-reference.md)
+* **所有參數、所有子指令：** [CLI
+參考手冊](reference/cli-reference.md)
 * **Python
-等效命令：** [Python
+對應指令：** [Python
 SDK
 ](api-python-sdk.md) 及 [SDK Reference](reference/sdk-reference.md)
-* **支持：** info@mapir.camera · [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* **支援：** info@mapir.camera · [https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)

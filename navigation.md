@@ -1,100 +1,100 @@
-# 图形用户界面：导航
+# 圖形使用者介面 (GUI)：導覽
 
-首次启动 Chloros 时，它会启动其处理后端。后端准备就绪后，左上角的主菜单图标<img src=".gitbook/assets/image (1) (1) (1) (1).png" alt="" data-size="line"> 便会显示出来，左侧边栏中的“摄像头”和“光传感器”选项卡也会解锁（在此之前，这些选项卡处于灰色不可用状态）。
+首次啟動 Chloros 時，系統會先啟動其處理後端。一旦後端準備就緒，左上角的主選單圖示便會顯示出來 <img src=".gitbook/assets/image (1) (1) (1) (1).png" alt="" data-size="line">，而左側邊欄中的「攝影機」與「光感測器」分頁也會解鎖（在此之前，這些分頁會呈現灰色）。
 
 <figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-顶部标题栏从左至右包含：
+頂部標題列從左至右包含：
 
-### <img src=".gitbook/assets/image (1) (1) (1) (1).png" alt="" data-size="line"> 主菜单
+### <img src=".gitbook/assets/image (1) (1) (1) (1).png" alt="" data-size="line"> 主選單
 
 <figure><img src=".gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>通过主菜单，您可以：
+<figure><img src=".gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>透過主選單，您可以：
 
-* **新建项目**— 创建一个新项目。如果您已保存项目模板，则会显示一个**选择模板** 下拉菜单，以便新项目基于模板的设置开始。
-* **打开项目**— 打开现有项目。 该列表中包含一个**打开项目文件夹** 按钮，点击后将在文件资源管理器中打开项目文件夹。
-* **复制项目** — 将当前打开的项目复制为新名称（建议使用“MyProject (2)”等自由命名的名称），并打开该副本。 _(项目打开后可见)_
-* **添加文件** — 将单个图像文件添加到当前项目中 _(项目打开后可见)_
-* **添加文件夹** — 将一个或多个包含图像的文件夹添加到当前项目中 _(项目打开后可见)_
-* **开始处理 / 停止处理** — 启动或停止图像处理管道 _(添加文件后启用)_
-* **连接相机** — 跳转至 [“相机”选项卡](lattice/) 以连接 LATTICE 相机或阵列。无需打开项目即可使用。
-* **连接光传感器** — 跳转至 [光传感器选项卡](daq/) 以连接 DAQ 光传感器。无需打开项目即可使用。
+* **新建專案**— 建立新專案。若您已儲存專案範本，將出現**選取範本** 下拉選單，讓新專案能基於範本的設定開始建置。
+* **開啟專案**— 開啟現有專案。 清單中包含一個**開啟專案資料夾** 按鈕，可於您的檔案總管中開啟專案資料夾。
+* **複製專案** — 將目前開啟的專案以新名稱複製（建議使用自由命名，例如「MyProject (2)」），並開啟該副本。 _(僅在開啟專案後顯示)_
+* **新增檔案** — 將單一影像檔案新增至當前專案 _(僅在開啟專案後顯示)_
+* **新增資料夾** — 將一個或多個影像資料夾新增至當前專案 _(僅在開啟專案後顯示)_
+* **開始處理 / 停止處理** — 啟動或停止影像處理流程 _(在新增檔案後啟用)_
+* **連接至相機** — 跳轉至 [「相機」分頁](lattice/) 以連接 LATTICE 相機或陣列。無需開啟專案即可使用。
+* **連接光感測器** — 跳轉至 [光感測器分頁](daq/) 以連接 DAQ 光感測器。無需開啟專案即可使用。
 
 {% hint style="info" %}
-**仅限 Windows**：Chloros
+**僅限 Windows**：Chloros
 
-桌面图形界面（GUI）可在 Windows
+桌面 GUI 僅在 Windows
 
-上使用。Linux
+系統上提供。Linux
 
-用户应查阅 [CLI
+使用者應參閱 [CLI
 
-](CLI.md) 和 [Python
+](CLI.md) 及 [Python
 
 SDK
 
-](api-python-sdk.md) 文档，了解无头处理的相关信息。
+](api-python-sdk.md) 文件，以進行無頭處理。
 {% endhint %}
 
 ### <img src=".gitbook/assets/image (2) (1) (1).png" alt="" data-size="line">
 
-播放/开始按钮
+播放／開始按鈕
 
-启用后，开始处理按钮将启动图像处理管道。
+啟用後，開始處理按鈕將啟動影像處理流程。
 
 ### <img src=".gitbook/assets/image (4).png" alt="" data-size="line">
 
-进度条 <img src=".gitbook/assets/image (5).png" alt="" data-size="line">
+進度條 <img src=".gitbook/assets/image (5).png" alt="" data-size="line">
 
 
 
-在免费的 Chloros
+在免費的 Chloros
 
-模式下，系统会依次处理所有文件，进度条将显示两个阶段：目标检测和处理。
+模式下，系統會依序處理所有檔案，進度條將顯示 2 個階段：目標偵測與處理。
 
-在付费的 Chloros
+在付費的 Chloros
 
-+ 授权模式下，系统会同时处理所有文件，进度条将显示四个阶段：检测、分析、校准、导出。 将鼠标光标悬停在Chloros
++ 授權模式下，系統會同時處理所有檔案，進度條將顯示 4 個階段：偵測、分析、校準、匯出。 若將滑鼠游標懸停在Chloros
 
-+进度条上，会下拉显示扩展的4个进度条面板，以便您跟踪进度。点击顶部的进度条可锁定下拉面板，再次点击则解锁。
++ 進度條上，將會下拉顯示擴展的 4 階段進度條面板，以便您追蹤進度。點擊頂部的進度條將凍結下拉面板，再次點擊則解除凍結。
 
 <figure><img src=".gitbook/assets/plus_prog.JPG" alt=""><figcaption></figcaption></figure>
 
-## 侧边菜单
+## 側邊選單
 
-左侧边栏菜单包含多个交互图标，自上而下的顺序如下：
+左側邊欄選單包含各種可互動的圖示，由上而下的順序如下：
 
-#### <img src=".gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> [项目设置](project-settings/project-settings.md)
+#### <img src=".gitbook/assets/icon_project-settings.JPG" alt="" data-size="line"> [專案設定](project-settings/project-settings.md)
 
-“项目设置”选项卡允许您调整项目全局设置和项目处理设置。 请在开始处理文件之前调整这些设置。
+「專案設定」分頁可讓您調整專案的全域設定及處理設定。 請在開始處理檔案前先調整這些設定。
 
-#### <img src=".gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> 文件浏览器
+#### <img src=".gitbook/assets/icon_file-browser.JPG" alt="" data-size="line"> 檔案瀏覽器
 
-向项目中添加文件/文件夹，或从项目中移除文件。系统会忽略重复文件。勾选目标列中任意目标图像对应的复选框，处理过程将仅针对已勾选的图像进行目标匹配，从而大幅加快处理速度。 使用“图像/元数据”切换按钮，可在查看所选图像的缩略图网格和详细的元数据表格之间切换。
+可將檔案／資料夾新增至專案，或從專案中移除檔案。系統會忽略重複的檔案。若勾選任何目標影像旁的欄位，處理過程將僅針對已勾選的影像進行目標比對，大幅加快處理速度。 使用「影像／元資料」切換鈕，可在檢視選取影像的縮圖網格與詳細元資料表格之間切換。
 
-#### <img src=".gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> [图像查看器](image-viewer-gui/opening-an-image-full-screen.md)
+#### <img src=".gitbook/assets/icon_image-viewer.JPG" alt="" data-size="line"> [影像檢視器](image-viewer-gui/opening-an-image-full-screen.md)
 
-在主图像查看器中点击某张图像后，该图像将在“图像查看器”选项卡中以全屏模式打开。
+當在主影像檢視器中點擊某張影像時，該影像將在「影像檢視器」分頁中以全螢幕模式開啟。
 
-#### <img src=".gitbook/assets/image (3) (1).png" alt="" data-size="line"> [地图查看器](image-viewer-gui/map-markers.md)
+#### <img src=".gitbook/assets/image (3) (1).png" alt="" data-size="line"> [地圖檢視器](image-viewer-gui/map-markers.md)
 
-根据图像的 GPS 坐标，在交互式 2D 地图上查看您的图像。 支持 Google 地图和 ESRI 图块提供商，会根据您的位置自动选择最佳服务。将鼠标悬停在标记上即可查看图像缩略图预览。
+根據影像的 GPS 座標，在互動式 2D 地圖上檢視您的影像。 支援 Google 地圖與 ESRI 圖塊供應商，並會根據您的位置自動選擇最佳服務。將游標懸停於標記上即可查看影像縮圖預覽。
 
-#### <img src=".gitbook/assets/image (17).png" alt="" data-size="line"> [摄像头](lattice/)
+#### <img src=".gitbook/assets/image (17).png" alt="" data-size="line"> [攝影機](lattice/)
 
-实时连接并控制 LATTICE 摄像头——既可单独控制，也可作为同步的多摄像头阵列进行控制。 该标签页显示带有叠加层和直方图的实时预览图块、单个摄像头和阵列的设置，以及“捕获所有”功能中用于选择捕获哪些摄像头和导出格式的“捕获设置”。后端就绪后即可使用；请参阅 [LATTICE 章节](lattice/) 以获取完整操作指南。
+即時連接並控制 LATTICE 攝影機——可單台操作，或作為同步的多攝影機陣列使用。 此分頁顯示帶有疊加層與直方圖的即時預覽圖塊、各攝影機及陣列的設定，以及「擷取設定」——該設定可選擇「擷取全部」功能將產出的攝影機與匯出類型。待後端準備就緒後即可使用；請參閱 [LATTICE 專區](lattice/) 以獲取完整操作指南。
 
-#### <img src=".gitbook/assets/image (23).png" alt="" data-size="line"> [光传感器](daq/)
+#### <img src=".gitbook/assets/image (23).png" alt="" data-size="line"> [光感測器](daq/)
 
-连接 DAQ 光传感器——DAQ-U（USB）、DAQ-M（蓝牙）和 DAQ-E（以太网）——并在 W/m²/nm 单位下查看其实时校准光谱图。 在此处，您可以将 `.daq` 文件记录到打开的项目中、重命名传感器、选择盖帽校正配置文件，以及更新 DAQ-E 固件。该功能在后端准备就绪后可用；请参阅 [DAQ 部分](daq/) 以获取完整操作指南。
+連接 DAQ 光感測器 — DAQ-U（USB）、DAQ-M（藍牙）及 DAQ-E（乙太網路） — 並在 W/m²/nm 單位下檢視其即時校準光譜圖。 在此處，您可以將 `.daq` 檔案記錄至開啟中的專案、重新命名感測器、選擇遮光校正設定檔，以及更新 DAQ-E 韌體。此功能將於後端就緒後開放；請參閱 [DAQ 區段](daq/) 以獲取完整操作指南。
 
-#### <img src=".gitbook/assets/icon_log.JPG" alt="" data-size="line"> 调试日志
+#### <img src=".gitbook/assets/icon_log.JPG" alt="" data-size="line"> 除錯日誌
 
-出现问题时，请检查日志中的调试输出。复制/下载日志并发送至 [MAPIR 支持中心](https://www.mapir.camera/community/contact) 以获取帮助。
+發生問題時，請檢視日誌中的除錯輸出。複製／下載日誌並寄送至 [MAPIR 技術支援](https://www.mapir.camera/community/contact) 以獲取協助。
 
-1.3.0 版本新增功能：日志标签页顶部的错误图标（**报告错误**）可向 MAPIR 发送包含您的描述、最多 10 张图片、Chloros 日志以及系统详细信息的报告。您必须登录后才能发送报告。 请参阅 [如何从日志选项卡报告错误](processing-images-gui/monitoring-the-processing.md#reporting-a-bug-from-the-log-tab)。
+1.3.0 版新功能：日誌分頁頂端的錯誤圖示（**回報錯誤**）可將包含您的描述、最多 10 張圖片、Chloros 日誌及系統詳細資訊的報告傳送至 MAPIR。您必須先登入才能發送報告。 請參閱 [從日誌分頁回報錯誤](processing-images-gui/monitoring-the-processing.md#reporting-a-bug-from-the-log-tab)。
 
-#### <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> [用户登录](chloros+-login.md)
+#### <img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> [使用者登入](chloros+-login.md)
 
-通过用户登录侧边栏，您可以登录您的 Chloros+ 账户以解锁高级功能。您还可以查看当前应用程序版本，并调整 Chloros 图形用户界面 (GUI) 和命令行界面 (CLI) 中显示文本的语言。
+透過使用者登入側邊欄，您可以登入您的 Chloros+ 帳戶以解鎖進階功能。您亦可查看當前應用程式版本，並調整 Chloros 圖形使用者介面 (GUI) 及命令列介面 (CLI) 中顯示文字的語言。

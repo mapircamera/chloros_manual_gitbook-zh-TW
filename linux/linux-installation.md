@@ -1,46 +1,46 @@
-# Linux 安装
+# Linux 安裝
 
-Chloros 在 Linux 上的发行包为 `.deb`，该包会安装 CLI、后端服务器以及 Python SDK（针对 `python3` 系统，还包含一个与之版本匹配的用于虚拟环境的 wheel 包）。
+Chloros 針對 Linux 提供的發行版本為 `.deb` 套件，該套件會安裝 CLI、後端伺服器以及 Python SDK（針對 `python3` 系統，另附有與版本相符的 wheel 檔案供虛擬環境使用）。
 
-软件包文件名包含版本号和架构信息：`chloros_1.3.0_amd64.deb` 对应 x86_64 架构， 而 `chloros_1.3.0_arm64_jp6.deb` 代表 arm64（NVIDIA Jetson、JetPack 6）。请在以下命令中替换为实际下载的文件名。
+套件檔案名稱包含版本與架構：`chloros_1.3.0_amd64.deb` 適用於 x86_64， 而 `chloros_1.3.0_arm64_jp6.deb` 則適用於 arm64（NVIDIA Jetson、JetPack 6）。請在以下指令中替換為您實際下載的檔案。
 
 {% hint style="info" %}
 **
 
-1.3.0 版本新增：程序以未解压形式发布。** 后端和CLI将作为文件夹安装，即 `/usr/lib/chloros/backend/` 和 `/usr/lib/chloros/cli/`， 而非单个自解压文件。它们不再在每次启动时自动解压到临时文件夹中，因此启动速度大大提升（在 x86_64 平台上，后端以前每次启动都需要花费约 100 秒进行解压） ，也不再需要在 `/tmp` 目录中预留数 GB 的可用空间。amd64 版本的 `.deb` 大小也仅为以前的一半左右。
+1.3.0 版新功能：程式以未解壓縮形式提供。** 後端與CLI會以資料夾形式安裝，分別為 `/usr/lib/chloros/backend/` 和 `/usr/lib/chloros/cli/`， 而非單一的自解壓縮檔案。它們不再於每次啟動時自動解壓縮至臨時資料夾，因此啟動速度大幅提升（在 x86_64 平台上，後端過去每次啟動時需耗費約 100 秒進行解壓縮） ，且不再需要在 `/tmp` 目錄中預留數 GB 的可用空間。amd64 版本的 `.deb` 檔案大小也僅為原先的一半左右。
 {% endhint %}
 
 ***
 
 ## Linux amd64 (x86_64)
 
-### 系统要求
+### 系統需求
 
-| 要求 | 最低 | 推荐 |
+| 需求項目 | 最低要求 | 建議要求 |
 | --- | --- | --- |
-| **发行版** | Ubuntu 22.04 LTS+ / Debian 12+ | Ubuntu 24.04 LTS |
-| **处理器** | x86_64 (Intel/AMD) | Intel Core i7 或更高 |
-| **内存 (RAM)** | 8GB | 16GB 或更多 |
-| **显卡** | 无（由 CPU 处理） | 配备 4GB+ 显存的 NVIDIA GPU（12GB+ 可解锁 `GPU_PARALLEL`，7GB+ 可使“纹理感知”功能在单图像路径中保持关闭） |
-| **存储空间** | 2GB可用空间 | 10GB+可用空间的SSD |
-| **Python** | Python 3.7+（用于SDK） | Python 3.10+ |
+| **發行版** | Ubuntu 22.04 LTS+ / Debian 12+ | Ubuntu 24.04 LTS |
+| **處理器** | x86_64 (Intel/AMD) | Intel Core i7 或更高規格 |
+| **記憶體 (RAM)** | 8GB | 16GB 或以上 |
+| **顯示卡** | 無（由 CPU 處理） | 配備 4GB+ VRAM 的 NVIDIA GPU（12GB+ 可解鎖 `GPU_PARALLEL`，7GB+ 可避免「Texture Aware」功能在單一影像路徑中啟用） |
+| **儲存空間** | 2GB 可用空間 | 具備 10GB+ 可用空間的 SSD |
+| **Python** | Python 3.7+（適用於 SDK） | Python 3.10+ |
 
-> **不支持 Ubuntu 20.04 和 Debian 11。** `.deb` 的依赖项列表
-> 源自 Chloros 后端实际链接的库，其中包括一个
-> `libc6` 版本，该版本比 focal 和 bullseye 发行版中自带的 glibc 2.31 更新，因此 `apt` 会直接拒绝
-> 安装，而非在后续运行时导致安装失败。
+> **不支援 Ubuntu 20.04 和 Debian 11。** `.deb` 的依賴清單
+> 源自 Chloros 後端實際連結的組件，其中包含一個
+> `libc6` 版本，其新於 focal 和 bullseye 發行版所附帶的 glibc 2.31，因此 `apt` 會直接拒絕
+> 安裝，而非讓其日後在執行時發生錯誤。
 
-### 安装
+### 安裝
 
 ```bash
 sudo apt install ./chloros_1.3.0_amd64.deb
 ```
 
 {% hint style="info" %}
-**请使用 `apt install ./…`，而非 `dpkg -i`。** `apt` 既能解决该软件包的依赖关系，也会安装其推荐的组件：Python SDK 的依赖项， `python3-numpy` 和 `python3-requests`。而 `dpkg -i` 则不安装这两者。 CLI和后端是自包含的，无需这些组件即可运行，但 `import chloros_sdk` 需要它们；安装输出会列出任何缺失的组件。请保留 `./`， 以便 `apt` 能直接安装该文件，而非搜索同名软件包。该软件包还声明了 `libgl1`，捆绑的 OpenCV 会加载该文件，而精简版服务器镜像可能不包含此文件。
+**請使用 `apt install ./…`，而非 `dpkg -i`。** `apt` 會解決該套件的依賴關係，並同時安裝其建議的項目：Python SDK 的需求， `python3-numpy` 以及 `python3-requests`。`dpkg -i` 則不會安裝這兩項。 CLI 和後端是自包含的，即使沒有這些組件也能運行，但 `import chloros_sdk` 需要它們；安裝輸出會列出任何缺失的組件。請保留 `./`， 以便 `apt` 能直接安裝該檔案，而非尋找同名的套件。此套件亦宣告了 `libgl1`，此檔案會由內建的 OpenCV 載入，而精簡版伺服器映像檔可能未包含此檔案。
 {% endhint %}
 
-验证安装：
+驗證安裝：
 
 ```bash
 chloros-cli --version    # prints "Chloros CLI 1.3.0"
@@ -52,103 +52,103 @@ chloros-cli --version    # prints "Chloros CLI 1.3.0"
 
 ## Linux arm64 (NVIDIA Jetson)
 
-### 系统要求
+### 系統需求
 
-| 要求 | 最低 | 推荐 |
+| 需求 | 最低 | 建議 |
 | --- | --- | --- |
-| **平台** | 搭载 JetPack 6 的 NVIDIA Jetson | Jetson Orin NX 16GB 或 AGX Orin |
+| **平台** | 搭載 JetPack 6 的 NVIDIA Jetson | Jetson Orin NX 16GB 或 AGX Orin |
 | **JetPack** | JetPack 6.x | 最新版 JetPack 6 |
-| **内存 (RAM)** | 8GB（GPU/CPU 共享） | 16GB+ 共享（12GB+ 是并行处理的阈值） |
-| **存储** | 2GB可用空间 | 10GB+可用空间的NVMe SSD |
-| **Python** | Python 3.7+（用于SDK） | Python 3.10+ |
+| **記憶體 (RAM)** | 8GB（GPU/CPU 共用） | 16GB+ 共用（12GB+ 為並行處理的門檻） |
+| **儲存空間** | 2GB 可用空間 | NVMe SSD 且具備 10GB+ 可用空間 |
+| **Python** | Python 3.7+（適用於 SDK） | Python 3.10+ |
 
-### 安装
+### 安裝
 
 ```bash
 sudo apt install ./chloros_1.3.0_arm64_jp6.deb
 chloros-cli --version
 ```
 
-与 amd64 版本 `.deb`（包含 Python SDK、接收缓冲区和后端服务）布局相同，适用于运行 **JetPack 6**（L4T R36）的 Jetson Orin / Orin NX / Orin Nano。 其 PyTorch 基于 JetPack 6 为 Orin 构建的 CUDA 版本，因此 GPU 处理（包括 Texture Aware 去拜耳算法）将在 Jetson 的 GPU 上运行。 该软件包本身不包含 CUDA：它使用 JetPack 6 安装的 CUDA 和 cuDNN 库（在缺少这些库的镜像上，请使用 `sudo apt install nvidia-jetpack`）。 当无法使用 CUDA GPU 时，处理将在 CPU 上运行，且 `--debayer texture-aware` 将使用标准去拜耳算法（后端会记录一行 `[DEBAYER] … needs a CUDA GPU …` 日志说明原因）。有关 Jetson 的内存、散热及现场部署行为，请参阅 [NVIDIA Jetson 指南](nvidia-jetson-guide.md)。***
+與 amd64 版的 `.deb` 佈局相同（包含 Python SDK、接收緩衝區及後端服務），適用於運行 **JetPack 6**（L4T R36）的 Jetson Orin / Orin NX / Orin Nano。 其 PyTorch 採用 JetPack 6 針對 Orin 打造的 CUDA 版本，因此 GPU 處理（包含 Texture Aware 去拜爾演算法）將在 Jetson 的 GPU 上執行。 此套件本身並不包含 CUDA：它使用 JetPack 6 所安裝的 CUDA 和 cuDNN 函式庫（若映像檔中缺少這些函式庫，則使用 `sudo apt install nvidia-jetpack`）。 若無法使用 CUDA GPU，處理將在 CPU 上執行，且 `--debayer texture-aware` 會使用標準去拜爾演算法（後端日誌中會有一行 `[DEBAYER] … needs a CUDA GPU …` 說明原因）。有關 Jetson 的記憶體、散熱及現場部署行為，請參閱 [NVIDIA Jetson 指南](nvidia-jetson-guide.md)。***
 
-## Python SDK 安装（所有 Linux 系统）**该 `.deb` 会为您自动安装 SDK。** 两个软件包（amd64 和 Jetson）均会为系统安装该 SDK `python3`，因此 `import chloros_sdk` 在安装完成后即可直接使用，无需 pip 也无需网络。 其依赖包（`chloros_sdk`、`lattice_sdk`、`lattice_cam`、 `arena_api` 以及项目加载器）都位于 `/usr/lib/python3/dist-packages` 中，并归该软件包所有：升级时会替换这些文件，移除该软件包时也会移除它们。 该版本始终与您安装的CLI和后端相匹配。
+## Python SDK 安裝（所有 Linux 系統）**`.deb` 會自動為您安裝 SDK。** 兩個套件（amd64 和 Jetson）皆會為系統安裝 SDK `python3`，因此 `import chloros_sdk` 在安裝完成後即可直接運作，無需 pip 亦無需網路連線。 其套件（`chloros_sdk`、`lattice_sdk`、`lattice_cam`、 `arena_api` 以及專案載入器）皆位於 `/usr/lib/python3/dist-packages` 中，並由該套件所管理：升級時會替換這些元件，移除套件時則會一併移除。 版本號始終與您安裝的CLI及後端相符。
 
-SDK自身的依赖项 `python3-numpy` 和 `python3-requests` 是 **推荐的，而非必需的**：`sudo apt install ./chloros_<version>_<arch>.deb` 会安装它们，而 `dpkg -i` 则不会。安装输出会报告 SDK 导入的版本 `python3`、任何缺失的依赖项， 以及 `python3` 路径中其他位置存在的、会覆盖该软件包副本的 `chloros_sdk`（例如先前通过 `pip install --user` 安装的版本）。**在虚拟环境**中（该环境无法访问系统中的包），请将捆绑的 wheel 包安装到其中（完全离线）：
+SDK 本身的依賴項 `python3-numpy` 和 `python3-requests` 僅為 **建議安裝，並非必需**：`sudo apt install ./chloros_<version>_<arch>.deb` 會安裝這些套件，而 `dpkg -i` 則不會。安裝輸出會報告 SDK 所導入的版本 `python3`、任何缺失的依賴項， 以及 `python3` 路徑上其他位置的任何 `chloros_sdk` 檔案（例如先前透過 `pip install --user` 安裝的版本），若其覆蓋了套件的副本，都會在安裝輸出中列出。**在 virtualenv 環境中**（該環境無法偵測到系統套件），請將隨附的 wheel 檔案安裝至其中（完全離線）：
 
 ```bash
 pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl
 ```
 
-**从 PyPI 安装** —— 仅适用于未安装 Chloros 包的机器，且其 SDK 在另一台机器上驱动后端（参见 [远程后端模式](../reference/sdk-reference.md#remote-backend-mode-pip-only-host-via-tunnel)）：
+**從 PyPI 安裝** — 僅適用於未安裝 Chloros 套件的機器，且其 SDK 驅動著另一台機器上的後端（參見 [遠端後端模式](../reference/sdk-reference.md#remote-backend-mode-pip-only-host-via-tunnel)）：
 
 ```bash
 pip install chloros-sdk
 ```
 
-可选附加内容，适用于 pip 安装（虚拟环境或 PyPI）：
+可選附加項目，適用於 pip 安裝（虛擬環境或 PyPI）：
 
-| 附加内容 | 命令 | 添加内容 |
+| 附加項目 | 指令 | 新增內容 |
 | --- | --- | --- |
-| `progress` | `pip install chloros-sdk[progress]` | `sseclient-py`（用于实时进度流） |
-| `camera` | `pip install chloros-sdk[camera]` | 用于 BLE（DAQ-M）传输的 `bleak` |
+| `progress` | `pip install chloros-sdk[progress]` | `sseclient-py`（用於即時進度串流） |
+| `camera` | `pip install chloros-sdk[camera]` | 適用於 BLE (DAQ-M) 傳輸的 `bleak` |
 
-验证 SDK：
+驗證 SDK：
 
 ```bash
 python3 -c "import chloros_sdk; print(chloros_sdk.__version__)"
 ```
 
 {% hint style="info" %}
-Python SDK 通过本地 HTTP API（`http://127.0.0.1:5000`）与 `.deb` 安装的后端进行通信。 `ChlorosLocal` 和连接辅助程序会在需要时自动启动它；而已保存项目的 `connect_all()` 则永远不会这样做， 因此在无头机器上，请将后端作为 [服务](#always-on-ptp-for-headless-hosts) 运行。请始终使用字面上的 IPv4 地址，而非 `localhost` —— `localhost` 可能解析为 `::1`，且每次请求大约需要两秒钟。
+Python SDK 透過 `.deb` 安裝的本地 HTTP API（`http://127.0.0.1:5000`）與後端進行通訊。 `ChlorosLocal` 以及連線輔助程式會在需要時自動啟動它；已儲存專案中的 `connect_all()` 則永遠不會自動啟動， 因此，在無顯示器的機器上，請將後端以 [服務](#always-on-ptp-for-headless-hosts) 模式執行。請務必使用字面上的 IPv4 位址，而非 `localhost` —— `localhost` 可能會解析為 `::1`，且每個請求約需耗時兩秒。
 {% endhint %}
 
 ***
 
-## 首次设置
+## 首次設定
 
-### 1. 登录
+### 1. 登入
 
-访问 CLI 和 SDK 需要付费的 Chloros+ 套餐（**Copper** 或更高），该限制在服务器端强制执行：未登录的调用者将获得 `401 AUTH_REQUIRED`，而免费套餐（Iron）的调用者将获得 `403 PLAN_UPGRADE_REQUIRED`。
+存取 CLI 和 SDK 需具備付費的 Chloros+ 方案（**Copper** 或更高），此限制由伺服器端強制執行：未登入的呼叫者會獲得 `401 AUTH_REQUIRED`，而免費方案（Iron）的呼叫者則會獲得 `403 PLAN_UPGRADE_REQUIRED`。
 
 ```bash
 chloros-cli login your@email.com 'your-password'
 ```
 
-凭据缓存于 `~/.chloros/user_session.json` 中。
+憑證會快取於 `~/.chloros/user_session.json` 中。
 
 {% hint style="info" %}
-**升级后登录信息将保留；卸载则会清除登录信息。** 在现有安装（包括通过 `chloros-cli update` 进行的安装）上安装较新版本的 `.deb` 会保留 `~/.chloros/user_session.json` 及缓存的许可证，因此无界面 CLI/SDK 任务仍可正常运行。 卸载该软件包（`sudo apt remove chloros`）将清除该机器上所有用户的已保存登录信息和许可证缓存，因此全新安装时需要再次安装 `chloros-cli login`。
+**升級後會保留您的登入狀態；移除則會清除該狀態。** 若在現有安裝上安裝較新版本的 `.deb`（包括透過 `chloros-cli update` 進行安裝），將保留 `~/.chloros/user_session.json` 及快取的授權，因此無介面模式的 CLI/SDK 工作將持續運作。 若移除套件（`sudo apt remove chloros`），將清除該機器上所有使用者的儲存登入資訊及授權快取，因此重新安裝時需再次安裝 `chloros-cli login`。
 {% endhint %}
 
-### 2. 检查许可证状态
+### 2. 檢查您的授權狀態
 
 ```bash
 chloros-cli status
 ```
 
-`chloros-cli status` 适用于任何服务等级（包括免费版），因此您可以随时查看访问成功或失败的原因。
+`chloros-cli status` 適用於任何方案（包括免費方案），因此您隨時都能了解為何能或無法存取服務。
 
-### 3. 运行系统诊断
+### 3. 執行系統診斷
 
 ```bash
 chloros-cli selftest
 ```
 
-系统将按顺序执行七项检查，若其中任何一项失败，命令将返回非零状态码：
+系統將依序執行七項檢查，若其中任何一項失敗，指令將以非零狀態碼結束：
 
-| # | 检查项 | 验证内容 |
+| # | 檢查項目 | 驗證內容 |
 | --- | --- | --- |
-| 1 | **版本** | CLI 报告其版本（`v1.3.0`）。 |
-| 2 | **端口可用** | 端口 5000 处于空闲状态，*或*已被状态正常的 Chloros 后端响应（这被视为通过）。 |
-| 3 | **后端启动** | 后端二进制文件成功启动。 |
-| 4 | **API测试 (`/api/test`)** | 后端返回 `status: ok`。 |
-| 5 | **系统信息** | 从 `/api/system-info` 输出 `GPU: <name>, CUDA: <bool>, PyTorch: <version>`。 |
-| 6 | **去噪模型** | 找到 `*.pth.enc` 模型 （在 Linux 上：`/usr/lib/chloros/models`）。 |
-| 7 | **CUDA + 去噪器**| “Texture Aware” 功能实际上可以正常使用——需要 CUDA**以及** 至少一个模型文件。 |
+| 1 | **版本** | CLI 回報其版本（`v1.3.0`）。 |
+| 2 | **埠可用** | 埠 5000 為空閒狀態，*或* 已由運作正常的 Chloros 後端回應（此情況亦視為通過）。 |
+| 3 | **後端啟動** | 後端二進位檔成功啟動。 |
+| 4 | **API 測試 (`/api/test`)** | 後端回應 `status: ok`。 |
+| 5 | **系統資訊** | 從 `/api/system-info` 輸出 `GPU: <name>, CUDA: <bool>, PyTorch: <version>`。 |
+| 6 | **去噪器模型** | 找到 `*.pth.enc` 模型 （在 Linux 上：`/usr/lib/chloros/models`）。 |
+| 7 | **CUDA + 去噪器**| 「Texture Aware」功能實際上可使用 — 需要 CUDA**以及** 至少一個模型檔案。 |
 
-运行以 `N/7 checks passed` 结束，并按名称列出所有失败项。
+執行程序以 `N/7 checks passed` 結束，並按名稱列出所有失敗項目。
 
-### 4. 处理您的第一个数据集
+### 4. 處理您的第一個資料集
 
 ```bash
 chloros-cli process ~/datasets/flight001
@@ -156,76 +156,76 @@ chloros-cli process ~/datasets/flight001
 
 ***
 
-## 文件与目录
+## 檔案與目錄
 
-### 用户级
+### 每位使用者
 
-Chloros 将其凭据和 CLI 配置保存在一个跨平台目录中，即 **`~/.chloros/`**（在 Windows 上为 `%USERPROFILE%\.chloros\`）。另外两个Linux专用的缓存则遵循XDG规范——若已设置，则使用`XDG_CONFIG_HOME` / `XDG_CACHE_HOME`。
+Chloros 會將每位使用者的憑證和 CLI 設定儲存在單一跨平台目錄中，即 **`~/.chloros/`**（在 Windows 上為 `%USERPROFILE%\.chloros\`）。另外兩個 Linux 專屬快取則遵循 XDG 規範 — 若已設定，這些快取會使用 `XDG_CONFIG_HOME` / `XDG_CACHE_HOME`。
 
-| 路径 | 用途 |
+| 路徑 | 用途 |
 | --- | --- |
-| `~/.chloros/user_session.json` | 由 `chloros-cli login` 写入的登录会话缓存（在软件包升级后保留；卸载软件包时清空） |
-| `~/.chloros/working_directory.txt` | 默认项目文件夹覆盖设置（`chloros-cli set-project-folder` / `get-project-folder` / `reset-project-folder`） |
-| `~/.chloros/cli_language.json` | 命令行界面（CLI）语言偏好设置（`chloros-cli language <code>`） |
-| `~/.chloros/user.json` | 与 Windows 图形界面共享的语言设置 —— 此处的 `language` 优先于 `cli_language.json` |
-| `~/.chloros/update_cache.json` | Linux/Jetson 启动时更新检查的一小时缓存 |
-| `~/.chloros/backend.log` | 后端由 CLI 启动时的后端日志 |
-| `~/.chloros/camera_cal/<serial>/<bundle_sha>/` | 按摄像头缓存的 LATTICE 校准包，以序列号和捆绑包哈希值作为键值 |
-| `~/.chloros/daq_cap_profiles/<u\|m\|e>/<cap_id>.json` | DAQ 容差校正配置文件的可选用户覆盖设置 |
-| `~/.config/chloros/system_config.json` | 来自动态计算自适应（DCA）的缓存硬件配置文件——删除它可强制进行新的硬件检测 |
-| `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` | 后端服务器日志，每次启动生成一个文件 |
-| `~/Documents/MAPIR/Chloros Projects/` | 未设置覆盖时的默认项目文件夹 |
+| `~/.chloros/user_session.json` | 由 `chloros-cli login` 寫入的登入會話快取（在套件升級時保留；移除套件時清除） |
+| `~/.chloros/working_directory.txt` | 預設專案資料夾覆寫設定（`chloros-cli set-project-folder` / `get-project-folder` / `reset-project-folder`） |
+| `~/.chloros/cli_language.json` | 命令列介面 (CLI) 語言偏好設定 (`chloros-cli language <code>`) |
+| `~/.chloros/user.json` | 與 Windows 圖形介面共用的語言設定 — 此處的 `language` 優先於 `cli_language.json` |
+| `~/.chloros/update_cache.json` | Linux/Jetson 啟動時檢查更新的 1 小時快取 |
+| `~/.chloros/backend.log` | 後端由 CLI 啟動時的後端日誌 |
+| `~/.chloros/camera_cal/<serial>/<bundle_sha>/` | 按相機儲存的 LATTICE 校準包快取，以序號和套件雜湊值作為索引 |
+| `~/.chloros/daq_cap_profiles/<u\|m\|e>/<cap_id>.json` | DAQ 容差校正設定檔的可選使用者覆寫設定 |
+| `~/.config/chloros/system_config.json` | 來自「動態運算適應」（Dynamic Compute Adaptation）的快取硬體設定檔 — 刪除此檔案可強制執行新的硬體偵測 |
+| `~/.cache/chloros/logs/backend_<YYYYMMDD_HHMMSS>.log` | 後端伺服器日誌，每次啟動產生一個檔案 |
+| `~/Documents/MAPIR/Chloros Projects/` | 未設定覆寫時的預設專案資料夾 |
 
-### 全局设置
+### 系統範圍
 
-| 路径 | 用途 |
+| 路徑 | 用途 |
 | --- | --- |
-| `/usr/bin/chloros-cli` | 封装脚本 — 为捆绑的原生库设置 `LD_LIBRARY_PATH` （若该文件夹存在，则将 `TMPDIR` 设置为 `/mnt/ssd/tmp`），随后执行实际二进制文件 |
-| `/usr/bin/chloros-backend` | 封装脚本 — 针对后端执行相同操作，并将其标记为已安装的生产构建 |
-| `/usr/lib/chloros/cli/`, `/usr/lib/chloros/backend/` | 已编译的CLI和后端，解压后安装（1.3.0版本新增）； 程序分别为 `cli/chloros-cli` 和 `backend/chloros-backend` |
-| `/usr/lib/chloros/chloros-cli`, `/usr/lib/chloros/chloros-backend` | 两行启动脚本，用于启动上述实际程序——保留在这些路径下，因为SDK、CLI和旧版脚本会在此处查找它们 |
-| `/usr/lib/chloros/arena_runtime/` | LATTICE 相机所需的 Arena SDK 运行时 |
-| `/usr/lib/chloros/models/*.pth.enc` | 纹理感知去拜耳算法所使用的加密去噪模型 |
-| `/usr/lib/python3/dist-packages/chloros_sdk/`（以及 `lattice_sdk`、`lattice_cam`、`arena_api`，即项目加载器） | Python SDK，为系统 `python3` 安装且归该软件包所有 |
-| `/usr/lib/chloros/sdk/chloros_sdk-*.whl` | 与该确切构建版本完全匹配的 Python SDK wheel 包，用于虚拟环境 |
-| `/usr/lib/chloros/exiftool` | 捆绑的 ExifTool 启动器（仅在系统中不存在 exiftool 时，才会通过符号链接指向 `/usr/local/bin/exiftool`）。从 1.3.0 版本开始，ExifTool 脚本随附了位于 `/usr/lib/chloros/exiftool-dist/` 中的自有 Perl 库，因此无需系统 `libimage-exiftool-perl` 包即可运行 |
-| `/etc/chloros/update.conf` | 由 `chloros-cli update` 读取的更新通道配置 |
-| `/etc/sysctl.d/60-chloros-ptp.conf` | 设置 `net.ipv4.ip_unprivileged_port_start = 319`，以便后端无需 root 权限即可绑定 PTP 端口 |
-| `/etc/sysctl.d/60-chloros-gige.conf` | 将内核的套接字接收缓冲区 (`net.core.rmem_max`, `net.core.rmem_default`) 至 32 MB，并在安装时应用这些设置 （若已设置更高的值则保持不变）。在内核默认设置下，摄像头数据包会在内核中被丢弃，导致数组丢失帧并降低帧率；当缓冲区空间不足时，`chloros-cli lattice network` 会报告缓冲区状态。 参见 [Linux 主机 — 套接字接收缓冲区](../reference/cli-reference.md#linux-hosts--socket-receive-buffers) |
-| `/etc/ld.so.conf.d/Arena_SDK.conf` | 将动态加载器指向 `/usr/lib/chloros/arena_runtime` |
-| `/lib/udev/rules.d/70-chloros-daq.rules` | 授予已登录用户访问 DAQ-U USB 串行桥接器的权限 (CP2102N, `10c4:ea60`) |
-| `/lib/systemd/system/chloros-backend@.service` | 可选的始终在线后端服务，该服务将以后端用户（由您指定）的身份运行（已安装，**未启用**）——需启用此服务，请参阅 [始终在线 PTP](#always-on-ptp-for-headless-hosts) |
-| `/lib/systemd/system/chloros-backend.service` | 相同的服务，以 **root**身份运行后端（已安装，**未启用**），保留该服务是为了确保启用它的机器能持续运行 |
-| `/var/log/chloros/` | root 服务的详细日志，可被 `adm` 组读取 （在彻底清除软件包时被删除） |
-| `/usr/share/applications/chloros-cli.desktop` | “Chloros CLI” 应用程序菜单项，用于打开终端 |
+| `/usr/bin/chloros-cli` | 封裝腳本 — 將 `LD_LIBRARY_PATH` 設定為捆綁的原生函式庫 （若該資料夾存在，則將 `TMPDIR` 設定為 `/mnt/ssd/tmp`），隨後執行實際二進位檔 |
+| `/usr/bin/chloros-backend` | 封裝腳本 — 針對後端執行相同操作，並將其標記為已安裝的生產版本 |
+| `/usr/lib/chloros/cli/`、`/usr/lib/chloros/backend/` | 已編譯的CLI與後端，以解壓縮形式安裝（1.3.0版新增）； 程式分別為 `cli/chloros-cli` 和 `backend/chloros-backend` |
+| `/usr/lib/chloros/chloros-cli`、`/usr/lib/chloros/chloros-backend` | 兩行啟動腳本，用於啟動上述實際程式 — 保留在這些路徑中，因為 SDK、CLI 以及舊版腳本會在此處搜尋它們 |
+| `/usr/lib/chloros/arena_runtime/` | LATTICE 相機所需的 Arena SDK 執行階段環境 |
+| `/usr/lib/chloros/models/*.pth.enc` | 由「Texture Aware」去拜爾演算法所使用的加密去噪模型 |
+| `/usr/lib/python3/dist-packages/chloros_sdk/`（以及 `lattice_sdk`、`lattice_cam`、`arena_api`，即專案載入器） | Python SDK，已為系統 `python3` 安裝且由該套件所擁有 |
+| `/usr/lib/chloros/sdk/chloros_sdk-*.whl` | 與此精確建置版本完全匹配的 Python SDK wheel，供 virtualenv 使用 |
+| `/usr/lib/chloros/exiftool` | 內建的 ExifTool 啟動程式（僅在系統中不存在 exiftool 時，才會建立符號連結至 `/usr/local/bin/exiftool`）。自 1.3.0 版本起，ExifTool 腳本隨附其專屬的 Perl 函式庫（位於 `/usr/lib/chloros/exiftool-dist/`），因此無需系統 `libimage-exiftool-perl` 套件即可執行 |
+| `/etc/chloros/update.conf` | 由 `chloros-cli update` 讀取的更新通道設定 |
+| `/etc/sysctl.d/60-chloros-ptp.conf` | 設定 `net.ipv4.ip_unprivileged_port_start = 319`，使後端能在無需 root 權限的情況下綁定 PTP 埠 |
+| `/etc/sysctl.d/60-chloros-gige.conf` | 將核心的套接字接收緩衝區 (`net.core.rmem_max`、`net.core.rmem_default`) 至 32 MB，並於安裝時套用這些設定 （若已設定較高的值則維持不變）。在內核預設情況下，攝影機封包會在內核中被丟棄，導致陣列遺失幀數並降低幀率；當緩衝區餘量不足時，`chloros-cli lattice network` 會回報緩衝區狀態。 請參閱 [Linux 主機 — 套接字接收緩衝區](../reference/cli-reference.md#linux-hosts--socket-receive-buffers) |
+| `/etc/ld.so.conf.d/Arena_SDK.conf` | 將動態載入器指向 `/usr/lib/chloros/arena_runtime` |
+| `/lib/udev/rules.d/70-chloros-daq.rules` | 授予已登入使用者存取 DAQ-U USB 序列橋接器的權限 (CP2102N, `10c4:ea60`) |
+| `/lib/systemd/system/chloros-backend@.service` | 選擇性啟用的「始終運行」後端服務，該服務會以您指定的使用者身分執行後端（已安裝，**尚未啟用**）——需啟用此服務，請參閱 [始終運行 PTP](#always-on-ptp-for-headless-hosts) |
+| `/lib/systemd/system/chloros-backend.service` | 相同服務，但以 **root**身分執行後端（已安裝，**未啟用**），保留此設定可確保啟用該服務的機器持續運行 |
+| `/var/log/chloros/` | root 服務的詳細日誌，可由 `adm` 群組讀取 （當套件被徹底移除時將被刪除） |
+| `/usr/share/applications/chloros-cli.desktop` | 「Chloros CLI」應用程式選單項目，用於開啟終端機 |
 
-**防火墙（1.3.0 版新增）。** 若在安装时 `ufw` 或 `firewalld` 处于活动状态，该软件包将打开 UDP 端口 `5002` （DAQ-E 数据）、`5353`（mDNS 发现）、`319` 和 `320`（PTP），并在卸载该软件包时移除这些规则。 如果已安装防火墙但未启用，则不会添加任何规则，并会打印出应允许的端口，以便您日后启用时使用。它不会打开任何 TCP 端口： 当传感器通过 TCP 连接回此计算机以收集图像时，若防火墙处于活动状态并阻断了该连接，DAQ-E 固件更新将因 `… device never connected back on TCP <port> …` 错误而失败。
+**防火牆（1.3.0 版新增功能）。** 若在安裝時 `ufw` 或 `firewalld` 處於活躍狀態，此套件將開啟 UDP 埠 `5002` （DAQ-E 資料）、`5353`（mDNS 發現）、`319` 及 `320`（PTP），並在移除套件時刪除這些規則。 若已安裝防火牆但未啟用，則不會新增任何設定，並會列印出日後啟用時應允許的埠號。它不會開啟任何 TCP 埠： 當感測器透過 TCP 連回這台電腦以擷取影像時，若防火牆處於啟用狀態並阻擋該連線，DAQ-E 韌體更新將因 `… device never connected back on TCP <port> …` 錯誤而失敗。
 
-## 后端可执行文件位置
+## 後端可執行檔位置
 
-CLI 和 SDK 会自动检测后端：
+CLI 和 SDK 會自動偵測後端：
 
-| 组件 | 路径 |
+| 元件 | 路徑 |
 | --- | --- |
 | CLI | `/usr/bin/chloros-cli` |
-| 后端 | `/usr/lib/chloros/chloros-backend`（`/usr/lib/chloros/backend/chloros-backend`的启动器） |
+| 後端 | `/usr/lib/chloros/chloros-backend`（`/usr/lib/chloros/backend/chloros-backend` 的啟動程式） |
 
-可通过 `--backend-exe` CLI 标志或 `backend_exe` SDK 构造函数参数覆盖后端路径， 并使用 `--port` 设置端口（默认值为 `5000`）。
+可透過 `--backend-exe` CLI 標誌或 `backend_exe` SDK 建構函式參數， 並使用 `--port` 設定埠號（預設為 `5000`）。
 
 {% hint style="info" %}
-`CHLOROS_BACKEND_URL` 将 **`lattice`**、**`project`**以及**`daq pool-*`** 命令族。 核心命令（`process`、`login`、`logout`、`status`、 `export-status`、`time-sync`、`selftest`）会刻意忽略该参数，并始终将目标指向 `http://127.0.0.1:<port>`。
+`CHLOROS_BACKEND_URL` 會將 **`lattice`**、**`project`**以及**`daq pool-*`** 指令系列。 核心指令（`process`、`login`、`logout`、`status`、 `export-status`、`time-sync`、`selftest`）會刻意忽略該參數，並始終將目標鎖定為 `http://127.0.0.1:<port>`。
 {% endhint %}
 
 ***
 
-## Linux 上的 LATTICE 相机和 DAQ 光传感器
+## Linux 上的 LATTICE 攝影機與 DAQ 光感測器
 
-所有 live-hardware 命令系列均可在 Linux（amd64 和 Jetson）上运行：
+所有 live-hardware 指令集均可在 Linux（amd64 和 Jetson）上運作：
 
-* **`chloros-cli lattice`** — 用于发现、连接、配置以及从 LATTICE 相机和同步数组中捕获数据。`.deb` 捆绑了它们所需的 Arena SDK 运行时，并将其注册到动态加载器中。
-* **`chloros-cli daq pool-*`** — 通过后端池连接 DAQ-U/M/E 光传感器，流式传输校准光谱，记录 `.daq` 文件并交换捕获配置文件；对于 DAQ-E，还可更改其网络设置、重启设备并更新其固件。 `chloros-cli daq discover` 会扫描可连接的传感器，而 `chloros-cli daq --help` 会列出 `pool-*` 的子命令。
-* **`chloros-cli project`** — 无界面模式下运行已保存的项目（包括其相机、传感器和处理设置）。
-* **`chloros-cli time-sync`** — 检查Chloros后端为LATTICE相机和DAQ-E传感器运行的PTP主时钟。
+* **`chloros-cli lattice`** — 用於偵測、連線、設定以及從 LATTICE 攝影機和同步陣列擷取影像。`.deb` 整合了其所需的 Arena SDK 執行時環境，並將其註冊至動態載入器。
+* **`chloros-cli daq pool-*`** — 透過後端池連接 DAQ-U/M/E 光感測器，串流經校準的光譜、記錄 `.daq` 檔案並交換 cap 設定檔；針對 DAQ-E，可變更其網路設定、重新啟動及更新韌體。 `chloros-cli daq discover` 會掃描可連接的感測器，而 `chloros-cli daq --help` 則列出 `pool-*` 的子指令。
+* **`chloros-cli project`** — 無介面模式下執行已儲存的專案（包含其攝影機、感測器及處理設定）。
+* **`chloros-cli time-sync`** — 檢查 Chloros 後端為 LATTICE 相機和 DAQ-E 感測器所執行的 PTP 主時鐘。
 
 ```bash
 # DAQ-E at a known address — the reliable path on multi-homed hosts
@@ -239,52 +239,52 @@ chloros-cli daq pool-list
 chloros-cli daq pool-latest --sensor-id daq-e-a1b2c3 --json
 ```
 
-`--sensor-id` 是 `pool-latest` 的必备条件， `pool-stream`、`pool-record` 以及 `pool-set-cap` 所必需；`pool-list` 显示当前池中的 ID。
+`--sensor-id` 是 `pool-latest` 的必備條件， `pool-stream`、`pool-record` 及 `pool-set-cap` 所必需；`pool-list` 顯示目前池中存在的 ID。
 
 {% hint style="info" %}
-**`--eth-host` 跳过发现过程。** `pool-connect --eth` 通过 mDNS 发现 DAQ-E，其 ARP 备用机制可在 ARP 缓存清空的状态下正常工作；通过 `--eth-host` 传入传感器的 IP 地址或主机名可直接与其建立连接。
+**`--eth-host` 跳過發現階段。** `pool-connect --eth` 透過 mDNS 偵測到 DAQ-E，其 ARP 備用機制可在 ARP 快取清空的狀態下正常運作；若將感測器的 IP 位址或主機名稱傳遞給 `--eth-host`，即可直接連線至該感測器。
 {% endhint %}
 
-**DAQ-U 串行权限**由已安装的 udev 规则处理（`uaccess` + 组 `dialout`）。如果已插入的传感器仍无法访问，请重新加载规则或重新插入传感器：
+**DAQ-U 序列埠權限** 由已安裝的 udev 規則處理（`uaccess` + 群組 `dialout`）。若已連接的感測器仍無法存取，請重新載入規則或重新插拔感測器：
 
 ```bash
 sudo udevadm control --reload-rules
 sudo udevadm trigger --subsystem-match=tty
 ```
 
-完整的命令集请参阅 [CLI 参考](../CLI.md)。
+請參閱 [CLI 參考手冊](../CLI.md) 以了解完整的指令集。
 
-### 无显示器主机的常驻 PTP
+### 無顯示器主機的常駐 PTP
 
-该软件包为后端安装了两个 systemd 服务，但均未启用。 在需要为 DAQ-E 传感器和 LATTICE 摄像头持续运行 PTP 时间同步的无显示器 Jetson 或服务器上，或者在 SDK 脚本连接已保存项目（`connect_all()` 不会启动后端）的情况下，请以 **您的用户身份** 启用该服务：
+此套件會為後端安裝兩個 systemd 服務，但兩者均未啟用。 若在無顯示器的 Jetson 或伺服器上，需為 DAQ-E 感測器和 LATTICE 攝影機持續運行 PTP 時間同步，或當 SDK 腳本連接已儲存的專案時（`connect_all()` 絕不會啟動後端），請以 **您的使用者身分** 啟用該服務：
 
 ```bash
 sudo systemctl enable --now chloros-backend@$USER.service    # $USER expands to your user name
 systemctl status chloros-backend@$USER.service
 ```
 
-`chloros-backend@<user>.service` 以该用户身份运行后端：其写入的捕获数据归该用户所有，详细日志记录在该用户的 `~/.cache/chloros/logs` 中，并且它使用该用户的 `chloros-cli login` （`~/.chloros`），因此请先以该用户身份登录一次。安装该软件包时，系统会打印此命令并填入您的用户名。
+`chloros-backend@<user>.service` 會以該使用者身分執行後端：其寫入的擷取資料歸該使用者所有，詳細日誌記錄於該使用者的 `~/.cache/chloros/logs` 中，且會使用該使用者的 `chloros-cli login` （`~/.chloros`），因此請先以該使用者身分登入一次。安裝套件時會輸出此指令，並填入您的使用者名稱。
 
-如果没有服务，后端（以及随附的 PTP 主时钟）仅在被启动时运行——例如通过 `chloros-cli` 命令或 SDK 脚本。
+若未以服務形式運行，後端（以及其所包含的 PTP 主時鐘）僅會在被啟動時運行——例如透過 `chloros-cli` 指令或 SDK 腳本。
 
-该单元将后端绑定到 `127.0.0.1:5000` （单元内的 `CHLOROS_HOST` / `CHLOROS_PORT` 环境设置；可通过 `sudo systemctl edit chloros-backend@.service` 进行覆盖），并在发生故障后 5 秒内重启它。
+該單元會將後端綁定至 `127.0.0.1:5000` （單元內的 `CHLOROS_HOST` / `CHLOROS_PORT` 環境設定；可透過 `sudo systemctl edit chloros-backend@.service` 覆寫），並在發生錯誤後 5 秒重新啟動它。
 
-**root 服务。**`chloros-backend.service` 以**root** 身份运行后端。该服务仍被安装，以确保启用了它的机器能够持续运行， 但 root 后端写入的所有内容均归 root 所有，因此用户无法删除自己的捕获数据；其日志位于 `/var/log/chloros`，可被 `adm` 组读取。若要切换至您的用户：
+**root 服務。**`chloros-backend.service` 以**root** 身分執行後端。該服務仍會安裝，以便已啟用它的機器能持續運作， 但 root 後端所寫入的一切皆歸 root 所有，因此使用者無法刪除自己的擷取資料；其日誌位於 `/var/log/chloros`，可由 `adm` 群組讀取。若要切換至您的使用者帳戶：
 
 ```bash
 sudo systemctl disable --now chloros-backend.service
 sudo systemctl enable --now chloros-backend@$USER.service
 ```
 
-**服务的后端是共享的，绝不会被客户端停止。** `chloros-cli` 和 SDK 脚本会按其发现的状态使用该后端：`process` 在其上运行，并加载自身项目以替换上一个项目。 在通常情况下，CLI会重启后端（`--restart`，或导入未找到任何内容的 `process`）， 它会显示该单元名称，输出 `sudo systemctl restart <unit>` 并退出 `1`，因为以这种方式停止的后端将保持关闭状态。请使用 `sudo systemctl restart chloros-backend@$USER.service` 手动重启它。 服务后端绝不会在空闲时自行停止，而 `chloros-cli backend stop` 会拒绝该请求，并提示 `systemctl stop` 命令。**PTP 如何获取端口。** PTP 使用 UDP 319/320 端口，这两个端口均低于常规 1024 的特权端口下限。 该软件包的 `postinst` 会使用 `/etc/sysctl.d/60-chloros-ptp.conf` 写入 `net.ipv4.ip_unprivileged_port_start = 319`，这使得后端在以您的用户身份运行时能够绑定这些端口。 从 1.3.0 版本开始，该软件包不再为后端设置文件权限（`setcap`），且 `libcap2-bin` 也不再是依赖项：在未打包的后端中，文件权限会导致其无法启动， 因此请勿自行添加。***
+**服務的後端是共享的，絕不會被客戶端停止。** `chloros-cli` 和 SDK 腳本會直接使用現有的後端：`process` 在其上執行，並載入自身專案以取代上一個專案。 在其他情況下，CLI 會重新啟動後端（例如 `--restart`，或是進口時未找到任何項目的 `process`）， 它會標示該單元名稱、輸出 `sudo systemctl restart <unit>` 並退出 `1`，因為以這種方式停止的後端將保持停機狀態。請自行使用 `sudo systemctl restart chloros-backend@$USER.service` 重新啟動它。 服務的後端絕不會在閒置時自行停止，而 `chloros-cli backend stop` 會拒絕此操作，並標示出 `systemctl stop` 指令。**PTP 如何取得其埠號。** PTP 使用 UDP 319/320，這兩者均低於標準的 1024 特權埠下限。 該套件的 `postinst` 會透過 `/etc/sysctl.d/60-chloros-ptp.conf` 寫入 `net.ipv4.ip_unprivileged_port_start = 319`，這使得後端能在以您的使用者身分執行時綁定這些埠。 自 1.3.0 版本起，此套件不再為後端設定檔案權限（`setcap`），且 `libcap2-bin` 亦不再是依賴項：在未解壓縮的後端中，檔案權限會阻礙其啟動， 因此請勿自行新增此權限。***
 
-## Bash 脚本示例
+## Bash 腳本範例
 
 {% hint style="info" %}
-**适合脚本使用的退出代码。**`chloros-cli process` 在成功时退出 `0`，**失败时返回非零值——包括请求了图像产品但未生成任何产品的运行情况** （此时会输出 `Processing finished but wrote no image products.`，并列出项目文件夹名称及常见原因）。成功运行时会报告写入的图像产品数量（`Image products written: N`，若写入了掩膜则额外输出 `(plus M clamp masks)`）。退出代码：`0` 表示成功，`1` 表示失败，`2` 表示参数错误，`130` 表示运行中断。
+**適合腳本使用的退出代碼。**`chloros-cli process` 在成功時退出 `0`，**失敗時則返回非零值 — 包括請求影像產品但未寫入任何產品的執行情況** （此時會輸出 `Processing finished but wrote no image products.`，並列出專案資料夾名稱及常見原因）。成功執行時會回報寫入的影像產出數量（`Image products written: N`，若同時寫入遮罩則會額外回報 `(plus M clamp masks)`）。退出代碼：`0` 表示成功，`1` 表示失敗，`2` 表示參數錯誤，`130` 表示執行中斷。
 {% endhint %}
 
-### 处理多个数据集
+### 處理多個資料集
 
 ```bash
 #!/bin/bash
@@ -298,7 +298,7 @@ for dataset in ~/datasets/2026/*/; do
 done
 ```
 
-### 使用自定义设置进行处理
+### 採用自訂設定進行處理
 
 ```bash
 #!/bin/bash
@@ -310,26 +310,26 @@ chloros-cli process ~/datasets/field_a \
     --no-vignette
 ```
 
-有效的 `--format` 值共有四个，且包含空格——请务必用引号括起来：
+有效的 `--format` 值共有四種，且其中包含空格 — 請務必以引號括起：
 
-| `--format` 值 | 输出文件夹 |
+| `--format` 值 | 輸出資料夾 |
 | --- | --- |
-| `TIFF (16-bit)` *(默认)* | `tiff16` |
+| `TIFF (16-bit)` *(預設)* | `tiff16` |
 | `TIFF (8-bit)` | `tiff8` |
 | `TIFF (32-bit, Percent)` | `tiff32` |
 | `PNG (8-bit)` | `png8` |
 | `JPG (8-bit)` | `jpg8` |
 
-`--debayer` 支持 `standard`（默认）或 `texture-aware`（Chloros+）。
+`--debayer` 接受 `standard`（預設）或 `texture-aware`（Chloros+）。
 
-### 使用 Cron 进行自动化处理
+### 透過 Cron 進行自動化處理
 
 ```cron
 # Process any new datasets at 2 AM daily
 0 2 * ** /usr/bin/chloros-cli process /data/incoming --output /data/processed >> /var/log/chloros.log 2>&1
 ```
 
-### Python SDK示例
+### Python SDK 範例
 
 ```python
 from chloros_sdk import process_folder
@@ -344,9 +344,9 @@ result = process_folder(
 
 ***
 
-## 故障排除
+## 疑難排解
 
-### 安装后找不到CLI
+### 安裝後找不到 CLI
 
 ```bash
 # Check if the binary exists
@@ -360,47 +360,47 @@ dpkg -L chloros
 source ~/.bashrc
 ```
 
-### 权限被拒绝
+### 權限遭拒
 
 ```bash
 sudo chmod +x /usr/bin/chloros-cli
 sudo chmod +x /usr/lib/chloros/chloros-backend /usr/lib/chloros/backend/chloros-backend
 ```
 
-### 添加文件权限后后端无法启动
+### 新增檔案權限後後端無法啟動
 
-请勿在后端运行 `setcap`。 从 1.3.0 版本开始，该软件包不再设置任何文件权限，而 PTP 的 319/320 端口源自 [PTP 如何获取端口](#always-on-ptp-for-headless-hosts) 中所述的 `sysctl` 设置。 文件权限会将解压后的后端置于安全执行模式，在此模式下它无法找到自身的库文件，因此无法启动。如果您添加了此类权限，请将其移除：
+請勿在後端執行 `setcap`。 自 1.3.0 版本起，此套件不再設定任何檔案權限，而 PTP 的 319/320 埠號源自 [PTP 如何取得其埠號](#always-on-ptp-for-headless-hosts) 中所述的 `sysctl` 設定。 檔案權限會將未解壓縮的後端置於安全執行模式，在此模式下它無法找到自身的函式庫，因此無法啟動。若您曾新增此設定，請將其移除：
 
 ```bash
 sudo setcap -r /usr/lib/chloros/backend/chloros-backend
 ```
 
-### PTP 无法启动 / 无法绑定端口 319
+### PTP 無法啟動／無法綁定 319 埠
 
-确认非特权端口下限是否已降低；若未降低，请针对当前启动重新应用该设置：
+請確認非特權埠的下限值是否已調低；若尚未調整，請針對本次開機重新套用該設定：
 
 ```bash
 sysctl net.ipv4.ip_unprivileged_port_start     # expect 319
 sudo sysctl -w net.ipv4.ip_unprivileged_port_start=319
 ```
 
-然后检查主控节点：
+接著檢查主節點：
 
 ```bash
 chloros-cli time-sync status
 chloros-cli time-sync peers
 ```
 
-### `lattice` 命令因“未找到 LATTICE 相机驱动程序”而失败
+### `lattice` 指令執行失敗，錯誤訊息為「找不到 LATTICE 攝影機驅動程式」
 
-后端无法加载其随系统安装的 LATTICE 相机运行时。所有 `lattice` 命令均在后端运行；CLI 本身不包含任何相机驱动程序。请重新安装 Chloros（`sudo apt install --reinstall ./chloros_1.3.0_<arch>.deb`）：该安装程序会将运行时环境安装在后端旁（位于 `/usr/lib/chloros/arena_runtime` 目录下），并将其注册到动态加载器中。要检查该注册情况：
+後端無法載入其隨附安裝的 LATTICE 攝影機執行時模組。所有 `lattice` 指令皆在後端執行；CLI 本身並不包含任何攝影機驅動程式。請重新安裝 Chloros（`sudo apt install --reinstall ./chloros_1.3.0_<arch>.deb`）：該安裝程式會將執行時元件安裝於後端旁（位於 `/usr/lib/chloros/arena_runtime` 目錄中），並向動態載入器進行註冊。若要檢查該註冊狀態：
 
 ```bash
 cat /etc/ld.so.conf.d/Arena_SDK.conf     # expect /usr/lib/chloros/arena_runtime
 ls /usr/lib/chloros/arena_runtime | head
 ```
 
-### 后端启动失败
+### 後端啟動失敗
 
 ```bash
 # Check if port 5000 is already in use
@@ -413,9 +413,9 @@ kill $(lsof -t -i :5000)
 chloros-cli --port 5001 process ~/datasets/flight001
 ```
 
-启动失败的后端日志位于 `~/.cache/chloros/logs/` 中。如果端口 5000 属于某个后端服务（`systemctl status chloros-backend@$USER.service`），请重启该服务，而非终止其进程。
+啟動失敗的後端日誌位於 `~/.cache/chloros/logs/`。若 5000 埠屬於某個後端服務（`systemctl status chloros-backend@$USER.service`），請重新啟動該服務，而非終止其程序。
 
-### 未检测到 CUDA
+### 未偵測到 CUDA
 
 ```bash
 # Check NVIDIA driver installation (x86_64)
@@ -429,9 +429,9 @@ cat /etc/nv_tegra_release
 sudo apt install nvidia-jetpack
 ```
 
-`chloros-cli selftest` 在一行中报告了相同的问题：`GPU: <name>, CUDA: <bool>, PyTorch: <version>`。
+`chloros-cli selftest` 在同一行中報告了相同內容：`GPU: <name>, CUDA: <bool>, PyTorch: <version>`。
 
-### 缺少共享库
+### 缺少共用函式庫
 
 ```bash
 sudo apt-get update
@@ -441,9 +441,9 @@ sudo apt-get install -f
 ldd /usr/lib/chloros/backend/chloros-backend | grep "not found"
 ```
 
-### SD卡系统启动缓慢
+### SD 卡系統上的啟動速度緩慢
 
-从1.3.0版本开始，后端和CLI以解压后的形式安装，因此不再在每次启动时自动解压到临时目录中。 若该文件夹存在，临时文件将自动保存至 `/mnt/ssd/tmp`；否则，您可以将其指向一个高速文件系统：
+自 1.3.0 版本起，後端與 CLI 皆以未解壓縮形式安裝，因此不再於每次啟動時自動解壓縮至臨時目錄。 若該資料夾存在，臨時檔案會自動儲存至 `/mnt/ssd/tmp`；否則，您可以將其指向一個高速檔案系統：
 
 ```bash
 export TMPDIR=/mnt/nvme/tmp
@@ -451,9 +451,9 @@ export TMPDIR=/mnt/nvme/tmp
 
 ***
 
-## 在 Linux
+## 在 Linux 系統上更新 Chloros
 
-`update` 命令仅适用于 Linux/Jetson 环境。该命令会检查在 `/etc/chloros/update.conf` 中配置的更新通道所发布的版本，并提供下载和安装匹配的 `.deb`：
+`update` 指令僅適用於 Linux/Jetson 系統。該指令會檢查在 `/etc/chloros/update.conf` 所設定的更新通道中發布的版本，並提供下載及安裝相應的 `.deb`：
 
 ```bash
 # Check for updates without installing
@@ -463,24 +463,24 @@ chloros-cli update --check
 chloros-cli update
 ```
 
-在 Linux/Jetson 系统上，CLI 还会在每次启动时执行非阻塞式更新检查 （结果在 `~/.chloros/update_cache.json` 中缓存一小时），并在存在更新版本时输出 `Update available: vX.Y.Z`。您的设置、项目和登录状态在更新后仍会保留。
+在 Linux/Jetson 環境中，CLI 也會在每次啟動時執行非阻塞式更新檢查 （結果會於 `~/.chloros/update_cache.json` 中快取一小時），並在存在更新版本時輸出 `Update available: vX.Y.Z`。您的設定、專案及登入狀態在更新後仍會保留。
 
-升级软件包会在安装过程中暂停所有后端服务，因此正在运行的脚本将失去其摄像头和传感器连接，随后会重新启动每个已启用的服务（手动启动但从未启用的服务将保持停止状态，如同重启后一样）。
+套件升級過程中會暫停所有後端服務，因此正在執行的腳本將失去其相機和感測器連線，隨後會重新啟動每個已啟用的服務（若某個服務是手動啟動但從未啟用，則會保持停止狀態，如同重新開機後的情況）。
 
-## 卸载
+## 解除安裝
 
 ```bash
 sudo apt remove chloros
 ```
 
-卸载操作将停止并禁用所有后端服务，恢复默认的非特权端口下限（1024），删除接收缓冲区设置文件（运行中的值将保留至重启），移除捆绑的 exiftool 符号链接、 Arena 加载器配置、该软件包添加的防火墙规则以及其安装的 Python SDK，并清除缓存的凭据。您的项目和 `~/.chloros/` 数据文件将保持不变。 `sudo apt purge chloros` 还会删除 `/var/log/chloros`。
+解除安裝會停止並停用所有後端服務，將非特權埠下限恢復為預設值（1024），移除接收緩衝區設定檔（當前運行中的數值將保留至重新開機為止）、內建的 exiftool 符號連結、 Arena 載入器的設定檔、套件新增的防火牆規則以及其安裝的 Python SDK，並清除快取的憑證。您的專案與 `~/.chloros/` 資料檔將不受影響。 `sudo apt purge chloros` 亦會刪除 `/var/log/chloros`。
 
 ***
 
-## 后续步骤
+## 後續步驟
 
-* [NVIDIA Jetson 指南](nvidia-jetson-guide.md) — 针对 Jetson 的优化与部署
-* [CLI：命令行](../CLI.md) — CLI 指南
+* [NVIDIA Jetson 指南](nvidia-jetson-guide.md) — 針對 Jetson 的優化與部署
+* [CLI：命令列](../CLI.md) — CLI 指南
 * [API：Python SDK](../api-python-sdk.md) — SDK 指南
-* [CLI 参考](../reference/cli-reference.md) 和 [SDK 参考](../reference/sdk-reference.md) — 1.3.0 版本的完整命令/API 列表
-* [动态计算适配](../processing-architecture/dynamic-compute-adaptation.md) —— Chloros如何适配您的硬件
+* [CLI 參考手冊](../reference/cli-reference.md) 及 [SDK 參考手冊](../reference/sdk-reference.md) — 1.3.0 版本的完整命令/API 清單
+* [動態運算適應](../processing-architecture/dynamic-compute-adaptation.md) —— 說明 Chloros 如何適應您的硬體

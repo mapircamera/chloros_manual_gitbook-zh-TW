@@ -1,118 +1,135 @@
-# 图片网格
+# 圖片網格
 
-将图片导入项目后，您会在主区域看到它们以网格形式排列。在这个网格中，您可以选择**每张图片要查看的哪个版本**——网格上方的按钮可一次性将所有缩略图在源文件和各处理后的版本之间切换。
+將圖片匯入專案後，您會在主區域看到它們以網格形式排列。此網格是您選擇 **要檢視每張圖片的哪個版本** 的位置——網格上方的按鈕可一次切換所有縮圖，在原始檔案與各處理後成果之間切換。
 
-## 缩略图大小
+## 縮圖大小
 
-使用右上角的缩放滑块调整图像缩略图的大小。滑块的范围为 **64 像素 至 1200 像素**。
+請使用右上角的縮放滑桿來調整圖片縮圖的大小。滑桿的範圍為 **64 像素 至 1200 像素**。
 
-* **Ctrl + 鼠标滚轮** 也可调整缩略图的大小。
-* **Ctrl + `+`**/**Ctrl + `=`**和**Ctrl + `−`** 每次按键可将大小以 4 像素为单位递增。 键盘调整范围的下限为 64 像素，上限则为当前窗口中每行正好能容纳两个缩略图的任意尺寸。
-* 您最终确定的尺寸会随项目一起保存（`UI → Grid thumbnail size` 位于 `project.json` 中，默认值为 `160`），因此重新打开项目时会恢复该设置。
+* **Ctrl + 滑鼠滾輪** 亦可調整縮圖大小。
+* **Ctrl + `+`**/**Ctrl + `=`**以及**Ctrl + `−`** 每次按下會將大小以 4 像素為單位逐步調整。 鍵盤操作的路徑在小端以 64 像素為限，而在大端則以當前視窗中每行能精確容納兩個縮圖的尺寸為上限。
+* 您設定的大小會與專案一同儲存（位於 `UI → Grid thumbnail size` 中的 `project.json`，預設為 `160`），因此重新開啟專案時會恢復該設定。
 
-<figure><img src="../.gitbook/assets/chloros_grid_zoom.gif" alt=""><figcaption></figcaption></figure>缩略图的 *分辨率* 与 *大小* 是两个独立的设置：请参阅 [项目设置](../project-settings/project-settings.md) 中的 **显示 → 图像缩略图分辨率**（默认值为长边 512 像素）。 “大小”指图块的绘制尺寸；“分辨率”指为填充图块而获取的细节程度。***
+<figure><img src="../.gitbook/assets/chloros_grid_zoom.gif" alt=""><figcaption></figcaption></figure>縮圖的 *解析度* 與 *大小* 是兩個獨立的設定：請參閱 [專案設定](../project-settings/project-settings.md) 中的 **顯示 → 圖片縮圖解析度**（預設為長邊 512 像素）。 「大小」是指磁磚的繪製尺寸；「解析度」則是填滿該磁磚所擷取的細節程度。***
 
-## 网格工具栏
+## 網格工具列
 
-网格上方的按钮行最多分为三个组，从左到右依次为：
+網格上方的按鈕列最多分為三個群組，由左至右依序為：
 
-1. **按触发器 / 按摄像机** — 分组模式。 仅在包含 LATTICE 捕获数据的项目中显示。
-2. **摄像机过滤按钮** — 每个 LATTICE 摄像机对应一个。仅在“按摄像机”模式下显示。
-3. **导出/查看模式按钮** — 用于指定每个缩略图所显示的产品。
+1. **按觸發器 / 按相機** — 分組模式。僅在包含 LATTICE 擷取資料的專案中顯示。
+2. **相機篩選按鈕** — 每個 LATTICE 相機對應一個。僅在「按相機」模式下顯示。
+3. **匯出／檢視模式按鈕** — 每張縮圖所顯示的產品。
 
-当窗口过窄无法显示所有按钮时，各组会从右向左折叠为悬停下拉菜单：首先折叠的是导出/查看按钮，其次是摄像机按钮。折叠后的组会留下一个标有当前有效选项的按钮，将鼠标悬停在其上会将完整按钮集向下滑动显示。 **“按触发器”/“按相机”选项永不折叠。
+當視窗過窄而無法同時顯示所有按鈕時，各群組會由右至左收合為懸停下拉選單：首先收合的是匯出／檢視按鈕，接著是攝影機按鈕。 收合後的群組會留下一個標示當前選項的按鈕，將游標懸停其上即可將完整組別向下滑出。**「按觸發器 / 按相機」群組絕不會收合。**<!-- SCREENSHOT-NEEDED: Image grid toolbar of a LATTICE array project at full width, showing all three button groups inline: Per Trigger / Per Camera, three camera filter buttons labelled "LATT-M3M (serial)", and the export/view buttons including TIFF, RAW (Original), RAW (Radiance), RAW (Reflectance). -->***
 
-<!-- SCREENSHOT-NEEDED: Image grid toolbar of a LATTICE array project at full width, showing all three button groups inline: Per Trigger / Per Camera, three camera filter buttons labelled "LATT-M3M (serial)", and the export/view buttons including TIFF, RAW (Original), RAW (Radiance), RAW (Reflectance). -->
+## 匯出檢視按鈕
 
-*****
+這些按鈕用於在網格縮圖中切換影像類型。**只要該按鈕所對應的產品存在，按鈕便會立即顯示** —— 對於原始檔案而言，這意味著在匯入時即刻顯示，而非處理完成後。Chloros
 
-## 导出视图按钮
+會在處理任務進行期間重新掃描專案中的產品，因此當每個產品開始寫入磁碟時，對應的按鈕便會在處理過程中顯示。
 
-这些按钮用于在网格缩略图中切换图像类型。**只要该按钮所对应的产品存在，按钮就会立即显示** ——对于源文件而言，这意味着在导入时立即显示，而非处理完成后。 Chloros 会在处理任务进行时重新扫描项目中的产品，因此随着每个产品开始写入磁盘，相关按钮会在处理过程中陆续出现。
+### 基本按鈕
 
-### 基础按钮
+最左側的匯出按鈕標示的是 **您實際匯入的內容**：
 
-最左侧的导出按钮标注的是**您实际导入的内容**：
-
-| 您导入的内容 | 按钮标签 |
+| 匯入內容 | 按鈕標籤 |
 | --- | --- |
-| Survey3 RAW+JPG | `JPG` |
-| LATTICE 捕获的图像，其旁带有与原始帧并列的显示预览 | `PNG` 或 `TIFF`（取决于预览内容） |
-| LATTICE 捕获的图像中，基础文件**是** RAW 帧 | *无按钮* — `RAW (Original)` 已显示该文件 |
+| Survey3
 
-在混合项目中，标签将采用大多数图像所使用的扩展名。
+RAW+JPG | `JPG` |
+| LATTICE 擷取檔（附帶與 RAW 畫框並列的顯示預覽） | `PNG` 或 `TIFF`（視預覽內容而定） |
+| LATTICE 擷取且基礎檔案 **即為** RAW 影像的畫面 | *無按鈕* — `RAW (Original)` 已顯示該檔案 |
 
-### 产品按钮
+在混合專案中，標籤將採用多數影像所使用的副檔名。
 
-| 按钮 | 显示内容 | 出现时机 |
+### 產品按鈕
+
+| 按鈕 | 顯示內容 | 出現時機 |
 | --- | --- | --- |
-| **目标** | 检测到校准目标的图像 | 在检测到目标的运行结束后 |
-| **目标**| 检测到校准目标的图像 | 在检测到目标的运行结束后 ||**反射率** | 已校准的反射率图像 | 仅限 Survey3 项目 — LATTICE 项目使用 `RAW (Reflectance)` 代替，因此网格中不会同时显示两个反射率按钮 |
-| **白平衡** | 白平衡处理后的图像（RGB 相机） | 处理完成后 |
-| **暗角校正** | 未校准的暗角校正备用图像 | 在无法应用反射率校准且*暗角校正*功能开启的运行后 |
-| **传感器响应** | 未校准的传感器响应备用方案 | 同上，但关闭了*暗角校正* |
-| **`RAW (<INDEX> Index)`** | 每个计算出的索引对应一个按钮 | 配置了索引后的运行结果 |
-| **`<INDEX> LUT`** | 每个色彩映射索引对应一个按钮 | 配置了 LUT 后的运行结果 |
-| **`<Index> <Index\|LUT> <NNN>`** | 每个 [索引/LUT 沙盒](index-lut-sandbox.md) 导出运行对应一个按钮 | 沙盒导出完成时 |
+| **標靶** | 已偵測到校準標靶的影像 | 在偵測到標靶的運行結束後 |
+| **反射率** | 已校正的反射率影像 | 僅限 Survey3
 
-### LATTICE 层级按钮
+專案 — LATTICE 專案改用 `RAW (Reflectance)`，因此網格中絕不會同時顯示兩個反射率按鈕 |
+| **白平衡** | 白平衡後產品（RGB
 
-包含 LATTICE 捕获数据的项目会添加以下按钮，其标签采用层级名称而非产品名称：
+相機） | 處理完成後 |
+| **暗角校正** | 未經校正的暗角校正備用產品 | 在無法套用反射率校正且 *暗角校正* 已開啟的執行任務後 |
+| **感測器響應** | 未經校準的感測器響應備用選項 | 情況相同，但 *暗角校正* 已關閉 |
+| **`RAW (<INDEX> Index)`** | 每個計算出的指標對應一個按鈕 | 配置指標後執行一次 |
+| **`<INDEX> LUT`** | 每個色彩映射指數對應一個按鈕 | 已配置 LUT 並執行後 |
+| **`<Index> <Index\|LUT> <NNN>`** | 每個 [索引/LUT 沙盒](index-lut-sandbox.md) 匯出執行一次按鈕 | 沙盒匯出完成之際 |
 
-| 按钮 | 层级 |
+### LATTICE 層級按鈕
+
+包含 LATTICE 擷取資料的專案會新增這些按鈕，其標籤為層級名稱而非產品名稱：
+
+| 按鈕 | 層級 |
 | --- | --- |
-| **RAW (原始)** | 导入时的源原始帧 |
-| **RAW (辐射度)** | Float32 光谱辐射度，W/m²/sr/nm |
+| **RAW (原始)** | 導入時的原始原始畫格 |
+| **RAW (輻照度)** | Float32 光譜輻照度，W/m²/sr/nm |
 | **RAW (反射率)** | uint16 反射率，32768 = ρ 1.0 |
 
-`RAW (Original)` 在导入的瞬间即可使用——无需任何处理。当 LATTICE 导入完全没有基础按钮时（每个捕获的基础文件即为其原始帧），网格会自动移动到第一个可用的级别按钮上，以便工具栏的高亮显示与您所看到的画面相匹配。
+`RAW (Original)` 自匯入當下即已可用 — 無需任何處理。當 LATTICE 匯入完全沒有基礎按鈕時（每個擷取的基礎檔案即為其原始幀），網格會自動移動至第一個可用的層級按鈕，以便工具列的高亮顯示與您所見內容相符。
 
-两级 Chloros 导出文件**没有自己的网格按钮**：
+有兩種層級的 Chloros
 
-* **去拜耳化** —— `RAW (Original)` 视图已渲染为去拜耳化图像，因此在视觉上完全相同的图像上添加第二个按钮只会造成干扰。 `RAW (Debayered)` 生成文件仍会写入磁盘，并且仍可从全屏图层下拉菜单中选中。
-* **预览** — 在 RGB 相机上，预览被注册为 `White Balanced` 图层，该图层确实带有按钮。 在多光谱相机上，它被注册为 `RAW (Preview)`，并可通过全屏图层下拉菜单访问。
+匯出檔 **不會擁有專屬的網格按鈕**：
+
+* **去拜耳化** — `RAW (Original)` 檢視畫面已渲染為去拜耳化狀態，因此在視覺上完全相同的影像上再增加第二個按鈕只會造成干擾。 `RAW (Debayered)` 產出檔仍會寫入磁碟，且仍可從全螢幕圖層下拉選單中選取。
+* **預覽** — 在RGB
+
+相機上，預覽會註冊為 `White Balanced` 圖層，該圖層確實具有按鈕。 在多光譜相機上，預覽會註冊為 `RAW (Preview)`，並可透過全螢幕圖層下拉選單存取。
 
 {% hint style="info" %}
-这些图层按钮仅在项目中实际包含 LATTICE 帧时才会显示。 Survey3 项目会注册一些相同的内部图层名称，系统会过滤掉这些项目的按钮，因此 Survey3 网格会保留其熟悉的 `JPG / Targets / Reflectance` 按钮集。
+這些層級按鈕僅會針對實際包含 LATTICE 幀的專案進行渲染。Survey3
+
+專案會註冊部分相同的內部圖層名稱，系統會對其過濾掉這些按鈕，因此 Survey3
+
+網格會保留其熟悉的 `JPG / Targets / Reflectance` 圖層集。
 {% endhint %}
 
-点击网格缩略图将打开全屏 [图像查看器](opening-an-image-full-screen.md)，显示内容为 **该网格所展示的同一产品** ——如果网格设置为 `Targets`，则缩略图将打开导出的目标图像。
+點擊網格縮圖將開啟全螢幕 [影像檢視器](opening-an-image-full-screen.md)，顯示 **與該網格所呈現之產品相同** 的內容 ——若網格設定為 `Targets`，則縮圖會開啟已匯出的目標影像。
 
 <figure><img src="../.gitbook/assets/chloros_grid_mode.gif" alt=""><figcaption></figcaption></figure>
 <!-- SCREENSHOT-UPDATE: This GIF predates the LATTICE level buttons and the toolbar group separators. Reshoot on a LATTICE project cycling base -> RAW (Original) -> RAW (Radiance) -> RAW (Reflectance) -> an index button, so the new button set and the level names are visible. -->
 
-***
 
-## LATTICE 项目的分组：按触发器 vs 按摄像头
-
-阵列捕获会生成来自不同摄像头模块的同一瞬间的多张图像。分组决定了网格如何堆叠这些图像。 两种模式均会显示全宽的可折叠标题栏；**每个分组初始状态均为展开**，且 Chloros 会记住您关闭的分组。折叠状态在两种模式下分别记录，因此“按摄像头”模式下关闭某个分组不会影响“按触发器”模式下的任何内容。
-
-### 按相机（默认）
-
-每个相机模块对应一个分组。标题栏显示相机型号和序列号（`LATT-M3M — <serial>`）以及照片数量。分组内的图片按拍摄事件的时间顺序排列。
-
-在此模式下，工具栏还会为每台相机提供一个**相机筛选按钮**，标签为 `MODEL (SERIAL)`。所有相机初始均处于选中状态；点击按钮可取消选中该相机，并将其组从网格中移除。这是快速查看整个飞行任务中单个波段数据的便捷方式。
-
-### 按触发器
-
-每个捕获事件对应一个组——即所有模块在同一触发器下拍摄的帧集合。标题栏显示捕获时间、参与拍摄的相机数量，以及组内每种相机型号的标识。 组内的图块按相机序列号排序，因此同一波段在每个触发事件中都位于同一列。
-
-<!-- SCREENSHOT-NEEDED: Image grid in Per Trigger mode for a 3-camera LATTICE array, showing two consecutive trigger groups with their header bars (chevron, capture timestamp, "3 cameras", and the three model badges) and one group collapsed to show the closed state. -->
-混合项目中的非 LATTICE 图像不会被分组——它们会在组之后以普通图块的形式显示。
 
 ***
 
-## 网格缩略图遵循 GSD 块大小
+## 群組化 LATTICE 專案：依觸發器 vs 依相機
 
-如果您已在“图像”选项卡侧边栏中设置了 **GSD（像素）** 像元大小，则网格缩略图将以相同的地面分辨率呈现——而不仅仅是全屏视图。 当块大小为 8 时，应用中所有显示该图像的位置，每个显示像素都是由 8 × 8 源像素块计算出的平均值。
+陣列擷取會從不同的相機模組產生同一瞬間的多張影像。 分組方式決定了網格如何堆疊這些影像。兩種模式都會顯示全寬的可收合標題欄；**每個群組預設為展開狀態**，且 Chloros
 
-由于瓦片宽度原本只有几百像素，因此较粗的块尺寸在网格中失去可见差异的效果，要比在全屏视图中早得多：绘制在 160 像素瓦片上的 4000 像素帧，其每个显示像素已相当于大约 25 个源像素。 有关该控件本身，请参阅 [全屏打开图像](opening-an-image-full-screen.md#gsd-block-size)。
+會記住您關閉的群組。收合狀態會依模式分別追蹤，因此若在「按相機」模式下關閉某個群組，並不會影響「按觸發」模式中的任何群組。
+
+### 按相機（預設）
+
+每個相機模組對應一個群組。標題列會顯示相機型號與序號（`LATT-M3M — <serial>`）以及照片數量。群組內的圖塊會依照擷取事件的時間順序排列。
+
+在此模式下，工具列還會針對每台相機顯示一個 **相機篩選按鈕**，標籤為 `MODEL (SERIAL)`。所有相機預設皆為選取狀態；點擊按鈕可取消選取該相機，並將其群組從網格中移除。這是快速檢視整趟飛行中單一波段影像的便捷方式。
+
+### 按觸發器
+
+每個擷取事件對應一個群組——即所有模組在同一觸發器下拍攝的幀組。頁首顯示擷取時間、參與拍攝的相機數量，以及群組中每種相機型號的標記。 群組內的圖塊依相機序列號排序，因此每個觸發事件中，同一波段的圖塊都會位於同一欄位。
+
+混合專案中的<!-- SCREENSHOT-NEEDED: Image grid in Per Trigger mode for a 3-camera LATTICE array, showing two consecutive trigger groups with their header bars (chevron, capture timestamp, "3 cameras", and the three model badges) and one group collapsed to show the closed state. -->
+
+非 LATTICE 影像不會被分組 — 它們會在群組之後以普通圖塊的形式呈現。
 
 ***
 
-## 相关页面
+## 網格縮圖遵循 GSD 區塊大小
 
-* [**全屏打开图像**](opening-an-image-full-screen.md) — 全屏查看器、光标值和直方图
-* [**图像图层**](image-layers.md) ——全屏查看器内的图层下拉菜单
-* [**索引/LUT 沙盒**](index-lut-sandbox.md) ——构建和导出索引可视化效果
-* [**项目设置**](../project-settings/project-settings.md) — 决定哪些产品存在的导出开关
+若您已在「影像」分頁的側邊欄中設定了 **GSD (px)** 區塊大小，網格縮圖將以相同的地面解析度呈現——而不僅限於全螢幕檢視模式。 當區塊大小設定為 8 時，應用程式中所有顯示影像的位置，每個顯示像素皆為 8 × 8 原始像素區塊的平均值。
+
+由於磁磚的原始寬度通常只有幾百像素，因此較粗糙的區塊大小在網格中變得難以察覺的時機，遠早於全螢幕檢視中顯現差異的時機：將一個 4000 像素的圖框繪製到 160 像素的磁磚中時，每個顯示像素已相當於約 25 個原始像素。 關於該控制項本身，請參閱 [以全螢幕開啟圖片](opening-an-image-full-screen.md#gsd-block-size)。
+
+***
+
+## 相關頁面
+
+* [**以全螢幕開啟影像**](opening-an-image-full-screen.md) — 全螢幕檢視器、游標數值與直方圖
+* [**影像圖層**](image-layers.md) — 全螢幕檢視器內的圖層下拉選單
+* [**索引/LUT 沙盒**](index-lut-sandbox.md) — 建立與匯出索引視覺化效果
+* [**專案設定**](../project-settings/project-settings.md) — 決定哪些產品會存在的匯出切換開關

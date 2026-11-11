@@ -4,21 +4,21 @@ metaLinks:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/output-image-formats
 ---
 
-# 输出图像格式
+# 輸出影像格式
 
-Chloros以四种文件格式导出处理后的产品。可在“项目设置”（GUI）中选择格式，或通过`--format`（CLI）或`export_format`（SDK）进行设置。CLI和SDK接受以下精确字符串。
+Chloros 可將處理後的產品以四種檔案格式匯出。請於「專案設定」（GUI）中選取格式，或透過 `--format`（CLI）或 `export_format`（SDK）進行設定。CLI 與 SDK 僅接受以下精確的字串。
 
-| 格式字符串 | 扩展名 | 像素类型 | 像素范围 | 备注 |
+| 格式字串 | 副檔名 | 像素類型 | 像素範圍 | 備註 |
 | --- | --- | --- | --- | --- |
-| `TIFF (16-bit)` *（默认）* | `.tif` | uint16 数字 | 0 – 65535 | 推荐用于摄影测量/GIS。 |
-| `TIFF (8-bit)` | `.tif` | uint8 数字 | 0 – 255 | 适用于所有 8 位拍摄，此类拍摄仅提供 8 位格式：Chloros 不会提升位深度。 |
-| `TIFF (32-bit, Percent)` | `.tif` | float32 | 0.0 – 1.0 | 1.0 = 100% 反射率。部分应用程序无法读取浮点 TIFF 文件；文件体积较大。 |
-| `PNG (8-bit)` | `.png` | uint8 数字 | 0 – 255 | 无损压缩，适用于网页浏览和可视化。 |
-| `JPG (8-bit)` | `.jpg` | uint8 数字 | 0 – 255 | 有损压缩，文件体积最小。 |
+| `TIFF (16-bit)` *(預設)* | `.tif` | uint16 數位數值 | 0 – 65535 | 建議用於攝影測量／GIS。 |
+| `TIFF (8-bit)` | `.tif` | uint8 數位數值 | 0 – 255 | 適用於全 8 位元擷取，此類擷取僅提供 8 位元格式：Chloros 不會提升位元深度。 |
+| `TIFF (32-bit, Percent)` | `.tif` | float32 | 0.0 – 1.0 | 1.0 = 100% 反射率。部分應用程式無法讀取浮點數 TIFF 檔案；檔案大小較大。 |
+| `PNG (8-bit)` | `.png` | uint8 數位數值 | 0 – 255 | 無損壓縮，適合網頁瀏覽與視覺化。 |
+| `JPG (8-bit)` | `.jpg` | uint8 數位數值 | 0 – 255 | 有損壓縮，檔案大小最小。 |
 
-## 输出文件的存储位置
+## 輸出檔案的儲存位置
 
-生成文件保存在项目文件夹下，按相机分组，再按文件格式分类：
+產出檔案會寫入專案資料夾下，依相機分組，再依檔案格式分類：
 
 ```
 <project>/
@@ -32,66 +32,66 @@ Chloros以四种文件格式导出处理后的产品。可在“项目设置”�
         └── Radiance_Images/             # float32 radiance always lands here
 ```
 
-LATTICE 的相机文件夹为 `LATT-<sensor>-<lens>-F<filter>`，Survey3 的相机文件夹为 `<model>_<filter>`（例如 `Survey3N_RGN`）。 **每个导出的产品都保留源文件的名称——通过文件夹而非文件名后缀来识别产品。** 有关完整规则，请参阅 CLI 参考手册中的 [输出文件存放位置](reference/cli-reference.md)。
+LATTICE 的相機資料夾為 `LATT-<sensor>-<lens>-F<filter>`，Survey3 的相機資料夾則為 `<model>_<filter>`（例如 `Survey3N_RGN`）。 **每個匯出的產品均保留原始檔案的名稱 — 產品由資料夾識別，而非檔案名稱後綴。** 完整規則請參閱 CLI 參考手冊中的 [輸出檔案存放位置](reference/cli-reference.md)。
 
-## LATTICE 产品（捕获和导出级别）
+## LATTICE 產出（擷取與匯出層級）
 
-单次处理中，一个 LATTICE 原始帧将拆分为所有请求的产品。每种产品类型都有其专属的开关（GUI 复选框，或 CLI 参数 `--debayered` / `--preview` / `--radiance` / `--reflectance`，默认均开启)：
+單次處理中，一個 LATTICE 原始幀會拆分為所有請求的產出。每種產出類型皆有其專屬的切換選項（GUI 核取方塊，或 CLI 指令 `--debayered` / `--preview` / `--radiance` / `--reflectance`，預設皆為開啟)：
 
-| 级别 | 内容 | 数据类型 |
+| 層級 | 內容 | 資料類型 |
 | --- | --- | --- |
-| `raw` | 直接来自传感器的拜耳数据（单色相机：单波段）。处理始终从原始数据开始。 | 原始采集数据 |
-| `debayered` | 线性去马赛克——M3C 为 3 通道，M3M 为 1 通道灰度：先去除校准包中的暗偏移，然后进行边缘感知去马赛克，不进行线性校正、平场校正或解混。 在所有处理模式下，`process`导出功能生成的文件与该级别下拍摄保存的文件完全一致。 | 线性去马赛克 |
-| `radiance` | 来自完整辐射测量链的绝对光谱辐射度，单位为 **W/m²/sr/nm**。 无论选择何种导出格式，始终以 32 位 TIFF 格式写入（`tiff32/Radiance_Images/`）。 | float32 |
-| `reflectance` | 反射率 ρ，其中 **DN 32768 = ρ 1.0 (100%)**，且留有扩展余量至 ρ 2.0。支持 Pix4D 格式。 | uint16 |
-| `preview` | 显示就绪渲染：RGB = 白平衡 + 伽马校正；多光谱 = 伪彩色拉伸。 | 8 位显示 |
+| `raw` | 直接來自感測器的拜耳資料（單色相機：單一波段）。處理始終從原始資料開始。 | 原始擷取 |
+| `debayered` | 線性去馬賽克 — M3C 為 3 通道，M3M 為 1 通道灰階：先移除校準包中的暗電偏移，接著進行邊緣感知去馬賽克，不包含線性校正、平場校正或解混。 在任何處理模式下，`process` 匯出格式所產生的檔案，皆與此層級下擷取功能所儲存的檔案相同。 | 線性 DN |
+| `radiance` | 來自完整輻測鏈的絕對光譜輻度，單位為 **W/m²/sr/nm**。 無論選取何種匯出格式，皆以 32 位元 TIFF 格式寫入（`tiff32/Radiance_Images/`）。 | float32 |
+| `reflectance` | 反射率 ρ，其中 **DN 32768 = ρ 1.0 (100%)**，並保留至 ρ 2.0 的動態範圍。相容於 Pix4D。 | uint16 |
+| `preview` | 顯示就緒渲染：RGB = 白平衡 + γ 值；多光譜 = 假色拉伸。 | 8 位元顯示 |
 
 ### 方向
 
-`raw` 和 `debayered` 文件始终保持传感器的**原生**方向；相机的翻转/旋转设置仅应用于其他产品（预览、辐射度、反射率、指数）。 数组捕获会保留每个成员文件的原始方向，除非您指定方向（CLI 中为 `--orient`，SDK 中为 `orient=True`）。 每个文件都会在 XMP 中记录其像素所属的方位——`ChlorosRotation`、`ChlorosFlipHorizontal`、 `ChlorosFlipVertical`——而 `ChlorosOrientationApplied` 则表示其像素是否携带该信息（原始文件和去拜耳化文件中为 `false`）。 Chloros图像查看器仅根据该记录对原始文件和去拜耳化文件进行显示调整；文件本身绝不会被重写。没有该记录的文件（在1.3.0之前写入，或由其他工具生成）将按原始存储状态显示。
+`raw` 和 `debayered` 檔案始終保持感測器的 **原生** 方向；相機的翻轉／旋轉設定僅套用至其他產品（預覽、輻照度、反射率、指數）。 陣列擷取會保留每個成員檔案的原生方向，除非您主動指定方向（CLI 中為 `--orient`，SDK 中為 `orient=True`）。 每個檔案都會在 XMP 中記錄其像素所屬的方位角 — `ChlorosRotation`、`ChlorosFlipHorizontal`、 `ChlorosFlipVertical` — 而 `ChlorosOrientationApplied` 則標示其像素是否攜帶此資訊（原始檔與去拜耳化檔中為 `false`）。 Chloros 影像檢視器僅根據該記錄對 RAW 及去拜耳化檔案進行顯示調整；檔案本身絕不會被覆寫。若檔案沒有該記錄（即在 1.3.0 版本之前所寫入，或由其他工具處理），則會以原始儲存狀態顯示。
 
-## 裁剪掩码
+## 裁剪遮罩
 
-多光谱 M3C 相机的辐射度和反射率数据会进行 3×3 波段解混。当解混结果在某个波段产生负值时，该值会被裁剪为零（实时预览的裁剪方式完全相同）。 1.3.0 版本新增功能：若某产品中至少有一个像素被截断，则会生成一个配套的 **截断掩膜**，该掩膜会精确标明哪些像素和波段被截断：
+多光譜 M3C 相機的輻照度與反射率產出會進行 3×3 波段解混。若解混過程在某波段產生負值，該值將被裁剪為零（即時預覽的裁剪方式完全相同）。 1.3.0 版本新增功能：若某產出中至少有一個像素被截斷，該產出將附帶一個 **截斷遮罩**，明確標示出哪些像素和波段受到影響：
 
-* **位置：**位于 `clamp_masks/` 文件夹中，**紧邻**产品文件夹，绝不会位于产品文件夹内部： `tiff16/Reflectance_Calibrated_Images/x.tif` → `tiff16/clamp_masks/Reflectance_Calibrated_Images/x_clampmask.tif`，以及 `tiff32/Radiance_Images/x.tif` → `tiff32/clamp_masks/Radiance_Images/x_clampmask.tif`。
-* **内容：** 基于产品自身像素网格（包含方向、ROI、像素合并和数组对齐）的单波段 `uint8` 格式TIFF文件。 当产品 R 通道中的波段被裁剪时，位 0 (`mask & 1`) 被设置；位 1 （`& 2`）表示 G 通道，位 2（`& 4`）表示 B 通道。 各波段被剪切像素的比例也以 `Chloros:BandRUnmixClampFraction`、`Chloros:BandGUnmixClampFraction` 和 `Chloros:BandBUnmixClampFraction` 的形式标记在产品中。
-* **产品如何表示这一点：** XMP 标签 `Chloros:UnmixClampMask` 包含相对于产品文件夹的蒙版路径（`../clamp_masks/<product folder>/<name>_clampmask.tif`， 始终以`/`分隔），当没有像素被裁剪时（未写入蒙版）为`none`，或当无法写入蒙版时为`unavailable`。 没有标签的产品从未运行过解混操作（RGB和单色相机，原始和去拜耳化级别）。
+* **位置：**位於 `clamp_masks/` 資料夾中，**緊鄰** 產品資料夾，絕不會置於產品資料夾內部： `tiff16/Reflectance_Calibrated_Images/x.tif` → `tiff16/clamp_masks/Reflectance_Calibrated_Images/x_clampmask.tif`，以及 `tiff32/Radiance_Images/x.tif` → `tiff32/clamp_masks/Radiance_Images/x_clampmask.tif`。
+* **內容：** 一個單波段的 `uint8` 格式TIFF檔案，基於產品本身的像素網格（包含方向、ROI、像素合併及陣列對齊）。 當產品 R 通道中的波段發生裁剪時，位元 0 (`mask & 1`) 會被設定；位元 1 （`& 2`）表示 G 通道，位元 2（`& 4`）表示 B 通道。 各波段被裁剪像素的比例亦以 `Chloros:BandRUnmixClampFraction`、`Chloros:BandGUnmixClampFraction` 及 `Chloros:BandBUnmixClampFraction` 的形式標記於產品中。
+* **產品如何標示：** XMP 標籤 `Chloros:UnmixClampMask` 包含相對於產品資料夾的遮罩路徑（`../clamp_masks/<product folder>/<name>_clampmask.tif`， 始終以 `/` 分隔），若無像素被裁切（則未寫入遮罩），代碼為 `none`；若無法寫入遮罩，則代碼為 `unavailable`。 未帶有標籤的產出檔表示從未執行過色彩分離（RGB 和單色相機、原始檔及去拜耳化層級）。
 
-由于没有任何产品文件夹包含遮罩，您可以将产品文件夹（例如 `Reflectance_Calibrated_Images/`）原样（包括子文件夹）直接提供给 Pix4D、Metashape 或其他摄影测量软件——请提供产品文件夹，而非其上层的格式文件夹。 Chloros 自身的导入功能会跳过钳位遮罩。CLI 会将其单独计数：`Image products written: N (plus M clamp masks)`。
+由於沒有任何產品資料夾包含遮罩，您可以將產品資料夾（例如 `Reflectance_Calibrated_Images/`）連同其子資料夾一併直接傳遞給 Pix4D、Metashape 或其他攝影測量軟體——請傳遞產品資料夾，而非其上層的格式資料夾。 Chloros 自身的匯入功能會跳過鉗位遮罩。CLI 會將它們分別計數：`Image products written: N (plus M clamp masks)`。
 
-## 索引产品
+## 索引產品
 
-每个索引都会被放置在各自的 `<INDEX>_Index_Images/` 文件夹中（例如 `NDVI_Index_Images/`）。
+每個索引都會存放在各自的 `<INDEX>_Index_Images/` 資料夾中（例如 `NDVI_Index_Images/`）。
 
-* **整数格式**（`TIFF (16-bit)`、`TIFF (8-bit)`、`PNG (8-bit)`、 `JPG (8-bit)`）存储的是**每帧线性拉伸**，而非−1…1映射：DN 0 表示该帧的最低索引值，全尺度则表示其最高值。 该文件包含 `Chloros:IndexScaling=linear_minmax`、`Chloros:IndexMin` 和 `Chloros:IndexMax`，因此也包含 `value = IndexMin + DN / full_scale × (IndexMax − IndexMin)`。 由于每个帧都有自己的端点，因此应按数值而非DN值来比较帧。
-* **`TIFF (32-bit, Percent)`** 将索引值本身作为float32存储，且未进行重新缩放——这是整个飞行任务中进行定量分析的最佳选择。
+* **整數格式**（`TIFF (16-bit)`、`TIFF (8-bit)`、`PNG (8-bit)`、 `JPG (8-bit)`）儲存的是**每張影像的線性拉伸**，而非 −1…1 的映射：DN 0 代表該幀的最低索引值，全尺度則代表最高值。 該檔案包含 `Chloros:IndexScaling=linear_minmax`、`Chloros:IndexMin` 及 `Chloros:IndexMax`，因此也包含 `value = IndexMin + DN / full_scale × (IndexMax − IndexMin)`。 由於每個幀都有其自身的端點，因此應以數值而非 DN 來比較各幀。
+* **`TIFF (32-bit, Percent)`** 將索引值本身以 float32 格式儲存，且未經重新縮放——這是進行整趟飛行定量分析的最佳選擇。
 
-1.3.0 版本新增功能：索引产品描述的是**自身**，而非重复源原始数据的标签。其 GPS 和相机标签会从计算该索引产品的源产品（如有，即反射率产品）中复制而来，然后：
+1.3.0 版本新增功能：索引產品會描述 **自身**，而非重複原始資料的標籤。其 GPS 和相機標籤會從計算來源的產品（若有反射率產品則取自該產品）複製而來，接著：
 
-| 标签 | 值 |
+| 標籤 | 值 |
 | --- | --- |
-| `Chloros:ProcessingLevel` | `index`（因此该文件绝不会作为捕获数据被重新导入） |
-| `Chloros:IndexApplied` / `Chloros:IndexExpression` | `True` / 所用的公式 |
-| `Chloros:IndexLevel` | `reflectance` 或 `radiance` —— 该指数的计算依据（若两者均不适用则不显示） |
-| `Chloros:IlluminationInvariant` | 基于反射率计算的指数使用 `True`，基于辐射度或传感器值计算的指数使用 `False` |
-| `Chloros:ChlorosPipelineVersion` | 生成该指数的Chloros版本 |
+| `Chloros:ProcessingLevel` | `index`（因此該檔案絕不會被重新匯入為擷取檔） |
+| `Chloros:IndexApplied` / `Chloros:IndexExpression` | `True` / 所使用的公式 |
+| `Chloros:IndexLevel` | `reflectance` 或 `radiance` —— 該指數的計算依據（若兩者皆無則不顯示） |
+| `Chloros:IlluminationInvariant` | 若指數是根據反射率計算，則為 `True`；若根據輻度或感測器數值計算，則為 `False` |
+| `Chloros:ChlorosPipelineVersion` | 生成該指數的 Chloros 版本 |
 
-`Chloros:PixelScale` 已从索引产品中移除 — 请使用上方的 `IndexMin` / `IndexMax`。 完整的回读配方详见 [CLI 参考](reference/cli-reference.md) 中的“整数索引栅格是按图像进行的对比度拉伸”。
+`Chloros:PixelScale` 已從索引產品中移除 — 請使用上方的 `IndexMin` / `IndexMax`。 完整的讀回配方請參閱 [CLI 參考手冊](reference/cli-reference.md) 中「整數索引柵格是每張影像的對比度拉伸」一節。
 
-## 读取反射率像素值
+## 讀取反射率像素值
 
-反射率以整数数字值（DN）形式存储，而**表示 ρ = 1.0（100% 反射率）的 DN 值取决于源相机**：
+反射率以整數數位數值 (DN) 儲存，而 **表示 ρ = 1.0（100% 反射率）的 DN 值取決於來源相機**：
 
-| 源相机 | ρ = 1.0 对应的 DN | 如何判断 |
+| 來源相機 | ρ = 1.0 對應的 DN | 如何判別 |
 | --- | --- | --- |
-| LATTICE (M3C / M3M) | `32768`（动态范围上限为 ρ 2.0） | 文件中带有 XMP 标签 `Chloros:PixelScale=32768`。 |
-| Survey3 | `65535`（在 ρ 1.0 处截断） | 无 `Chloros:PixelScale` 标签——该标签的缺失即为特征。 （自 1.3.0 版本起，Survey3 产品在所有处理模式下均包含其他 `Chloros:*` 处理标签，例如 `Chloros:CalibrationApplied`。） |
+| LATTICE (M3C / M3M) | `32768`（動態範圍上限為 ρ 2.0） | 檔案中標有 XMP 標籤 `Chloros:PixelScale=32768`。 |
+| Survey3 | `65535`（在 ρ 1.0 處截斷） | 沒有 `Chloros:PixelScale` 標籤——此缺失即為識別標誌。 （自 1.3.0 版本起，Survey3 產品在所有處理模式下均會包含其他 `Chloros:*` 處理標籤，例如 `Chloros:CalibrationApplied`。） |
 
-**读取 `Chloros:PixelScale` XMP 标签并以此除以**，而不是假设一个常量。 该标签定义在 uint16 域中，因此在进行比例缩放的输出格式中仍保持为 `32768`——请先将存储的数据类型归一化回 uint16（8 位数据乘以 257，float32 数据乘以 65535）。
+**應讀取 `Chloros:PixelScale` XMP 標籤並以其為基準進行除法運算**，而非假設其為常數。 該標籤定義於 uint16 域中，因此即使在會重新縮放的輸出格式下，其值仍維持為 `32768` —— 請先將儲存的資料類型歸一化回 uint16（8 位元乘以 257，float32 乘以 65535）。
 
 {% hint style="warning" %}
-**8 位捕获数据。** 8 位捕获数据的导出值为 8 位。其反射率经过重新缩放并标记为 `Chloros:PixelScale=32768`，因此保持了比例； 8位DN产品以及1.3.0版本之前生成的反射率文件，其数值会被裁剪为0–255范围，且不包含比例标签。如果LATTICE反射率文件中缺少该标签，请勿假设存在比例；应改用16位或32位重新导出。
+**8 位元擷取資料。** 8 位元擷取資料的輸出為 8 位元。其反射率會經過重新縮放並標記為 `Chloros:PixelScale=32768`，因此比例關係得以維持； 8 位元 DN 產品，以及 1.3.0 版本之前寫入的反射率檔案，均會被裁剪至 0–255 範圍，且不帶有比例標籤。若 LATTICE 反射率檔案中缺少此標籤，請勿假設其具有比例；應改以 16 位元或 32 位元重新匯出。
 {% endhint %}
 
-有关完整规则（包括与 MicaSense 兼容的标签），请参阅 [CLI 参考](reference/cli-reference.md) 中的 **“读取反射率像素”**。
+完整的規則（包括與 MicaSense 相容的標籤），請參閱 [CLI 參考手冊](reference/cli-reference.md) 中的 **「讀取反射率像素」**。

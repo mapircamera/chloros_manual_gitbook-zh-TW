@@ -1,91 +1,91 @@
-# 处理管道
+# 處理管線
 
-Chloros 1.3.0 采用了一个 4 线程的处理管道，其工作原理类似于分阶段的装配线。每个线程负责工作流中的一个特定阶段，因此可以同时有多个图像处于不同阶段的处理过程中。
+Chloros 1.3.0 採用 4 執行緒的處理管線，運作方式類似分階段的組裝線。每個執行緒負責工作流程中的不同階段，因此可同時有多張影像處於不同階段的處理過程中。
 
 <figure><img src="../.gitbook/assets/image (39).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
-## 处理管道架构
+## 處理管線架構
 
 ```
 
 Images In → [Thread 1: Detection] → [Thread 2: Calibration] → [Thread 3: Processing] → [Thread 4: Export] → Files Out
 ```
 
-每张图像都会按顺序流经所有四个线程。借助 Chloros+ 的多线程处理机制，多张图像可同时占据不同的线程——当第 3 线程处理一张图像时，第 1 线程可以检测下一张，第 2 线程校准另一张，而第 4 线程则将已处理完成的图像写入磁盘。
+每張影像都會依序流經這四個執行緒。透過 Chloros+ 的多執行緒處理機制，多張影像可同時佔用不同的執行緒——當執行緒 3 正在處理一張影像時，執行緒 1 可以正在檢測下一張，執行緒 2 正在校準另一張，而執行緒 4 則將已處理完成的影像寫入磁碟。
 
-每个线程都会报告进度，并通过服务器发送事件（Server-Sent Events）进行流式传输（后端在 `/api/events` 上发布这些事件）。在 CLI 的实时进度显示中，这四个阶段分别标记为 **检测、分析、处理、导出**。***
+各執行緒的進度會分別回報，並透過「伺服器發送事件」（Server-Sent Events）串流傳輸（後端會將其發佈至 `/api/events`）。在CLI的即時進度顯示中，這四個階段分別標示為 **偵測、分析、處理、匯出**。***
 
-## 线程详情
+## 執行緒詳細資訊
 
-### 线程 1：检测
+### 執行緒 1：偵測
 
-**目的**：加载图像并检测校准目标。
+**目的**：載入影像並偵測校準目標。
 
-* 从磁盘读取图像文件——Survey3的`.raw`+`.jpg`图像对， LATTICE `.tif`/`.tiff` 拍摄数据，以及 `.dng`
-* 提取 EXIF 元数据（GPS、相机型号、时间戳、曝光参数）
-* 检测校准目标：针对 LATTICE 拍摄图像，检测带有 ArUco 标记的目标几何形状；针对 Survey3 校准目标照片，检测经典面板检测器
-* 输出：图像数据 + 元数据 + 目标检测结果
+* 從磁碟讀取影像檔案 — Survey3 的 `.raw`+`.jpg` 配對檔， LATTICE `.tif`/`.tiff` 擷取影像，以及 `.dng`
+* 擷取 EXIF 元資料（GPS、相機型號、時間戳記、曝光時間）
+* 偵測校準標靶：針對 LATTICE 擷取影像的 ArUco 標記標靶幾何形狀，以及針對 Survey3 校準標靶照片的經典面板偵測器
+* 輸出：影像資料 + 元資料 + 標靶偵測結果
 
-该线程主要受 I/O 和 CPU 性能限制。
+主要為 I/O 和 CPU 密集型執行緒。
 
-### 线程 2：校准
+### 執行緒 2：校正
 
-**目的**：根据检测到的校准目标计算校准参数。
+**目的**：根據偵測到的標靶計算校正參數。
 
-* 根据校准目标图像计算反射率校准系数
-* 计算暗角校正参数
-* 确定各波段的校准曲线
-* 输出：每张图像的校准参数
+* 根據標靶影像計算反射率校正係數
+* 計算暗角校正參數
+* 確定各波段的校正曲線
+* 輸出：每張影像的校正參數
 
-这是一个受CPU性能限制的计算线程。在Survey3或混合运行中，当启用反射率校准时，线程3会等待该线程完成，以确保在处理任何图像之前校准系数已准备就绪。在仅LATTICE运行中，线程3在检测期间运行：每帧图像的处理会在其目标锚点确定后开始。 每个帧会选取时间上最接近的两个目标（前后各一个），因此它会等待直到其相机中所有时间上早于当前最近目标的帧均被扫描完毕。最终产出结果相同，只是生成时间更早。
+此為受 CPU 限制的運算執行緒。在 Survey3 或混合執行任務中，若啟用反射率校正，執行緒 3 會等待此執行緒完成，以確保在處理任何影像前，其係數已準備就緒。在僅執行 LATTICE 的任務中，執行緒 3 會在偵測期間運行：每幀影像會在其目標錨點確定後開始處理。 每個幀會選取時間上最接近的目標（無論在前後），因此會等待直到該相機中所有時間點早於當前最近目標的幀皆已掃描完畢。產出結果相同，只是更早產生。
 
-### 线程 3：处理（GPU）
+### 執行緒 3：處理（GPU）
 
-**目的**：应用校正并计算植被指数。**这是计算强度最高的线程。*** **去拜耳化**：将 RAW 拜耳数据转换为多通道图像
-  * 标准（快速，中等质量）——默认，`--debayer standard`
-  * 纹理感知（慢速，最高质量）——仅限Chloros+，`--debayer texture-aware`，使用 AI/ML 降噪模型
-  * LATTICE 单色（M3M）采集数据为单波段：对此类数据将跳过去马赛克和白平衡步骤（并生成一行日志消息），而同一批处理中的任何 M3C/拜耳图像仍会执行这些步骤
-* **暗角校正**：对整张图像应用镜头暗角校正
-* **反射率校准**：应用校准系数将数据转换为反射率值
-* **指数计算**：计算植被指数（NDVI、NDRE、GNDVI 等）
-* 输出：已处理且可直接导出的图像数据
+**目的**：套用校正並計算植被指數。**這是運算需求最龐大的執行緒。*** **去拜耳化**：將 RAW 拜耳資料轉換為多通道影像
+  * 標準模式（快速、中等品質）— 預設，`--debayer standard`
+  * 紋理感知模式（緩慢、最高品質）— 僅限 Chloros+，`--debayer texture-aware`，採用 AI/ML 去噪模型
+  * LATTICE 單色 (M3M) 擷取為單波段：其去馬賽克與白平衡步驟將被跳過（並會顯示一行日誌訊息），而同一執行程序中的任何 M3C/拜耳影像仍會進行這些步驟
+* **暗角校正**：對整個影像套用鏡頭暗角校正
+* **反射率校正**：套用校正係數以轉換為反射率值
+* **指數計算**：計算植被指數（NDVI、NDRE、GNDVI 等）
+* 輸出：已處理且可直接匯出的影像資料
 
-该线程最能受益于 GPU 加速，也是 [动态计算自适应](dynamic-compute-adaptation.md) 所调优的线程。
+此執行緒最能受益於 GPU 加速，且正是 [動態運算適應](dynamic-compute-adaptation.md) 所調校的執行緒。
 
-### 线程 4：导出
+### 執行緒 4：匯出
 
-**目的**：将处理后的图像写入磁盘。
+**目的**：將處理後的影像寫入磁碟。
 
-* 以选定格式写入输出文件 — `TIFF (16-bit)`、`TIFF (8-bit)`、 `TIFF (32-bit, Percent)`、`PNG (8-bit)`、`JPG (8-bit)`
-* 在输出文件中嵌入元数据（GPS、时间戳、处理参数）——包括 `Chloros:*` 处理标签，自 1.3.0 版本起，该标签在所有处理模式下都会被写入，包括 Survey3 和 LATTICE
-* 将输出文件组织在项目文件夹下，命名为 `<camera>/<format>/<Product>_Images/` —— 例如 `LATT-M3M-L41-F550/tiff16/Reflectance_Calibrated_Images/`。**导出文件保留源文件名称；文件夹名称用于标识产品。**
-* 对于 LATTICE 采集的数据，一个源帧可拆分为多个产品（去拜耳化、预览、辐射度、反射率、索引），每个产品位于独立的产品文件夹中。索引产品由该运行生成的反射率产品计算得出（若无反射率产品，则由该运行生成的其他产品计算，例如辐射度）。 多光谱 M3C 相机的辐射度和反射率产品还可在 `<format>/clamp_masks/` 中获得逐像素钳位掩码（参见 [输出图像格式](../output-image-formats.md#clamp-masks)）
-* 输出：磁盘上的最终文件
+* 以選定的格式寫入輸出檔案 — `TIFF (16-bit)`、`TIFF (8-bit)`、 `TIFF (32-bit, Percent)`、`PNG (8-bit)`、`JPG (8-bit)`
+* 在輸出檔案中嵌入元資料（GPS、時間戳記、處理參數）——包括 `Chloros:*` 處理標籤，自 1.3.0 版本起，此標籤會在所有處理模式下寫入，無論是 Survey3 還是 LATTICE 皆然
+* 將輸出檔案組織於專案資料夾下，命名格式為 `<camera>/<format>/<Product>_Images/` — 例如 `LATT-M3M-L41-F550/tiff16/Reflectance_Calibrated_Images/`。**匯出檔案保留原始檔案名稱；資料夾名稱則標示產品類型。**
+* 對於 LATTICE 擷取資料，一個原始幀可拆分為多個產出檔（去拜耳化、預覽、輻照度、反射率、索引），每個產出檔皆存放於獨立的產出檔資料夾中。索引產出檔是根據該執行程序所產生的反射率產出檔計算得出（若無反射率產出檔，則取自該執行程序產生的其他產出檔，例如輻照度）。 多光譜 M3C 相機的輻照度與反射率產出檔，亦可在 `<format>/clamp_masks/` 中取得每像素的夾緊遮罩（參見 [輸出影像格式](../output-image-formats.md#clamp-masks))
+* 輸出：磁碟上的最終檔案
 
-该线程主要受 I/O 性能限制——使用 SSD 存储可显著提升其性能。
-
-***
-
-## 幕后原理：执行器
-
-在线程 3 中，每张图像的处理工作按以下方式并行化：
-
-* **GPU 策略**（`GPU_SINGLE`、`GPU_PARALLEL`）使用一组**工作进程**，每个工作进程都是一个独立的操作系统进程，并拥有自己的 CUDA 上下文。 Chloros 通过再次启动各自已安装的后端程序来启动每个工作进程——而非通过 Python 的 `multiprocessing`，因为该方式的工作进程启动机制在打包的应用程序内部无法正常工作
-* **`CPU_PARALLEL`** 使用线程池（Python 的 `ThreadPoolExecutor`）——由于 NumPy 和 OpenCV 会释放 GIL，因此仅使用线程即可
-* 共享内存为 8GB 或更少的 Jetson 设备将完全跳过执行器，转而在进程内顺序处理
-* 在 VRAM 低于 7GB 的 GPU 上，Texture Aware 也会顺序运行——去噪模型无法进行多次拟合
-
-Chloros 不使用任何第三方分布式框架（如 Ray）。 有关策略和工作线程数量的选择方式，请参阅 [动态计算自适应](dynamic-compute-adaptation.md)。
+主要為 I/O 受限的執行緒 — 使用 SSD 儲存裝置可顯著提升效能。
 
 ***
 
-## 顺序处理与流水线处理
+## 幕後運作：執行器
 
-### 自由模式（顺序）
+在執行緒 3 中，每張影像的處理工作會依照以下方式進行平行化：
 
-在 Chloros 的免费版本中，图像会**一次处理一张**，依次经过所有四个阶段：
+* **GPU 策略**（`GPU_SINGLE`、`GPU_PARALLEL`）使用一組**工作程序**，每個工作程序皆為獨立的作業系統程序，並擁有專屬的 CUDA 執行上下文。 Chloros 透過再次啟動其已安裝的後端程式來啟動每個工作程序——而非透過 Python 的 `multiprocessing`，因為該功能在封裝的應用程式內部無法正常啟動工作程序
+* **`CPU_PARALLEL`** 使用執行緒池（Python 的 `ThreadPoolExecutor`）——由於 NumPy 和 OpenCV 會釋放 GIL，因此僅需執行緒即可
+* 共享 RAM 為 8GB 或以下的 Jetson 裝置會完全跳過執行器，並在同一個進程中依序處理
+* 在 VRAM 低於 7GB 的 GPU 上，Texture Aware 也會依序執行 — 去噪模型無法進行多次擬合
+
+Chloros 未使用任何第三方分散式框架（例如 Ray）。 有關策略與工作節點數量的選擇方式，請參閱 [動態運算適應](dynamic-compute-adaptation.md)。
+
+***
+
+## 順序處理與管線化處理
+
+### 自由模式（順序處理）
+
+在 Chloros 的免費版本中，影像會 **一次處理一張**，依序經過所有四個階段：
 
 ```
 
@@ -93,11 +93,11 @@ Image 1: [Detect] → [Calibrate] → [Process] → [Export]
                                                          Image 2: [Detect] → [Calibrate] → [Process] → [Export]
 ```
 
-在免费模式下，图形用户界面（GUI）会显示一个简化的进度条；其串行处理阶段分别显示为**目标检测**和**处理**。
+在免費模式下，GUI 會顯示一個簡化的進度條；其串行階段會顯示為 **目標偵測**，接著是**處理**。
 
-### Chloros+ 模式（流水线处理）
+### Chloros+ 模式（管線式）
 
-拥有 Chloros+ 许可证时，所有四个线程将对不同的图像进行 **并行** 处理：
+若擁有 Chloros+ 授權，所有四個執行緒將針對不同的影像 **並行** 運作：
 
 ```
 
@@ -107,58 +107,58 @@ Thread 3:                     [Image 1] [Image 2] ...
 Thread 4:                               [Image 1] ...
 ```
 
-GUI 进度条显示这四个阶段；将鼠标悬停在其上可查看各线程的进度。在 CLI 中，这四个阶段会实时显示为 **检测、分析、处理、导出**。
+GUI 進度條會顯示這四個階段；將游標懸停其上即可查看各執行緒的進度。在CLI 中，這四個階段會以 **偵測、分析、處理、匯出** 的形式即時串流顯示。
 
 {% hint style="info" %}
-**同一标签，两种名称。** CLI将第3阶段称为_处理_。后端的高级模式进度流（即GUI进度条所显示的内容）则将同一阶段标记为_校准_。它们实际上是同一个线程在执行相同的工作（线程3：去拜耳滤波、校正、索引计算）。
+**同一標籤，兩種名稱。** CLI將第三階段稱為 _處理_。後端的高階模式進度串流（即 GUI 進度條所顯示的內容）則將同一階段標示為 _校準_。這兩者實為同一執行緒執行相同的工作（執行緒 3：去拜爾濾波、校正、索引）。
 {% endhint %}
 
 {% hint style="success" %}
-**使用 Chloros+ 进行流水线处理** 的速度可比顺序处理快 3-5 倍，具体取决于您的硬件和数据集大小。 在配备高速 GPU 和 SSD 的系统上，速度提升最为显著。
+**使用 Chloros+ 進行管線化處理** 的速度可比順序處理快 3 至 5 倍，具體取決於您的硬體配置與資料集大小。 在配備高速 GPU 和 SSD 的系統上，速度提升最為顯著。
 {% endhint %}
 
 ***
 
-## 线程 4 导出进度
+## 執行緒 4 匯出進度
 
-导出线程拥有独立的进度跟踪机制，您可以单独轮询其状态：
+匯出執行緒擁有獨立的進度追蹤機制，您可以單獨查詢其狀態：
 
-**命令行界面（CLI）：**
+**命令列介面 (CLI)：**
 
 ```bash
 chloros-cli export-status
 ```
 
-**软件开发工具包（SDK）：**
+**軟體開發套件 (SDK)：**
 
 ```python
 status = chloros.get_status()
 print(f"Export: {status['export']['percent']}% - Phase: {status['export']['phase']}")
 ```
 
-当线程 4 达到 100% 时，处理即告完成。
+當第 4 執行緒達到 100% 時，即表示處理完成。
 
 {% hint style="info" %}
-**未写入任何镜像的运行即视为失败。**成功时，`chloros-cli process` 会报告写入的镜像产品数量（`Image products written: N`）。 如果请求了产品但**未**写入任何产品——仅包含 `project.json` 和 `calibration_data.json`——则 CLI 将打印 `Processing finished but wrote no image products.` 并**以非零状态退出**， 并会列出项目文件夹名称及常见原因（输入文件夹未被识别为捕获文件夹——请检查布局及 `--input-level`——或所有请求的产品均不适用于这些摄像头）。脚本可依赖该退出代码。
+**若執行過程未寫入任何影像，即視為失敗。**成功時，`chloros-cli process` 會回報已寫入的影像產品數量（`Image products written: N`）。 若已請求產品但**未**寫入任何產品——僅有 `project.json` 和 `calibration_data.json`——CLI 會輸出 `Processing finished but wrote no image products.` 並**以非零狀態退出**， 並會列出專案資料夾名稱及常見原因（例如輸入資料夾未被識別為擷取來源——請檢查佈局及 `--input-level`——或所有請求的產品均不適用於該批攝影機）。腳本可依據此退出代碼進行判斷。
 {% endhint %}
 
 ***
 
-## 与动态计算适配的关系
+## 與動態運算適應的關聯
 
-[动态计算适配](dynamic-compute-adaptation.md) 主要影响 **线程 3（处理）**：
+[動態運算適應](dynamic-compute-adaptation.md) 主要影響 **第 3 執行緒（處理）**：
 
-* **`GPU_PARALLEL`**：线程 3 使用 `fused_gpu` 管道同时将多张图像传入 GPU 处理
-* **`GPU_SINGLE`**：线程 3 使用信号量对 GPU 访问进行串行化，同时工作进程重叠执行 I/O 操作，采用 `fused_gpu` 或内存高效的 `tiled_gpu` 管道
-* **`CPU_PARALLEL`**：线程 3 使用基于 CPU 的处理，并采用多线程并行方式
+* **`GPU_PARALLEL`**：執行緒 3 透過 `fused_gpu` 管線，同時將多張影像傳送至 GPU 處理
+* **`GPU_SINGLE`**：執行緒 3 透過信號量將 GPU 存取序列化，同時工作程序重疊執行 I/O，並使用 `fused_gpu` 或記憶體效率較高的 `tiled_gpu` 管線
+* **`CPU_PARALLEL`**：第 3 個執行緒採用基於 CPU 的處理方式，並運用多執行緒並行處理
 
-随着线程 1 和 2 完成，线程 3 的 GPU 内存分配也会增加——请参阅 [动态 GPU 内存分配](dynamic-compute-adaptation.md#dynamic-gpu-memory-allocation)。
+隨著執行緒 1 和 2 完成執行，執行緒 3 的 GPU 記憶體分配也會隨之增加 — 請參閱 [動態 GPU 記憶體分配](dynamic-compute-adaptation.md#dynamic-gpu-memory-allocation)。
 
 ***
 
-## 后续步骤
+## 下一步
 
-* [动态计算适配](dynamic-compute-adaptation.md) —— Chloros 如何为您的硬件选择最佳策略
-* [NVIDIA Jetson 指南](../linux/nvidia-jetson-guide.md) —— Jetson 平台上的特定管道行为
-* [处理监控](../processing-images-gui/monitoring-the-processing.md) — GUI 进度监控
-* [命令行界面（CLI）参考](../reference/cli-reference.md) — `process`、`export-status`、退出代码及输出布局
+* [動態運算適應](dynamic-compute-adaptation.md) —— Chloros 如何為您的硬體選擇最佳策略
+* [NVIDIA Jetson 指南](../linux/nvidia-jetson-guide.md) —— Jetson 平台上管線的特定行為
+* [處理進度監控](../processing-images-gui/monitoring-the-processing.md) — 透過 GUI 監控進度
+* [命令列介面 CLI](../reference/cli-reference.md) 參考資料 — `process`、`export-status`、結束代碼及輸出佈局

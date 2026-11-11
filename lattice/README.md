@@ -1,66 +1,66 @@
-# LATTICE 相机
+# LATTICE 相機
 
-LATTICE 是 MAPIR 专为农业和科学成像设计的模块化多光谱相机系统。每台 LATTICE 相机均基于索尼 IMX265 全局快门传感器（**
+LATTICE 是 MAPIR 專為農業與科學成像所設計的模組化多光譜相機系統。每台 LATTICE 相機均採用 Sony IMX265 全域快門感測器（**
 
-3.1 MP，3.45 µm 像素**）构建，并作为**GigE Vision** 设备通过以太网连接。
+3.1 MP，3.45 µm 像素**）打造，並透過乙太網路作為**GigE Vision** 裝置進行連接。
 
-Chloros 1.3.0 可通过以下三种界面实时控制 LATTICE 相机——包括设备发现、实时预览、图像捕获以及同步多相机阵列功能：
+Chloros 1.3.0 可透過三個介面即時控制 LATTICE 相機——包括裝置偵測、即時預覽、影像擷取以及同步多相機陣列：
 
-| 界面    | 位置                                                          | 支持平台                                                |
+| 介面    | 位置                                                          | 支援平台                                                |
 | ---------- | -------------------------------------------------------------- | -------------------------------------------------------- |
-| 图形界面        | Chloros侧边栏中的**“相机”**选项卡                         | Windows 10/11 x64                                        |
+| 圖形使用者介面 (GUI) | Chloros 側邊欄中的 **相機** 標籤                         | Windows 10/11 x64                                        |
 | CLI        | `chloros-cli lattice` 命令系列                           | Windows 10/11 x64、Linux x86\_64、Linux aarch64 (Jetson) |
 | Python SDK | `chloros_sdk.connect_camera()` / `chloros_sdk.connect_array()` | Windows 10/11 x64、Linux x86\_64、Linux aarch64 (Jetson) |
 
-> **正在寻找硬件吗？**摄像头模块、镜头、滤光片和波段、机架和安装支架、线缆、PoE 及触发线接线等内容均在 [**LATTICE 用户手册**](https://mapir.gitbook.io/lattice-camera) 中有详细说明。本章介绍如何通过 Chloros 驱动摄像头。
+> **正在尋找硬體嗎？**攝影機模組、鏡頭、濾光片與波段、機身與安裝支架、纜線、PoE 及觸發線路等相關資訊，皆記載於 [**LATTICE 使用手冊**](https://mapir.gitbook.io/lattice-camera)。本章節將說明如何透過 Chloros 驅動攝影機。
 
-LATTICE 捕获的文件为标准 `.tif`/`.tiff` 格式，Chloros 始终从原始捕获数据开始对其进行处理。 有关完整的命令和 API 接口，请参阅 [CLI 参考](../reference/cli-reference.md) 和 [SDK 参考](../reference/sdk-reference.md)。
+LATTICE 的擷取檔案為標準的 `.tif`/`.tiff` 格式，而 Chloros 始終會從原始擷取檔案開始進行處理。 請參閱 [CLI 參考手冊](../reference/cli-reference.md) 及 [SDK 參考手冊](../reference/sdk-reference.md)，以了解完整的命令與 API 介面。
 
-## 两种传感器配置
+## 兩種感測器配置
 
-| 配置 | 传感器       | 过滤器                                | 单台摄像头提供的内容                                          |
+| 配置 | 感測器       | 濾波器                                | 單台攝影機的輸出內容                                          |
 | ------------- | ------------ | ------------------------------------- | ----------------------------------------------------------------- |
-| **M3C**| 拜耳彩色 | 三波段带通滤光片                |**单次曝光即可获得三个校准波段**                 |
-| **M3M**| 单色            | 单窄带干涉滤光片                |**一个校准波段**；组合多台 M3M 相机以获取指数 |
+| **M3C**| 拜耳彩色 | 三波段通濾光片                |**單次曝光即可獲得三個經校準波段**                 |
+| **M3M**| 單色            | 單一窄帶干涉濾光片                                |**一個經校準的波段**；結合多台 M3M 相機以獲得指數值 |
 
-由于 M3M 相机在单个滤光片后为单色，因此每个波段都有独立的曝光。 而 M3C 相机则通过一次传感器曝光即可覆盖其全部三个波段。
+由於 M3M 相機在單一濾光片後方為單色，因此每個波段都會有其專屬的曝光。 M3C 相機則透過單次感光器曝光即可涵蓋其所有三個波段。
 
-## 型号字符串与命名
+## 型號字串與命名
 
-每台相机都会将其标识以 GenICam `DeviceUserID` 格式存储为型号字符串：
+每台相機皆將其識別碼儲存於 GenICam `DeviceUserID` 中，作為型號字串：
 
 ```
 <sensor>-<lens>-F<filter>       e.g.  M3C-L41-FRGN,  M3M-L87-F450
 ```
 
-Chloros会以`LATT-`为前缀显示该字符串（例如`LATT-M3M-L87-F450`）。 相同的 `LATT-…` 字符串会被写入每次导出的 EXIF `Model` 标签中，并作为已处理项目中相机的输出文件夹名称使用。
+Chloros 會以 `LATT-` 作為前綴來顯示（例如 `LATT-M3M-L87-F450`）。 相同的 `LATT-…` 字串會寫入每次匯出檔案的 EXIF `Model` 標籤中，並在已處理的專案中用作相機的輸出資料夾名稱。
 
-| 组件 | 值                                                   | 含义                                                                                            |
+| 元件 | 值                                                   | 意義                                                                                            |
 | --------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| 传感器    | `M3C` / `M3M`                                            | 拜耳彩色 / 单色                                                                          |
-| 镜头      | `L41` / `L87`                                            | 该数字表示**水平视场角（单位：度）**： L41 = 窄角（41°），L87 = 广角（87°）    |
-| 滤光片    | `FRGB` / `FRGN` / `FOCN` / `FNGB` (M3C) 或 `F<nm>` (M3M) | 参见 [滤光片与光谱波段](https://mapir.gitbook.io/lattice-camera/hardware/filters-and-bands) |
+| 感光元件    | `M3C` / `M3M`                                            | 拜耳色彩 / 單色                                                                          |
+| 鏡頭      | `L41` / `L87`                                            | 該數字代表 **水平視場角（度）**： L41 = 窄視場 (41°)，L87 = 寬視場 (87°)    |
+| 濾光片    | `FRGB` / `FRGN` / `FOCN` / `FNGB` (M3C) 或 `F<nm>` (M3M) | 請參閱 [濾光片與光譜波段](https://mapir.gitbook.io/lattice-camera/hardware/filters-and-bands) |
 
-型号字符串决定了后续的所有操作：Chloros会根据 `DeviceUserID` + `DeviceSerialNumber` 解析传感器配置文件、波段布局和出厂校准。 无需针对每台相机进行单独配置——请参阅 [连接相机](connecting.md)。
+型號字串將驅動後續所有流程：Chloros 會從 `DeviceUserID` + `DeviceSerialNumber` 中解析感測器配置檔、波段佈局及出廠校準。 無需針對每台相機進行任何設定 — 請參閱 [連接相機](connecting.md)。
 
-## 滤光片与光谱带
+## 濾光片與光譜帶
 
-光谱带中心、FWHM边界以及完整的 23 种 SKU 的 M3M 产品目录均属于产品规格，因此收录在硬件手册中：[**滤光片与光谱带**](https://mapir.gitbook.io/lattice-camera/hardware/filters-and-bands)。
+光譜帶中心頻率、FWHM邊界以及完整的 23 項 SKU M3M 型錄均屬產品規格，因此收錄於硬體手冊中：[**濾光片與光譜帶**](https://mapir.gitbook.io/lattice-camera/hardware/filters-and-bands)。
 
-软件方面需要注意的是：型号字符串中的滤光片代码决定了Chloros能够生成哪些产品。 RGB滤光片相机（`FRGB`）仅输出去拜耳化及预览产品——对于宽带传感器而言，各波段的辐射度和反射率数据并无实际意义，因此Chloros会跳过这些数据并予以说明。其他所有滤光片均可生成完整的辐射度 → 反射率 → 指数转换链。
+軟體層面需注意的是：型號字串中的濾光片代碼決定了 Chloros 能生成哪些產品。 RGB 濾光片相機 (`FRGB`) 僅輸出去拜爾化及預覽產品——對於寬頻感測器而言，各波段的輻照度與反射率並無實質意義，因此 Chloros 會跳過這些參數並明確說明。其餘所有濾光片皆會產生完整的輻照度 → 反射率 → 指數鏈。
 
-## 辐射校准概览
+## 輻測校正概覽
 
-每台 LATTICE 相机均在工厂针对可追溯至 NIST 的校准链进行单独校准，并随附每台相机的校准证书。 校准范围、测量方法以及可引用的精度均详见硬件手册：[**出厂辐射校准**](https://mapir.gitbook.io/lattice-camera/calibration/factory-radiometric-calibration)。
+每台 LATTICE 相機均在工廠針對可追溯至 NIST 的校準鏈進行個別校正，並隨機附上每台相機專屬的校準證書。 校正範圍、測量方式以及可引用的精度，詳見硬體手冊：[**工廠輻量校正**](https://mapir.gitbook.io/lattice-camera/calibration/factory-radiometric-calibration)。
 
-在软件方面，关键在于当相机连接时，Chloros能解析正确的校准参数，并将应用的系数固定到每次导出中——详见[连接相机](connecting.md)。
+在軟體方面，關鍵在於當相機連接時，Chloros 能解析正確的校正參數，並將所套用的係數固定於每次匯出中 — 請參閱 [連接相機](connecting.md)。
 
-## 本章内容
+## 本章內容
 
-* [连接相机](connecting.md) —— 自动发现、GUI 连接对话框、CLI/SDK 对应操作，以及相机连接时如何确定出厂校准（相机内置包与云端校准）。
-* [相机设置](camera-settings.md) — “相机”选项卡中的所有控件：相机列表、单个相机设置面板以及阵列设置面板（包括ROI编辑器和对齐功能）。
-* [采集设置与模式](capture.md) — 全部采集、单次/连续/间隔采集、导出类型以及采集文件夹结构。
-* [多摄像头阵列](arrays.md) — 阵列连接向导、同步电缆探针、带宽、PTP 以及实时阵列视图。
-* [单色相机与植被指数](mono-indices.md) — M3M 相机以及对齐 → 堆叠 → 指数的工作流程。
+* [連接相機](connecting.md) — 自動偵測、GUI 連線對話方塊、CLI／SDK 對應操作，以及相機連線時如何解析出廠校準（相機內建包 vs. 雲端）。
+* [相機設定](camera-settings.md) — 「相機」分頁中的所有控制項：相機清單、各相機的設定面板，以及陣列設定面板（包含 ROI 編輯器與對齊功能）。
+* [擷取設定與模式](capture.md) — 全部擷取、單次／連續／間隔擷取、匯出類型，以及擷取檔案夾的結構。
+* [多相機陣列](arrays.md) — 陣列連接精靈、同步線探針、頻寬、PTP 以及即時陣列檢視。
+* [單色相機與植被指數](mono-indices.md) — M3M 相機，以及對齊 → 堆疊 → 指數的工作流程。
 
-完整的命令集详见 [CLI 参考](../reference/cli-reference.md) 和 [SDK 参考](../reference/sdk-reference.md)。
+完整的命令介面詳見 [CLI 參考手冊](../reference/cli-reference.md) 及 [SDK 參考手冊](../reference/sdk-reference.md)。

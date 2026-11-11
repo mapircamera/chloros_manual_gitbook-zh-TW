@@ -1,49 +1,49 @@
 # API：Python SDK
 
 {% hint style="info" %}
-**正在寻找完整的 API 文档吗？** 本页面是一份动手实践教程。所有公开类、方法、精确签名以及可直接复制粘贴的示例均收录在 [SDK 参考文档](reference/sdk-reference.md) 中，该文档专为 AI 助手进行了优化。**正在使用 AI 助手吗？** 将此 URL 粘贴到聊天窗口中，即可获取完整的最新 Chloros 1.3.0 API：
+**正在尋找完整的 API 嗎？** 本頁面為實作教學。所有公開類別、方法、精確的簽名以及可直接複製貼上的範例，皆收錄於 [SDK 參考手冊](reference/sdk-reference.md)，該手冊已針對 AI 助理進行優化。**正在使用 AI 助理嗎？** 將此 URL 貼入聊天視窗，即可取得完整的最新 Chloros 1.3.0 API：
 
 `https://mapir.gitbook.io/chloros/reference/sdk-reference.md`
 
-本手册的每一页均可通过其小写 slug + `.md` 以原始 Markdown 格式获取，整本手册的索引位于 `https://mapir.gitbook.io/chloros/llms.txt`。
+本手冊的每頁內容皆可透過其小寫 slug + `.md` 以原始 Markdown 格式取得，而整本手冊的索引則位於 `https://mapir.gitbook.io/chloros/llms.txt`。
 {% endhint %}
 
-**Chloros Python SDK**（PyPI 上的 `chloros-sdk`）通过 Python 实现了桌面应用程序的所有功能：批量图像处理、LATTICE 摄像头和阵列的实时控制、DAQ 光传感器会话以及保存项目的自动化操作。 它是在GUI和CLI所使用的同一本地后端（HTTP，详见`127.0.0.1:5000`）之上构建的一层轻量级接口，因此这三种操作界面上的行为完全一致。
+**Chloros Python SDK**（PyPI 上的 `chloros-sdk`）可透過 Python 驅動桌面應用程式所能執行的一切功能：批次影像處理、LATTICE 即時攝影機與陣列控制、DAQ 光感測器工作階段，以及儲存專案的自動化執行。 它是在 GUI 和 CLI 所使用的相同本地後端（HTTP，位於 `127.0.0.1:5000`）之上的一層輕量級介面，因此這三種介面上的行為完全一致。
 
-## 安装
+## 安裝
 
-该 SDK随 Chloros 桌面包一同提供，该包还包含处理后端和硬件运行时，且其版本始终与 SDK 保持一致。
+此 SDK 隨 Chloros 桌面套件一併提供，該套件同時包含處理後端與硬體執行環境，且版本始終與之相符。
 
-**步骤 1 — 安装 Chloros。**Windows：从 [下载](download.md) 页面运行桌面安装程序（默认路径 `C:\Program Files\Chloros\`）。 Linux：使用 `sudo apt install ./chloros_1.3.0_<arch>.deb` 安装 `.deb` 软件包（[Linux 安装指南](linux/linux-installation.md)）。**步骤 2 — 检查 SDK**（Python 3.7 及以上版本）。通常无需安装任何内容：
+**步驟 1 — 安裝 Chloros。**Windows：從 [下載](download.md) 頁面執行桌面安裝程式（預設路徑為 `C:\Program Files\Chloros\`）。 Linux：使用 `sudo apt install ./chloros_1.3.0_<arch>.deb` 安裝 `.deb` 套件（[Linux 安裝](linux/linux-installation.md)）。**步驟 2 — 檢查 SDK**（Python 3.7 以上）。通常無需安裝任何內容：
 
-* **Windows：** 安装程序会将捆绑的 SDK wheel 安装到系统的 Python 中（如果未安装 Python，则跳过此步骤）。
-* **Linux：** `.deb` 会将系统 SDK `python3` 安装到 `/usr/lib/python3/dist-packages` 中。 该软件包推荐的依赖项 `python3-numpy` 和 `python3-requests`：`apt install` 会一并安装，而 `dpkg -i` 则不会。
-* **虚拟环境**无法识别系统中的软件包；请将捆绑的 wheel 文件安装到其中： 在 Linux 上安装 `pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl`，或在 Windows 安装目录的 `sdk` 文件夹中安装 `chloros_sdk-*.whl`（默认位于 `C:\Program Files\Chloros\sdk\`）。
+* **Windows：** 安裝程式會將內建的 SDK wheel 安裝至系統 Python 中（若未安裝 Python，則跳過此步驟）。
+* **Linux：** `.deb` 會將系統 SDK `python3` 安裝至 `/usr/lib/python3/dist-packages`。 其所需套件 `python3-numpy` 和 `python3-requests` 由該套件建議安裝：`apt install` 會一併安裝，而 `dpkg -i` 則不會。
+* **虛擬環境** 無法偵測到系統中的套件；請將隨附的 wheel 檔案安裝至其中： 在 Linux 上安裝 `pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl`，或在 Windows 安裝資料夾的 `sdk` 資料夾中安裝 `chloros_sdk-*.whl`（預設為 `C:\Program Files\Chloros\sdk\`）。
 
 ```bash
 python3 -c "import chloros_sdk; print(chloros_sdk.__version__)"   # Windows: py -c "…"
 ```
 
-在未安装 Chloros 软件包的机器上，若其 SDK 驱动着另一台机器上的后端（参见 [仅使用 pip 安装会得到什么](#what-a-pip-only-install-gets)），请从 PyPI 安装：`pip install chloros-sdk`。 PyPI 会在发布版本时更新，因此始终与最新的稳定版本保持一致。
+在未安裝 Chloros 套件的機器上，若其 SDK 驅動著另一台機器的後端（參見 [僅透過 pip 安裝會獲得什麼](#what-a-pip-only-install-gets)），請從 PyPI 安裝：`pip install chloros-sdk`。 PyPI 會隨著發行版本更新，因此內容與最新穩定版保持一致。
 
-**步骤 3 — 每台机器登录一次：**
+**步驟 3 — 每台機器登入一次：**
 
 ```bash
 chloros-cli login user@example.com 'YourPassword'
 ```
 
-凭据会缓存到 `~/.chloros/` 中（两个平台均适用）。在 Windows 上，您也可以通过桌面应用的“用户”<img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line">选项卡进行登录。该 SDK 需要付费的 Chloros+ 套餐——请参阅下方的 [许可要求](#license-requirement)。
+憑證會快取於 `~/.chloros/` 中（兩大平台皆然）。在 Windows 上，您亦可透過桌面應用程式的「使用者」<img src=".gitbook/assets/icon_user.JPG" alt="" data-size="line"> 標籤頁進行登入。此 SDK 需訂閱付費的 Chloros+ 方案 — 請參閱下方的 [授權要求](#license-requirement)。
 
-| 要求 | 详细信息 |
+| 需求 | 詳細資訊 |
 | --- | --- |
-| **已安装 Chloros** | Windows：桌面安装程序；Linux：`.deb` 软件包（提供后端二进制文件和 SDK） |
-| **Python** | 3.7 或更高版本（在 3.10 上开发/测试） |
-| **操作系统** | Windows 10/11 64 位、Ubuntu 22.04 LTS 或更高版本，或 NVIDIA Jetson（JetPack 6） |
-| **许可** | 有效的 Chloros+ 登录账号，任意付费套餐（Copper 或更高） |
+| **已安裝 Chloros** | Windows：桌面安裝程式；Linux：`.deb` 套件（提供後端二進位檔及 SDK） |
+| **Python** | 3.7 或更高版本（於 3.10 版本上開發/測試） |
+| **作業系統** | Windows 10/11 64 位元、Ubuntu 22.04 LTS 或更新版本，或 NVIDIA Jetson（JetPack 6） |
+| **授權** | 有效的 Chloros+ 登入帳號，任何付費方案（Copper 或更高） |
 
 ## 60 秒搞定
 
-仅需一次调用即可创建项目、导入文件夹、配置处理流程并运行管道——若后端尚未运行，系统将自动启动：
+只需一則呼叫，即可建立專案、匯入資料夾、設定處理流程並執行管線——若後端尚未運行，系統將自動啟動：
 
 ```python
 import chloros_sdk
@@ -54,9 +54,9 @@ results = chloros_sdk.process_folder(
 )
 ```
 
-（在 Linux 上，请使用 Linux 路径：`/home/user/drone_images/flight001`。该 SDK 在两个平台上的工作原理完全相同。）
+（在 Linux 上，請使用 Linux 路徑：`/home/user/drone_images/flight001`。此 SDK 在兩個平台上的運作方式完全相同。）
 
-正在处理 LATTICE 捕获文件夹？ 请使用 LATTICE 专用封装脚本——它会应用正确的默认设置（不检测面板目标，使用标准去拜耳算法）：
+正在處理 LATTICE 擷取資料夾嗎？ 請使用 LATTICE 專用封裝程式 — 它會套用正確的預設值（不進行面板目標偵測，採用標準去拜爾演算法）：
 
 ```python
 results = chloros_sdk.process_lattice_capture(
@@ -65,9 +65,9 @@ results = chloros_sdk.process_lattice_capture(
 )
 ```
 
-## `ChlorosLocal` —— 全面控制处理管道
+## `ChlorosLocal` — 完整管線控制
 
-对于超过一行命令的任何操作，请使用 `ChlorosLocal`。它会使用已运行的后端（即桌面应用程序的后端），或在首次使用时启动已安装的后端（`auto_start_backend=True`； 在 Windows 系统中，默认从 Chloros 安装目录下的 `backend` 文件夹启动，默认使用 `C:\Program Files\Chloros\backend\`），用于创建和配置项目、监控进度，并在运行后返回摘要。
+若需執行超過單行指令的操作，請使用 `ChlorosLocal`。它會使用已運行的後端（即桌面應用程式的後端），或在首次使用時啟動已安裝的後端（`auto_start_backend=True`； 在 Windows 系統上，預設會從 Chloros 安裝資料夾中的 `backend` 資料夾啟動，預設為 `C:\Program Files\Chloros\backend\`），用以建立並配置專案、監控執行進度，並回傳執行後的摘要。
 
 ```python
 ChlorosLocal(
@@ -82,10 +82,10 @@ ChlorosLocal(
 ```
 
 {% hint style="info" %}
-请保留默认的 `http://127.0.0.1:5000`，而非替换为 `localhost` ——在 Windows 系统上，`localhost` 会首先解析为 `::1`，且针对仅支持 IPv4 的后端，每次请求约需 2 秒。
+請保留預設的 `http://127.0.0.1:5000`，而非替換為 `localhost` — 在 Windows 系統上，`localhost` 會先解析為 `::1`，且針對僅支援 IPv4 的後端，每次請求約需耗時 2 秒。
 {% endhint %}
 
-将其用作上下文管理器。退出代码块后，该实例对后端的使用将终止，但后端本身不会停止：它将继续运行以供下一个脚本使用，并在闲置 30 分钟后自动停止。`shutdown_backend()` 可停止该实例启动的后端。
+請將其用作上下文管理器。離開該區塊會終止此實例對後端的存取，但不會終止後端本身：後端會繼續運行以供下一個腳本使用，並在閒置 30 分鐘後自動停止。`shutdown_backend()` 會終止此實例所啟動的後端。
 
 ```python
 import chloros_sdk
@@ -103,7 +103,7 @@ with chloros_sdk.ChlorosLocal() as cl:
 print(results["summary"])
 ```
 
-`configure()` 支持以下关键字： `debayer`、`vignette_correction`、`reflectance_calibration`、`indices`、`export_format`、 `ppk`、`daq_log_path`、`input_level`、`radiometric_output`、`array_alignment`、 `array_alignment_crop`、`array_alignment_interpolation` 以及 `custom_settings`。主要数值：
+`configure()` 接受以下關鍵字： `debayer`、`vignette_correction`、`reflectance_calibration`、`indices`、`export_format`、 `ppk`、`daq_log_path`、`input_level`、`radiometric_output`、`array_alignment`、 `array_alignment_crop`、`array_alignment_interpolation` 以及 `custom_settings`。主要數值：
 
 ```python
 # export_format
@@ -118,9 +118,9 @@ print(results["summary"])
 "Texture Aware (Slow, Highest Quality)"  # neural debayer, Chloros+ only
 ```
 
-LATTICE 专用的调节参数（`input_level`、`radiometric_output` 以及 `array_alignment*` 系列）及其完整的值表已在 [SDK 参考](reference/sdk-reference.md#supported-values)中已详细记录，并附有完整的值表。
+LATTICE 專屬的控制參數（`input_level`、`radiometric_output` 以及 `array_alignment*` 系列）及其完整的數值表，詳見 [SDK 參考手冊](reference/sdk-reference.md#supported-values)中已完整記載其值表。
 
-### 监控进度
+### 監控進度
 
 ```python
 def show_progress(percent, message):
@@ -133,9 +133,9 @@ with chloros_sdk.ChlorosLocal() as cl:
     cl.process(progress_callback=show_progress, poll_interval=1.0)
 ```
 
-### 读取运行后摘要——并捕获空运行
+### 讀取執行後摘要 — 並偵測空執行
 
-运行完成后，`process()` 会将后端的处理摘要作为 `result["summary"]` 附加。`summary["hints"]` 中的每一条目都是一句完整的说明，解释任何值得注意的情况——例如， 为何某次运行未产生任何输出——而且每条提示都会以Python格式重新输出为`UserWarning`，因此即使您从未检查过该字典，空运行也能实现自我诊断：
+執行完成後，`process()` 會將後端的處理摘要附加為 `result["summary"]`。`summary["hints"]` 中的每個條目都是一句完整的說明，闡述任何值得注意的事項——例如， 為何某次執行未產生任何輸出——且每條提示都會以 Python 格式重新發送為 `UserWarning`，因此即使您從未檢查該字典，空執行也能自行診斷：
 
 ```python
 result = cl.process()
@@ -146,14 +146,14 @@ for hint in result.get("summary", {}).get("hints", []):
 ```
 
 {% hint style="warning" %}
-**当运行未生成任何图像时，`process()` 不会触发异常。**这是 SDK 和 CLI 刻意设计不同的唯一之处： `chloros-cli process` 将“请求了产品，但未写入任何产品”视为失败并返回非零状态码，而SDK则正常返回，并通过 `summary` / 提示信息报告该情况。 如果您的管道在空运行时应停止，请自行检查——检查 `summary`（或统计项目文件夹下的文件数量），而不是依赖异常。
+**當執行結果未產生任何影像時，`process()` 不會拋出異常。**這是 SDK 與 CLI 刻意設計不同的唯一之處： `chloros-cli process` 會將「已請求產出，但未寫入任何產出」視為失敗並以非零狀態退出，而 SDK 則會正常返回，並透過 `summary` / 提示訊息回報此狀況。 若您的處理流程應在執行結果為空時停止，請自行檢查此狀況——檢視 `summary`（或統計專案資料夾下的檔案數量），而非依賴例外狀況。
 {% endhint %}
 
-## Smart Connect — 实时硬件
+## Smart Connect — 即時硬體
 
-三个辅助程序会在后端硬件池中打开持久会话——该池与CLI、其他脚本以及GUI的相机选项卡所使用的池相同，因此SDK脚本可与它们共存，无需争夺串行端口或网络带宽。如果未运行任何后端，这三个程序都会自动启动本地后端。 GUI 的 DAQ 面板不属于该池：请先在 GUI 中关闭光传感器，然后再通过脚本打开它。
+有三個輔助程式會在後端硬體池中開啟持久性連線 — 該硬體池與 CLI、其他腳本以及 GUI 的相機分頁所使用的池相同，因此 SDK 腳本可與它們共存，無需爭奪串列埠或網路頻寬。若未運行任何後端，這三個輔助程式都會自動啟動一個本地後端。 GUI 的 DAQ 面板不屬於此資源池：請先在 GUI 中關閉光感測器，再透過腳本開啟它。
 
-### 单台 LATTICE 摄像头 — `connect_camera`
+### 單一 LATTICE 攝影機 — `connect_camera`
 
 ```python
 import chloros_sdk
@@ -165,12 +165,12 @@ with chloros_sdk.connect_camera("213800234") as cam:
 ```
 
 {% hint style="info" %}
-**相对路径指向脚本运行的位置（在 1.3.0 版本中已更改）。** 使用本地后端时，相对路径 `output_dir`（包括默认的 `"output"`）——以及后端打开的其他路径 （`burst_dir`、`profile_path`、`save_path`、 `mask_path`）——将根据您的脚本的工作目录进行解析，因此 `cam.capture("output/")` 会写入 `<current folder>/output/`。 在 1.2.0 版本中，已安装的后端会在其自身的安装文件夹中解析这些路径，并因“访问被拒绝”而失败。对于远程后端，路径将按输入的形式发送。
+**相對路徑會指向腳本執行所在的位置（此行為於 1.3.0 版本中變更）。** 若使用本機後端，相對路徑 `output_dir`（包含預設的 `"output"`）——以及後端開啟的其他路徑 （`burst_dir`、`profile_path`、`save_path`、 `mask_path`）——會以您的腳本工作目錄為基準進行解析，因此 `cam.capture("output/")` 會寫入 `<current folder>/output/`。 在 1.2.0 版本中，已安裝的後端會根據其自身的安裝資料夾來解析這些路徑，並因「存取被拒絕」而失敗。若對應至遠端後端，路徑則會以輸入的原始形式傳送。
 {% endhint %}
 
-### 同步数组 — `connect_array`
+### 同步陣列 — `connect_array`
 
-`connect_array` 是多机位拍摄系统的推荐入口点。它运行与 GUI 相同的智能预备流程：网络分析、同步层自动选择、PTP 时间同步、按摄像机选择像素格式、AE 初始化以及 GPIO 触发就绪。 **第一个串行端口为主设备**（它触发硬件触发脉冲）；其余为从设备。
+`connect_array` 是多攝影機架設的建議起始點。它執行與 GUI 相同的智慧預備流程：網路分析、同步層自動選取、PTP 時間同步、各攝影機的像素格式選取、AE 初始化，以及 GPIO 觸發器就緒。 **第一個序列號為主裝置**（負責發射硬體觸發脈衝）；其餘則為從裝置。
 
 ```python
 with chloros_sdk.connect_array(
@@ -178,19 +178,19 @@ with chloros_sdk.connect_array(
     arr.capture("output/", processing="reflectance")
 ```
 
-在任何数组捕获中添加 `smart=True`，可在触发前等待所有摄像机的自动曝光稳定。
+在任何陣列擷取中加入 `smart=True`，即可在觸發前等待所有攝影機的自動曝光穩定下來。
 
-1.3.0 版本新增的 `ArraySession` 还能直接向您提供同步帧，无需写入文件：
+1.3.0 版本新增的 `ArraySession` 功能，可直接提供同步幀，無需寫入檔案：
 
-* `arr.grab()` 通过单次触发，为每台相机返回一帧图像，均以 numpy 数组形式输出（`{serial: array}`）； `.group_id` 是共享触发器，`.errors` 表示被排除在外的任何相机。
-* `arr.frame_stream(fps=5.0)` 每 tick 返回一组此类数据，供您在自己的处理管道中进行实时处理。
-* `arr.continuous("output/")` 运行后端自身的连续捕获（即 GUI 中的“连续”模式），并返回一个包含 `ContinuousHandle` 和 `status()` 的 `arr.continuous("output/")`， `wait()` 和 `stop()` — 当您需要以高帧率保存每个触发事件时，请使用此方法代替捕获循环。
+* `arr.grab()` 會針對每台相機返回一幀影像，所有影像均來自單次觸發，並以 numpy 陣列形式呈現（`{serial: array}`）； `.group_id` 為共用觸發器，而 `.errors` 則代表任何未被包含的相機。
+* `arr.frame_stream(fps=5.0)` 每 tick 產出一組此類資料，供您在自己的處理管線中進行即時處理。
+* `arr.continuous("output/")` 會執行後端自身的連續擷取（即 GUI 中的「連續模式」），並返回一個包含 `ContinuousHandle` 與 `status()` 的 `arr.continuous("output/")`， `wait()` 以及 `stop()` —— 當您需要以高頻率儲存每個觸發訊號時，請以此取代擷取迴圈。
 
-有关采集模式（单次/连续/间隔/最快）、记录器、突发视频和数组对齐，请参阅 [SDK 参考](reference/sdk-reference.md#synchronized-array--arraysession-smart-prep)。
+有關擷取模式（單次／連續／間隔／最快）、記錄器、突發轉視訊以及陣列對齊，請參閱 [SDK 參考手冊](reference/sdk-reference.md#synchronized-array--arraysession-smart-prep)。
 
-### DAQ 光传感器 — `connect_daq_sensor`
+### DAQ 光感測器 — `connect_daq_sensor`
 
-若不带参数，`connect_daq_sensor()` 将智能检测传输协议（优先级：以太网 → BLE → USB）：
+若未傳入參數，`connect_daq_sensor()` 會自動偵測傳輸協定（優先順序：乙太網路 → BLE → USB）：
 
 ```python
 with chloros_sdk.connect_daq_sensor() as daq:    # smart-detect USB / BLE / ETH
@@ -198,7 +198,7 @@ with chloros_sdk.connect_daq_sensor() as daq:    # smart-detect USB / BLE / ETH
         print(frame["spectrum"][:10])
 ```
 
-每个帧包含 135 个数据点的 `spectrum`（校准后为 W/m²/nm）、一个 `is_saturated` 标志以及 CIE `x`， `y`、`z`。若要指定特定传感器或传输协议，请传递一个显式提示：
+每個幀包含 135 點的 `spectrum`（校準後單位為 W/m²/nm）、一個 `is_saturated` 標誌，以及 CIE `x`、 `y`、`z`。若要指定特定感測器或傳輸協定，請傳入一個明確的提示：
 
 ```python
 daq = chloros_sdk.connect_daq_sensor(transport="usb", port="COM3")
@@ -206,15 +206,15 @@ daq = chloros_sdk.connect_daq_sensor(mac="AA:BB:CC:DD:EE:FF")        # implies B
 daq = chloros_sdk.connect_daq_sensor(eth_host="daq-e-xxx.local")     # implies Ethernet
 ```
 
-请注意，电容校正配置文件（`cap_id`）**并非** SDK 控制项——应通过 `chloros-cli daq pool-connect --cap-id …` / `pool-set-cap` 进行选择。
+請注意，電容校正配置檔（`cap_id`）**並非** SDK 的可調整參數 —— 應改透過 `chloros-cli daq pool-connect --cap-id …` / `pool-set-cap` 進行選取。
 
-### 已保存的项目 — `open_project`
+### 儲存的專案 — `open_project`
 
-已保存的Chloros项目会保留其已连接的硬件（`cameras.json` + `sensors.json` 以及 `project.json`）， 而 `chloros_sdk.open_project(path)` 可以一次性重新连接其摄像头、阵列和光传感器，并通过设备名称触发捕获操作。 光传感器通过正在运行的Chloros后端重新连接，并保留其已保存的设置和捕获能力。请参阅参考文档中的[项目自动化](reference/sdk-reference.md#project-automation--chlorosproject)。
+已儲存的 Chloros 專案會保留其已連接的硬體（`cameras.json` + `sensors.json` 以及 `project.json`）， 而 `chloros_sdk.open_project(path)` 可一次重新連線其攝影機、陣列及光感測器，並透過裝置名稱觸發擷取。 光感測器會透過正在運行的 Chloros 後端重新連線，並保留其儲存的設定與捕捉能力。請參閱參考文件中的 [專案自動化](reference/sdk-reference.md#project-automation--chlorosproject)。
 
-## 仅安装 pip 时的功能
+## 僅安裝 pip 版本可獲得的功能
 
-在使用硬件界面之前，请检查模块级别的可用性标志：
+在使用硬體介面之前，請先檢查模組層級的可用性標誌：
 
 ```python
 import chloros_sdk
@@ -223,32 +223,32 @@ print("CAMERA_AVAILABLE =", chloros_sdk.CAMERA_AVAILABLE)    # True iff lattice_
 print("PROJECT_AVAILABLE =", chloros_sdk.PROJECT_AVAILABLE)  # True iff ChlorosProject deps available
 ```
 
-在**仅**安装了 `pip install chloros-sdk` 且未安装 Chloros 桌面包的主机上：
+在 **僅** 安裝 `pip install chloros-sdk` 且未安裝 Chloros 桌面套件的主機上：
 
-* `ChlorosLocal`、`process_folder` 和 `process_lattice_capture` **无法**正常工作——它们需要桌面安装程序中附带的后端二进制文件。
-* 智能连接辅助程序（`connect_camera`、`connect_array`、`connect_daq_sensor`）是纯粹的HTTP客户端，因此可与位于另一台机器上的后端配合使用 ——但随附的后端仅绑定回环地址，因此您必须自行进行端口转发（例如 `ssh -N -L 5000:127.0.0.1:5000 user@chloros-host`），并将 `backend_url="http://127.0.0.1:5000"` 与 `auto_start_backend=False` 配合使用。 参见 [远程后端模式](reference/sdk-reference.md#remote-backend-mode-pip-only-host-via-tunnel)。
-* 直接硬件 LATTICE 类（`LatticeCamera`、 `CameraPool`, …) 可以导入，但需要来自桌面包的 Arena SDK 运行时——若缺少该运行时，`CAMERA_AVAILABLE` 将变为 `False`。
-* DAQ 传感器仅通过（隧道化的）后端驱动——`connect_daq_sensor()`，或项目的 `proj.sensors`；后端会在其自身机器上打开传感器。
+* `ChlorosLocal`、`process_folder` 以及 `process_lattice_capture` **無法**運作 — 它們需要桌面安裝程式內附的後端二進位檔。
+* 智慧連線輔助程式（`connect_camera`、`connect_array`、`connect_daq_sensor`）是純粹的 HTTP 客戶端，因此可與位於另一台機器上的後端配合運作 ——但隨附的後端僅綁定迴路連接，因此您必須自行進行端口轉發（例如 `ssh -N -L 5000:127.0.0.1:5000 user@chloros-host`），並將 `backend_url="http://127.0.0.1:5000"` 與 `auto_start_backend=False` 一併傳遞。 請參閱 [遠端後端模式](reference/sdk-reference.md#remote-backend-mode-pip-only-host-via-tunnel)。
+* 直接硬體 LATTICE 類別（`LatticeCamera`、 `CameraPool`, …) 雖可導入，但需使用桌面套件中的 Arena SDK 執行時環境 — 若缺少此環境，`CAMERA_AVAILABLE` 將呈現為 `False`。
+* DAQ 感測器僅能透過（隧道傳輸的）後端驅動 — `connect_daq_sensor()`，或專案的 `proj.sensors`；該後端會在自身機器上開啟感測器。
 
-## AI 助手 — `chloros-mcp`
+## AI 助理 — `chloros-mcp`
 
-该SDK包含`chloros-mcp`，这是一个MCP服务器，允许Claude Desktop、Claude Code、Cursor及其他MCP客户端驱动Chloros：处理图像，并运行LATTICE相机、阵列和DAQ光传感器。 其工具涵盖了本SDK的功能。它随SDK一同安装，因此对于Claude Code，配置只需一行代码：
+此 SDK 包含 `chloros-mcp`，這是一個 MCP 伺服器，可讓 Claude Desktop、Claude Code、Cursor 及其他 MCP 客戶端驅動 Chloros：處理影像，並運作 LATTICE 相機、陣列及 DAQ 光感測器。 其工具涵蓋了此 SDK 的功能。它會隨 SDK 一併安裝，因此對於 Claude Code 而言，設定只需一行指令：
 
 ```bash
 claude mcp add chloros -- chloros-mcp
 ```
 
-其他客户端：[使用AI助手与Chloros配合](ai-assistants.md)。 选项及所有工具：[MCP 服务器（AI 助手）](reference/sdk-reference.md#mcp-server-ai-assistants)。
+其他客戶端：[如何在 AI 助理中使用 Chloros](ai-assistants.md)。 選項與所有工具：[MCP 伺服器 (AI 助理)](reference/sdk-reference.md#mcp-server-ai-assistants)。
 
-## 许可要求
+## 授權要求
 
-访问 SDK 需要拥有任何付费层级的有效 Chloros+ 登录账号——**Copper 或更高**（Copper / Bronze / Silver / Gold）； 免费的 Iron 套餐不提供 SDK/CLI 访问权限。该限制在**服务器端** 执行：每个 SDK 请求必须同时包含有效会话和付费套餐，否则后端将返回 `403` / `PLAN_UPGRADE_REQUIRED` （由 `ChlorosLocal` 引发的错误代码为 `ChlorosLicenseError`，由 `connect_*` 辅助函数引发的错误代码为 `ChlorosConnectError`）。 已注销的调用者会收到 `401` / `AUTH_REQUIRED` （`ChlorosAuthenticationError`）——重新运行 `chloros-cli login` 可解决第一种情况，但无法解决第二种情况。
+存取 SDK 需具備任何付費方案（**Copper 或更高階**，包含 Copper / Bronze / Silver / Gold）的有效 Chloros+ 登入帳戶； 免費的 Iron 方案不提供 SDK/CLI 存取權限。此限制為**伺服器端** 強制執行：每個 SDK 請求必須同時包含有效會話及付費方案，否則後端將返回 `403` / `PLAN_UPGRADE_REQUIRED` （由 `ChlorosLocal` 觸發的錯誤代碼為 `ChlorosLicenseError`，由 `connect_*` 輔助函式觸發的錯誤代碼則為 `ChlorosConnectError`）。 已登出狀態的呼叫者會收到 `401` / `AUTH_REQUIRED` （`ChlorosAuthenticationError`）——重新執行 `chloros-cli login` 可解決第一種情況，但無法解決第二種情況。
 
-在套餐的宽限期内，离线使用是可行的：服务等级信息将从服务器验证缓存（5 分钟）或已签名、与机器绑定的许可证缓存（月度套餐为 30 天；年度套餐为订阅到期日）中读取。 当宽限期结束时，套餐将转为免费模式，且SDK访问将暂停，直到设备与服务器建立一次连接为止。`chloros-cli status`在免费套餐下仍可访问，因此原因始终可见。 请参阅 [Chloros+ 登录](chloros+-login.md)。
+離線使用在方案的寬限期內有效：服務等級會從伺服器驗證快取（5 分鐘）或已簽名且與機器綁定的授權快取（月費方案為 30 天；年費方案則至訂閱到期為止）中讀取。 當寬限期結束時，方案將轉為免費方案，且 SDK 存取權將中斷，直到該裝置至少連線至伺服器一次為止。`chloros-cli status` 在免費方案下仍可存取，因此原因始終可見。 請參閱 [Chloros+ 登入](chloros+-login.md)。
 
-## 异常
+## 例外情況
 
-捕获基类以处理“Chloros 出现的任何错误”：
+擷取基類以處理「Chloros 發生任何錯誤」的情況：
 
 ```python
 import chloros_sdk
@@ -263,11 +263,11 @@ except chloros_sdk.ChlorosError as e:
     print(f"Chloros error: {e}")
 ```
 
-所有管道异常（`ChlorosBackendError`、`ChlorosConnectionError`、`ChlorosLicenseError`、`ChlorosAuthenticationError`、 `ChlorosConfigurationError`、`ChlorosProcessingError`）均继承自 `ChlorosError`。 一个注意事项：`ChlorosConnectError` —— 仅由 `connect_camera` / `connect_array` / `connect_daq_sensor` 触发 ——源自普通的 `Exception`，**而非** `ChlorosError`，因此 `except ChlorosError` 无法捕获该异常。 完整的层次结构请参见 [SDK 参考](reference/sdk-reference.md#exceptions)。
+所有管線例外 (`ChlorosBackendError`、`ChlorosConnectionError`、`ChlorosLicenseError`、`ChlorosAuthenticationError`、 `ChlorosConfigurationError`、`ChlorosProcessingError`）皆源自 `ChlorosError`。 一個需注意的細節：`ChlorosConnectError` — 僅由 `connect_camera` / `connect_array` / `connect_daq_sensor` 觸發 —— 源自普通的 `Exception`，**並非**源自 `ChlorosError`，因此 `except ChlorosError` 無法擷取此錯誤。 完整的層級結構請參閱 [SDK 參考手冊](reference/sdk-reference.md#exceptions)。
 
-## 另请参阅
+## 參見
 
-* [SDK 参考](reference/sdk-reference.md) — 完整的 API 接口，针对 AI 助手进行了优化。
-* [CLI 参考](reference/cli-reference.md) — 每个 CLI 子命令都对应一个 SDK 调用。
-* [在 AI 助手中使用 Chloros](ai-assistants.md) —— `chloros-mcp` 的配置和提示词示例。
-* [下载](download.md) —— 适用于 Windows 和 Linux 的安装程序。
+* [SDK 參考手冊](reference/sdk-reference.md) — 針對 AI 助理優化的完整 API 介面。
+* [CLI 參考](reference/cli-reference.md) — 每個 CLI 子指令皆對應一個 SDK 呼叫。
+* [在 AI 助理中使用 Chloros](ai-assistants.md) — `chloros-mcp` 的設定與提示範本。
+* [下載](download.md) — 適用於 Windows 和 Linux 的安裝程式。

@@ -6,94 +6,94 @@ metaLinks:
       https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/multispectral-index-formulas
 ---
 
-# 多光谱指数公式
+# 多光譜指數公式
 
-以下指数公式综合采用了Survey3滤光片平均透射率范围：
+以下指數公式採用Survey3濾光片平均透射率範圍的組合：
 
-<table><thead><tr><th align="center">Survey3滤波器颜色</th><th width="196.199951171875" align="center">Survey3滤光片名称</th><th width="159.800048828125" align="center">透射率范围（FWHM）</th><th align="center">平均透射率</th></tr></thead><tbody><tr><td align="center">Blue</td><td align="center">NGB - Blue</td><td align="center">468-483nm</td><td align="center">475 纳米</td></tr><tr><td align="center">Cyan</td><td align="center">OCN- Cyan</td><td align="center">476-512纳米</td><td align="center">494 nm</td></tr><tr><td align="center">Green</td><td align="center">RGN | NGB - Green</td><td align="center">543-558纳米</td><td align="center">547纳米</td></tr><tr><td align="center">Orange</td><td align="center">OCN - Orange</td><td align="center">598-640纳米</td><td align="center">619纳米</td></tr><tr><td align="center">Red</td><td align="center">RGN - Red</td><td align="center">653-668纳米</td><td align="center">661纳米</td></tr><tr><td align="center">RedEdge</td><td align="center">Re - RedEdge</td><td align="center">712-735纳米</td><td align="center">724纳米</td></tr><tr><td align="center">NIR1</td><td align="center">OCN - NIR1</td><td align="center">798-848纳米</td><td align="center">823纳米</td></tr><tr><td align="center">NIR2</td><td align="center">RGN | NGB | NIR - NIR2</td><td align="center">835-865纳米</td><td align="center">850 nm</td></tr></tbody></table>
+<table><thead><tr><th align="center">Survey3 濾鏡顏色</th><th width="196.199951171875" align="center">Survey3 濾光片名稱</th><th width="159.800048828125" align="center">透射率範圍（FWHM）</th><th align="center">平均透射率</th></tr></thead><tbody><tr><td align="center">Blue</td><td align="center">NGB - Blue</td><td align="center">468-483nm</td><td align="center">475 奈米</td></tr><tr><td align="center">Cyan</td><td align="center">OCN- Cyan</td><td align="center">476-512 奈米</td><td align="center">494 奈米</td></tr><tr><td align="center">Green</td><td align="center">RGN | NGB - Green</td><td align="center">543-558 奈米</td><td align="center">547 奈米</td></tr><tr><td align="center">Orange</td><td align="center">OCN - Orange</td><td align="center">598-640奈米</td><td align="center">619 奈米</td></tr><tr><td align="center">Red</td><td align="center">RGN - Red</td><td align="center">653-668 奈米</td><td align="center">661 奈米</td></tr><tr><td align="center">RedEdge</td><td align="center">Re - RedEdge</td><td align="center">712-735 奈米</td><td align="center">724 奈米</td></tr><tr><td align="center">NIR1</td><td align="center">OCN - NIR1</td><td align="center">798-848 奈米</td><td align="center">823 奈米</td></tr><tr><td align="center">NIR2</td><td align="center">RGN | NGB | NIR - NIR2</td><td align="center">835-865 奈米</td><td align="center">850 nm</td></tr></tbody></table>
 
-使用这些公式时，名称可能以“\_1”或“\_2”结尾，这对应于所使用的NIR滤光片类型，即NIR1或NIR2。
+使用這些公式時，名稱可能會以「\_1」或「\_2」結尾，這代表所使用的NIR濾光片類型，即NIR1或NIR2。
 
-对于 LATTICE M3C（拜耳三波段通）相机，同一索引引擎采用 M3C 滤光片波段：
+對於 LATTICE M3C（拜耳三波段通濾光片）相機，相同的索引引擎會採用 M3C 濾光片波段：
 
-| M3C 滤光片 | 波段 1（中心/FWHM） | 波段 2（中心/FWHM） | 波段 3（中心/FWHM） |
+| M3C 濾光片 | 波段 1（中心波長／FWHM） | 波段 2（中心波長／FWHM） | 波段 3（中心波長／FWHM） |
 | --- | --- | --- | --- |
 | FRGB | Blue 475 nm / 30 nm | Green 550 nm / 30 nm | Red 625 nm / 30 nm |
 | FRGN | Red 660 nm / 21 nm | Green 550 nm / 30 nm | NIR 850 nm / 30 nm |
 | FOCN | Orange 615 nm / 21 nm | Cyan 490 nm / 38 nm | NIR 808 nm / 14 nm |
 | FNGB | Blue 475 nm / 30 nm | Green 550 nm / 30 nm | NIR 850 nm / 30 nm |
 
-LATTICE M3M 相机为单波段（每台相机配备一个窄带滤光片），因此无法针对单张 M3M 图像计算多波段指数。 若要使用 M3M 计算指数，请将两台或更多相机图像组合成对齐的多波段堆栈，并使用 LATTICE 指数引擎（`chloros-cli lattice index` 或 GUI 中的实时指数计算器）。
+LATTICE M3M 相機為單波段（每台相機配備一個窄帶濾光片），因此無法針對單張 M3M 影像計算多波段指數。 若要使用 M3M 計算指數，請將兩台或更多相機的影像組合成對齊的多波段疊加影像，並使用 LATTICE 指數引擎（`chloros-cli lattice index`，或 GUI 中的即時指數計算器）。
 
 ***
 
-## 各指数名称的适用场景
+## 各索引名稱的適用範圍
 
-Chloros拥有**三个**指数表面，且它们的预设列表并不完全相同。请利用本节内容，确认某个名称在您计划使用的场景中是否有效。
+Chloros擁有 **三個** 索引表面，且其預設清單並不完全相同。請利用本節確認您計畫使用的名稱是否適用於該處。
 
-| 当前位置 | 适用列表 | 数量 |
+| 您所在的位置 | 適用清單 | 計數 |
 | --- | --- | --- |
-| 项目设置 → 指数 → 添加指数 (GUI) | 表面 1 | 27 |
-| 图像查看器 [索引/LUT 沙盒](../image-viewer-gui/index-lut-sandbox.md) (GUI) | 表面 1 | 27 |
+| 專案設定 → 索引 → 新增索引 (GUI) | 表面 1 | 27 |
+| 影像檢視器 [索引/LUT 沙盒](../image-viewer-gui/index-lut-sandbox.md) (GUI) | 表面 1 | 27 |
 | `chloros-cli process --indices NDVI,NDRE` | 表面 2 | 27 |
 | SDK `process_folder(indices=[...])` | 表面 2 | 27 |
-| `chloros-cli lattice index --preset` | 表面 3 | 22（另一个 22） |
-| “相机”选项卡实时索引计算器 | 表面 3 | 22（另一个 22） |
+| `chloros-cli lattice index --preset` | 表面 3 | 22（另一個 22） |
+| 「相機」分頁即時索引計算器 | 表面 3 | 22（另一個 22） |
 
-Surface 1 和 2 处理的是**来自单个摄像头的单张图像**， 使用与该相机滤光片通道绑定的符号槽 `x`/`y`/`z`(/`a`)。 Surface 3 处理的是**对齐的多波段堆栈**——即多台 LATTICE 相机配准后合并为一个立方体——并通过小写名称引用通道。
+Surface 1 和 2 會**一次處理來自單一攝影機的一張影像**， 並使用與該相機濾光片通道綁定的符號槽 `x`/`y`/`z`(/`a`)。 Surface 3 處理的是**對齊的多波段堆疊** —— 將多台 LATTICE 相機的影像配準整合為一個立方體 —— 並透過小寫名稱來引用通道。
 
-### 1. GUI 项目设置 / 图像查看器沙盒下拉菜单 — 27 个公式
+### 1. GUI 專案設定 / 影像檢視器沙盒下拉選單 — 27 個公式
 
-下拉菜单按以下顺序列出这些公式 （按插入顺序排列，而非按字母顺序）：
+下拉選單按以下順序列出這些公式 （此為插入順序，非字母順序）：
 
 `NDVI, GNDVI, CVI, ENDVI, EVI, MSR, OSAVI, TDVI, LAI, FCI1, FCI2, GARI, GCI, GEMI, GLI, GOSAVI, GRVI, GSAVI, LCI, MNLI, MSAVI2, NDRE, NLI, RDVI, SAVI, VARI, WDRVI`
 
-在 GUI 中，您可以将相机的滤光片通道拖放到公式的波段插槽中，因此任何公式均可与相机支持的任意波段分配组合使用。您已保存的自定义公式将附加在此列表下方。
+在 GUI 中，您可將相機的濾光片通道拖曳至公式的波段插槽中，因此任何公式皆可搭配相機所支援的任何波段配置使用。您已儲存的自訂公式會附加於此清單下方。
 
-**仅限 GUI 使用的五个**公式——即 CLI/SDK 的 `--indices` 列表不支持的那些——其实现方式如下：
+那 **五個僅限 GUI 使用** 的公式 —— 也就是 CLI/SDK 的 `--indices` 清單不接受的那些 —— 其實作方式如下：
 
-| 仅限 GUI 的预设 | 公式（实现方式） | 插槽 |
+| 僅限 GUI 的預設值 | 公式（其實作方式） | 插槽 |
 | --- | --- | --- |
 | FCI1 | `x*y` | x, y |
 | FCI2 | `x*y` | x, y |
-| GARI | `(y-(x-1.7*(z-a)))/(y+(x-1.7*(z-a)))` | x, y, z, a（四个槽位） |
+| GARI | `(y-(x-1.7*(z-a)))/(y+(x-1.7*(z-a)))` | x, y, z, a（四個參數槽） |
 | GEMI | `((2*(y*y-x*x)+1.5*y+0.5*x)/(y+x+0.5))*(1-0.25*((2*(y*y-x*x)+1.5*y+0.5*x)/(y+x+0.5)))-((x-0.125)/(1-x))` | x, y |
 | LCI | `(y-x)/(y+z)` | x, y, z |
 
-每种公式的预期映射关系在本页后面的独立章节中给出（例如，GARI 期望 x=Green、y=NIR、z=Blue、a=Red）。GARI 是 Chloros 中唯一使用第四个插槽的公式。
+各公式的預期對應關係將於本頁後續的獨立章節中說明（例如 GARI 預期 x=Green、y=NIR、z=Blue、a=Red）。GARI 是 Chloros 中唯一使用第四個參數槽的公式。
 
-### 2. CLI/SDK `--indices` 名称扩展 — 22 个预设
+### 2. CLI／SDK `--indices` 名稱擴展 — 22 個預設值
 
-`chloros-cli process --indices` 选项（以及 SDK 中的 `indices` 参数）支持以下预设名称：
+`chloros-cli process --indices` 選項（以及 SDK `indices` 參數）接受以下預設名稱：
 
 `NDVI, GNDVI, NDRE, OSAVI, SAVI, MSAVI2, EVI, MSR, TDVI, LAI, GCI, GRVI, GSAVI, GOSAVI, NLI, MNLI, RDVI, WDRVI, CVI, ENDVI, GLI, VARI`
 
 {% hint style="warning" %}
-**未知索引名称将被静默跳过。** 此列表之外的名称（包括仅限 GUI 使用的五个公式 `FCI1`、`FCI2`、`GARI`、`GEMI`、 `LCI`，以及您在图形用户界面中保存的任何自定义公式）将被忽略，仅生成日志提示——运行将跳过该索引继续进行，且运行结果仍报告成功。提示信息显示为：
+**未列出的索引名稱將被靜默跳過。** 此清單以外的名稱（包括五個僅限 GUI 使用的公式 `FCI1`、`FCI2`、`GARI`、`GEMI`、 `LCI`，以及您在 GUI 中儲存的任何自訂公式）將僅以日誌通知的方式被捨棄——執行程序將跳過該索引繼續進行，且執行結果仍會回報成功。該通知將顯示為：
 
 ```
 [INDEX_EXPAND] skipping unknown preset 'LCI'; known: ['CVI', 'ENDVI', 'EVI', ...]
 ```
 
-名称在去除空格后进行匹配，且不区分大小写，因此 `ndvi`、`NDVI` 和 ` NDVI ` 属于同一个预设。 如果某个预设需要相机滤镜未提供的波段，该预设也会被跳过。
+名稱在去除空格後進行匹配，且不區分大小寫，因此 `ndvi`、`NDVI` 和 ` NDVI ` 屬於同一個預設值。 若某個預設需要您的相機濾鏡未提供的波段，該預設也會被跳過。
 {% endhint %}
 
-实际实现的精确公式（符号 `x`/`y`/`z` 代表波段槽位；每个预设的默认映射如下所示）：
+實際實作的精確公式（符號 `x`/`y`/`z` 代表波段槽位；各預設值對應的預設映射如下所示）：
 
-| 预设 | 公式（实际实现） | 默认滤光片 | 波段槽位 (x, y, z) |
+| 預設值 | 公式（實作版本） | 預設濾光片 | 槽位 (x, y, z) |
 | --- | --- | --- | --- |
-| NDVI | `(y-x)/(y+x)` | RGN | Red, NIR |
-| GNDVI | `(y-x)/(y+x)` | RGN | Green, NIR |
-| NDRE | `(y-x)/(y+x)` | RE | RE, NIR |
-| OSAVI | `(y-x)/(y+x+0.16)` | RGN | Red, NIR |
+| NDVI | `(y-x)/(y+x)` | RGN | Red、NIR |
+| GNDVI | `(y-x)/(y+x)` | RGN | Green、NIR |
+| NDRE | `(y-x)/(y+x)` | RE | RE、NIR |
+| OSAVI | `(y-x)/(y+x+0.16)` | RGN | Red、NIR |
 | SAVI | `1.5*(y-x)/(y+x+0.5)` | RGN | Red, NIR |
 | MSAVI2 | `(2*y+1-sqrt((2*y+1)*(2*y+1)-8*(y-x)))/2` | RGN | Red, NIR |
-| EVI | `2.5*(y-x)/(y+6*x-7.5*z+1)` | RGN | Red, NIR, Blue |
-| MSR | `((y/x)-1)/(sqrt(y/x)+1)` | RGN | Red, NIR |
-| TDVI | `1.5*(y-x)/sqrt(y*y+x+0.5)` | RGN | Red, NIR |
-| LAI | `3.618*(2.5*(y-x)/(y+6*x-7.5*z+1))-0.118` | RGN | Red, NIR, Blue |
-| GCI | `(y/x)-1` | RGN | Green, NIR |
-| GRVI | `y/x` | RGN | Green, NIR |
+| EVI | `2.5*(y-x)/(y+6*x-7.5*z+1)` | RGN | Red、NIR、Blue |
+| MSR | `((y/x)-1)/(sqrt(y/x)+1)` | RGN | Red、NIR |
+| TDVI | `1.5*(y-x)/sqrt(y*y+x+0.5)` | RGN | Red、NIR |
+| LAI | `3.618*(2.5*(y-x)/(y+6*x-7.5*z+1))-0.118` | RGN | Red、NIR、Blue |
+| GCI | `(y/x)-1` | RGN | Green、NIR |
+| GRVI | `y/x` | RGN | Green、NIR |
 | GSAVI | `1.5*(y-x)/(y+x+0.5)` | RGN | Green, NIR |
 | GOSAVI | `(y-x)/(y+x+0.16)` | RGN | Green, NIR |
 | NLI | `((y*y)-x)/((y*y)+x)` | RGN | Red, NIR |
@@ -102,136 +102,132 @@ Surface 1 和 2 处理的是**来自单个摄像头的单张图像**， 使用�
 | WDRVI | `(0.2*y-x)/(0.2*y+x)` | RGN | Red, NIR |
 | CVI | `(z/y)*(x/y)` | RGN | Red, Green, NIR |
 | ENDVI | `((x+y)-(2*z))/((x+y)+(2*z))` | NGB | NIR, Green, Blue |
-| GLI | `((y-x)+(y-z))/((2*y)+x+z)` | RGB | Red, Green, Blue |
-| VARI | `(y-x)/(y+x-z)` | RGB | Red, Green, Blue |
+| GLI | `((y-x)+(y-z))/((2*y)+x+z)` | RGB | Red、Green、Blue |
+| VARI | `(y-x)/(y+x-z)` | RGB | Red、Green、Blue |
 
-#### 预设名称如何转换为波段位置
+#### 預設名稱如何轉化為波段位置
 
-当您传入一个纯名称（如 `NDVI`）时，Chloros 必须确定每个符号读取的是哪个文件的哪个通道。它使用下表，该表将滤波器代码映射到每个通道的数组位置：
+當您傳入如 `NDVI` 這樣的純名稱時，Chloros 必須決定每個符號讀取的是哪個檔案的哪個通道。它會使用這張對照表，將濾波器代碼映射至各通道的陣列位置：
 
-| 滤波器代码 | 通道 → 数组索引 |
+| 濾波器代碼 | 通道 → 陣列索引 |
 | --- | --- |
-| OCN | Orange 0, Cyan 1, NIR 2（`Red` 被视为 Orange 的别名，同样为 0） |
-| RGN | Red 0, Green 1, NIR 2 |
+| OCN | Orange 0、Cyan 1、NIR 2（`Red` 被視為 Orange 的別名，同樣為 0） |
+| RGN | Red 0、Green 1、NIR 2 |
 | NGB | NIR 0, Green 1, Blue 2 |
-| RGB | Red 0, Green 1, Blue 2 |
-| RE | RE 0 |
-| NIR | NIR 0 |
+| RGB | Red 0,  若無，Chloros 會依 `RGN, OCN, NGB, RGB, RE, NIR` 的順序掃描專案中實際存在的濾光片，並選取第一個能提供預設值所需所有通道的濾光片。若無任何濾光片符合條件，則該預設值將在該執行階段中被捨棄。 這就是為什麼在僅含 OCN 的資料集上請求 `NDVI` 仍能產生合理結果的原因——它會綁定至 OCN 的 Orange 和 NIR 位置。
 
-当项目中包含带有该滤镜的图像时，将使用预设的**默认滤镜**（即上表中的“默认滤镜”列）。 如果不包含，Chloros 将按 `RGN, OCN, NGB, RGB, RE, NIR` 的顺序扫描项目中实际存在的滤光片，并选择第一个能够提供预设所需所有通道的滤光片。如果没有，则该预设在本次运行中将被弃用。 这就是为什么在仅包含OCN的数据集上请求`NDVI`仍能产生合理结果的原因——它会绑定到OCN的Orange和NIR位置。
+LATTICE M3C 模型字串會以 `F` 前綴攜帶濾光片 (`LATT-M3C-L41-FRGN`)，但當從影像讀取濾鏡代碼時，該前綴會被省略，因此 FRGN 相機可透過上方的 `RGN` 行進行解析，無需特殊處理。
 
-LATTICE M3C模型字符串中包含以`F`为前缀的滤光片 (`LATT-M3C-L41-FRGN`)，但在从图像中读取滤光片代码时，该前缀会被省略，因此 FRGN 相机通过上方的 `RGN` 行进行解析，无需特殊处理。
+### 3. LATTICE 索引引擎 (`lattice index --preset`，即時索引計算器) — 22 組預設值
 
-### 3. LATTICE 索引引擎（`lattice index --preset`，实时索引计算器）—— 22 种预设
+LATTICE 引擎適用於對齊的多波段堆疊影像（即時陣列或匯出的多波段 TIFF 檔案），並使用小寫通道名稱（`red`、`green`、 `blue`、`red_edge`、`nir`）。其預設清單與上述兩者不同：
 
-LATTICE 引擎处理对齐的多波段堆栈（实时数组或导出的多波段 TIFF 文件），并使用小写通道名称（`red`、`green`、 `blue`、`red_edge`、`nir`）。其预设列表与上述两种不同：
-
-| 预设 | 公式 | 通道 |
+| 預設值 | 公式 | 通道 |
 | --- | --- | --- |
-| NDVI | `(nir - red) / (nir + red)` | 红光、近红外 |
-| GNDVI | `(nir - green) / (nir + green)` | 红光、近红外 |
-| BNDVI | `(nir - blue) / (nir + blue)` | 蓝光、近红外 |
-| NDRE | `(nir - red_edge) / (nir + red_edge)` | 红光边缘、近红外 |
-| ENDVI | `((nir + green) - 2*blue) / ((nir + green) + 2*blue)` | 蓝光、绿光、近红外 |
-| SAVI | `1.5 * (nir - red) / (nir + red + 0.5)` | 红光、近红外 |
-| OSAVI | `(nir - red) / (nir + red + 0.16)` | 红光, 近红外 |
-| MSAVI | `(2*nir + 1 - sqrt((2*nir + 1)**2 - 8*(nir - red))) / 2` | 红光, 近红外 |
-| EVI | `2.5 * (nir - red) / (nir + 6*red - 7.5*blue + 1)` | 蓝光, 红光, 近红外 |
-| EVI2 | `2.5 * (nir - red) / (nir + 2.4*red + 1)` | 红光、近红外 |
-| CVI | `nir * red / green**2` | 红光、绿光、近红外 |
-| MSR | `((nir/red) - 1) / (sqrt(nir/red) + 1)` | 红光、近红外 |
-| TDVI | `1.5 * (nir - red) / sqrt(nir**2 + red + 0.5)` | 红光、近红外 |
-| LAI | `3.618 * (2.5 * (nir - red) / (nir + 6*red - 7.5*blue + 1)) - 0.118` | 蓝色、红色、近红外 |
-| GLI | `(2*green - red - blue) / (2*green + red + blue)` | 红色、绿色、蓝色 |
-| NGRDI | `(green - red) / (green + red)` | 红、绿 |
-| VARI | `(green - red) / (green + red - blue)` | 红、绿、蓝 |
-| TGI | `green - 0.39*red - 0.61*blue` | 红、绿、蓝 |
-| EXG | `2*green - red - blue` | 红、绿、蓝 |
-| CIRE | `(nir / red_edge) - 1` | 红_边缘, 近红外 |
-| CIGREEN | `(nir / green) - 1` | 绿, 近红外 |
-| NDWI | `(green - nir) / (green + nir)` | 绿色, 近红外 |
+| NDVI | `(nir - red) / (nir + red)` | 紅光、近紅外 |
+| GNDVI | `(nir - green) / (nir + green)` | 紅光、近紅外 |
+| BNDVI | `(nir - blue) / (nir + blue)` | 藍光、近紅外 |
+| NDRE | `(nir - red_edge) / (nir + red_edge)` | 紅邊、近紅外 |
+| ENDVI | `((nir + green) - 2*blue) / ((nir + green) + 2*blue)` | 藍、綠、近紅外 |
+| SAVI | `1.5 * (nir - red) / (nir + red + 0.5)` | 紅、近紅外 |
+| OSAVI | `(nir - red) / (nir + red + 0.16)` | 紅, 近紅外 |
+| MSAVI | `(2*nir + 1 - sqrt((2*nir + 1)**2 - 8*(nir - red))) / 2` | 紅, 近紅外 |
+| EVI | `2.5 * (nir - red) / (nir + 6*red - 7.5*blue + 1)` | 藍, 紅, 近紅外 |
+| EVI2 | `2.5 * (nir - red) / (nir + 2.4*red + 1)` | 紅光、近紅外光 |
+| CVI | `nir * red / green**2` | 紅光、綠光、近紅外光 |
+| MSR | `((nir/red) - 1) / (sqrt(nir/red) + 1)` | 紅光、近紅外光 |
+| TDVI | `1.5 * (nir - red) / sqrt(nir**2 + red + 0.5)` | 紅光、近紅外光 |
+| LAI | `3.618 * (2.5 * (nir - red) / (nir + 6*red - 7.5*blue + 1)) - 0.118` | 藍色、紅色、近紅外線 |
+| GLI | `(2*green - red - blue) / (2*green + red + blue)` | 紅色、綠色、藍色 |
+| NGRDI | `(green - red) / (green + red)` | 紅、綠 |
+| VARI | `(green - red) / (green + red - blue)` | 紅、綠、藍 |
+| TGI | `green - 0.39*red - 0.61*blue` | 紅色、綠色、藍色 |
+| EXG | `2*green - red - blue` | 紅色、綠色、藍色 |
+| CIRE | `(nir / red_edge) - 1` | 紅_邊緣, 近紅外 |
+| CIGREEN | `(nir / green) - 1` | 綠, 近紅外 |
+| NDWI | `(green - nir) / (green + nir)` | 綠色、近紅外線 |
 
-运行 `chloros-cli lattice index --list-presets` 可从已安装的版本中打印此表格， 并运行 `--list-gradients` 以获取可用的颜色渐变。通道符号区分大小写，必须与预设的小写名称完全一致（例如 `--channel red=Red_660 --channel nir=NIR_850`）。
+執行 `chloros-cli lattice index --list-presets` 可從您已安裝的版本中列印此表格， 並執行 `--list-gradients` 以取得可用的色彩漸層。通道符號區分大小寫，且必須與預設值的小寫名稱完全一致（例如：`--channel red=Red_660 --channel nir=NIR_850`）。
 
 ***
 
-## CVI - 叶绿素植被指数
+## CVI - 葉綠素植被指數
 
-该指数对不同冠层密度下的叶片叶绿素含量较为敏感。它使用NIR、红光和绿光波段。
+此指數對廣泛樹冠密度範圍內的葉片葉綠素含量相當敏感。它使用NIR、紅光和綠光波段。
 
 $$
 CVI = NIR * {Red \over Green^{2}}
 $$
 
-在图形用户界面（GUI）以及命令行界面（CLI）/软件开发工具包（SDK）的预设列表中，其符号公式为 `(z/y)*(x/y)`，其中 x=Red、y=Green、z=NIR （即RGN相机的波段）；LATTICE指数引擎的预设为`nir * red / green**2`。每个地表均计算相同的指数。
+在圖形使用者介面（GUI）以及命令列介面（CLI）／軟體開發套件（SDK）的預設清單中，其符號公式為 `(z/y)*(x/y)`，其中 x=Red、y=Green、z=NIR （即RGN相機的波段）；LATTICE 指數引擎的預設值為 `nir * red / green**2`。每個表面皆計算相同的指數。
 
-_参考文献：Vincini, M., E. Frazzi, and P. D&#x27;Alessio. “冠层尺度的宽带叶绿素植被指数。”《精准农业》第 9 卷（2008）：303-319。_
+_參考文獻：Vincini, M.、E. Frazzi 及 P. D&#x27;Alessio。《冠層尺度的寬頻葉綠素植被指數》。《精準農業》第 9 卷（2008）：303-319。_
 
 ***
 
-## ENDVI - 增强型归一化差值植被指数
+## ENDVI - 增強型歸一化差值植被指數
 
-该指数除NIR和绿色通道外还使用蓝色通道，在采用NGB滤光片的相机中广受欢迎，此类相机中蓝色波段取代了红色波段。
+此指數除NIR與綠色通道外，亦使用藍色通道，並廣泛應用於藍色波段取代紅色波段的NGB濾光相機。
 
 $$
 ENDVI = {(NIR + Green) - (2 * Blue) \over (NIR + Green) + (2 * Blue)}
 $$
 
-其实现采用符号公式 `((x+y)-(2*z))/((x+y)+(2*z))` —— 将相机的NIR和Green通道分配到x/y槽位，Blue通道分配到z槽位（对于NGB相机：x=NIR，y=Green，z=Blue）。
+其實作採用符號公式 `((x+y)-(2*z))/((x+y)+(2*z))` — 請將相機的NIR與Green通道分配至x/y槽位，並將Blue分配至z槽位（以NGB相機為例：x=NIR，y=Green，z=Blue）。
 
 ***
 
-## EVI - 增强植被指数
+## EVI - 增強植被指數
 
-该指数最初是为配合MODIS数据而开发的，旨在通过优化叶面积指数（LAI）较高的区域中的植被信号，来改进NDVI。它在LAI可能出现饱和的高LAI区域最为有用。它利用蓝色反射率区域来校正土壤背景信号，并减少大气影响，包括气溶胶散射。
+此指數最初是為配合 MODIS 數據而開發，旨在透過優化葉面積指數（LAI）較高的區域中的植被訊號，來改進 NDVI 的表現。它在 NDVI 可能飽和的高 LAI 區域中最具實用價值。該指數利用藍色反射率區域來校正土壤背景訊號，並減少大氣影響（包括氣溶膠散射）。
 
 $$
 EVI = 2.5 *  {(NIR - Red) \over (NIR + 6 * Red - 7.5 * Blue + 1)}
 $$
 
-对于植被像素，EVI值应在0到1之间。云层和白色建筑物等高亮特征，以及水体等暗色特征，都可能导致EVI图像中出现异常像素值。在生成EVI图像之前， 应从反射率图像中抠除云层和高亮特征，并可选地将像素值阈值化为0至1。
+對於植被像素，EVI 值應介於 0 至 1 之間。雲層和白色建築物等明亮特徵，以及水體等暗色特徵，都可能導致 EVI 影像中的像素值出現異常。在建立 EVI 影像之前， 應先從反射率影像中遮罩掉雲層與高亮度特徵，並可選擇性地將像素值閾值化為 0 至 1 之間。
 
-_参考文献：Huete, A. 等。《MODIS植被指数的辐射测量与生物物理性能概述》。《遥感环境》第 83 卷（2002）：195–213。_
+_參考文獻：Huete, A. 等。「MODIS 植被指數的輻測與生物物理性能綜述」。《遙感環境》83 (2002):195–213._
 
 ***
 
-## FCI1 - 森林覆盖指数 1
+## FCI1 - 森林覆蓋指數 1
 
-_仅限GUI——CLI/SDK中不提供`--indices`预设._
+_僅限 GUI — 無法作為 CLI/SDK 的 `--indices` 預設值使用._
 
-该指数利用包含红边波段的多光谱反射率图像，将森林冠层与其他类型的植被区分开来。
+此指標利用包含紅邊波段的多光譜反射率影像，將森林樹冠與其他類型的植被區分開來。
 
 $$
 FCI1 = Red * RedEdge
 $$
 
-由于树木反射率较低且树冠内存在阴影，林地区域的FCI1值会较低。
+由於樹木的反射率較低，且樹冠內存在陰影，林地區域的FCI1值會較低。
 
-_参考文献：Becker, Sarah J., Craig S.T. Daughtry, and Andrew L. Russ. “多光谱图像的鲁棒森林覆盖指数”。《摄影测量与遥感》84.8 (2018): 505-512._
+_參考文獻：Becker, Sarah J.、Craig S.T. Daughtry 及 Andrew L. Russ。 〈多光譜影像的穩健森林覆蓋指數〉。《攝影測量工程與遙感》第 84 卷第 8 期（2018 年）：505-512 頁。_
 
 ***
 
-## FCI2 - 森林覆盖指数 2
+## FCI2 - 森林覆蓋指數 2
 
-_仅限GUI——不作为CLI/SDK预设提供 `--indices`._
+_僅限 GUI — 無法作為 CLI/SDK 的 `--indices` 預設值使用._
 
-该指数利用不包含红边波段的多光谱反射率影像，将森林树冠与其他类型的植被区分开来。
+此指標利用不含紅邊波段的多光譜反射率影像，將森林樹冠與其他類型的植被區分開來。
 
 $$
 FCI2 = Red * NIR
 $$
 
-由于树木反射率较低且树冠内存在阴影，林地区域的FCI2值会较低。
+由於樹木的反射率較低，且樹冠內存在陰影，林地區域的FCI2值會較低。
 
-_参考文献：Becker, Sarah J., Craig S.T. Daughtry, and Andrew L. Russ. “多光谱图像的鲁棒森林覆盖指数”。《摄影测量与遥感》84.8 (2018): 505-512。_
+_參考文獻：Becker, Sarah J.、Craig S.T. Daughtry 及 Andrew L. Russ。 〈多光譜影像的穩健森林覆蓋指數〉。《攝影測量工程與遙感》第 84 卷第 8 期（2018 年）：505-512 頁。_
 
 ***
 
-## GEMI——全球环境监测指数
+## GEMI - 全球環境監測指數
 
-_仅限GUI——不提供CLI/SDK版本的`--indices`预设._
+_僅限 GUI — 無法作為 CLI/SDK 的 `--indices` 預設值使用。_
 
-该非线性植被指数用于基于卫星图像进行全球环境监测，并试图校正大气效应。 它与NDVI类似，但对大气效应的敏感度较低。该指数会受到裸土的影响；因此，不建议在植被稀疏或中等密度的区域使用。
+此非線性植被指數用於透過衛星影像進行全球環境監測，並試圖校正大氣效應。 它與NDVI類似，但對大氣效應的敏感度較低。由於會受到裸土的影響，因此不建議用於植被稀疏或中等密度的區域。
 
 $$
 GEMI = eta (1 - 0.25 * eta) - {Red - 0.125 \over 1 - Red}
@@ -243,175 +239,175 @@ $$
 eta = {2(NIR^{2}-Red^{2}) + 1.5 * NIR + 0.5 *  Red \over NIR + Red + 0.5}
 $$
 
-_参考文献：Pinty, B. 和 M. Verstraete。《GEMI：一种用于通过卫星监测全球植被的非线性指数》。《植被》101 (1992): 15-20._
+_參考文獻：Pinty, B. 及 M. Verstraete。《GEMI：一種透過衛星監測全球植被的非線性指數》。《植被》101 (1992)：15-20._
 
 ***
 
-## GARI - 抗大气干扰绿色指数（Green）
+## GARI — 抗大氣干擾綠色指數 (Green)
 
-_仅限GUI使用——不提供CLI/SDK预设`--indices`。_
+_僅限 GUI — 無法作為 CLI/SDK 的 `--indices` 預設值使用。_
 
-与NDVI相比，该指数对广泛的叶绿素浓度范围更为敏感，且受大气影响较小。
+相較於 NDVI，此指數對廣泛範圍的葉綠素濃度更為敏感，且對大氣效應的敏感度較低。
 
 $$
 GARI = {NIR - [Green - \gamma(Blue - Red)] \over NIR + [Green - \gamma(Blue - Red)]   }
 $$
 
-伽马常数是一种加权函数，其值取决于大气中的气溶胶状况。ENVI采用的值为1.7，这是Gitelson、Kaufman和Merzylak （1996年，第296页）推荐的数值。
+伽瑪常數是一種取決於大氣中氣溶膠狀況的加權函數。ENVI 採用 1.7 這個數值，此為 Gitelson、Kaufman 及 Merzylak 所建議的數值 （1996 年，第 296 頁）所建議的數值。
 
-_参考文献：Gitelson, A., Y. Kaufman 和 M. Merzylak. “利用绿色通道通过EOS-MODIS对全球植被进行遥感。”《环境遥感》58 (1996): 289-298._
+_參考文獻：Gitelson, A., Y. Kaufman 及 M. Merzylak。《利用綠色通道透過 EOS-MODIS 進行全球植被遙感》。《環境遙感》第 58 卷（1996 年）： 289-298._
 
 ***
 
-## GCI - 绿色叶绿素指数（Green Chlorophyll Index）
+## GCI - 綠色葉綠素指數（Green Chlorophyll Index）
 
-该指数用于估算多种植物物种的叶片叶绿素含量。
+此指數用於估算廣泛植物物種的葉片葉綠素含量。
 
 $$
 GCI = {NIR \over Green} - 1
 $$
 
-利用宽范围的NIR和绿色波长，不仅能更好地预测叶片叶绿素含量，还能提高灵敏度并获得更高的信噪比。
+具備廣泛的NIR與綠色波長範圍，不僅能更精準地預測葉綠素含量，同時也能提升靈敏度並獲得更高的訊號雜訊比。
 
-_参考文献：Gitelson, A., Y. Gritz, 和 M. Merzlyak. “叶片叶绿素含量与光谱反射率之间的关系，以及高等植物叶片无损叶绿素评估算法。”《植物生理学杂志》160 (2003): 271-282._
+_參考文獻：Gitelson, A., Y. Gritz, 及 M. Merzlyak. 「葉片葉綠素含量與光譜反射率之間的關係，以及高等植物葉片非破壞性葉綠素評估演算法。」《植物生理學期刊》160 (2003): 271-282._
 
 ***
 
-## GLI - 绿叶指数（Green Leaf Index）
+## GLI - 綠葉指數 (Green Leaf Index)
 
-该指数最初是为配合数字RGB相机测量小麦覆盖率而设计的，其中红、绿、蓝三色的数字值（DN）范围均为0至255。
+此指數最初是為配合數位 RGB 攝影機測量小麥覆蓋率而設計，其中紅、綠、藍三色的數位數值 (DN) 範圍為 0 至 255。
 
 $$
 GLI = {(Green - Red) + (Green - Blue)  \over (2 * Green) + Red + Blue }
 $$
 
-GLI值范围为-1至+1。负值代表土壤和非生物特征，而正值代表绿叶和茎秆。
+GLI的數值範圍為-1至+1。負值代表土壤及非生物特徵，而正值則代表綠葉與莖稈。
 
-_参考文献：Louhaichi, M.、M. Borman 和 D. Johnson. “利用定位平台和航空摄影记录放牧对小麦的影响”。《Geocarto International》第16卷第1期（2001）：65-70。_
+_參考文獻：Louhaichi, M.、M. Borman 及 D. Johnson。 〈利用定位平台與航空攝影記錄放牧對小麥的影響〉。《Geocarto International》第 16 卷第 1 期（2001）：65-70。_
 
 ***
 
-## GNDVI——Green归一化差值植被指数
+## GNDVI —— Green 歸一化差值植被指數
 
-该指数与NDVI类似，区别在于它测量的是540至570纳米的绿色光谱，而非红色光谱。与NDVI相比，该指数对叶绿素浓度的敏感度更高。
+此指數與NDVI相似，惟其測量的是540至570 nm的綠色光譜，而非紅色光譜。相較於NDVI，此指數對葉綠素濃度的敏感度更高。
 
 $$
 GNDVI = {(NIR - Green) \over (NIR + Green)  }
 $$
 
-_参考文献：Gitelson, A. 和 M. Merzlyak。《高等植物叶片叶绿素浓度的遥感测定》。《空间研究进展》第22卷（1998）：689-692页。_
+_參考文獻：Gitelson, A. 及 M. Merzlyak。《高等植物葉片葉綠素濃度的遙感測量》。《太空研究進展》第 22 卷（1998）：689-692。_
 
 ***
 
-## GOSAVI——绿色优化土壤校正植被指数（Green Optimized Soil Adjusted Vegetation Index）
+## GOSAVI — 綠色優化土壤校正植被指數（Green Optimized Soil Adjusted Vegetation Index）
 
-该指数最初是为利用彩色红外摄影预测玉米氮需求而设计的。它与OSAVI相似，但用绿色波段代替了红色波段。
+此指數最初是針對彩色紅外線攝影設計，用於預測玉米的氮需求量。它與 OSAVI 相似，但以綠色波段取代紅色波段。
 
 $$
 GOSAVI = {NIR - Green \over NIR + Green + 0.16)  }
 $$
 
-_参考文献：Sripada, R. 等。《利用航空彩色红外摄影确定玉米生长季氮需求》。博士学位论文，北卡罗来纳州立大学，2005年。_
+_參考文獻：Sripada, R. 等。「利用航空彩色紅外線攝影測定玉米生長季氮需求量。」博士論文，北卡羅來納州立大學，2005年。_
 
 ***
 
-## GRVI——绿色比值植被指数（Green Ratio Vegetation Index）
+## GRVI - 綠比植被指數（Green Ratio Vegetation Index）
 
-该指数对森林冠层的光合作用速率较为敏感，因为绿色和红色的反射率会受到叶片色素变化的显著影响。
+此指數對森林樹冠層的光合作用速率相當敏感，因為綠色與紅色的反射率會受到葉片色素變化顯著影響。
 
 $$
 GRVI = {NIR \over Green }
 $$
 
-_参考文献：Sripada, R. 等。《利用航空彩色红外摄影确定玉米生长初期氮需求》。《农学杂志》98 (2006): 968-977。_
+_參考文獻：Sripada, R. 等。「利用航空彩色紅外線攝影測定玉米生長初期氮需求量」。《農藝學期刊》98 (2006)：968-977。_
 
 ***
 
-## GSAVI——Green土壤校正植被指数
+## GSAVI — 經綠色土壤校正的植被指數（Green Soil Adjusted Vegetation Index）
 
-该指数最初是结合彩色红外摄影技术设计，用于预测玉米的氮需求。它与SAVI相似，但用绿色波段代替了红色波段。
+此指數最初是配合彩色紅外線攝影技術設計，用於預測玉米的氮需求。它與 SAVI 相似，但將紅色波段替換為綠色波段。
 
 $$
 GSAVI = 1.5 * {(NIR - Green) \over (NIR + Green + 0.5)  }
 $$
 
-_参考文献：Sripada, R. 等。《利用航空彩色红外摄影确定玉米生长季氮素需求》。博士学位论文，北卡罗来纳州立大学，2005年。_
+_參考文獻：Sripada, R. 等。「利用航空彩色紅外線攝影測定玉米生長季氮需求量」。博士論文，北卡羅來納州立大學，2005年。_
 
 ***
 
-## LAI - 叶面积指数
+## LAI - 葉面積指數
 
-该指数用于估算叶片覆盖度，并预测作物的生长和产量。ENVI 采用 Boegh 等（2002）提出的以下经验公式计算绿色 LAI：
+此指數用於估算葉片覆蓋率，並預測作物生長與產量。ENVI 採用 Boegh 等人（2002）提出的以下經驗公式來計算綠色 LAI：
 
 $$
 LAI = 3.618 * EVI - 0.118
 $$
 
-其中EVI定义为：
+其中 EVI 定義如下：
 
 $$
 EVI = 2.5 *  {(NIR - Red) \over (NIR + 6 * Red - 7.5 * Blue + 1)}
 $$
 
-LAI的高值通常在0到3.5之间。然而，当场景中存在云层及其他会产生饱和像素的明亮特征时，LAI值可能会超过3.5。在生成LAI图像之前，最好先对场景中的云层和明亮特征进行遮罩处理。
+LAI 的高值通常約介於 0 至 3.5 之間。然而，當影像中包含雲層及其他會產生飽和像素的明亮特徵時，LAI 值可能會超過 3.5。在建立 LAI 影像之前，您最好先將雲層和明亮特徵從影像中遮罩掉。
 
-_参考文献：Boegh, E., H. Soegaard, N. Broge, C. Hasager, N. Jensen, K. Schelde 和 A. Thomsen. “用于量化农业中叶面积指数、氮浓度和光合作用效率的机载多光谱数据》。《遥感环境》第81卷，第2-3期（2002）：179-193。_
+_參考文獻：Boegh, E.、H. Soegaard、N. Broge、C. Hasager、N. Jensen、K. Schelde 及 A. Thomsen。《用於量化農業中葉面積指數、氮濃度及光合作用效率的機載多光譜資料。」《環境遙感》第 81 卷，第 2-3 期（2002）：179-193。_
 
 ***
 
-## LCI - 叶绿素指数
+## 葉綠素指數（LCI）
 
-_仅限GUI——不提供CLI/SDK预设`--indices`._
+_僅限 GUI — 無法作為 CLI/SDK 的 `--indices` 預設值使用._
 
-该指数用于估算高等植物中的叶绿素含量，对由叶绿素吸收引起的反射率变化较为敏感。
+此指數用於估算高等植物中的葉綠素含量，對葉綠素吸收所引起的反射率變化具有敏感性。
 
 $$
 LCI = {NIR2 - RedEdge \over NIR2 + Red}
 $$
 
-_参考文献：Datt, B. “桉树叶片含水量的遥感测定”。《植物生理学杂志》154卷，第1期（1999）：30-36._
+_參考文獻：Datt, B. 「桉樹葉片含水量的遙感測量。」《植物生理學期刊》154 卷，第 1 期 (1999)：30-36._
 
 ***
 
-## MNLI - 改良非线性指数
+## MNLI - 修正非線性指數
 
-该指数是对非线性指数（NLI）的改进，它整合了土壤校正植被指数（SAVI）以消除土壤背景的影响。ENVI采用的冠层背景校正因子（_L_）值为0.5。
+此指標是對非線性指標（NLI）的改進版本，其整合了土壤校正植被指數（SAVI）以考量土壤背景的影響。ENVI 採用 0.5 作為冠層背景校正因子（_L_）的數值。
 
 $$
 MNLI = {(NIR^{2} - Red) * (1 + L) \over (NIR^{2} + Red + L)  }
 $$
 
-_参考文献：Yang, Z., P. Willis 和 R. Mueller。《带比增强型 AWIFS 图像对作物分类精度的影响》。《佩科拉第 17 届遥感研讨会论文集》（2008），科罗拉多州丹佛市。_
+_參考文獻：Yang, Z.、P. Willis 及 R. Mueller。《帶比增強型 AWIFS 影像對作物分類精確度的影響》。《Pecora 17 遙感研討會論文集》（2008），科羅拉多州丹佛市。_
 
 ***
 
-## MSAVI2 - 改良土壤校正植被指数 2
+## MSAVI2 - 改良型土壤校正植被指數 2
 
-该指数是Qi等人提出的MSAVI指数 （1994）提出的MSAVI指数的简化版本，该指数是对土壤校正植被指数（SAVI）的改进。它能降低土壤噪声并提高植被信号的动态范围。MSAVI2基于一种归纳法，不使用恒定的_L_值（如SAVI所做）来突出健康的植被。
+此指數是 Qi 等人 （1994）所提出的 MSAVI 指數的簡化版本，該指數對土壤校正植被指數（SAVI）進行了改進。它能降低土壤噪聲並增加植被訊號的動態範圍。MSAVI2 基於一種歸納法，不使用恆定的 _L_ 值（如 SAVI 所做）來突顯健康的植被。
 
 $$
 MSAVI2 = {2 * NIR + 1 - \sqrt{(2 * NIR + 1)^{2} - 8(NIR - Red)} \over 2}
 $$
 
-_参考文献：Qi, J., A. Chehbouni, A. Huete, Y. Kerr 和 S. Sorooshian。《改进的土壤调整植被指数》。《遥感环境》第 48 卷 (1994): 119-126。_
+_參考文獻：Qi, J.、A. Chehbouni、A. Huete、Y. Kerr 及 S. Sorooshian。《改良土壤調整植被指數》（A Modified Soil Adjusted Vegetation Index）。《遙感環境》第 48 卷 (1994)：119-126。_
 
 ***
 
-## MSR - 改良简单比值
+## MSR - 改良簡單比值
 
-该指数是对简单NIR/Red比值的改良，旨在使其与生物物理参数的关系线性化，且在植被密度较高时比NDVI更敏感。
+此指數是對簡單NIR/Red比值的改良版本，旨在使其與生物物理參數的關係線性化，且在植被密度較高的情況下，其敏感度高於NDVI。
 
 $$
 MSR = {(NIR / Red) - 1 \over \sqrt{NIR / Red} + 1}
 $$
 
-_参考文献：Chen, J. “植被指数评估及适用于北方林区的改良简单比值法”。《加拿大遥感杂志》22 (1996): 229-242._
+_參考文獻：Chen, J.〈植被指數與改良簡單比值在北方林區應用之評估〉。《加拿大遙感期刊》22 (1996)：229-242._
 
 ***
 
-## NDRE——归一化差值RedEdge
+## NDRE — 歸一化差值RedEdge
 
-该指数与NDVI类似，但将NIR与RedEdgeEdge而非Red进行对比，通常能更早地检测到植被胁迫。
+此指標與NDVI相似，但將NIR與RedEdgeEdge進行對比，而非Red，這通常能更早偵測到植被壓力。
 
 $$
 NDRE = {NIR - RedEdge \over NIR + RedEdge  }
@@ -419,104 +415,104 @@ $$
 
 ***
 
-## NDVI——归一化差值植被指数
+## NDVI — 歸一化差值植被指數
 
-该指数是衡量健康绿色植被的指标。其归一化差值计算公式与叶绿素最高吸收和反射波段的结合，使其在各种条件下均表现稳健。然而， 在植被密集且叶面积指数（LAI）较高时，该指数可能出现饱和。
+此指標用於衡量健康、綠色的植被。其標準化差值公式結合了葉綠素吸收率與反射率最高的波段，使其在廣泛的環境條件下均表現穩健。然而， 在植被密集且葉面積指數（LAI）偏高的情況下，該指數可能會飽和。
 
 $$
 NDVI = {NIR - Red \over NIR + Red  }
 $$
 
-该指数的取值范围为-1至1。绿色植被的常见范围为0.2至0.8。
+此指數的數值範圍為 -1 至 1。綠色植被的常見數值範圍為 0.2 至 0.8。
 
-_参考文献：Rouse, J., R. Haas, J. Schell 和 D. Deering。《利用 ERTS 监测大平原地区的植被系统》。第三届 ERTS 研讨会，美国宇航局 (1973)：309-317。_
+_參考文獻：Rouse, J.、R. Haas、J. Schell 及 D. Deering。《利用 ERTS 監測大平原的植被系統》。第三屆 ERTS 研討會，美國國家航空暨太空總署 (1973)：309-317。_
 
 ***
 
-## NLI - 非线性指数
+## NLI - 非線性指數
 
-该指数假设许多植被指数与地表生物物理参数之间的关系是非线性的。它将那些往往呈非线性关系的地表参数关系线性化。
+此指標假設許多植被指標與地表生物物理參數之間的關係為非線性。它將傾向於呈現非線性特徵的地表參數關係線性化。
 
 $$
 NLI = {NIR^{2} - Red \over NIR^{2} + Red  }
 $$
 
-_参考文献：Goel, N. 和 W. Qin. “冠层结构对各种植被指数与LAI及Fpar之间关系的影响：一项计算机模拟研究。”《遥感评论》10 (1994): 309-347._
+_參考文獻：Goel, N. 及 W. Qin。「冠層結構對各種植被指數與LAI及Fpar之間關係的影響：電腦模擬。」《遙感評論》10 (1994)：309-347._
 
 ***
 
-## OSAVI——优化土壤校正植被指数
+## OSAVI — 優化土壤校正植被指數
 
-该指数基于土壤校正植被指数（SAVI）。它采用0.16作为冠层背景校正因子的标准值。 Rondeaux（1996）确定，该值在植被覆盖率较低时比SAVI能更好地反映土壤差异，同时在植被覆盖率超过50%时表现出更高的敏感性。该指数最适用于植被相对稀疏、土壤可透过冠层观察到的区域。
+此指數基於土壤校正植被指數（SAVI）。其將冠層背景校正因子設定為標準值 0.16。 Rondeaux（1996）指出，在植被覆蓋率較低的情況下，此數值能比SAVI提供更大的土壤變異性，同時對植被覆蓋率超過50%的情況展現出更高的敏感度。此指數最適合應用於植被相對稀疏、且土壤可透過樹冠層看見的區域。
 
 $$
 OSAVI = {(NIR - Red) \over (NIR + Red + 0.16)  }
 $$
 
-_参考文献：Rondeaux, G., M. Steven, and F. Baret. “土壤校正植被指数的优化。”《遥感环境》55 (1996): 95-107._
+_參考文獻：Rondeaux, G., M. Steven 及 F. Baret。《土壤校正植被指數的優化》。《環境遙感》第 55 卷（1996）：95-107。_
 
 ***
 
-## RDVI - 再归一化差值植被指数
+## RDVI - 重歸一化植被差異指數
 
-该指数利用近红外波段与红光波段之间的差值，结合NDVI，以突出显示健康的植被。它对土壤和太阳观测几何的影响不敏感。
+此指數利用近紅外線與紅光波長之間的差異，並結合NDVI，以突顯健康的植被。它對土壤及太陽觀測幾何效應不敏感。
 
 $$
 RDVI = {(NIR- Red) \over \sqrt{(NIR + Red)}  }
 $$
 
-_参考文献：Roujean, J. 和 F. Breon。《基于双向反射率测量估算植被吸收的有效光合辐射》。《环境遥感》第51卷（1995年）：375-384页。_
+_參考文獻：Roujean, J. 及 F. Breon。《根據雙向反射率測量估算植被吸收的有效光合輻射》。《環境遙感》第 51 卷（1995）：375-384。_
 
 ***
 
-## SAVI——土壤校正植被指数
+## SAVI - 土壤校正植被指數
 
-该指数与NDVI类似，但能抑制土壤像元的影响。它使用冠层背景校正因子_L_，该因子是植被密度的函数，通常需要事先了解植被量。 Huete（1988）建议将_L_设为0.5这一最优值，以考虑一阶土壤背景变化。该指数最适用于植被相对稀疏、土壤可透过冠层观察到的区域。
+此指數與 NDVI 相似，但能抑制土壤像素的影響。它採用冠層背景校正因子 _L_，該因子是植被密度的函數，通常需要事先了解植被量。 Huete（1988）建議將 _L_ 設為 0.5 作為最佳值，以考量一階土壤背景變異。此指數最適用於植被相對稀疏、且土壤可透過樹冠層看見的區域。
 
 $$
 SAVI = {1.5 * (NIR- Red) \over (NIR + Red + 0.5)  }
 $$
 
-_参考文献：Huete, A. “一种经土壤校正的植被指数（SAVI）。”《遥感环境》25 (1988): 295-309._
+_參考文獻：Huete, A. 「經土壤校正的植被指數（SAVI）。」《遙感環境》25 (1988): 295-309._
 
 ***
 
-## TDVI - 转换差值植被指数
+## TDVI - 轉換差值植被指數
 
-该指数适用于监测城市环境中的植被覆盖情况。它不会像NDVI和SAVI那样出现饱和现象。
+此指標適用於監測都市環境中的植被覆蓋狀況。它不會像NDVI和SAVI那樣產生飽和現象。
 
 $$
 TDVI = 1.5 * {(NIR- Red) \over \sqrt{NIR^{2} + Red + 0.5}  }
 $$
 
-_参考文献：Bannari, A., H. Asalhi 和 P. Teillet。《用于植被覆盖制图的变换差值植被指数（TDVI）》，载于《地球科学与遥感研讨会论文集》（IGARSS &#x27;02），IEEE 国际，第 5 卷（2002）。_
+_參考文獻：Bannari, A.、 H. Asalhi 及 P. Teillet。《用於植被覆蓋製圖的轉換差值植被指數（TDVI）》，收錄於《地球科學與遙感研討會論文集》（IGARSS &#x27;02），IEEE 國際，第 5 卷（2002）。_
 
 ***
 
-## VARI——可见光抗大气干扰指数
+## VARI - 可見光抗大氣干擾指數
 
-该指数基于ARVI，用于估算场景中的植被占比，且对大气影响的敏感度较低。
+此指數基於 ARVI，用於估算場景中的植被比例，且對大氣效應的敏感度較低。
 
 $$
 VARI = {Green - Red \over Green + Red - Blue  }
 $$
 
-_参考文献：Gitelson, A., 等。《可见光谱空间中的植被与土壤分界线：一种遥感估算植被比例的概念与技术》。《国际遥感杂志》第23卷（2002年）：2537−2562。_
+_參考文獻：Gitelson, A., 等人。「可見光光譜空間中的植被與土壤分界線：植被佔比遙感估算的概念與技術」。《國際遙感期刊》第 23 卷（2002）：2537−2562。_
 
 ***
 
-## WDRVI - 宽动态范围植被指数
+## WDRVI — 寬動態範圍植被指數
 
-该指数与NDVI类似，但采用权重系数（_a_）来减小近红外和红光信号对NDVI贡献之间的差异。当NDVI值超过0.6时，WDRVI在植被密度中等至较高的场景中表现尤为有效。 随着植被覆盖率和叶面积指数（LAI）的增加，NDVI往往趋于平稳，而WDRVI则对更广泛的植被覆盖率范围以及LAI的变化更为敏感。
+此指數與 NDVI 相似，但採用權重係數 (_a_) 來降低近紅外線與紅光訊號對 NDVI 貢獻之間的差異。當 NDVI 值超過 0.6 時，WDRVI 在植被密度中等至較高的場景中特別有效。 當植被覆蓋率與葉面積指數（LAI）增加時，NDVI 往往會趨於平穩，而 WDRVI 則對更廣泛的植被覆蓋率範圍以及 LAI 的變化更為敏感。
 
 $$
 WDRVI = {(\alpha * NIR- Red) \over (\alpha * NIR + Red)}
 $$
 
-权重系数（_a_）的取值范围为0.1至0.2。Henebry、Viña和Gitelson（2004）建议采用0.2这一数值。
+加權係數（_a_）的範圍可介於 0.1 至 0.2 之間。Henebry、Viña 及 Gitelson（2004）建議採用 0.2 作為該值。
 
-_参考文献_
+_參考文獻_
 
-_Gitelson, A. “用于遥感定量分析植被生物物理特性的宽动态范围植被指数。”《植物生理学杂志》161卷第2期（2004）：165-173。_
+_Gitelson, A. 〈用於遙感量化植被生物物理特性的寬動態範圍植被指數〉。《植物生理學期刊》161 卷，第 2 期（2004）：165-173。_
 
-_Henebry, G., A. Viña 和 A. Gitelson。《宽动态范围植被指数及其在缺口分析中的潜在应用》。《缺口分析公报》第 12 期：50-56。_
+_Henebry, G., A. Viña 及 A. Gitelson。「寬動態範圍植被指數及其在缺口分析中的潛在應用。」《缺口分析公報》第 12 期：50-56 頁。_

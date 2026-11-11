@@ -4,131 +4,131 @@ metaLinks:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/download
 ---
 
-# 下载
+# 下載
 
-下载最新版本的 Chloros
-，开始进行多光谱图像处理。
+下載最新版本的 Chloros
+，開始進行多光譜影像處理。
 
-### 系统要求
+### 系統需求
 
 #### Windows
 
 
-| 要求          | 最低要求                                              | 推荐配置                                          |
+| 需求          | 最低需求                                              | 建議需求                                          |
 | -------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| **操作系统** | Windows
-10（64 位）                                  | Windows
-11（64 位）                                  |
-| **处理器**        | Intel Core i5 或同等性能                          | Intel Core i7 或更高                              |
-| **内存 (RAM)**     | 8GB                                                  | 16GB 或更多                                         |
-| **显卡**    | 兼容 DirectX 11                                | 配备 4GB 及以上显存的 NVIDIA 显卡                            |
-| **存储空间**          | 6GB 可用空间                                       | 配备 10GB 及以上可用空间的 SSD                            |
-| **显示器**          | 1920x1080                                            | 2560x1440 或更高                                  |
-| **网络连接**         | 用于\[可选\]Chloros
-+许可证激活                                | 用于\[可选\]Chloros
-+许可证激活                                |
+| **作業系統** | Windows
+10（64 位元）                                  | Windows
+11（64 位元）                                  |
+| **處理器**        | Intel Core i5 或同等規格                          | Intel Core i7 或更高規格                              |
+| **記憶體 (RAM)**     | 8GB                                                  | 16GB 或以上                                         |
+| **顯示卡**    | 相容於 DirectX 11                                | 配備 4GB 以上 VRAM 的 NVIDIA 顯示卡                            |
+| **儲存空間**          | 6GB 可用空間                                       | 配備 10GB 以上可用空間的 SSD                            |
+| **顯示螢幕**          | 1920x1080                                            | 2560x1440 或更高解析度                                  |
+| **網路連線**         | 需用於 \[可選] Chloros
++ 授權啟用          | 需用於 \[可選] Chloros
++ 授權啟用          |
 
 #### Linux
 amd64 (x86_64)
 
-| 要求             | 最低配置                    | 推荐配置               |
+| 需求                        | 最低需求                    | 建議需求               |
 | ----------------- | -------------------------- | ------------------------- |
-| **发行版**  | Ubuntu 22.04 LTS+ / Debian 12+ | Ubuntu 24.04 LTS      |
-| **处理器**     | x86\_64 (Intel/AMD)        | Intel Core i7 或更高   |
-| **内存 (RAM)**  | 8GB                        | 16GB 或更多              |
-| **显卡**          | 无（由 CPU 处理）      | 配备 4GB+ 显存的 NVIDIA GPU |
-| **存储空间**       | 2GB可用空间             | 10GB+可用空间的SSD       |
+| **發行版**  | Ubuntu 22.04 LTS 以上 / Debian 12 以上 | Ubuntu 24.04 LTS      |
+| **處理器**     | x86_64 (Intel/AMD)        | Intel Core i7 或更高階   |
+| **記憶體 (RAM)**  | 8GB                        | 16GB 或以上              |
+| **顯示卡**        | 無 (由 CPU 處理)      | 配備 4GB+ VRAM 的 NVIDIA GPU |
+| **儲存空間**       | 2GB 可用空間             | 10GB+ 可用空間的 SSD       |
 | **Python**        | Python
-3.7+（用于SDK
+3.7+（適用於 SDK
 ）      | Python
 3.10+              |
 
 #### Linux
-arm64（NVIDIA Jetson）
+arm64 (NVIDIA Jetson)
 
-| 要求      | 最低配置                      | 推荐配置                     |
+| 需求        | 最低需求                      | 建議需求                     |
 | ---------------- | ---------------------------- | ------------------------------- |
-| **平台**     | 搭载 JetPack 6 的 NVIDIA Jetson | Jetson Orin NX 16GB 或 AGX Orin |
-| **内存 (RAM)** | 8GB（GPU/CPU 共享）         | 16GB+ 共享                    |
-| **存储空间**      | 2GB 可用空间               | 10GB+ 可用空间的 NVMe SSD        |
+| **平台**     | 搭載 JetPack 6 的 NVIDIA Jetson | Jetson Orin NX 16GB 或 AGX Orin |
+| **記憶體 (RAM)** | 8GB（GPU/CPU 共用）         | 16GB+ 共用                    |
+| **儲存空間**      | 2GB 可用空間               | 具備 10GB+ 可用空間的 NVMe SSD        |
 | **Python**       | Python
-3.7+（用于 SDK
+3.7+（適用於 SDK
 ）        | Python
 3.10+                    |
 
 {% hint style="info" %}
-**GPU 加速**：配备 NVIDIA GPU 的 Chloros
-+ 用户可使用 CUDA 加速，显著提升处理速度。该功能支持 Windows
+**GPU 加速**：配備 NVIDIA GPU 的 Chloros
++ 使用者可利用 CUDA 加速，大幅提升處理速度。此功能適用於 Windows
 和 Linux
-amd64 系统上的 NVIDIA 台式机 GPU，以及搭载 JetPack 6 的 NVIDIA Jetson 设备。Chloros
-+ 用户还可通过多线程处理实现最高速度。
+amd64 系統上的 NVIDIA 桌上型 GPU，以及搭載 JetPack 6 的 NVIDIA Jetson。Chloros
++ 使用者還可透過多執行緒處理獲得最高速度。
 {% endhint %}
 
 ***
 
-## 下载 Chloros
+## 下載 Chloros
 
 
-### 最新稳定版：1.3.0 版（2026年11月11日）
+### 最新穩定版：版本 1.3.0（2026 年 11 月 11 日）
 
-### <a href="https://drive.google.com/uc?export=download&#x26;id=1HjwrUY4M7HGxDbMybO7iPe_6JoHnUGr4" class="button primary">下载适用于 Windows 的 Chloros（.exe）</a>
-
-
-### <a href="https://drive.google.com/uc?export=download&#x26;id=1dB8-ke3wxNXpw_e1qJ4BhwBpCoNd4kLS" class="button primary">下载适用于 Linux amd64 的 Chloros（.deb）</a>
+### <a href="https://drive.google.com/uc?export=download&#x26;id=1HjwrUY4M7HGxDbMybO7iPe_6JoHnUGr4" class="button primary">下載適用於 Windows 的 Chloros（.exe）</a>
 
 
-### <a href="https://drive.google.com/uc?export=download&#x26;id=1d1OwdcYA4Rf4jkuPi2IBeWT2772_HnyO" class="button primary">下载适用于 Linux arm64 / Jetson 的 Chloros（.deb）</a>
+### <a href="https://drive.google.com/uc?export=download&#x26;id=1dB8-ke3wxNXpw_e1qJ4BhwBpCoNd4kLS" class="button primary">下載適用於 Linux amd64 的 Chloros（.deb）</a>
+
+
+### <a href="https://drive.google.com/uc?export=download&#x26;id=1d1OwdcYA4Rf4jkuPi2IBeWT2772_HnyO" class="button primary">下載適用於 Linux arm64 / Jetson 的 Chloros (.deb)</a>
 
 
 #### Windows
-安装程序（GUI + CLI
-+ 后端）
+安裝程式（GUI + CLI
++ 後端）
 
-* **文件类型**：.exe（Windows
-安装程序）
+* **檔案類型**：.exe（Windows
+安裝程式）
 
-**安装步骤：**
+**安裝步驟：**
 
-1. 下载上述 .exe 文件
-2. 双击安装程序开始安装
-3. 按照安装向导的提示操作
-4. 选择安装目录（默认：`C:\Program Files\Chloros\`）
-5. 在 **“选择其他任务”**页面上，请保持两个**“系统设置”** 选项均被勾选（推荐 — 详见下文）
-6. 完成安装并启动 Chloros
+1. 下載上方的 .exe 檔案
+2. 雙擊安裝程式以開始安裝
+3. 依照安裝精靈的提示操作
+4. 選擇安裝目錄（預設：`C:\Program Files\Chloros\`）
+5. 在 **「選擇其他任務」**頁面中，請保持**「系統設定」** 兩項選項皆勾選（建議 — 詳見下方）
+6. 完成安裝並啟動 Chloros
 或 Chloros
 CLI
 7. 使用您的 [MAPIR
 Cloud Chloros
-+ 账户](https://cloud.mapir.camera/pricing) 登录 （或继续使用免费版本）
++ 帳戶](https://cloud.mapir.camera/pricing) 登入 （或繼續使用免費版本）
 
-**系统设置选项**（默认均已勾选）：
+**系統設定選項**（預設均已勾選）：
 
-| 安装程序中的选项名称 | 功能说明 | 是否退出静默安装 |
+| 安裝程式中的選項名稱 | 功能說明 | 是否取消靜默安裝 |
 | --- | --- | --- |
-| **启用Windows
-长路径**（允许项目文件夹路径长度超过260个字符；推荐） | 将 Windows
-的全局设置 `LongPathsEnabled` 设为 1。Windows
-默认禁用此设置，此时任何文件路径长度均不得超过 260 个字符；Chloros
-产品通常位于项目文件夹下方约 130 个字符处，因此若禁用长路径功能，系统将拒绝更深层的项目文件夹。 该设置对安装后启动的程序生效。即使卸载后，该设置仍会保持启用状态，因为其他程序可能依赖此设置。 | `/MERGETASKS="!longpaths"` |
-| **将Chloros
-后端排除在Microsoft Defender扫描范围之外**（相机捕获速度大幅提升；推荐） | 在安装文件夹中为`chloros-backend.exe`添加Microsoft Defender进程排除项，从而确保实时保护不会扫描后端写入的每个文件，无论其写入位置在哪里。 在高捕获速率下，扫描开销约占捕获速率的 30%（在 9 台摄像头连续捕获测试中，每秒捕获帧数分别为 77.7 帧和 52.7 帧）。 不会排除其他程序，且该排除规则会在卸载时被移除。若未安装 Defender 或其被策略锁定，此步骤将静默失败，安装将继续进行。 | `/MERGETASKS="!defenderexclusion"` |
+| **啟用 Windows
+長路徑**（允許專案資料夾的路徑長度超過 260 個字元；建議啟用） | 將 Windows
+的系統級設定 `LongPathsEnabled` 設為 1。Windows
+預設為關閉此設定，此時任何檔案路徑長度不得超過 260 個字元；Chloros
+產品會將專案資料夾置於路徑深處（約 130 個字元以下），因此若關閉長路徑功能，系統將拒絕更深層的專案資料夾。 此設定僅對安裝後啟動的程式生效。即使解除安裝後，此設定仍會保留，因為其他程式可能依賴此設定。 | `/MERGETASKS="!longpaths"` |
+| **將 Chloros
+後端排除於 Microsoft Defender 掃描範圍外**（可大幅加快攝影機擷取速度；建議啟用） | 在安裝資料夾中為 `chloros-backend.exe` 新增 Microsoft Defender 程序排除項目，使即時防護不會掃描後端寫入的每個檔案，無論其寫入位置為何。 在高擷取速率下，掃描所耗費的時間約佔擷取速率的 30%（在 9 台攝影機連續擷取的情況下，每秒擷取 77.7 次與 52.7 次相比）。 不會排除其他程式，且此排除設定會在解除安裝時移除。若系統未安裝 Defender 或其遭政策鎖定，此步驟將靜默失敗，安裝程序仍會繼續進行。 | `/MERGETASKS="!defenderexclusion"` |
 
-静默安装（`/SILENT` 或 `/VERYSILENT`）将同时应用这两项选项，除非您使用所示的 `/MERGETASKS` 值选择退出。
+若採用靜默安裝（`/SILENT` 或 `/VERYSILENT`），則會同時套用這兩項選項，除非您透過顯示的 `/MERGETASKS` 值選擇不採用。
 
 {% hint style="success" %}
-安装程序会将CLI
-文件夹（`C:\Program Files\Chloros\cli\`）添加到您的系统中一次（`PATH`）——重新安装或升级时将不再添加重复条目，并会移除先前安装程序添加的重复条目。 安装完成后，请打开一个新的终端以使用 `chloros-cli`。安装程序还会在每个网络配置文件中为后端添加两条 Windows
-防火墙规则： **Chloros
-后端 (UDP-In)**，用于摄像头流、PTP、mDNS 以及 DAQ-E 数据流；以及**Chloros
-后端 (TCP-In)**，仅限于本地子网，用于 DAQ-E 固件更新——在此过程中，传感器会连接回这台计算机以采集图像。 卸载时，这两条规则均会被移除。
+安裝程式會將CLI
+資料夾 (`C:\Program Files\Chloros\cli\`) 新增至您的系統 `PATH` 一次 — 重新安裝或升級時將不再追加重複項目，並會移除先前安裝程式所新增的重複項目。 安裝完成後，請開啟新的終端機以使用 `chloros-cli`。安裝程式還會針對後端，在每個網路設定檔中新增兩項 Windows
+防火牆規則： **Chloros
+後端 (UDP-In)**，用於攝影機串流、PTP、mDNS 及 DAQ-E 資料串流；以及**Chloros
+後端 (TCP-In)**，僅限於本機子網，用於 DAQ-E 韌體更新，此時感測器會連回這台電腦以擷取影像。 這兩項規則將在解除安裝時一併移除。
 {% endhint %}
 
 #### Linux
-amd64（.deb 软件包 — CLI
-+ 后端）
+amd64 (.deb 套件 — CLI
++ 後端)
 
-* **文件类型**：.deb（Debian/Ubuntu 软件包）
-* **架构**：x86_64 (amd64)
+* **檔案類型**：.deb（Debian/Ubuntu 套件）
+* **架構**：x86\_64 (amd64)
 
 ```bash
 sudo apt install ./chloros_1.3.0_amd64.deb
@@ -136,265 +136,265 @@ chloros-cli --version     # Verify installation: "Chloros CLI 1.3.0"
 ```
 
 #### Linux
-arm64 — NVIDIA Jetson (.deb 软件包 — CLI
-+ 后端)
+arm64 — NVIDIA Jetson (.deb 套件 — CLI
++ 後端)
 
-* **文件类型**：.deb（JetPack 6）
-* **架构**：aarch64（arm64）
+* **檔案類型**：.deb（JetPack 6）
+* **架構**：aarch64（arm64）
 
 ```bash
 sudo apt install ./chloros_1.3.0_arm64_jp6.deb
 chloros-cli --version     # Verify installation: "Chloros CLI 1.3.0"
 ```
 
-请使用您实际下载的文件名，并保留 `./`，以便 `apt` 安装该文件，而不是按名称查找软件包。使用 `apt install` 进行安装， 而非 `dpkg -i`：apt 还会安装 Python
+請使用您實際下載的檔案名稱，並保留 `./`，以便 `apt` 能直接安裝該檔案，而非根據名稱搜尋套件。請使用 `apt install` 進行安裝， 而非 `dpkg -i`：apt 還會一併安裝 Python
 SDK
-的依赖项，而该软件包仅推荐而非强制要求这些依赖，且 `dpkg -i` 会跳过这些依赖。 自 1.3.0 版本起，后端和 CLI
-已解压安装在 `/usr/lib/chloros/` 目录下，因此启动时无需先自行解压。
+的依賴項，這些是套件「建議」而非「要求」的，而 `dpkg -i` 會跳過這些安裝。 自 1.3.0 起，後端和 CLI
+會以未解壓縮的狀態安裝在 `/usr/lib/chloros/` 下，因此它們啟動時無需先自行解壓縮。
 
-Jetson 软件包使用 JetPack 6 的 CUDA 版本 PyTorch，因此处理过程（包括内置的 Texture Aware 去拜耳算法）将在 Jetson 的 GPU 上运行。 它使用 JetPack 6 安装的 CUDA 和 cuDNN 库（在缺少这些库的镜像上为 `sudo apt install nvidia-jetpack`）。
+Jetson 套件使用 JetPack 6 的 CUDA 版本 PyTorch，因此包含在內的 Texture Aware 去拜爾演算法（processing）會在 Jetson 的 GPU 上執行。 它使用 JetPack 6 安裝的 CUDA 和 cuDNN 函式庫（若映像檔中缺少這些函式庫，則為 `sudo apt install nvidia-jetpack`）。
 
-有关详细的设置说明，请参阅 [Linux
-安装指南](linux/linux-installation.md)；有关 Jetson 的具体指导，请参阅 [NVIDIA Jetson 指南](linux/nvidia-jetson-guide.md)。
+請參閱 [Linux
+安裝指南](linux/linux-installation.md) 以獲取詳細的設定說明，並參閱 [NVIDIA Jetson 指南](linux/nvidia-jetson-guide.md) 以獲取針對 Jetson 的特定指引。
 
 #### Python
 SDK
 （所有平台）
 
-每个安装程序都捆绑了一个对应的 `chloros_sdk` wheel 包，因此 SDK
-版本始终与已安装的 GUI/CLI
-/后端版本一致。在 Windows
-系统上，安装程序会自动将其安装到系统 Python
-中。 在 Linux
-系统上，`.deb` 会将 SDK
-安装到系统 `python3` 本身中（位于 `/usr/lib/python3/dist-packages` 目录下）， 因此 `import chloros_sdk` 在安装完成后即可正常运行，无需 pip 也无需网络。只有虚拟环境（其无法访问系统包）才需要将捆绑的 wheel 安装到其中：
+每個安裝程式都會捆綁一個相應的 `chloros_sdk` wheel 檔案，因此 SDK
+版本始終與已安裝的 GUI／CLI
+／後端相符。在 Windows
+系統上，安裝程式會自動將其安裝至系統 Python
+環境中。 在 Linux
+系統上，`.deb` 會將 SDK
+安裝至系統的 `python3` 本身（位於 `/usr/lib/python3/dist-packages` 中）， 因此 `import chloros_sdk` 在安裝完成後即可正常運作，無需 pip 亦無需網路連線。僅有虛擬環境（其無法存取系統套件）需要將捆綁的 wheel 安裝至其中：
 
 ```bash
 pip install /usr/lib/chloros/sdk/chloros_sdk-*.whl
 ```
 
-对于仅支持 pip 的主机（未安装 Chloros
-软件包；此时 SDK
-会驱动另一台机器上的后端），SDK
-也可在 PyPI 上获取：
+對於僅支援 pip 的主機（未安裝 Chloros
+套件；此時 SDK
+會驅動另一台機器上的後端），SDK
+亦可在 PyPI 上取得：
 
 ```bash
 pip install chloros-sdk
 ```
 
-请参阅 [API
+請參閱 [API
 ：Python
 SDK
-](api-python-sdk.md) 和 [SDK
-参考](reference/sdk-reference.md) 以获取文档。
+](api-python-sdk.md) 及 [SDK
+參考手冊](reference/sdk-reference.md) 以獲取相關文件。
 
 {% hint style="info" %}
 **Linux
-用户**：`.deb` 软件包会安装 CLI
-、后端以及 Python
+使用者**：`.deb` 套件會安裝 CLI
+、後端及 Python
 SDK
 。Linux
-版本不提供图形界面（GUI）——所有交互均通过 CLI
+版本沒有圖形介面（GUI）——所有互動皆透過 CLI
 或 SDK
-进行。
+進行。
 {% endhint %}
 
 ***
 
-## 其他资源
+## 其他資源
 
 ### Python
 SDK
 
 
-针对开发人员和自动化工作流，每个安装程序均附带 Chloros
+針對開發人員及自動化工作流程，每個安裝程式均附帶 Chloros
 Python
 SDK
 ：Windows
-安装程序会将其安装到您的 Python
-环境中，而 Linux
-`.deb` 则会将其安装到系统 `python3` 中。 在未安装 Chloros
-软件包的机器上（即在另一台机器上驱动后端的机器），请从 PyPI 安装：
+安裝程式會將其安裝至您的 Python
+環境中，而 Linux
+版的 `.deb` 則會為系統安裝 `python3`。 若您的機器上未安裝 Chloros
+套件（即該機器僅負責驅動另一台機器的後端），請從 PyPI 安裝：
 
 ```bash
 pip install chloros-sdk
 ```
 
-**文档**：[API
+**文件**：[API
 ：Python
 SDK
 ](api-python-sdk.md)
 
-**要求**：一个待驱动的 Chloros
-后端（Windows
-安装程序或 Linux
-`.deb` 软件包会安装一个），以及付费层级的 Chloros
-+ 登录账号
+**需求**：需有可驅動的 Chloros
+後端（Windows
+安裝程式或 Linux
+`.deb` 套件會安裝一個），以及付費方案的 Chloros
++ 登入帳戶
 
 ***
 
-## 包含内容
+## 包含內容
 
 ### Windows
-安装程序
+安裝程式
 
 * ✅ **Chloros
-GUI** - 功能齐全的图形用户界面
+GUI** - 功能齊全的圖形化介面
 * ✅ **Chloros
 CLI
-** - 命令行界面（需要 Chloros
-+ 许可证）
+** - 命令列介面（需具備 Chloros
++ 授權）
 * ✅ **Chloros
-后端** - 处理引擎
+後端** - 處理引擎
 * ✅ **Python
 SDK
-** - 若系统已安装 Python
-，则自动安装（需 Chloros
-+ 许可证）
-* ✅ **摄像头配置文件** - 预配置的 MAPIR
-摄像头模板
+** — 若系統已安裝 Python
+，則會一併安裝（需具備 Chloros
++ 授權）
+* ✅ **相機設定檔** — 預先配置的 MAPIR
+相機範本
 
 ### Linux
-.deb 软件包
+.deb 套件
 
 * ✅ **Chloros
 CLI
-** - 命令行界面（需要 Chloros
-+ 许可证）
+** - 命令列介面（需具備 Chloros
++ 授權）
 * ✅ **Chloros
-后端** - 处理引擎
+後端** - 處理引擎
 * ✅ **Python
 SDK
-** - 已安装在系统 `python3` 上（需要 Chloros
-+ 许可证）
-* ✅ **摄像头配置文件** - 预配置的 MAPIR
-摄像头模板
-* ❌ 无图形界面 — Linux
-仅支持无头模式下的 CLI
+** - 針對系統 `python3` 進行安裝（需具備 Chloros
++ 授權）
+* ✅ **相機設定檔** — 預先配置的 MAPIR
+相機範本
+* ❌ 無 GUI — Linux
+為無顯示介面的版本，僅支援 CLI
 /SDK
 
 
 ### Python
 SDK
-（PyPI，适用于未安装 Chloros
-软件包的机器）
+（PyPI，適用於未安裝 Chloros
+套件的機器）
 
 * ✅ **Chloros
 SDK
-** - Python
+** — Python
 API
-（需要 Chloros
-+ 许可证）
+（需具備 Chloros
++ 授權）
 
 ***
 
-## 升级至 Chloros
+## 升級至 Chloros
 +
 
-订阅 Chloros
-+ 以解锁高级功能：
+透過 Chloros
++ 訂閱解鎖進階功能：
 
-* 🚀 **多线程处理** - 并行处理图像
-* ⚡ **GPU（CUDA）加速** - 利用 NVIDIA GPU 算力
-* 💻 **命令行界面（CLI
-）访问** - 通过命令行工具实现自动化
+* 🚀 **多執行緒處理** — 並行處理影像
+* ⚡ **GPU (CUDA) 加速** - 善用 NVIDIA GPU 運算能力
+* 💻 **命令列介面 (CLI
+) 存取** - 透過命令列工具實現自動化
 * 🐍 **Python
 SDK
-** - 通过编程方式访问 API
+** - 程式化 API
+存取
+* 📱 **多裝置支援** - 可在 2 至 10 台以上裝置上使用（視方案而定）
+* **🐻 進階紋理感知去拜爾演算法** — 結合 AI/ML 降噪模型的高品質邊緣感知去拜爾演算法，可消除幾乎所有去拜爾過程產生的噪聲。
+* 🧮 **自訂公式** — 建立自訂多光譜指標
 
-* 📱 **多设备支持** - 可在 2 至 10 台及以上设备上使用（视套餐而定）
-* **🐻 先进的纹理感知去拜耳算法** - 一种高质量的边缘感知去拜耳算法，结合 AI/ML 降噪模型，可消除几乎所有的去拜耳噪声。
-* 🧮 **自定义公式** - 创建自定义多光谱指数
+<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">查看 Chloros+ 方案與定價</a></p>***
 
-<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">查看 Chloros+ 套餐与定价</a></p>***
+## 安裝協助
 
-## 安装帮助
+### 疑難排解
 
-### 故障排除
+**安裝失敗並顯示錯誤訊息：**
 
-**安装失败并显示错误信息：**
+* 請確認您具備系統管理員權限
+* 暫時停用防毒軟體
+* 確認您的系統符合最低系統需求
 
-* 确保您拥有管理员权限
-* 暂时禁用杀毒软件
-* 检查是否满足最低系统要求
-
-**应用程序无法启动（Windows
+**應用程式無法啟動（Windows
 
 ）：**
 
-* 确认已安装 Windows
+* 確認已安裝 Windows
 
-10/11（64 位）
-* 更新显卡驱动程序
-* 在 Windows
+10/11（64 位元）
+* 更新顯示卡驅動程式
+* 查看 Windows
 
-事件查看器中查看错误详情
-* 附上错误日志联系技术支持
+事件檢視器以了解錯誤詳情
+* 附上錯誤日誌聯絡技術支援
 
 **CLI
 
-无法启动（Linux
+無法啟動（Linux
 
 ）：**
 
-* 确认 `.deb` 软件包已正确安装：`dpkg -l | grep chloros`
-* 检查权限：`sudo chmod +x /usr/bin/chloros-cli`
-* 运行诊断：`chloros-cli selftest`
-* 检查是否缺少库文件：`ldd /usr/lib/chloros/backend/chloros-backend | grep "not found"`（自 1.3.0 版本起，`/usr/lib/chloros/chloros-backend` 是一个小型启动脚本；程序本体位于 `/usr/lib/chloros/backend/` 中）
+* 確認 `.deb` 套件已正確安裝：`dpkg -l | grep chloros`
+* 檢查權限：`sudo chmod +x /usr/bin/chloros-cli`
+* 執行診斷：`chloros-cli selftest`
+* 檢查是否缺少函式庫：`ldd /usr/lib/chloros/backend/chloros-backend | grep "not found"`（自 1.3.0 版本起，`/usr/lib/chloros/chloros-backend` 為一個小型啟動腳本；程式本身位於 `/usr/lib/chloros/backend/`）
 
-**许可证激活问题：**
+**授權啟用問題：**
 
-* 确保网络连接正常
-* 在 [https://cloud.mapir.camera](https://cloud.mapir.camera) 处验证凭据
-* 检查防火墙是否阻挡了 Chloros
+* 確保網路連線正常
+* 請至 [https://cloud.mapir.camera](https://cloud.mapir.camera) 驗證憑證
+* 確認防火牆未封鎖 Chloros
 
-* 详细说明请参阅 [Chloros
+* 詳情請參閱 [Chloros
 
-+ 登录](chloros+-login.md)
++ 登入](chloros+-login.md)
 
-### 获取支持
+### 取得支援
 
-需要安装或设置方面的帮助吗？
+需要安裝或設定方面的協助嗎？
 
-* 📧 **电子邮件**：info@mapir.camera
-* 🌐 **网站**：[https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
-* 📚 **文档**：[入门指南](./)
-* ❓ **常见问题**：[常见问题解答](faq.md)***
+* 📧 **電子郵件**：info@mapir.camera
+* 🌐 **網站**：[https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
+* 📚 **文件**：[入門指南](./)
+* ❓ **常見問題**：[常見問題](faq.md)***
 
-## 软件更新
+## 軟體更新
 
 Chloros
 
-会检查更新，在有新版本可用时发出通知，并提供此下载页面的链接——您只需运行新的签名安装程序即可完成更新。您的设置、项目和登录信息在更新后仍会保留。 在 Linux
+會檢查更新、在有新版本時發出通知，並提供此下載頁面的連結 — 您只需執行新的簽名安裝程式即可完成更新。您的設定、專案及登入資料在更新後仍會保留。 在 Linux
 
-和 Jetson 系统上，`chloros-cli update` 会检查是否有更新版本，并提供下载和安装对应的 `.deb` 的选项（此命令仅限 Linux
+和 Jetson 系統上，`chloros-cli update` 會檢查是否有更新版本，並提供下載及安裝對應的 `.deb`（此指令僅限 Linux
 
-系统）。
+系統）。
 
 ***
 
-## 更新日志**版本 1.3.0（最新版，2026 年 11 月 11 日）**—— 完整列表请参阅 [入门指南](./) 页面中的**Chloros
+## 變更紀錄**版本 1.3.0（最新版，2026 年 11 月 11 日）**— 完整清單請參閱 [入門指南](./) 頁面中的**Chloros
 
-1.3.0 新增内容**。**版本 1.2.0**— 请参阅 [入门指南](./) 页面中的**Chloros
+1.3.0 新增功能**。**版本 1.2.0**— 請參閱 [入門指南](./) 頁面中的**Chloros
 
 1.2.0 新增功能**。
 
 <details>
 
-<summary>1.0.5 版</summary>
+<summary>版本 1.0.5</summary>
 
-**发布日期：2026年2月10日**
+**發行日期：2026 年 2 月 10 日**
 
-**新功能*** **纹理感知去拜耳算法 \[仅限 Chloros
+**新功能*** **紋理感知去拜爾演算法 \[僅限 Chloros
 
-+] -** 纹理感知功能采用高质量的边缘感知去拜耳算法，结合 AI/ML 降噪模型，可消除几乎所有的去拜耳噪声。
-* **支持 T4P 校准目标*** **Chloros
++] -** 紋理感知功能採用高品質的邊緣感知去拜爾演算法，並結合 AI/ML 降噪模型，可消除幾乎所有的去拜爾噪點。
+* **支援 T4P 校準標靶*** **Chloros
 
-+ GPU 处理速度更快，内存管理更优化**
++ GPU 處理速度更快，記憶體管理更佳**
 
-**错误修复*** 全新前端（GUI），现应可在所有 Windows
+**錯誤修正*** 全新前端介面（GUI），現應可在所有 Windows
 
-计算机上正常运行。
+電腦上正常運作。
 
 </details>
 
@@ -402,16 +402,16 @@ Chloros
 
 <summary>版本 1.0.4</summary>
 
-**发布日期：2026年1月5日**
+**發行日期：2026年1月5日**
 
-**新功能*** **图像/元数据切换**：在文件浏览器中新增切换功能，可将选定图像的元数据以表格形式显示，而非图像网格形式
-* **图像网格缩放滑块**：新增 UI 滑块，用于调整缩略图大小 （也支持 CTRL + 鼠标滚轮）
-* **图像网格导出按钮**：顶部行中的按钮可将缩略图从 JPG 切换为处理后的导出格式（目标值、反射率、指数、LUT）
-* **地图选项卡**：新增交互式 2D 地图，显示图像的 GPS 位置标记
-  * 支持 Google 地图和 ESRI 地图瓦片（根据可用缩放级别自动选择最佳瓦片服务）
-  * 将鼠标悬停在地图标记上可预览缩略图
+**新功能*** **影像／元資料切換**：在檔案瀏覽器中新增切換功能，可將選取影像的元資料以表格形式顯示，而非影像網格
+* **影像網格縮放滑桿**：新增 UI 滑桿，用於調整縮圖大小 （亦支援 CTRL + 滑鼠滾輪）
+* **影像網格匯出按鈕**：頂部列中的按鈕，可將縮圖切換為經處理的匯出格式（目標值、反射率、指數、LUT）
+* **地圖分頁**：新增互動式 2D 地圖，顯示影像的 GPS 位置標記
+  * 支援 Google 地圖與 ESRI 地圖圖塊（會根據縮放層級的可用性自動選擇最佳圖塊服務）
+  * 將滑鼠懸停於地圖標記上時，可預覽縮圖
 
-**错误修复*** 改进了在非英语系统计算机上安装 Chloros 的支持
+**錯誤修正*** 改進了在非英文系統電腦上安裝 Chloros 的支援
 
 </details>
 
@@ -419,22 +419,22 @@ Chloros
 
 <summary>版本 1.0.3</summary>
 
-**发布日期：2025年12月20日**
+**發行日期：2025年12月20日**
 
-**新功能*** 首次发布
+**新功能*** 首次發行
 
-**改进*** 首次发布
+**改進*** 首次發行
 
-**错误修复*** 首次发布
+**錯誤修正*** 首次發行
 
-**已知问题*** 首次发布
+**已知問題*** 首次發行
 
 </details>
 
 ***
 
-## 许可协议**专有软件** - 版权所有 (c) 2026 MAPIR Inc.
+## 授權協議**專有軟體** - 版權所有 (c) 2026 MAPIR Inc.
 
-禁止未经授权的使用、分发或修改。
+禁止未經授權的使用、散佈或修改。
 
-**免费版**：可用于个人和商业用途，但功能受限**Chloros+**：基于订阅的许可证，提供高级功能和商业部署支持
+**免費版本**：可供個人及商業用途，但功能有限**Chloros+**：基於訂閱制的授權，提供進階功能及商業部署

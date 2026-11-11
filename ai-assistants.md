@@ -1,32 +1,32 @@
-# 如何将Chloros与AI助手结合使用
+# 搭配 AI 助理使用 Chloros
 
-本手册面向两类读者：人类，以及人类日益依赖的 AI 助手。每页都提供了精确的数值、默认值以及可直接复制粘贴的命令，以便助手（如 Claude、ChatGPT、Copilot、编程助手等）能够一次成功编写出可运行的 Chloros 自动化脚本。
+本手冊的撰寫對象有兩類：人類，以及人類日益倚賴的 AI 助理。每頁皆提供精確數值、預設值及可直接複製貼上的指令，以便助理（例如 Claude、ChatGPT、Copilot、程式設計代理等）能一次成功撰寫可運作的 Chloros 自動化腳本。
 
 Chloros 版本：**
 
 1.3.0**。CLI/SDK 平台：Windows 10/11 x64 及 Linux（x86_64 / Jetson aarch64）。
 
-## 应向助手提供哪些内容
+## 該提供什麼給您的助理
 
-| 资源 | URL | 用途 |
+| 資源 | URL | 用途 |
 | --- | --- | --- |
-| **llms.txt** | `https://mapir.gitbook.io/chloros/llms.txt` | 本手册中每页的机器可读索引。 |
-| **命令行界面（CLI）参考** | `https://mapir.gitbook.io/chloros/reference/cli-reference` | 完整的 `chloros-cli` 命令集：包含所有命令、参数、默认值、退出代码及输出文件夹规则。专为大型语言模型（LLM）处理而编写。 |
-| **SDK 参考** | `https://mapir.gitbook.io/chloros/reference/sdk-reference` | 完整的 `chloros_sdk` Python API：类、签名、异常及示例代码。专为大型语言模型（LLM）处理而编写。 |
-| **将任意页面转换为原始 Markdown 格式** | 在页面 URL 后附加 `.md` | 例如，`https://mapir.gitbook.io/chloros/reference/sdk-reference.md` 会将页面以原始 Markdown 格式返回——非常适合粘贴到上下文窗口或由智能代理获取。 |
+| **llms.txt** | `https://mapir.gitbook.io/chloros/llms.txt` | 本手冊中每頁的機器可讀索引。 |
+| **命令列介面（CLI）參考手冊** | `https://mapir.gitbook.io/chloros/reference/cli-reference` | 完整的 `chloros-cli` 命令介面：包含所有命令、參數、預設值、退出代碼及輸出資料夾規則。專為大型語言模型（LLM）處理而撰寫。 |
+| **SDK 參考** | `https://mapir.gitbook.io/chloros/reference/sdk-reference` | 完整的 `chloros_sdk` Python API：類別、簽名、例外情況及實作範例。專為大型語言模型（LLM）處理而撰寫。 |
+| **將任何頁面轉為原始 Markdown 格式** | 在頁面 URL 後方附加 `.md` | 例如：`https://mapir.gitbook.io/chloros/reference/sdk-reference.md` 會將頁面以原始 Markdown 格式返回 — 非常適合貼入上下文視窗或由代理程式擷取。 |
 
-手册内链接：[CLI 参考](reference/cli-reference.md) · [SDK 参考](reference/sdk-reference.md)。
+手冊內連結：[CLI 參考](reference/cli-reference.md) · [SDK 參考](reference/sdk-reference.md)。
 
 {% hint style="info" %}
-这两个参考页面内容自成体系：阅读过其中一个页面的助手，无需查阅手册的其他部分即可编写正确的脚本。
+這兩頁參考文件內容自成一體：已閱讀其中一頁的助理，無需參閱手冊其餘部分即可撰寫正確的腳本。
 {% endhint %}
 
-## 让您的助手直接运行 Chloros：`chloros-mcp`
+## 讓您的助理直接執行 Chloros：`chloros-mcp`
 
-上述所有内容都要求您的助手*编写*脚本或命令。 借助 `chloros-mcp`，支持 [模型上下文协议](https://modelcontextprotocol.io)（MCP）的助手（例如 Claude Desktop、Claude Code 或 Cursor）可直接驱动 Chloros 本身。 您只需用自然语言提出请求，它便会调用服务器的工具：
+上述所有內容皆要求您的助理 *撰寫* 腳本或指令。 透過 `chloros-mcp`，任何能支援 [模型上下文協定](https://modelcontextprotocol.io)（MCP）的助手（例如 Claude Desktop、Claude Code 或 Cursor），都能直接驅動 Chloros 本身。 您只需以自然語言下達指令，它便會調用伺服器的工具：
 
-* **图像处理：** 创建项目、导入捕获图像的文件夹、选择设置、进行处理，并报告运行结果。
-* **运行硬件：**连接 LATTICE 相机、阵列和 DAQ 光传感器，预览，设置曝光和色彩，拍摄，录制，并更新固件。
+* **影像處理：** 建立專案、匯入擷取影像的資料夾、選擇設定、進行處理，並回報執行結果。
+* **操作硬體：** 連接 LATTICE 相機、陣列及 DAQ 光感測器，預覽畫面、設定曝光與色彩、進行擷取、錄製，並更新韌體。
 
 ```text
 You:  Process the flight in D:\Flights\2026-10-17 to reflectance and NDVI.
@@ -35,15 +35,15 @@ You:  Show me what the array sees, then capture reflectance every 10 seconds
       for 5 minutes.
 ```
 
-服务器端工具涵盖了 [Python SDK](api-python-sdk.md) 的所有功能。 这些工具随SDK一同安装，因此通常无需额外安装：在Windows系统上，Chloros安装程序会将`chloros-mcp.exe`放置在您的Python的`Scripts`文件夹中， 而Linux的`.deb`会将`chloros-mcp`放置在`/usr/bin`中。
+伺服器的工具涵蓋了 [Python SDK](api-python-sdk.md) 的功能。 這些工具會隨 SDK 一併安裝，因此通常無需額外安裝：在 Windows 系統上，Chloros 安裝程式會將 `chloros-mcp.exe` 放置於您的 Python 的 `Scripts` 資料夾中， 而 Linux 的 `.deb` 則會將 `chloros-mcp` 放置於 `/usr/bin` 中。
 
-**Claude代码：**
+**Claude 程式碼：**
 
 ```bash
 claude mcp add chloros -- chloros-mcp
 ```
 
-**Claude Desktop：**将其添加到 `claude_desktop_config.json` 中（通过**设置 &gt; 开发者 &gt; 编辑配置**可打开该文件），然后重启 Claude Desktop。**Cursor** 在 `~/.cursor/mcp.json` 中采用相同的条目。
+**Claude Desktop：**將此內容新增至 `claude_desktop_config.json`（透過**設定 &gt; 開發者 &gt; 編輯設定**可開啟該檔案），然後重新啟動 Claude Desktop。**游標** 則在 `~/.cursor/mcp.json` 中採用相同的設定項。
 
 ```json
 {
@@ -53,19 +53,19 @@ claude mcp add chloros -- chloros-mcp
 }
 ```
 
-如果客户端提示服务器启动失败，可能是因为 `chloros-mcp` 未出现在其识别到的 `PATH` 中： 请改用完整路径（Windows 系统中为 `where chloros-mcp`，Linux 系统中为 `which chloros-mcp`）。
+若客戶端顯示伺服器無法啟動，可能是因為 `chloros-mcp` 未出現在其所偵測到的 `PATH` 中： 請改為提供完整路徑（Windows 系統為 `where chloros-mcp`，Linux 系統為 `which chloros-mcp`）。
 
-您需要在同一台计算机上安装 Chloros，并在该计算机上通过应用或 `chloros-cli login` 登录任意付费的 Chloros+ 套餐（Copper 或更高）。服务器无法代您登录。
+您需要在同一台電腦上安裝 Chloros，並透過應用程式或 `chloros-cli login` 登入任何付費的 Chloros+ 方案（Copper 或更高階）。伺服器無法代您登入。
 
 {% hint style="info" %}
-各应用程序的客户端设置、选项、所有工具以及运行行为说明：请参阅 SDK 参考文档中的 [MCP 服务器（AI 助手）](reference/sdk-reference.md#mcp-server-ai-assistants)。
+各應用程式、選項、每項工具的客戶端設定，以及執行行為說明：請參閱 SDK 參考文件中的 [MCP 伺服器 (AI 助理)](reference/sdk-reference.md#mcp-server-ai-assistants)。
 {% endhint %}
 
-## 提示词模板
+## 提示語範本
 
-复制、填写 `<placeholders>`，然后粘贴到您的助手中。
+複製、填入 `<placeholders>`，並貼上至您的助理中。
 
-### 1. 将飞行数据文件夹处理为 NDVI
+### 1. 將飛行資料夾處理為 NDVI
 
 ```
 
@@ -77,7 +77,7 @@ Then write a script for <Windows PowerShell | bash> that:
    "Where the outputs land" folder rules.
 ```
 
-### 2. 批量监视捕获目录
+### 2. 批次監控擷取目錄
 
 ```
 
@@ -89,7 +89,7 @@ After each run, print every hint from result["summary"]["hints"] and treat
 a run with zero image products as a failure for that folder.
 ```
 
-### 3. 连接 LATTICE 阵列并进行捕获
+### 3. 連接 LATTICE 陣列並進行擷取
 
 ```
 
@@ -100,7 +100,7 @@ a reflectance image set into <output/> every 10 seconds for one hour, and
 disconnects cleanly when done (use the context-manager form).
 ```
 
-### 4. 记录 DAQ 光传感器光谱
+### 4. 記錄 DAQ 光感測器的光譜
 
 ```
 
@@ -113,24 +113,24 @@ Read https://mapir.gitbook.io/chloros/reference/cli-reference.md (section
 ```
 
 {% hint style="warning" %}
-通过命令行进行的DAQ脚本操作始终通过`daq pool-*`系列命令（`pool-connect`、`pool-list`、`pool-latest`、 `pool-stream`、`pool-record`、`pool-set-cap`、`pool-disconnect`）。 您的助手可能发明的其他 `daq` 子命令在正式发布版本中不可用，执行时会报错并退出。
+從命令列執行 DAQ 腳本時，總是會透過 `daq pool-*` 系列指令（`pool-connect`、`pool-list`、`pool-latest`、 `pool-stream`、`pool-record`、`pool-set-cap`、`pool-disconnect`）。 您的助理可能發明的其他 `daq` 子指令，在正式發行版本中並不可用，執行時會因錯誤而終止。
 {% endhint %}
 
-## 为何 AI 编写的脚本能与 Chloros 良好兼容
+## 為何 AI 撰寫的腳本能與 Chloros 完美配合
 
-这些都是 Chloros 1.3.0 中真实且经过验证的行为——它们消除了机器编写自动化脚本中常见的故障模式：
+這些皆為 Chloros 1.3.0 經實測驗證的真實行為——它們消除了機器撰寫自動化腳本常見的經典失敗模式：
 
-* **无需繁琐的初始化步骤。**SDK 的智能连接辅助函数（`connect_camera`、`connect_array`、`connect_daq_sensor`）以及处理入口点 (`ChlorosLocal`、`process_folder`) 会**自动启动本地后端**。生成的脚本无需打开图形界面，也无需手动启动服务器——只需安装桌面版或 CLI 软件包即可。
-* **整个处理流程仅需一次调用。** `chloros_sdk.process_folder("path", indices=["NDVI"])` 会端到端地执行导入 → 校准 → 反射率计算 → 折射率导出。流程更简洁，生成的脚本出错的可能性更小。
-* **无输出运行会进行自诊断。** `process()` 运行结束后，运行摘要将附加到结果中，并且每条处理提示（例如 *为何*运行未产生输出）也会以Python脚本`UserWarning`的形式重新输出——因此，即使脚本从未检查结果字典，也会显示诊断信息。
-* **CLI会明确报错。**请求生成结果但未写入任何数据的运行会输出`Processing finished but wrote no image products.`并**以非零退出码结束**，因此shell脚本和CI只需通过简单的退出码检查即可检测到该情况。 成功运行会报告 `Image products written: N`，若写入了掩码文件，还会报告 `(plus M clamp masks)`。捕获命令同样会列出所有无法写入的文件，并以 `1` 退出。
-* **相对路径的解析方式取决于脚本的预期。** 使用本地后端时，相对输出路径（CLI 中为 `-o out/`，SDK 中为 `output_dir="out/"`）将以命令或脚本的运行目录为基准进行解析。
+* **無需繁瑣的設定流程。**SDK 的智慧連線輔助程式（`connect_camera`、`connect_array`、`connect_daq_sensor`）以及處理入口點 (`ChlorosLocal`、`process_folder`) 會**自動啟動本地後端**。生成的腳本無需開啟 GUI 或手動啟動伺服器——只需安裝桌面版／CLI 套件即可。
+* **整個處理流程僅需一次呼叫。** `chloros_sdk.process_folder("path", indices=["NDVI"])` 會端到端執行匯入 → 校正 → 反射率 → 折射率匯出。流程更簡潔，生成的腳本出錯的可能性也更低。
+* **無輸出執行會進行自我診斷。** `process()` 執行完畢後，執行摘要會附加於結果中，且每項處理提示（例如 *為何*運行未產生輸出）也會以Python `UserWarning` 格式重新輸出——因此，即使是從不檢查結果字典的腳本，也能顯示診斷資訊。
+* **CLI 會明確報錯。**若某次 `chloros-cli process` 執行請求了產出但未寫入任何內容，系統會輸出 `Processing finished but wrote no image products.` 並**以非零狀態退出**，因此 shell 腳本和 CI 只需透過簡單的退出代碼檢查即可偵測到此狀況。 成功執行的任務會回報 `Image products written: N`，若寫入遮罩檔案則會額外回報 `(plus M clamp masks)`。擷取指令同樣會列出所有無法寫入的檔案名稱，並以 `1` 退出。
+* **相對路徑的解析方式取決於腳本的預期行為。** 若使用本機後端，相對輸出路徑（CLI 中為 `-o out/`，SDK 中為 `output_dir="out/"`）將以命令或腳本執行的資料夾為基準進行解析。
 
-助手应了解的一点差异：SDK 中的 `process()` 在无产出运行时会刻意**不**触发异常——而是通过摘要/提示进行报告。 如果 Python 管道在空运行时必须停止，请检查摘要（示例 2 会这样做）。
+助理應知曉的一項差異：SDK 的 `process()` 在無產出結果的執行中會刻意 **不** 拋出異常 — 而是透過摘要/提示進行回報。 若 Python 管線在執行結果為空時必須停止，請檢查摘要（食譜 2 會這麼做）。
 
-## 注意事项
+## 注意事項
 
-* **需要 Chloros+ 登录。**CLI 和 SDK 需要**付费** 的 Chloros+ 套餐，该要求在服务器端强制执行：未登录时请求会因 `401 AUTH_REQUIRED` 错误失败，使用免费套餐时则会因 `403 PLAN_UPGRADE_REQUIRED` 错误失败。 在运行生成的脚本之前，请在每台机器上执行一次 `chloros-cli login`。请参阅 [Chloros+ 登录](chloros+-login.md)。
-* **捕获命令可控制真实硬件。** `lattice` / `daq` / `project` 命令、SDK会话对象以及 `chloros-mcp` 的工具可连接、流式传输并触发物理摄像头和传感器。在首次运行生成的脚本前请先进行审查，并确保在有人值守的情况下运行该脚本。
-* **对输出结果进行抽查。** 在发布结果之前，请核对产品文件夹及部分像素值。 特别需要注意的是，反射率 TIFF 文件的缩放比例因数据源而异——请查阅 `Chloros:PixelScale` 的 XMP 标签（LATTICE 文件包含该信息：32768 = 1.0 反射率； Survey3文件不包含该标签，且采用65535 = 1.0）进行缩放，而非直接假设除数。两份参考文档均在“读取反射率像素”部分对此进行了说明。
-* **导致生成的代码出错的小陷阱：**`pool-record` 会写入**后端主机** 的文件系统（默认 `~/Documents/DAQ Live View/`）； 在拥有多个网络接口的机器上，建议优先使用 `daq pool-connect --eth-host <ip-or-hostname>` 而非自动发现；凡出现后端 URL 的位置，均应使用 `http://127.0.0.1:5000`（切勿使用 `localhost`）； 遍历项目输出树的脚本应跳过 `clamp_masks/` 文件夹（其中的 `*_clampmask.tif` 文件是掩码，而非图像——参见 [输出图像格式](output-image-formats.md#clamp-masks))；在Windows系统中若已禁用长路径功能，请保持项目文件夹名称简短——项目文件夹路径若超过约130个字符，将在处理开始前被拒绝。
+* **需具備 Chloros+ 登入權限。**CLI 和 SDK 需要**付費** 的 Chloros+ 方案，此限制由伺服器端強制執行：若未登入，請求將因 `401 AUTH_REQUIRED` 錯誤而失敗；若使用免費方案，則會出現 `403 PLAN_UPGRADE_REQUIRED` 錯誤。 在執行生成的腳本之前，請先在每台機器上執行一次 `chloros-cli login`。請參閱 [Chloros+ 登入](chloros+-login.md)。
+* **擷取指令可驅動實體硬體。** `lattice` / `daq` / `project` 指令、SDK 工作階段物件以及 `chloros-mcp` 的工具，可連接、串流並觸發實體攝影機和感測器。在首次執行生成的腳本前請先審閱內容，並在有人值守的狀態下執行該腳本。
+* **抽查輸出結果。** 在發布結果前，請驗證產品資料夾及若干像素值。 特別是，反射率 TIFF 檔案會根據光源進行縮放 — 請參閱 `Chloros:PixelScale` 的 XMP 標籤（LATTICE 檔案包含此標籤：32768 = 1.0 反射率； Survey3檔案則不包含此標籤，且採用 65535 = 1.0）來進行縮放，而非直接假設除數。兩份參考頁面均在「讀取反射率像素」章節中記載此內容。
+* **可能導致生成的程式碼出錯的小陷阱：**`pool-record` 會寫入**後端主機** 的檔案系統（預設為 `~/Documents/DAQ Live View/`）； 在具備多個網路介面的機器上，建議優先使用 `daq pool-connect --eth-host <ip-or-hostname>` 而非自動偵測；凡出現後端 URL 的位置，請使用 `http://127.0.0.1:5000`（切勿使用 `localhost`）； 任何遍歷專案輸出目錄樹的腳本應跳過 `clamp_masks/` 資料夾（其中的 `*_clampmask.tif` 檔案是遮罩，而非影像 — 參見 [輸出影像格式](output-image-formats.md#clamp-masks))；此外，在已關閉長路徑功能的 Windows 系統上，請保持專案資料夾名稱簡短——若專案資料夾路徑長度超過約 130 個字元，系統將在處理開始前拒絕該專案。

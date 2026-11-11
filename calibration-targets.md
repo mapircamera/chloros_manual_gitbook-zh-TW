@@ -5,70 +5,70 @@ metaLinks:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/calibration-targets
 ---
 
-# 校准靶板
+# 校準標靶
 
-MAPIR 提供多种校准靶板，以满足各类应用需求。下图所示的紧凑型 T4-R50 包含 4 个面板，其光反射率已在 250 至 2,500 nm 波长范围内经过测量。
+MAPIR 提供多種校準標靶，以滿足各類應用需求。下圖所示的緊湊型 T4-R50 包含 4 塊面板，其光反射率已針對 250 至 2,500 奈米波長範圍進行測量。
 
-<figure><img src=".gitbook/assets/t4-r50_2.jpg" alt=""><figcaption><p>MAPIR T4-R50</p></figcaption></figure>T4 漫反射参考靶具有以下反射率曲线，[点击此处下载数据](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157)：
+<figure><img src=".gitbook/assets/t4-r50_2.jpg" alt=""><figcaption><p>MAPIR T4-R50</p></figcaption></figure>T4 漫反射參考標靶具有以下反射率曲線，[點此下載資料](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157)：
 
 <figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (250-2500nm).png" alt=""><figcaption><p>MAPIR T4 反射率 :: 250-2500nm</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (400-1000nm).png" alt=""><figcaption><p>MAPIR T4 反射率 :: 400-1000nm</p></figcaption></figure>T4P 漫反射参考靶的反射率曲线如下，[数据下载请点击此处](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157)：
+<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4 (400-1000nm).png" alt=""><figcaption><p>MAPIR T4 反射率 :: 400-1000nm</p></figcaption></figure>T4P 漫反射參考靶的反射率曲線如下，[資料請由此下載](https://cdn.shopify.com/s/files/1/0972/5566/files/MAPIR_Diffuse_Reflectance_Standard_Calibration_Target_Data_T4.xlsx?v=1741759157)：
 
 <figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4P -- 350-2500nm.jpg" alt=""><figcaption><p>MAPIR T4P 反射率 :: 250-2500nm</p></figcaption></figure>
 
-<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4P -- 400-1000nm.jpg" alt=""><figcaption><p>MAPIR T4P 反射率 :: 400-1000nm</p></figcaption></figure>观察反射率图表可知，图中显示的是波长（x 轴）与反射率百分比（y 轴）的关系。当我们拍摄校准靶的图像时，便会在相机每个传感器波段所敏感的光谱范围内，建立像素值与反射率百分比之间的对应关系。
+<figure><img src=".gitbook/assets/MAPIR Diffuse Reflectance Standard Calibration Target Data T4P -- 400-1000nm.jpg" alt=""><figcaption><p>MAPIR T4P 反射率 :: 400-1000nm</p></figcaption></figure>觀察反射率圖表可知，其數值呈現波長（x 軸）對應反射率百分比（y 軸）的關係。當我們拍攝校準標靶的影像時，便會在相機各感光元件波段所感應的波長範圍內，建立像素值與反射率百分比之間的對應關係。
 
-这意味着，使用我们的相机拍摄的每一张图像，您都可以利用我们的反射率标靶照片（例如 [T4-R50](https://www.mapir.camera/collections/calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t3-r50) 或 [T4-R125](https://www.mapir.camera/collections/multispectral-reflectance-reference-calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t4-r125)，对图像进行反射率校准。校准完成后，图像中的每个像素值即等同于反射率百分比。
+這意味著，每當您使用我們的相機拍攝影像時，都可以利用我們的反射率標靶照片（例如 [T4-R50](https://www.mapir.camera/collections/calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t3-r50) 或 [T4-R125](https://www.mapir.camera/collections/multispectral-reflectance-reference-calibration-targets/products/diffuse-reflectance-standard-calibration-target-package-t4-r125)，對影像進行反射率校正。校正完成後，影像中的每個像素值即等同於反射率百分比。
 
-对于**Survey3**的输出，如果您在Chloros
+針對 **Survey3** 的輸出，若您在 Chloros
 
-中将校准后的图像导出为常见的JPG或TIFF
+中將校正後的影像輸出為常見的 JPG 或 TIFF
 
-格式，则反射率百分比是通过将像素值除以图像格式的位深度来计算的。因此，对于JPG格式，需除以255；对于TIFF
+格式，則反射率百分比是透過將像素值除以該影像格式的位元深度來計算。因此，JPG 格式需除以 255，TIFF
 
-格式，则需除以65,535。 您也可以在Chloros
+格式則需除以 65,535。 您也可以在 Chloros
 
-中选择“PERCENT”格式进行输出，此时每个像素的百分比值范围为0.0至1.0（即0%至100%的反射率）。请注意，某些图像应用程序无法处理百分比（浮点）格式的图像，且此类图像在存储方面占用空间较大。
+中選擇「PERCENT」格式輸出，此時每個像素的百分比值範圍將介於 0.0 至 1.0 之間（即 0% 至 100% 反射率）。請注意，部分影像應用程式無法處理百分比（浮點數）格式的影像，且此類檔案在儲存空間上佔用較大。
 
 {% hint style="info" %}
-**LATTICE 反射率采用不同的像素比例。** LATTICE 反射率的存储方式为：DN 32768 = 100% 反射率（而非 65535），且每个文件都包含一个 XMP `Chloros:PixelScale` 标签，用于标明其比例。 请读取该标签并按其值进行除法运算，而非假设一个常数——详见 [输出图像格式](output-image-formats.md)。
+**LATTICE 反射率採用不同的像素比例。** LATTICE 反射率的儲存方式為 DN 32768 = 100% 反射率（而非 65535），且每個檔案都附帶一個 XMP `Chloros:PixelScale` 標籤，用以標示其比例。 請讀取該標籤並以此數值進行除法運算，而非假設為恆定值 — 詳見 [輸出影像格式](output-image-formats.md)。
 {% endhint %}
 
-## 使用 LATTICE 相机时的校准靶
+## 使用 LATTICE 相機的校準標靶
 
-使用 LATTICE 相机时，反射率校准靶是**可选的**：Chloros
+使用 LATTICE 相機時，反射率的校準標靶為 **可選**：Chloros
 
-可以改用 DAQ 光传感器测得的下行辐照度作为反射率的参考（ρ = π·L/E）。 该参考值由项目的反射率源设置决定，该设置通过 `chloros-cli process --reflectance-source` 进行配置 （图形用户界面（GUI）中没有相关控件，将使用项目中存储的值，默认值为 `auto` —— 参见 [项目设置](project-settings/project-settings.md)）：
+亦可改為參考由 DAQ 光感測器測得的下行輻照度來計算反射率（ρ = π·L/E）。 該參考值由專案的「反射率來源」設定決定，該設定可透過 `chloros-cli process --reflectance-source` 進行調整 （圖形使用者介面（GUI）無此控制項，將採用專案儲存的值，預設為 `auto` — 請參閱 [專案設定](project-settings/project-settings.md)）：
 
-| 值 | 行为 |
+| 值 | 行為 |
 | --- | --- |
-| `auto` *(默认)* | 通过质量保证（QA）的帧内目标即为**绝对参考**；当不存在目标或QA失败时，Chloros
+| `auto` *(預設)* | 通過品質保證（QA）的幀內目標即為 **絕對參考**；若無目標存在或 QA 失敗，Chloros
 
-将回退到数据采集（DAQ）下行分频。 通过 QA 但带有标记（面板掉落或波段故障）的目标不会被自动优先选用：系统将按其在保留面板上测得的得分顺序，依次尝试目标、目标+DAQ 和仅 DAQ 三种链。 |
-| `target` | 严格仅目标模式 — 不进行 DAQ 替换。 |
-| `daq` | DAQ 权威模式 — 下行测量始终作为参考。 |
+將回退至 DAQ 下行分界值。 若目標雖通過 QA 但帶有標記（例如面板遺漏或頻段異常），則不會自動被優先選用：系統會依其在保留面板上測得的評分順序，依序嘗試「目標」、「目標+DAQ」及「僅 DAQ」這三種鏈路。 |
+| `target` | 嚴格僅限目標 — 不進行 DAQ 替換。 |
+| `daq` | DAQ 權威模式 — 下行測量始終作為參考。 |
 
-LATTICE 的其他目标行为：
+LATTICE 的額外目標行為：
 
-* **目标几何形状** — 支持 ArUco 标记面板、固定 ROI 面板和条带目标；几何形状来自项目的目标配置。
-* **按单元测量的目标数据** — `--target-reflectance-dir DIR` 指向包含按单元测量目标反射率扫描数据的目录（`<serial>.csv`，通过目标单元的序列号/QR进行查找）。 若未检测到目标，Chloros
+* **目標幾何形狀** — 支援 ArUco 標記面板、固定 ROI 面板及條狀目標；幾何形狀取自專案的目標配置。
+* **各單位的測量目標數據** — `--target-reflectance-dir DIR` 指向包含各單位測量目標反射率掃描資料的目錄（`<serial>.csv`，透過目標單位的序列號/QR 進行查詢）。 若未能偵測到目標，Chloros
 
-将回退至标称的 T3/T4P 光谱。
-* **时间锚定** — 检测到的目标会校准其周围的帧，并在两次目标观测之间保持该校准状态。
+將回退至標稱的 T3/T4P 光譜。
+* **時間錨定** — 偵測到的目標會校準其周圍的幀，並在目標出現期間保持錨定狀態。
 
-完整的标志语义和示例请参见 [CLI
+完整的標誌語義與範例請參閱 [CLI
 
-参考](reference/cli-reference.md)（参见“按产品导出开关”）。
+參考手冊](reference/cli-reference.md)（請參閱「按產品導出切換開關」）。
 
 ### F988
 
-“F988反射率使用场景内反射率面板进行校准：该波段超出了DAQ光传感器的校准范围，因此Chloros
+「F988 的反射率是透過場景內的反射率面板進行校準：由於該波段超出 DAQ 光感測器的校準範圍，因此 Chloros
 
-会应用您最近的面板捕获数据，并在两次面板观测之间保持该值。”
+會套用您最近一次的面板擷取資料，並在兩次面板觀測之間維持該值。」
 
-如果 F988 在仅使用 DAQ 校准的情况下运行，Chloros
+若以「僅 DAQ」校準模式執行 F988，Chloros
 
-将拒绝该波段基于 DAQ 的反射率并说明原因（跳过原因 `dls-uncalibrated-band-988`）；支持的处理方式是使用反射板工作流。
+將拒絕該波段基於 DAQ 的反射率並說明原因（跳過原因 `dls-uncalibrated-band-988`）；標準的反射板工作流程才是受支援的處理方式。
 
 <div><figure><img src=".gitbook/assets/t3-125.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure> <figure><img src=".gitbook/assets/t3-125_2.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure> <figure><img src=".gitbook/assets/t3-125_closed.jpg" alt=""><figcaption><p>T4-R125</p></figcaption></figure></div>

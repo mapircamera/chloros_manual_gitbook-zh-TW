@@ -4,33 +4,33 @@ metaLinks:
     - https://app.gitbook.com/s/o044KN3Ws0uIDvOmSkcR/supported-cameras
 ---
 
-# 支持的相机
+# 支援的相機
 
 Chloros
-可在**所有平台**（Windows
+可在 **所有平台**（Windows
 、Linux
-amd64 和 Linux
-arm64/Jetson）上处理来自两个 MAPIR
-相机系列的图像：
+amd64 及 Linux
+arm64/Jetson）上處理來自兩個 MAPIR
+相機系列的影像：
 
 * **Survey3** — Survey3W
-（广角）和 Survey3N
-（窄角）相机。输入格式：`RAW+JPG`。
-* **LATTICE** — M3C 和 M3M 多光谱相机模块。输入：`.tif`/`.tiff` 捕获的数据。 LATTICE 相机还可通过 Chloros
-进行 **实时控制** —— 通过 GUI 的“相机”选项卡（Windows
+（廣角）與 Survey3N
+（窄角）相機。輸入格式：`RAW+JPG`。
+* **LATTICE** — M3C 和 M3M 多光譜相機模組。輸入：`.tif`/`.tiff` 擷取的影像。 LATTICE 相機亦可透過 Chloros
+進行 **即時控制** — 透過 GUI 的「相機」分頁（Windows
 ）或 `chloros-cli lattice` / Python
 SDK
 （Windows
 和 Linux
-）—— 包括同步的多相机阵列。请参阅 [LATTICE 指南](lattice/)。
+）— 包括同步的多相機陣列。請參閱 [LATTICE 指南](lattice/)。
 
-该处理管道还支持 `.dng` 输入文件。
+處理流程亦支援 `.dng` 輸入檔案。
 
 ## Survey3
 
-<table data-header-hidden><thead><tr><th width="156">制造商</th><th width="250">相机型号</th><th width="138">滤光片型号</th><th width="187">图像类型</th></tr></thead><tbody><tr><td><strong>制造商</strong></td><td><strong>相机型号</strong></td><td><strong>滤镜型号</strong></td><td><strong>图像类型</strong></td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>RGB</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>RGN</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>OCN</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>NGB</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>RE</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>NIR</td><td>RAW+JPG、JPG</td></tr></tbody></table>## LATTICE
+<table data-header-hidden><thead><tr><th width="156">製造商</th><th width="250">相機型號</th><th width="138">濾光片型號</th><th width="187">影像類型</th></tr></thead><tbody><tr><td><strong>製造商</strong></td><td><strong>相機型號</strong></td><td><strong>濾鏡型號</strong></td><td><strong>影像類型</strong></td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>RGB</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>RGN</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>OCN</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>NGB</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>RE</td><td>RAW+JPG、JPG</td></tr><tr><td>MAPIR</td><td>Survey3W, Survey3N</td><td>NIR</td><td>RAW+JPG、JPG</td></tr></tbody></table>## LATTICE
 
-LATTICE 系列是一款基于索尼 IMX265 全局快门传感器（3.1 MP，3.45 µm 像素）构建的模块化多光谱相机系统。每台相机都会将其标识以模型字符串的形式存储：
+LATTICE 系列是一款基於 Sony IMX265 全域快門感光元件（3.1 MP，3.45 µm 像素）所建構的模組化多光譜相機系統。每台相機皆將其識別資訊儲存為模型字串：
 
 ```
 <sensor>-<lens>-F<filter>        e.g.  M3C-L41-FRGN,  M3M-L87-F550
@@ -38,18 +38,18 @@ LATTICE 系列是一款基于索尼 IMX265 全局快门传感器（3.1 MP，3.45
 
 Chloros
 
-会以`LATT-`前缀显示该标识（例如`LATT-M3M-L41-F550`）， 该型号字符串将驱动后续所有操作——传感器配置文件、波段布局和校准均会自动完成；无需针对每台相机进行单独配置。 镜头编号即为**水平视场角（单位：度）**：`L41` = 窄视场 41°，`L87` = 广视场 87°。
+會以 `LATT-` 作為前綴顯示（例如 `LATT-M3M-L41-F550`）， 而該型號字串將驅動後續所有流程——感測器配置檔、波段佈局及校準皆會自動解析；無需針對每台相機進行個別設定。 鏡頭編號代表 **水平視場角（單位：度）**：`L41` = 窄視場 41°，`L87` = 廣視場 87°。
 
-共有两种传感器配置：
+共有兩種感測器配置：
 
-| 配置 | 传感器      | 滤光片类型                           | 每台摄像头的波段数                                                        |
+| 配置 | 感測器      | 濾光片類型                           | 每台相機的波段數                                                        |
 | ------------- | ----------- | ------------------------------------- | ----------------------------------------------------------------------- |
-| **M3C**       | 拜耳彩色 | 三波段带通                       | 单次曝光可获得 3 个光谱波段                                 |
-| **M3M**       | 单色  | 单窄带干涉滤光片 | 1 个校准波段 — 组合多台 M3M 相机以计算植被指数 |
+| **M3C**       | 拜耳彩色 | 三波段通帶                       | 單次曝光可獲 3 個光譜波段                                 |
+| **M3M**       | 單色  | 單一窄帶干涉濾光片 | 1 個校準波段 — 結合多台 M3M 相機以計算植被指數 |
 
-### M3C（拜耳）滤光片选项
+### M3C（拜耳）濾光片選項
 
-| 滤光片 | 波段（名称 @ 中心波长 nm / FWHM
+| 濾光片 | 波段（名稱 @ 中心波長 nm / FWHM
 
 nm）       |
 | ------ | ---------------------------------------- |
@@ -73,7 +73,7 @@ nm）       |
 
 494.1/40 · NIR
 
-821.6/54（实测值——详见下文） |
+821.6/54（實測值 — 詳見下文） |
 | `FNGB` | Blue
 
 475/30 · Green
@@ -82,19 +82,19 @@ nm）       |
 
 850/30  |
 
-对于 `FOCN`，这些数值是滤光片**实测**的半最大带宽（Chloros
+針對 `FOCN`，這些數值為濾光片**實際測量**的半最大波長（Chloros
 
-1.3.0 及更高版本；早期版本使用规格表中的数值 615/21 · 490/38 · 808/14）。波段名称仍为 `Orange_615`、`Cyan_490` 和 `NIR_808`，而实测中心波长和带宽则是 Chloros
+1.3.0 及後續版本；較早版本採用規格表上的數值 615/21 · 490/38 · 808/14）。波段名稱仍維持為 `Orange_615`、`Cyan_490` 及 `NIR_808`，而**實際測量**的中心波長與寬度則是 Chloros
 
-在每次校准导出文件中标注的数据。
+標記於每個經校準的匯出檔中的數值。
 
-### M3M（单色）滤光片目录 — 23 种 SKU
+### M3M（單色）濾光片型錄 — 23 項 SKU
 
-F 数值即为 SKU 标签；实测波段（压印在每片经校准的出口产品上）即为每批滤光片的扫描数据：
+F 數值即為 SKU 標籤；經測量之波段（鐫刻於每片經校準的出貨產品上）則是每批濾光片的掃描數據：
 
-| SKU    | 中心波长 (nm, 实测) | FWHM
+| SKU    | 中心波長 (nm, 實測) | FWHM
 
-边缘 (nm) | 宽度 (nm) |
+邊寬 (nm) | 寬度 (nm) |
 | ------ | --------------------- | --------------- | ---------- |
 | F385   | 379.4                 | 367–392         | 25         |
 | F405   | 403.9                 | 390–417         | 27         |
@@ -107,27 +107,27 @@ F 数值即为 SKU 标签；实测波段（压印在每片经校准的出口产�
 | F632   | 633.4                 | 616–651         | 35         |
 | F650   | 651.1                 | 636–666         | 30         |
 | F685   | 686.2                 | 675–698         | 23         |
-| F715   | —（名义）           | 706–724         | 18         |
+| F715   | —（名義）           | 706–724         | 18         |
 | F725   | 725.2                 | 712–738         | 26         |
 | F750   | 746.0                 | 729–763         | 34         |
 | F780   | 775.1                 | 754–796         | 42         |
 | F808   | 810.3                 | 789–832         | 43         |
 | F832   | 826.1                 | 810–843         | 33         |
 | F850   | 846.5                 | 828–865         | 37         |
-| F880   | —（名义值）           | 867–893         | 26         |
-| F905   | —（名义值）           | 892–920         | 28         |
+| F880   | —（名義）           | 867–893         | 26         |
+| F905   | —（名義）           | 892–920         | 28         |
 | F940   | 940.6                 | 923–958         | 35         |
 | F950   | 945.1                 | 929–961         | 32         |
 | F988 † | 985.3                 | 968–1003        | 35         |
 
-_“带边宽度是根据MAPIR
+_「頻帶邊緣是根據MAPIR
 
-对每批滤光片进行的扫描测得的全宽半高值——这与Chloros
+每批次濾光片掃描所得的半峰寬值測量而來——這與Chloros
 
-在每份校准报告中标注的数值一致。”_ “—（标称值）”= 尚未进行批次扫描；对于此类SKU，所列中心波长即为SKU编号，宽度则采用制造商提供的数值。
+在每份經校準的輸出資料中標記的數值相同。」_ &quot;— (名義值)&quot; = 尚未進行批次掃描；對於這些 SKU，所列的中心波長即為 SKU 編號，而寬度則採用製造商的數值。
 
-† “F988反射率是使用场景内反射率面板进行校准的：该波段超出了DAQ光传感器的校准范围，因此Chloros
+† 「F988 反射率是使用場景內反射率面板進行校準的：該波段超出 DAQ 光感測器的校準範圍，因此 Chloros
 
-会应用您最近的面板捕获数据，并在两次面板观测之间保持该值不变。” 参见 [校准靶标](calibration-targets.md)。
+會套用您最近的面板擷取值，並在兩次面板觀測之間維持該值。」 請參閱 [校準標靶](calibration-targets.md)。
 
-有关实时相机控制、阵列、网络设置以及辐射测量处理链，请参阅 [LATTICE 指南](lattice/)。
+關於即時相機控制、陣列、網路設定及輻測處理鏈，請參閱 [LATTICE 指南](lattice/)。
