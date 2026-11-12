@@ -192,7 +192,9 @@ pip install chloros-sdk
 * **🐻 進階紋理感知去拜爾演算法** — 結合 AI/ML 降噪模型的高品質邊緣感知去拜爾演算法，可消除幾乎所有去拜爾過程產生的噪聲。
 * 🧮 **自訂公式** — 建立自訂多光譜指標
 
-<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">查看 Chloros+ 方案與定價</a></p>***
+<p align="center"><a href="https://cloud.mapir.camera/pricing" class="button primary">查看 Chloros+ 方案與定價</a></p>
+
+***
 
 ## 安裝協助
 
@@ -233,7 +235,9 @@ pip install chloros-sdk
 * 📧 **電子郵件**：info@mapir.camera
 * 🌐 **網站**：[https://www.mapir.camera/community/contact](https://www.mapir.camera/community/contact)
 * 📚 **文件**：[入門指南](./)
-* ❓ **常見問題**：[常見問題](faq.md)***
+* ❓ **常見問題**：[常見問題](faq.md)
+
+***
 
 ## 軟體更新
 

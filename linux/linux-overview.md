@@ -10,7 +10,8 @@ Chloros 1.3.0 為 **CLI**和**Python SDK** 提供原生 Linux 支援——包含
 
 ## 平台支援對照表
 
-| 功能 | Windows (GUI) | Windows (CLI/SDK) | Linux amd64 (CLI/ --- | --- | --- | --- |
+| 功能 | Windows (GUI) | Windows (CLI/SDK) | Linux amd64 (CLI/SDK) | Linux arm64 / Jetson (CLI/SDK) |
+| --- | --- | --- | --- | --- |
 | **桌面 GUI** | 是 | 不適用 | 否 | 否 |
 | **命令列介面 CLI** (`chloros-cli`) | 是 | 是 | 是 | 是 |
 | **Python SDK** (`chloros-sdk`) | 是 | 是 | 是 | 是 |
@@ -22,7 +23,9 @@ Chloros 1.3.0 為 **CLI**和**Python SDK** 提供原生 Linux 支援——包含
 | **紋理感知去拜爾演算法**（需具備 CUDA GPU） | 是（Chloros+） | 是（Chloros+） | 是（Chloros+） | 是（Chloros+） |
 | **動態運算適應** | 是 | 是 | 是 | 是 |
 | **後端作為系統服務** (`chloros-backend@<user>.service`) | 否 | 否 | 是（需手動啟用） | 是（需手動啟用） |
-| **就地更新程式** (`chloros-cli update`) | 否（需執行安裝程式） | 否（需執行安裝程式） | 是 | 是 |***
+| **就地更新程式** (`chloros-cli update`) | 否（需執行安裝程式） | 否（需執行安裝程式） | 是 | 是 |
+
+***
 
 ## 支援的架構
 
@@ -35,7 +38,9 @@ Chloros 1.3.0 為 **CLI**和**Python SDK** 提供原生 Linux 支援——包含
 
 * **Ubuntu 22.04 LTS 或更新版本** (amd64)
 * **Debian 12 或更新版本** (amd64)
-* **NVIDIA JetPack 6** (arm64 — Jetson Orin 平台)***
+* **NVIDIA JetPack 6** (arm64 — Jetson Orin 平台)
+
+***
 
 ## Linux 使用者可獲得的內容
 

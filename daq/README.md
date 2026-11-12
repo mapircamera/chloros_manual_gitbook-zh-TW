@@ -17,7 +17,9 @@ MAPIR 的 **DAQ** 光感測器會將環境光測量為經輻射計校正的光�
 | --- | --- | --- |
 | **DAQ-U** | USB（序列埠） | 序列埠掃描 |
 | **DAQ-M** | 藍牙低功耗 | 依名稱進行 BLE 掃描 |
-| **DAQ-E** | 以太網（IPv4，PoE 供電） | mDNS `_daq-e._tcp`（主機名稱 `daq-e-<id>.local`） |**DAQ-E-S（1.3.0 版本新增）。** 一款配備固定式擴散片與傾斜感測器的 DAQ-E。Chloros 將其列為 `DAQ-E-S`，其運作方式與 DAQ-E 完全相同，惟無需進行電容校正，且每筆讀數皆包含裝置的傾斜、滾轉與俯仰角度。 請參閱 [DAQ-E-S：固定擴散板與傾斜](caps-and-range.md#daq-e-s-fixed-diffuser-and-tilt)。
+| **DAQ-E** | 以太網（IPv4，PoE 供電） | mDNS `_daq-e._tcp`（主機名稱 `daq-e-<id>.local`） |
+
+**DAQ-E-S（1.3.0 版本新增）。** 一款配備固定式擴散片與傾斜感測器的 DAQ-E。Chloros 將其列為 `DAQ-E-S`，其運作方式與 DAQ-E 完全相同，惟無需進行電容校正，且每筆讀數皆包含裝置的傾斜、滾轉與俯仰角度。 請參閱 [DAQ-E-S：固定擴散板與傾斜](caps-and-range.md#daq-e-s-fixed-diffuser-and-tilt)。
 
 這三款設備均採用相同的通訊協定，並傳輸完全相同的資料：
 

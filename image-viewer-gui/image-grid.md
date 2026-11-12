@@ -20,7 +20,9 @@
 2. **相機篩選按鈕** — 每個 LATTICE 相機對應一個。僅在「按相機」模式下顯示。
 3. **匯出／檢視模式按鈕** — 每張縮圖所顯示的產品。
 
-當視窗過窄而無法同時顯示所有按鈕時，各群組會由右至左收合為懸停下拉選單：首先收合的是匯出／檢視按鈕，接著是攝影機按鈕。 收合後的群組會留下一個標示當前選項的按鈕，將游標懸停其上即可將完整組別向下滑出。**「按觸發器 / 按相機」群組絕不會收合。**<!-- SCREENSHOT-NEEDED: Image grid toolbar of a LATTICE array project at full width, showing all three button groups inline: Per Trigger / Per Camera, three camera filter buttons labelled "LATT-M3M (serial)", and the export/view buttons including TIFF, RAW (Original), RAW (Radiance), RAW (Reflectance). -->***
+當視窗過窄而無法同時顯示所有按鈕時，各群組會由右至左收合為懸停下拉選單：首先收合的是匯出／檢視按鈕，接著是攝影機按鈕。 收合後的群組會留下一個標示當前選項的按鈕，將游標懸停其上即可將完整組別向下滑出。**「按觸發器 / 按相機」群組絕不會收合。**<!-- SCREENSHOT-NEEDED: Image grid toolbar of a LATTICE array project at full width, showing all three button groups inline: Per Trigger / Per Camera, three camera filter buttons labelled "LATT-M3M (serial)", and the export/view buttons including TIFF, RAW (Original), RAW (Radiance), RAW (Reflectance). -->
+
+***
 
 ## 匯出檢視按鈕
 

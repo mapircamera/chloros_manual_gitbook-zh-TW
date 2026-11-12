@@ -114,7 +114,11 @@ Surface 1 和 2 會**一次處理來自單一攝影機的一張影像**， 並�
 | OCN | Orange 0、Cyan 1、NIR 2（`Red` 被視為 Orange 的別名，同樣為 0） |
 | RGN | Red 0、Green 1、NIR 2 |
 | NGB | NIR 0, Green 1, Blue 2 |
-| RGB | Red 0,  若無，Chloros 會依 `RGN, OCN, NGB, RGB, RE, NIR` 的順序掃描專案中實際存在的濾光片，並選取第一個能提供預設值所需所有通道的濾光片。若無任何濾光片符合條件，則該預設值將在該執行階段中被捨棄。 這就是為什麼在僅含 OCN 的資料集上請求 `NDVI` 仍能產生合理結果的原因——它會綁定至 OCN 的 Orange 和 NIR 位置。
+| RGB | Red 0, Green 1, Blue 2 |
+| RE | RE 0 |
+| NIR | NIR 0 |
+
+若無，Chloros 會依 `RGN, OCN, NGB, RGB, RE, NIR` 的順序掃描專案中實際存在的濾光片，並選取第一個能提供預設值所需所有通道的濾光片。若無任何濾光片符合條件，則該預設值將在該執行階段中被捨棄。 這就是為什麼在僅含 OCN 的資料集上請求 `NDVI` 仍能產生合理結果的原因——它會綁定至 OCN 的 Orange 和 NIR 位置。
 
 LATTICE M3C 模型字串會以 `F` 前綴攜帶濾光片 (`LATT-M3C-L41-FRGN`)，但當從影像讀取濾鏡代碼時，該前綴會被省略，因此 FRGN 相機可透過上方的 `RGN` 行進行解析，無需特殊處理。
 

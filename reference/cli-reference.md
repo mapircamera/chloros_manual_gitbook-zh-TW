@@ -169,7 +169,9 @@ chloros-cli --version
 | 選項（安裝程式中的文字說明） | 功能說明 | 取消靜默安裝 |
 | --- | --- | --- |
 | **啟用 Windows 長路徑**（允許專案資料夾位於超過 260 個字元的深度；建議啟用） | 將 Windows 的系統級設定 `LongPathsEnabled` 設為 1。Windows 預設為關閉此設定， 此時任何路徑長度均不得超過 260 個字元；Chloros 產品會位於專案資料夾下方約 130 個字元處，因此若專案資料夾路徑過深將被拒絕（參見 [疑難排解](#疑難排解提示))。此設定僅對安裝後啟動的程式生效。卸載時仍會保留此設定，因為其他程式可能依賴此設定。 | `/MERGETASKS="!longpaths"` |
-| **將 Chloros 後端排除於 Microsoft Defender 掃描範圍外**（大幅加快攝影機擷取速度；建議啟用） | 在安裝資料夾中為 `chloros-backend.exe` 新增 Defender**程序** 排除項目，因此即時防護不會掃描後端寫入的每個檔案，無論其寫入位置為何。 不會排除其他程式；卸載時會移除此排除設定。若未安裝 Defender 或其遭政策鎖定，此步驟將靜默失敗，安裝程序仍會繼續進行。 | `/MERGETASKS="!defenderexclusion"` |**為何 Defender 選項至關重要：**在高擷取率下，對擷取檔案進行即時掃描會消耗約 30% 的擷取率（以 9 台攝影機連續擷取為例： 未受 Defender 影響時為 77.7 幀/秒，受影響時為 52.7 幀/秒）。當 `lattice array-capture --continuous` 偵測到 Defender 在擷取過程中佔用一個或多個 CPU 核心時，會顯示提示訊息；請勾選此選項後重新執行安裝程式。
+| **將 Chloros 後端排除於 Microsoft Defender 掃描範圍外**（大幅加快攝影機擷取速度；建議啟用） | 在安裝資料夾中為 `chloros-backend.exe` 新增 Defender**程序** 排除項目，因此即時防護不會掃描後端寫入的每個檔案，無論其寫入位置為何。 不會排除其他程式；卸載時會移除此排除設定。若未安裝 Defender 或其遭政策鎖定，此步驟將靜默失敗，安裝程序仍會繼續進行。 | `/MERGETASKS="!defenderexclusion"` |
+
+**為何 Defender 選項至關重要：**在高擷取率下，對擷取檔案進行即時掃描會消耗約 30% 的擷取率（以 9 台攝影機連續擷取為例： 未受 Defender 影響時為 77.7 幀/秒，受影響時為 52.7 幀/秒）。當 `lattice array-capture --continuous` 偵測到 Defender 在擷取過程中佔用一個或多個 CPU 核心時，會顯示提示訊息；請勾選此選項後重新執行安裝程式。
 
 若採用靜默安裝（`/SILENT` 或 `/VERYSILENT`），除非選擇停用（例如 `"Chloros Installer 1.3.0.exe" /VERYSILENT /MERGETASKS="!defenderexclusion"`），否則這兩項設定均會生效。
 
