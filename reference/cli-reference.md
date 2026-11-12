@@ -581,7 +581,7 @@ Chloros **透過序列埠**（優先從本地快取，
 若某個錄製檔案資料夾中**沒有**任何檔案被匯出，則會失敗：請參閱
 [未寫入任何影像的執行會失敗](#a-run-that-writes-no-images-fails)。
 
-名稱以 `_calibrated` 或 `_raw`（`field_raw.daq`）結尾的錄製檔 **並非****：這些是 `process` 賦予其自身產出檔案的名稱，若將產出檔案
+名稱以 `_calibrated` 或 `_raw`（`field_raw.daq`）結尾的錄製檔 **並非**：這些是 `process` 賦予其自身產出檔案的名稱，若將產出檔案
 當作錄製檔案讀回，將會被重複計數。 CLI會明確指出這一點，並標示該檔案名稱——
 `Not imported as a light-sensor recording: field_raw.daq … Rename the file to import it.`
 ——而非回報為空資料夾。請在處理此類記錄前先重新命名。

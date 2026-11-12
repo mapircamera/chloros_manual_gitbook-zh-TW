@@ -49,9 +49,7 @@ chloros-cli daq pool-connect --eth-host daq-e-def330.local
 
 感測器本身儲存其網路設定：DHCP（出廠預設值，若無 DHCP 伺服器回應則退而採用 169.254.x.x 的鏈路本地位址）或靜態位址。它亦儲存開機時是否開始串流的設定。 請透過圖形化介面（感測器的齒輪圖示設定，**網路**：**變更…**、**開機時串流**、**重新啟動感測器**；請參閱 [DAQ 標籤頁](gui.md))，或透過 CLI 和 SDK 使用 `pool-set-network`、 `pool-set-auto-stream` 及 `pool-reboot` (`DAQSensorSession.set_network()`、`set_auto_stream()`、`reboot()`；請參閱 [CLI 參考手冊](../reference/cli-reference.md#daq-e-device-settings))。 感測器會重新啟動以套用網路變更，而 Chloros 會重新連線至該感測器。靜態 IP 位址必須位於執行 Chloros 的電腦所屬網路中：若重新啟動後無法連線至該位址，Chloros 將拒絕接受該位址。感測器的 ID 及其 `daq-e-<id>.local` 主機名稱永遠不會改變。 1.3.0 版本新增功能。
 
-**韌體更新已整合至 GUI 中。** 當已連線的 DAQ-E 所執行之韌體版本早於您 Chloros 建置版本所附帶的映像檔時，其感測器列會顯示一個琥珀色的 **有更新可用** 圓點，且齒輪設定模態視窗中會提供一個「更新至<version>」按鈕</version>
-
-。<version> 更新過程透過網路進行，約需 30 秒；感測器會自動重新啟動並重新連線，若傳輸中途中斷，當前韌體將保持不變。 若透過 CLI 或 SDK 操作，或在未提供 GUI 的 Linux 系統上，請執行 `chloros-cli daq pool-update-firmware --sensor-id <id>`（`DAQSensorSession.update_firmware()`）。
+**韌體更新已整合至 GUI 中。** 當已連線的 DAQ-E 所執行之韌體版本早於您 Chloros 建置版本所附帶的映像檔時，其感測器列會顯示一個琥珀色的 **有更新可用** 圓點，且齒輪設定模態視窗中會提供一個「更新至 \<version\>」按鈕。 更新過程透過網路進行，約需 30 秒；感測器會自動重新啟動並重新連線，若傳輸中途中斷，當前韌體將保持不變。 若透過 CLI 或 SDK 操作，或在未提供 GUI 的 Linux 系統上，請執行 `chloros-cli daq pool-update-firmware --sensor-id <id>`（`DAQSensorSession.update_firmware()`）。
 
 <!-- SCREENSHOT-NEEDED: DAQ-E per-sensor settings modal showing the DAQ-E-only rows: Hostname/IP, Firmware row with the "Update to <ver>" button (or "Up to date"), and the PTP Sync row with a live state value. -->
 
