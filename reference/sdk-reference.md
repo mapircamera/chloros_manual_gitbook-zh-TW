@@ -73,7 +73,7 @@
 > - **`ArraySession.record()` 在未開啟 GUI 的情況下進行記錄。** 當 GUI 的合併檢視關閉時，後端會自行渲染該檢視：陣列的NDVI，或是您作為 `expr=` 傳入的索引。當錄製失敗（即未寫入任何幀）時，`RecorderHandle.stop()` 會觸發 `ChlorosConnectError`，並將停止結果保留在 `.result` 上保留停止結果（若留下 `with` 區塊則不會觸發：請檢查 `rec.result`）。請參閱 [`RecorderHandle`](#recorderhandle)。
 > - **新的 `DAQSensorSession` 方法：** `enable_ptp()`、`force_disconnect()`，以及用於 DAQ-E 自身設定的 `device_info()`、`set_network()`、`set_auto_stream()`、`reboot()` 以及 `update_firmware()`。 `record_stop()` 會回傳 `warning` 和 `gaps`。若重新啟動時關閉了某個錄製，則會在回覆中為其命名；若重新啟動失敗，則 則會於 `ChlorosConnectError`（`recording_closed`；請參閱 [DAQ-E 裝置設定](#daq-e-device-settings)）中標示該錄製名稱。 請參閱 [`DAQSensorSession` 方法](#daqsensorsession-methods)。
 > - **若一個已停止傳輸的彙總型 DAQ-E 由後端重新連線**，將保留其原有設定，且該裝置上的記錄將在同一個 `.daq` 中繼續進行，並在檔案中標記出間隙； `record_stop()` 會將中斷段落以 `gaps` 的形式回傳。在 1.2.0 版本中，感測器會保持靜默狀態，直到被斷開並重新連線，此時記錄才會結束。請參閱 CLI 參考手冊中的 [停止傳輸資料的 DAQ-E](cli-reference.md#a-daq-e-that-stops-delivering)。
-> - **`open_project()` 需透過已安裝的 SDK 運作。** 安裝程式（及 PyPI）現已內含所需的專案載入程式；先前，`open_project()` 會觸發 `ImportError` 錯誤，並指明 `project_cameras` / `project_sensors` 的錯誤。`connect_all()` 會透過正在運行的後端 （光感測器則透過其 DAQ 池）連接已儲存的攝影機、陣列與光感測器；而對於無法搜尋到的已儲存裝置，系統會將其列於 `errors` 下並說明原因，而非不作任何說明便直接跳過。若後端（GUI、 或 `chloros-cli project connect`）中已啟動的陣列，現可連接並保持運行；而先前此情況會被報告為錯誤（「相機<sn>已存在於陣列中<id>」）。請參閱 [`ChlorosProject` 方法](#chlorosproject-methods)。
+> - **`open_project()` 需透過已安裝的 SDK 運作。** 安裝程式（及 PyPI）現已內含所需的專案載入程式；先前，`open_project()` 會觸發 `ImportError` 錯誤，並指明 `project_cameras` / `project_sensors` 的錯誤。`connect_all()` 會透過正在運行的後端 （光感測器則透過其 DAQ 池）連接已儲存的攝影機、陣列與光感測器；而對於無法搜尋到的已儲存裝置，系統會將其列於 `errors` 下並說明原因，而非不作任何說明便直接跳過。若後端（GUI、 或 `chloros-cli project connect`）中已啟動的陣列，現可連接並保持運行；而先前此情況會被報告為錯誤（`Camera <sn> is already in array <id>`）。請參閱 [`ChlorosProject` 方法](#chlorosproject-methods)。
 > - **`ChlorosLocal()`、`process_folder()` 和 `process_lattice_capture()` 可在 Windows 上找到 Chloros。** 它們會搜尋安裝程式放置後端的位置（預設為 `<install folder>\backend\`、`C:\Program Files\Chloros\backend\`， 安裝程式自身記錄中的自訂資料夾），並直接連線至已執行的後端，完全不會進行搜尋。在 1.2.0 版本中，除非您傳入 `backend_exe=`，否則它們會在已安裝的機器上拋出「找不到 Chloros 後端」的錯誤。
 > - **若後端在啟動時發生異常終止，系統會立即回報。** 當 `ChlorosLocal()` 或智慧連線呼叫啟動的後端在回應前即退出時， 該呼叫將在數秒內觸發錯誤：`ChlorosBackendError` 來自 `ChlorosLocal`，而 `ChlorosConnectError` 則來自 smart-connect 呼叫中，並附上退出代碼、其執行的指令以及後端輸出最後幾行內容。1.2.0 版本會等待 60 秒的啟動超時，但不會說明原因。請參閱 [後端自動啟動](#backend-auto-start)。
 > - **後端在腳本之間持續運行。** 離開 `with ChlorosLocal(...)` 區塊時， `process_folder()` / `process_lattice_capture()` 返回，以及 `chloros-mcp` 退出，已不再會停止由 SDK 啟動的後端； 下一個腳本會重新使用該後端。它會在 `logout()` 時停止（除非 Chloros 應用程式處於開啟狀態或正在執行任務），或在 `shutdown_backend()` 時停止，或者在後端環境中無人使用 30 分鐘後自動停止 （後端環境中的 `CHLOROS_BACKEND_IDLE_MIN` 會改變此行為；`0`：絕不）。
@@ -175,7 +175,7 @@ sudo systemctl enable --now chloros-backend@$USER.service    # $USER expands to 
 
 此時後端將以您的身分運行：其寫入的擷取資料屬於您，且會使用您的 `chloros-cli login`。對於已啟用此功能的機器，root 的 `chloros-backend.service` 仍會安裝，但 root 後端寫入的每個檔案均歸 root 所有。 請參閱 CLI 參考手冊中的 [將後端作為服務執行](cli-reference.md#running-the-backend-as-a-service-headless)。
 
-由服務執行的後端是共享的，絕不會被客戶端停止：SDK 腳本和 `chloros-cli` 會直接使用現有的後端 （`ChlorosLocal.shutdown_backend()` 僅會停止由 `ChlorosLocal` 自行啟動的後端），而 `GET /api/status` 將該單元命名為 `service`。 請使用 `sudo systemctl restart chloros-backend@$USER.service` 重新啟動它。升級套件時，後端服務會在安裝過程中停止運作， 因此正在執行的腳本會失去其攝影機和感測器，隨後會重新啟動所有已啟用的裝置；移除套件會停止這些服務並停用已啟用的裝置。由於每次僅能運行一個後端，因此請僅啟用一個裝置：若嘗試啟動第二個裝置，該裝置將無法啟動並維持在 `failed` （退出狀態 98，未重新啟動），其 `systemctl status` 會說明原因。若要切換單元，請停用您不使用的那個。</id></sn>
+由服務執行的後端是共享的，絕不會被客戶端停止：SDK 腳本和 `chloros-cli` 會直接使用現有的後端 （`ChlorosLocal.shutdown_backend()` 僅會停止由 `ChlorosLocal` 自行啟動的後端），而 `GET /api/status` 將該單元命名為 `service`。 請使用 `sudo systemctl restart chloros-backend@$USER.service` 重新啟動它。升級套件時，後端服務會在安裝過程中停止運作， 因此正在執行的腳本會失去其攝影機和感測器，隨後會重新啟動所有已啟用的裝置；移除套件會停止這些服務並停用已啟用的裝置。由於每次僅能運行一個後端，因此請僅啟用一個裝置：若嘗試啟動第二個裝置，該裝置將無法啟動並維持在 `failed` （退出狀態 98，未重新啟動），其 `systemctl status` 會說明原因。若要切換單元，請停用您不使用的那個。
 
 ### 步驟 2 — 安裝 Python SDK
 
@@ -1485,7 +1485,7 @@ if r["clamped"]:
 
 ### 連接到已連線的陣列 — `attach_array`
 
-若陣列已處於運作狀態 （由 GUI 開啟，或先前SDK會話已呼叫 `connect_array`），請使用 `attach_array` 取得其句柄，而非重新連線。在此情況下，`connect_array` 會始終拋出「相機  <sn>已存在於陣列中<id>」的錯誤，因為針對「池中成員」發送 POST 請求 `/array/connect` 並不具備幂等性； `attach_array` 會讀取 `/api/camera/array/list`，並透過 array_id 或 serials 進行比對。
+若陣列已處於運作狀態 （由 GUI 開啟，或先前SDK會話已呼叫 `connect_array`），請使用 `attach_array` 取得其句柄，而非重新連線。在此情況下，`connect_array` 會始終拋出`Camera <sn> is already in array <id>`的錯誤，因為針對「池中成員」發送 POST 請求 `/array/connect` 並不具備幂等性； `attach_array` 會讀取 `/api/camera/array/list`，並透過 array_id 或 serials 進行比對。
 
 ```python
 import chloros_sdk
@@ -1520,7 +1520,7 @@ except chloros_sdk.ChlorosConnectError:
 > # … the array stays up for the GUI
 > ```
 >
-> 當您確實打算終止連線時——例如要透過不同的 `wire_ceiling_mbps` 重新連線——請呼叫 `arr.force_disconnect()`。若在已連接的處理程序上執行普通的 `disconnect()` 後嘗試重新連線，將會因 「相機<sn>已存在於陣列中<id>」，因為並未釋放任何資源。
+> 當您確實打算終止連線時——例如要透過不同的 `wire_ceiling_mbps` 重新連線——請呼叫 `arr.force_disconnect()`。若在已連接的處理程序上執行普通的 `disconnect()` 後嘗試重新連線，將會因 `Camera <sn> is already in array <id>`，因為並未釋放任何資源。
 
 ### 網路分析輔助工具
 
@@ -1665,7 +1665,7 @@ daq = chloros_sdk.connect_daq_sensor(
 )
 ```
 
-`sensor_id=` 指定一個感測器，且僅會開啟該感測器。系統會將其與已開啟的感測器進行比對，接著向 DAQ-E 查詢其主機名稱或 IP（針對網路掃描中僅能透過 IP 識別的 DAQ-E，會以唯讀方式查詢其名稱、MAC 位址及序列號， 因此透過上述任一方式皆可找到該裝置），以及 DAQ-M 的 BLE MAC，並比對 DAQ-U 或 DAQ-M 在開啟後所回報的 ID（為進行檢查而開啟的任何其他裝置都會被重新關閉）。若未找到該裝置， `connect_daq_sensor` 會觸發 `ChlorosConnectError`，列出所找到的項目；並附上地址（`port=` / `mac=` / `eth_host=`）所對應的位址中存有不同感測器時，也會觸發錯誤。它絕不會退而採用任何可見的感測器——這正是零標誌呼叫的用途。</id></sn></id></sn>
+`sensor_id=` 指定一個感測器，且僅會開啟該感測器。系統會將其與已開啟的感測器進行比對，接著向 DAQ-E 查詢其主機名稱或 IP（針對網路掃描中僅能透過 IP 識別的 DAQ-E，會以唯讀方式查詢其名稱、MAC 位址及序列號， 因此透過上述任一方式皆可找到該裝置），以及 DAQ-M 的 BLE MAC，並比對 DAQ-U 或 DAQ-M 在開啟後所回報的 ID（為進行檢查而開啟的任何其他裝置都會被重新關閉）。若未找到該裝置， `connect_daq_sensor` 會觸發 `ChlorosConnectError`，列出所找到的項目；並附上地址（`port=` / `mac=` / `eth_host=`）所對應的位址中存有不同感測器時，也會觸發錯誤。它絕不會退而採用任何可見的感測器——這正是零標誌呼叫的用途。
 
 ### `connect_daq_sensor()` 簽名
 
